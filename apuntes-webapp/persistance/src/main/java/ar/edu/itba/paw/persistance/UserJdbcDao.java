@@ -52,6 +52,7 @@ public class UserJdbcDao implements UserDao {
 				(ResultSet rs, int rowNum) -> { 
 					return new User(rs.getString("username"), rs.getInt("userid"));
 				}, id);
+		System.out.println(list);
 		return null;
 	}
 
