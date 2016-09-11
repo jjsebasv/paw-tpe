@@ -57,6 +57,14 @@
       <attribute value="jar:file:/home/sebastian/.m2/repository/org/springframework/spring-web/4.2.5.RELEASE/spring-web-4.2.5.RELEASE-javadoc.jar!/" name="javadoc_location"/>
     </attributes>
   </classpathentry>
+  <classpathentry kind="var" path="M2_REPO/org/postgresql/postgresql/9.3-1100-jdbc41/postgresql-9.3-1100-jdbc41.jar" sourcepath="M2_REPO/org/postgresql/postgresql/9.3-1100-jdbc41/postgresql-9.3-1100-jdbc41-sources.jar">
+    <attributes>
+      <attribute value="jar:file:/home/sebastian/.m2/repository/org/postgresql/postgresql/9.3-1100-jdbc41/postgresql-9.3-1100-jdbc41-javadoc.jar!/" name="javadoc_location"/>
+    </attributes>
+  </classpathentry>
+  <classpathentry kind="src" path="/interfaces"/>
+  <classpathentry kind="src" path="/models"/>
+  <classpathentry kind="src" path="/services"/>
   <classpathentry kind="var" path="M2_REPO/org/springframework/spring-jdbc/4.3.2.RELEASE/spring-jdbc-4.3.2.RELEASE.jar" sourcepath="M2_REPO/org/springframework/spring-jdbc/4.3.2.RELEASE/spring-jdbc-4.3.2.RELEASE-sources.jar">
     <attributes>
       <attribute value="jar:file:/home/sebastian/.m2/repository/org/springframework/spring-jdbc/4.3.2.RELEASE/spring-jdbc-4.3.2.RELEASE-javadoc.jar!/" name="javadoc_location"/>
@@ -67,11 +75,4 @@
       <attribute value="jar:file:/home/sebastian/.m2/repository/org/springframework/spring-tx/4.3.2.RELEASE/spring-tx-4.3.2.RELEASE-javadoc.jar!/" name="javadoc_location"/>
     </attributes>
   </classpathentry>
-  <classpathentry kind="var" path="M2_REPO/org/postgresql/postgresql/9.3-1100-jdbc41/postgresql-9.3-1100-jdbc41.jar" sourcepath="M2_REPO/org/postgresql/postgresql/9.3-1100-jdbc41/postgresql-9.3-1100-jdbc41-sources.jar">
-    <attributes>
-      <attribute value="jar:file:/home/sebastian/.m2/repository/org/postgresql/postgresql/9.3-1100-jdbc41/postgresql-9.3-1100-jdbc41-javadoc.jar!/" name="javadoc_location"/>
-    </attributes>
-  </classpathentry>
-  <classpathentry kind="var" path="M2_REPO/ar/edu/itba/paw/interfaces/1.0-SNAPSHOT/interfaces-1.0-SNAPSHOT.jar"/>
-  <classpathentry kind="var" path="M2_REPO/ar/edu/itba/paw/services/1.0-SNAPSHOT/services-1.0-SNAPSHOT.jar"/>
 </classpath>

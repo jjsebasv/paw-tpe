@@ -46,5 +46,6 @@
       <attribute value="jar:file:/home/sebastian/.m2/repository/org/springframework/spring-web/4.2.5.RELEASE/spring-web-4.2.5.RELEASE-javadoc.jar!/" name="javadoc_location"/>
     </attributes>
   </classpathentry>
-  <classpathentry kind="var" path="M2_REPO/org/srpingframework/spring-context/4.3.2.RELEASE/spring-context-4.3.2.RELEASE.jar"/>
+  <classpathentry kind="src" path="/interfaces"/>
+  <classpathentry kind="src" path="/models"/>
 </classpath>

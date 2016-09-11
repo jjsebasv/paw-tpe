@@ -3,8 +3,8 @@ package ar.edu.itba.paw;
 import org.junit.Before;
 import org.junit.Test;
 
-import ar.edu.itba.paw.persistante.User;
-import ar.edu.itba.paw.persistante.UserJdbcDao;
+import ar.edu.itba.paw.models.User;
+import ar.edu.itba.paw.persistance.UserJdbcDao;
 import junit.framework.Assert;
 
 public class UserJdbcDaoTest {

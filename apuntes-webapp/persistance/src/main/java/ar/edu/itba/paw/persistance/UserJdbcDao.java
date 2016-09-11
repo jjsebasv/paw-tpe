@@ -1,4 +1,4 @@
-package ar.edu.itba.paw.persistante;
+package ar.edu.itba.paw.persistance;
 
 import java.sql.ResultSet;
 import java.sql.SQLException;
@@ -14,7 +14,8 @@ import org.springframework.jdbc.core.RowMapper;
 import org.springframework.jdbc.core.simple.SimpleJdbcInsert;
 import org.springframework.stereotype.Repository;
 
-import ar.edu.itba.paw.persistante.User;
+import ar.edu.itba.paw.interfaces.UserDao;
+import ar.edu.itba.paw.models.User;
 
 @Repository
 public class UserJdbcDao implements UserDao {
