@@ -63,6 +63,12 @@
 		<scope>runtime</scope>
 	</dependency>
 	<dependency>
+		<groupId>ar.edu.itba.paw</groupId>
+		<artifactId>persistance</artifactId>
+		<version>${parent.version}</version>
+		<scope>runtime</scope>
+	</dependency>
+	<dependency>
 		<groupId>org.springframework</groupId>
 		<artifactId>spring-jdbc</artifactId>
 	</dependency>

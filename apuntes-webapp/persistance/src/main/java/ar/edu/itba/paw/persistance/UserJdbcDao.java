@@ -34,7 +34,7 @@ public class UserJdbcDao implements UserDao {
 	};
 
 	@Autowired
-	public UserJdbcDao(final DataSource ds){
+	public UserJdbcDao(final DataSource ds) {
 		jdbcTemplate = new JdbcTemplate(ds);
 		jdbcInsert = new SimpleJdbcInsert(jdbcTemplate)
 				.withTableName("users")
@@ -53,7 +53,7 @@ public class UserJdbcDao implements UserDao {
 					return new User(rs.getString("username"), rs.getInt("userid"));
 				}, id);
 		System.out.println(list);
-		return null;
+		return list.get(0);
 	}
 
 	@Override

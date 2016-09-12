@@ -11,18 +11,19 @@ import ar.edu.itba.paw.models.User;
 public class UserServiceImpl implements UserService {
 
 	@Autowired
-	UserDao userDao;
+	private UserDao userDao;
 	
 	@Override
 	public User findById(long id) {
 		// TODO Auto-generated method stub
-		return null;
+		return userDao.findById(id);
 	}
 
 	@Override
 	public long create(String username) {
 		// TODO Auto-generated method stub
-		return 1;
+		return userDao.create(username).getId();
 	}
+	
 	
 }

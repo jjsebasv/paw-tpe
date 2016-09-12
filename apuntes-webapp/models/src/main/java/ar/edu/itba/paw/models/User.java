@@ -30,4 +30,10 @@ public class User {
 		return this.name;
 	}
 	
+	@Override
+	public String toString() {
+		// TODO Auto-generated method stub
+		return getUsername() + getId();
+	}
+	
 }

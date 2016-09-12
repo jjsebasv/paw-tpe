@@ -1,6 +1,14 @@
 <%@ taglib prefix="c" uri="http://java.sun.com/jstl/core_rt"%>
 <html>
 	<body>
-		<h2>Hello LA GILADA ${greeting}!</h2>
+		<h2>Hello ${greeting}!</h2>
+	
+		<h3>File Upload:</h3>
+		Select a file to upload: <br />
+		<form action="UploadServlet" method="post" enctype="multipart/form-data">
+			<input type="file" name="file" size="50" />
+		</form>
+	
 	</body>
+	
 </html>
