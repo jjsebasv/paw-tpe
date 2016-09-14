@@ -6,13 +6,11 @@ import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.servlet.ModelAndView;
 
-import ar.edu.itba.paw.interfaces.UserDao;
 import ar.edu.itba.paw.interfaces.UserService;
-
 
 @Controller
 public class HelloWorldController {
-	
+
 	@Autowired
 	private UserService us;
 	
@@ -30,6 +28,7 @@ public class HelloWorldController {
 			@RequestParam(value = "password", required = true) final String password,
 			@RequestParam(value = "repeatPassword", required = true) final String repeatPassword) {
 		// TODO: validate password and repeatePassword
+		System.out.println("bla");
 		final long userid = us.create(username, password);
 		return new ModelAndView("redirect:/bla?userId=" + userid);
 	}
