@@ -6,6 +6,6 @@ public interface UserDao {
 
 	User findById(final long id);
 	
-	User create(String username);
+	User create(String username, String password);
 
 }

@@ -10,6 +10,7 @@ import junit.framework.Assert;
 public class UserJdbcDaoTest {
 
 	private static final String USERNAME = "PAW USER";
+	private static final String PASSWORD= "PAWPASS";
 	
 	private UserJdbcDao userDao;
 	
@@ -46,7 +47,7 @@ public class UserJdbcDaoTest {
 		// Precondiciones: db con N registros
 
 		// Ejercitacion
-		final User user = userDao.create(USERNAME);
+		final User user = userDao.create(USERNAME, PASSWORD);
 		
 		// Postcondiciones: db con N+1 registros
 		Assert.assertNotNull("The created user had a null pointer", user);
