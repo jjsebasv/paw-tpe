@@ -25,9 +25,15 @@ public class HelloWorldController {
 	}
 	
 	@RequestMapping("/create")
-	public ModelAndView helloWorld(@RequestParam(value = "name", required = true) final String username) {
-		final long userid = us.create(username);
+	public ModelAndView helloWorld(
+			@RequestParam(value = "name", required = true) final String username,
+			@RequestParam(value = "password", required = true) final String password,
+			@RequestParam(value = "repeatPassword", required = true) final String repeatPassword) {
+		// TODO: validate password and repeatePassword
+		final long userid = us.create(username, password);
 		return new ModelAndView("redirect:/bla?userId=" + userid);
 	}
+	
+	
 	
 }

@@ -28,7 +28,7 @@ public class UserJdbcDao implements UserDao {
 		@Override
 		public User mapRow(ResultSet rs, int rowNum) throws SQLException {
 			// TODO Auto-generated method stub
-			return new User(rs.getString("username"), rs.getInt("userid"));
+			return new User(rs.getString("username"), rs.getString("password"), rs.getInt("userid"));
 		}
 		
 	};
@@ -42,7 +42,8 @@ public class UserJdbcDao implements UserDao {
 		
 		jdbcTemplate.execute("CREATE TABLE IF NOT EXISTS users("
 				+ "userid SERIAL PRIMARY KEY,"
-				+ "username varchar(100)"
+				+ "username varchar(100),"
+				+ "password varchar(100)"
 				+ ")"
 		);
 	};
@@ -50,20 +51,21 @@ public class UserJdbcDao implements UserDao {
 	public User findById(long id) {
 		List<User> list = jdbcTemplate.query("SELECT * FROM users WHERE userid = ?",
 				(ResultSet rs, int rowNum) -> { 
-					return new User(rs.getString("username"), rs.getInt("userid"));
+					return new User(rs.getString("username"), rs.getString("password"), rs.getInt("userid"));
 				}, id);
 		System.out.println(list);
 		return list.get(0);
 	}
 
 	@Override
-	public User create(String username) {
+	public User create(String username, String password) {
 		// TODO Auto-generated method stub
 		final Map<String, Object> args = new HashMap<>();
 		args.put("username", username);
+		args.put("password", password);
 		
 		final Number userid = jdbcInsert.executeAndReturnKey(args);
-		return new User(username, userid.longValue());
+		return new User(username, password, userid.longValue());
 	}
 	
 }

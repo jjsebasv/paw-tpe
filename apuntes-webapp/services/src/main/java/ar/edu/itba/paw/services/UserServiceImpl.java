@@ -20,9 +20,9 @@ public class UserServiceImpl implements UserService {
 	}
 
 	@Override
-	public long create(String username) {
+	public long create(String username, String password) {
 		// TODO Auto-generated method stub
-		return userDao.create(username).getId();
+		return userDao.create(username, password).getId();
 	}
 	
 	
