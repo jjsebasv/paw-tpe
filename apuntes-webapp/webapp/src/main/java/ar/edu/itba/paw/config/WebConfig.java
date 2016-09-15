@@ -22,7 +22,7 @@ import org.springframework.web.servlet.view.JstlView;
 @ComponentScan({ "ar.edu.itba.paw.controllers", "ar.edu.itba.paw.services" ,"ar.edu.itba.paw.persistance"  })
 @Configuration
 public class WebConfig extends WebMvcConfigurerAdapter{
-
+	
 	@Value("classpath:schema.sql")
 	private Resource schemaSql;
 	

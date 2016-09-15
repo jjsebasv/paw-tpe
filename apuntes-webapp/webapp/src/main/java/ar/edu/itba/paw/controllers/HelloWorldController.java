@@ -10,7 +10,7 @@ import ar.edu.itba.paw.interfaces.UserService;
 
 @Controller
 public class HelloWorldController {
-
+	
 	@Autowired
 	private UserService us;
 	
@@ -32,7 +32,6 @@ public class HelloWorldController {
 		final long userid = us.create(username, password);
 		return new ModelAndView("redirect:/bla?userId=" + userid);
 	}
-	
 	
 	
 }
