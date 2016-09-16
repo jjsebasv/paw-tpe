@@ -22,7 +22,7 @@ import org.springframework.web.servlet.view.JstlView;
 @ComponentScan({ "ar.edu.itba.paw.controllers", "ar.edu.itba.paw.services" ,"ar.edu.itba.paw.persistance"  })
 @Configuration
 public class WebConfig extends WebMvcConfigurerAdapter{
-
+	
 	@Value("classpath:schema.sql")
 	private Resource schemaSql;
 	
@@ -54,9 +54,9 @@ public class WebConfig extends WebMvcConfigurerAdapter{
 	public DataSource dataSource() {
 		final SimpleDriverDataSource ds = new SimpleDriverDataSource();
 		ds.setDriverClass(org.postgresql.Driver.class);
-		ds.setUrl("jdbc:postgresql://localhost/paw");
-		ds.setUsername("root");
-		ds.setPassword("root");
+		ds.setUrl("jdbc:postgresql://localhost/pawdb");
+		ds.setUsername("postgres");
+		ds.setPassword("postgres");
 		return ds;
 	}
 

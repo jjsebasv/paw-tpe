@@ -1,85 +1,96 @@
 <?xml version="1.0" encoding="UTF-8"?>
-<project xmlns="http://maven.apache.org/POM/4.0.0" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:schemaLocation="http://maven.apache.org/POM/4.0.0 http://maven.apache.org/xsd/maven-4.0.0.xsd">
-  <modelVersion>4.0.0</modelVersion>
-  <groupId>ar.edu.itba.paw</groupId>
-  <artifactId>apuntes-webapp</artifactId>
-  <version>1.0-SNAPSHOT</version>
-  <packaging>pom</packaging>
-  <name>apuntes-webapp</name>
-  <modules>
-    <module>webapp</module>
-    <module>services</module>
-    <module>models</module>
-    <module>persistance</module>
-    <module>interfaces</module>
-  </modules>
+<project xmlns="http://maven.apache.org/POM/4.0.0" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+         xsi:schemaLocation="http://maven.apache.org/POM/4.0.0 http://maven.apache.org/xsd/maven-4.0.0.xsd">
+    <modelVersion>4.0.0</modelVersion>
+    <groupId>ar.edu.itba.paw</groupId>
+    <artifactId>apuntes-webapp</artifactId>
+    <version>1.0-SNAPSHOT</version>
+    <packaging>pom</packaging>
+    <name>apuntes-webapp</name>
+    <modules>
+        <module>webapp</module>
+        <module>services</module>
+        <module>models</module>
+        <module>persistance</module>
+        <module>interfaces</module>
+    </modules>
 
-  <properties>
-    <maven-eclipse-plugin.version>2.10</maven-eclipse-plugin.version>
-    <org.springframework.version>4.2.5.RELEASE</org.springframework.version>
-  	<servlet-api.version>2.5</servlet-api.version>
-	  <jstl.version>1.2</jstl.version>
-    <spring-jdbc.version>4.3.2.RELEASE</spring-jdbc.version>
-    <spring-context.version>4.3.2.RELEASE</spring-context.version>
-    <junit.version>4.12</junit.version>
-  </properties>
-  <build>
+    <properties>
+        <maven-eclipse-plugin.version>2.10</maven-eclipse-plugin.version>
+        <org.springframework.version>4.2.5.RELEASE</org.springframework.version>
+        <servlet-api.version>2.5</servlet-api.version>
+        <jstl.version>1.2</jstl.version>
+        <spring-jdbc.version>4.3.2.RELEASE</spring-jdbc.version>
+        <spring-context.version>4.3.2.RELEASE</spring-context.version>
+        <junit.version>4.12</junit.version>
+    </properties>
+    <build>
 
-    <plugins>
-      <plugin>
-        <groupId>org.apache.maven.plugins</groupId>
-        <artifactId>maven-eclipse-plugin</artifactId>
-        <version>${maven-eclipse-plugin.version}</version>
-        <configuration>
-    			<downloadSources>true</downloadSources>
-    			<downloadJavadocs>true</downloadJavadocs>
-    		</configuration>
-      </plugin>
+        <plugins>
 
-    </plugins>
+            <plugin>
+                <groupId>org.apache.maven.plugins</groupId>
+                <artifactId>maven-compiler-plugin</artifactId>
+                <configuration>
+                    <source>1.8</source>
+                    <target>1.8</target>
+                </configuration>
+            </plugin>
 
-  </build>
-  <dependencyManagement>
-  	<dependencies>
-  		<dependency>
-  			<groupId>org.springframework</groupId>
-  			<artifactId>spring-webmvc</artifactId>
-  			<version>${org.springframework.version}</version>
-  		</dependency>
+            <plugin>
+                <groupId>org.apache.maven.plugins</groupId>
+                <artifactId>maven-eclipse-plugin</artifactId>
+                <version>${maven-eclipse-plugin.version}</version>
+                <configuration>
+                    <downloadSources>true</downloadSources>
+                    <downloadJavadocs>true</downloadJavadocs>
+                </configuration>
+            </plugin>
 
-  		<dependency>
-  			<groupId>javax.servlet</groupId>
-  			<artifactId>servlet-api</artifactId>
-  			<version>${servlet-api.version}</version>
-  			<scope>provided</scope>
-  		</dependency>
+        </plugins>
 
-  		<dependency>
-  			<groupId>javax.servlet</groupId>
-  			<artifactId>jstl</artifactId>
-  			<version>${jstl.version}</version>
-  		</dependency>
+    </build>
+    <dependencyManagement>
+        <dependencies>
+            <dependency>
+                <groupId>org.springframework</groupId>
+                <artifactId>spring-webmvc</artifactId>
+                <version>${org.springframework.version}</version>
+            </dependency>
 
-      <dependency>
-        <groupId>org.springframework</groupId>
-        <artifactId>spring-jdbc</artifactId>
-        <version>${spring-jdbc.version}</version>
-      </dependency>
+            <dependency>
+                <groupId>javax.servlet</groupId>
+                <artifactId>servlet-api</artifactId>
+                <version>${servlet-api.version}</version>
+                <scope>provided</scope>
+            </dependency>
 
-      <dependency>
-    		<groupId>org.srpingframework</groupId>
-    		<artifactId>spring-context</artifactId>
-    		<version>${spring-context.version}</version>
-    	</dependency>
+            <dependency>
+                <groupId>javax.servlet</groupId>
+                <artifactId>jstl</artifactId>
+                <version>${jstl.version}</version>
+            </dependency>
 
-      <dependency>
-        <groupId>junit</groupId>
-        <artifactId>junit</artifactId>
-        <version>${junit.version}</version>
-      </dependency>
+            <dependency>
+                <groupId>org.springframework</groupId>
+                <artifactId>spring-jdbc</artifactId>
+                <version>${spring-jdbc.version}</version>
+            </dependency>
 
-    </dependencies>
+            <dependency>
+                <groupId>org.srpingframework</groupId>
+                <artifactId>spring-context</artifactId>
+                <version>${spring-context.version}</version>
+            </dependency>
 
-  </dependencyManagement>
+            <dependency>
+                <groupId>junit</groupId>
+                <artifactId>junit</artifactId>
+                <version>${junit.version}</version>
+            </dependency>
+
+        </dependencies>
+
+    </dependencyManagement>
 
 </project>

@@ -10,20 +10,20 @@ import ar.edu.itba.paw.models.User;
 @Service
 public class UserServiceImpl implements UserService {
 
-	@Autowired
-	private UserDao userDao;
-	
-	@Override
-	public User findById(long id) {
-		// TODO Auto-generated method stub
-		return userDao.findById(id);
-	}
+    private final UserDao userDao;
 
-	@Override
-	public long create(String username, String password) {
-		// TODO Auto-generated method stub
-		return userDao.create(username, password).getId();
-	}
-	
-	
+    @Autowired
+    public UserServiceImpl(UserDao userDao) {
+        this.userDao = userDao;
+    }
+
+    public User findById(long id) {
+        return userDao.findById(id);
+    }
+
+    public long create(String username, String password) {
+        return userDao.create(username, password).getId();
+    }
+
+
 }
