@@ -37,7 +37,7 @@ public class FileJdbcDao implements FileDao {
             // TODO: check this
             return new File(rs.getInt("fileid"),
                     rs.getInt("userid"),
-                    rs.getInt("courseid"),
+                    rs.getInt("course"),
                     rs.getString("subject"),
                     rs.getString("filename"),
                     rs.getBytes("uploaded_file")
@@ -55,7 +55,7 @@ public class FileJdbcDao implements FileDao {
 
     @Override
     public List<File> findByCourseId(int courseid) {
-        return jdbcTemplate.query("SELECT * FROM files WHERE courseid = ?", ROW_MAPPER, courseid);
+        return jdbcTemplate.query("SELECT * FROM files WHERE course = ?", ROW_MAPPER, courseid);
     }
 
     @Override

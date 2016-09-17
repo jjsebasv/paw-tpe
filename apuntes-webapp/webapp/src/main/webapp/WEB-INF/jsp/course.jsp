@@ -58,7 +58,7 @@
                 <ul class="nav" id="side-menu">
 
                     <li>
-                        <a href="<%=request.getContextPath()%>"><i class="fa fa-dashboard fa-fw"></i> Cursos</a>
+                        <a href="<%=request.getContextPath()%>"><i class="fa fa-book fa-fw"></i> Cursos</a>
                     </li>
 
 
@@ -92,7 +92,7 @@
                                 <li>
                                     <a href="<%=request.getContextPath()%>/file/${file.fileid}"
                                        class="list-group-item">
-                                        <i class="fa fa-money fa-fw"></i>${file.subject}
+                                        <i class="fa fa-download fa-fw"></i> ${file.subject}
                                     </a>
                                 </li>
                             </c:forEach>
