@@ -3,7 +3,7 @@
 <html>
 <head>
     <meta charset="utf-8">
-    
+
 
     <title>Campus - PAW</title>
 
@@ -58,7 +58,7 @@
                     <ul class="nav" id="side-menu">
 
                         <li>
-                            <a href="index.html"><i class="fa fa-dashboard fa-fw"></i> Cursos</a>
+                            <a href="index.html"><i class="fa fa-book fa-fw"></i> Cursos</a>
                         </li>
 
 
@@ -94,7 +94,7 @@
                                         <li>
                                             <a href="<%=request.getContextPath()%>/courses/${course.courseid}"
                                                class="list-group-item">
-                                                <i class="fa fa-money fa-fw"></i>${course.name}
+                                                <!--<i class="fa fa-download fa-fw"></i>-->${course.name}
                                             </a>
                                         </li>
                                     </c:forEach>
