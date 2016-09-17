@@ -27,7 +27,7 @@
                     <span class="sr-only">Toggle navigation</span>
 
                 </button>
-                <a class="navbar-brand" href="index.html">Campus - PAW v1.0</a>
+                <a class="navbar-brand" href="<%=request.getContextPath()%>">Campus - PAW v1.0</a>
             </div>
             <!-- /.navbar-header -->
 
@@ -58,7 +58,9 @@
                     <ul class="nav" id="side-menu">
 
                         <li>
-                            <a href="index.html"><i class="fa fa-book fa-fw"></i> Cursos</a>
+
+                            <a href="<%=request.getContextPath()%>"><i class="fa fa-book fa-fw"></i> Cursos</a>
+
                         </li>
 
 

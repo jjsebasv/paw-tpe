@@ -44,4 +44,16 @@ public class CourseJdbcDao implements CourseDao {
         return jdbcTemplate.query("SELECT * FROM courses", ROW_MAPPER);
     }
 
+    @Override
+    public List<Course> findByName(final String name) {
+        return jdbcTemplate.query("SELECT * FROM courses WHERE name LIKE \"%?%\"", ROW_MAPPER, name);
+    }
+
+    @Override
+    public Course findById(final int courseid) {
+        List<Course> list = jdbcTemplate.query("SELECT * FROM courses WHERE courseid = ?", ROW_MAPPER, courseid);
+
+        return list.get(0);
+    }
+
 }
