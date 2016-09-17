@@ -13,24 +13,24 @@ import ar.edu.itba.paw.models.File;
 
 @Controller
 public class FileController {
-	
-	@Autowired
-	private FileDao fd;
-	
-	@RequestMapping("/filelist")
-	public ModelAndView helloWorld(@RequestParam(value = "fileid", required = false, defaultValue = "-1") final int fileid) {
-		final ModelAndView mav = new ModelAndView("fileList");
-		if (fileid != -1) {
-			mav.addObject("onefile", fd.findById(fileid));
-		} else {
-			List<File> auxList = fd.getAll();
-			for(File file : auxList) {
-				mav.addObject("onefile", file);
-			}
-		}
-		
-		
-		return mav;
-	}
+
+    @Autowired
+    private FileDao fd;
+
+    @RequestMapping("/filelist")
+    public ModelAndView helloWorld(@RequestParam(value = "fileid", required = false, defaultValue = "-1") final int fileid) {
+        final ModelAndView mav = new ModelAndView("fileList");
+        if (fileid != -1) {
+            mav.addObject("onefile", fd.findById(fileid));
+        } else {
+            List<File> auxList = fd.getAll();
+            for (File file : auxList) {
+                mav.addObject("onefile", file);
+            }
+        }
+
+
+        return mav;
+    }
 
 }

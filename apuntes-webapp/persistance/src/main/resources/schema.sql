@@ -17,7 +17,7 @@ CREATE TABLE IF NOT EXISTS courses (
 CREATE TABLE IF NOT EXISTS files (
   fileid        SERIAL PRIMARY KEY,
   userid        INTEGER REFERENCES users (userid),
-  courseid        INTEGER REFERENCES courses (courseid),
+  courseid      INTEGER REFERENCES courses (courseid),
   subject       VARCHAR(100),
   filename      CHAR(300),
   uploaded_file BYTEA

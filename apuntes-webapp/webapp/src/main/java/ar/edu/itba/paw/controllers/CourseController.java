@@ -29,7 +29,7 @@ public class CourseController {
 
         Course course = cs.findById((int) id);
 
-        assert course!=null;
+        assert course != null;
 
         mav.addObject("course", course);
         mav.addObject("files", fs.findByCourseId((int) id));
