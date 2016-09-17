@@ -11,34 +11,34 @@ import ar.edu.itba.paw.interfaces.UserService;
 
 @Controller
 public class IndexController {
-	
-	private final UserService us;
 
-	private final CourseService cs;
+    //private final UserService us;
 
-	@Autowired
-	public IndexController(UserService us, CourseService cs) {
-		this.us = us;
+    private final CourseService cs;
+
+    @Autowired
+    public IndexController(/*UserService us,*/ CourseService cs) {
+        //this.us = us;
         this.cs = cs;
-	}
+    }
 
-	@RequestMapping("/")
-	public ModelAndView index() {
-		final ModelAndView mav = new ModelAndView("index");
-		mav.addObject("courses", cs.getAll());
-		return mav;
-	}
-	
-	@RequestMapping("/create")
-	public ModelAndView helloWorld(
-			@RequestParam(value = "name", required = true) final String username,
-			@RequestParam(value = "password", required = true) final String password,
-			@RequestParam(value = "repeatPassword", required = true) final String repeatPassword) {
-		// TODO: validate password and repeatePassword
-		System.out.println("bla");
-		final long userid = us.create(username, password);
-		return new ModelAndView("redirect:/bla?userId=" + userid);
-	}
-	
-	
+    @RequestMapping("/")
+    public ModelAndView index() {
+        final ModelAndView mav = new ModelAndView("index");
+        mav.addObject("courses", cs.getAll());
+        return mav;
+    }
+//
+//    @RequestMapping("/create")
+//    public ModelAndView helloWorld(
+//            @RequestParam(value = "name", required = true) final String username,
+//            @RequestParam(value = "password", required = true) final String password,
+//            @RequestParam(value = "repeatPassword", required = true) final String repeatPassword) {
+//        // TODO: validate password and repeatePassword
+//        System.out.println("bla");
+//        final long userid = us.create(username, password);
+//        return new ModelAndView("redirect:/bla?userId=" + userid);
+//    }
+
+
 }

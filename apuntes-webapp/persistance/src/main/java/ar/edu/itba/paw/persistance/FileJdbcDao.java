@@ -18,51 +18,56 @@ import ar.edu.itba.paw.models.File;
 @Repository
 public class FileJdbcDao implements FileDao {
 
-	@Override
-	public File createFile(byte[] data) {
-		// TODO Auto-generated method stub
-		return null;
-	}
+    private final JdbcTemplate jdbcTemplate;
+    private final SimpleJdbcInsert jdbcInsert;
 
-	@Override
-	public File findById(long fileid) {
-		// TODO Auto-generated method stub
-		List<File> list = jdbcTemplate.query("SELECT * FROM files WHERE fileid= ?",
-				(ResultSet rs, int rowNum) -> { 
-					return new File(rs.getInt("fileid"), rs.getString("username"), 1, null);
-				}, fileid);
-		return list.get(0);
-	}
-	
-	@Override
-	public List<File> getAll() {
-		List<File> list = jdbcTemplate.query("SELECT * FROM files",
-				(ResultSet rs, int rowNum) -> { 
-					return new File(rs.getInt("fileid"), rs.getString("username"), 1, null);
-				});
-		return list;
-	}
-	
-	
-	private final JdbcTemplate jdbcTemplate;
-	private final SimpleJdbcInsert jdbcInsert;
-	
-	private final static RowMapper<File> ROW_MAPPER = new RowMapper<File>(){
+    @Autowired
+    public FileJdbcDao(final DataSource ds) {
+        jdbcTemplate = new JdbcTemplate(ds);
+        jdbcInsert = new SimpleJdbcInsert(jdbcTemplate)
+                .withTableName("files")
+                .usingGeneratedKeyColumns("fileid");
+    }
 
-		@Override
-		public File mapRow(ResultSet rs, int rowNum) throws SQLException {
-			// TODO Auto-generated method stub
-			// TODO: check this
-			return new File(rs.getInt("fileid"), rs.getString("username"), 1, null);
-		}
-		
-	};
+    private final static RowMapper<File> ROW_MAPPER = new RowMapper<File>() {
 
-	@Autowired
-	public FileJdbcDao(final DataSource ds) {
-		jdbcTemplate = new JdbcTemplate(ds);
-		jdbcInsert = new SimpleJdbcInsert(jdbcTemplate)
-				.withTableName("files")
-				.usingGeneratedKeyColumns("fileid");
-	};
+        @Override
+        public File mapRow(ResultSet rs, int rowNum) throws SQLException {
+            // TODO Auto-generated method stub
+            // TODO: check this
+            return new File(rs.getInt("fileid"),
+                    rs.getInt("userid"),
+                    rs.getInt("courseid"),
+                    rs.getString("subject"),
+                    rs.getString("filename"),
+                    rs.getBytes("uploaded_file")
+            );
+        }
+
+    };
+
+    @Override
+    public File createFile(byte[] data) {
+        // TODO Auto-generated method stub
+        return null;
+    }
+
+
+    @Override
+    public List<File> findByCourseId(int courseid) {
+        return jdbcTemplate.query("SELECT * FROM files WHERE courseid = ?", ROW_MAPPER, courseid);
+    }
+
+    @Override
+    public File findById(int fileid) {
+        List<File> list = jdbcTemplate.query("SELECT * FROM files WHERE fileid= ?", ROW_MAPPER, fileid);
+        return list.get(0);
+    }
+
+    @Override
+    public List<File> getAll() {
+        return jdbcTemplate.query("SELECT * FROM files", ROW_MAPPER);
+    }
+
+
 }
