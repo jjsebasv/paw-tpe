@@ -67,17 +67,17 @@ public class FileController {
         FileCopyUtils.copy(file.getData(), response.getOutputStream());
 
     }
- 
+    
     @RequestMapping(value = "/file/{id:[\\d]+}/addReview", method = RequestMethod.POST)
-    public Review submit(@PathVariable("id") int id, @ModelAttribute("fileView")Review review, BindingResult result, ModelMap model) {
+    public String submit(@ModelAttribute("fileView")Review review, BindingResult result, ModelMap model,@PathVariable("id") int id) {
         
         model.addAttribute("fileid", id);
         model.addAttribute("ranking", review.getRanking());
         model.addAttribute("review", review.getReview());
         model.addAttribute("reviewid", 1);
         model.addAttribute("userid", fd.findById(id).getUserid());
-        
-        return review;
+        System.out.println(review.getRanking());
+        return "fileView";
     }
 
 }

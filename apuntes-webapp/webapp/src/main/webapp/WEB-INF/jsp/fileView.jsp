@@ -55,7 +55,7 @@
 				            <table>
 				               <tr>
 				                   <td><form:label path="ranking">Ranking</form:label></td>
-				                   <td><form:input path="ranking"/></td>
+				                   <td><form:input type="number" path="ranking"/></td>
 				               </tr>
 				               <tr>
 				                   <td><form:label path="review">Review</form:label></td>
