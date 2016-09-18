@@ -23,7 +23,12 @@
                     <!-- /.panel-heading -->
                     <div class="panel-body">
 
-                        <p><a href="<%=request.getContextPath()%>/download/${file.fileid}">Download</a></p>
+
+                        <a href="<%=request.getContextPath()%>/download/${file.fileid}">
+                        <button type="button" class="btn btn-primary btn-circle btn-xl"><i class="fa fa-download"></i>
+
+                        </button>
+                        </a>
 
                     </div>
                     <!-- /.panel-body -->
