@@ -15,6 +15,7 @@ import org.springframework.web.servlet.ModelAndView;
 import ar.edu.itba.paw.interfaces.FileDao;
 import ar.edu.itba.paw.models.File;
 
+import javax.crypto.Mac;
 import javax.servlet.http.HttpServletResponse;
 import java.io.IOException;
 
@@ -30,8 +31,12 @@ public class FileController {
 
     @RequestMapping("/file/{id:[\\d]+}")
     public ModelAndView courseView(@PathVariable("id") int id) {
-        final ModelAndView mav = new ModelAndView("fileView");
-        mav.addObject("file", fd.findById(id));
+        ModelAndView mav = new ModelAndView("fileView");
+        try {
+        	mav.addObject("file", fd.findById(id));
+		} catch (Exception e) {
+			mav = new ModelAndView("404");
+		}     
         return mav;
     }
 
@@ -47,8 +52,6 @@ public class FileController {
         //TODO Validar el nombre para prevenir header injection
         //FIXME Ver la necesidad del uso de trim()
         response.setHeader("Content-Disposition", String.format("attachment; filename=\"%s\";", file.getFileName().trim()));
-        response.setContentLength(file.getFileSize());
-
 
         FileCopyUtils.copy(file.getData(), response.getOutputStream());
 
