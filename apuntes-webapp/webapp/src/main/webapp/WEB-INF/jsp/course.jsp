@@ -14,6 +14,14 @@
         </div>
         <!-- /.row -->
 
+        <div class="row">
+            <nav class="breadcrumb">
+                <a class="breadcrumb-item" href="<%=request.getContextPath()%>"><i class="fa fa-home"></i> / </a>
+                <span class="breadcrumb-item active">${course.name}</span>
+
+            </nav>
+        </div>
+
         <!-- /.row -->
         <div class="row">
 
