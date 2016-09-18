@@ -2,11 +2,12 @@ package ar.edu.itba.paw.interfaces;
 
 import ar.edu.itba.paw.models.File;
 
+import java.io.InputStream;
 import java.util.List;
 
 public interface FileService {
 
-    File createFile(byte[] data);
+    File createFile(InputStream data);
 
     File findById(int fileid);
 

@@ -1,19 +1,23 @@
 package ar.edu.itba.paw.models;
 
+import java.io.InputStream;
+
 public class File {
     private int fileid;
     private int userid;
     private int courseid;
     private String subject;
-    private String filename;
-    private byte[] data;
+    private String fileName;
+    private int fileSize;
+    private InputStream data;
 
-    public File(int fileid, int userid, int courseid, String subject, String filename, byte[] data) {
+    public File(final int fileid, final int userid, final int courseid, final String subject, final String fileName, final int fileSize, final InputStream data) {
         this.fileid = fileid;
         this.userid = userid;
         this.courseid = courseid;
         this.subject = subject;
-        this.filename = filename;
+        this.fileName = fileName;
+        this.fileSize = fileSize;
         this.data = data;
     }
 
@@ -49,19 +53,27 @@ public class File {
         this.subject = subject;
     }
 
-    public String getFilename() {
-        return filename;
+    public String getFileName() {
+        return fileName;
     }
 
-    public void setFilename(String filename) {
-        this.filename = filename;
+    public void setFileName(String fileName) {
+        this.fileName = fileName;
     }
 
-    public byte[] getData() {
+    public InputStream getData() {
         return data;
     }
 
-    public void setData(byte[] data) {
+    public void setData(InputStream data) {
         this.data = data;
+    }
+
+    public int getFileSize() {
+        return fileSize;
+    }
+
+    public void setFileSize(int filesize) {
+        this.fileSize = filesize;
     }
 }

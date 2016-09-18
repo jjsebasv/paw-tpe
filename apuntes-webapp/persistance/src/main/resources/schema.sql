@@ -19,6 +19,7 @@ CREATE TABLE IF NOT EXISTS files (
   userid        INTEGER REFERENCES users (userid),
   courseid      INTEGER REFERENCES courses (courseid),
   subject       VARCHAR(100),
-  filename      CHAR(300),
+  fileName      CHAR(300),
+  fileSize      INTEGER,
   uploaded_file BYTEA
 );

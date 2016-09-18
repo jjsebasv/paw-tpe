@@ -7,6 +7,7 @@ import ar.edu.itba.paw.models.File;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
+import java.io.InputStream;
 import java.util.List;
 
 @Service
@@ -21,7 +22,8 @@ public class FileServiceImpl implements FileService {
 
 
     @Override
-    public File createFile(byte[] data) {
+    public File createFile(InputStream data) {
+        //TODO Validar el nombre para prevenir header injection
         return null;
     }
 

@@ -1,5 +1,6 @@
 package ar.edu.itba.paw.persistance;
 
+import java.io.InputStream;
 import java.sql.ResultSet;
 import java.sql.SQLException;
 import java.util.List;
@@ -37,29 +38,30 @@ public class FileJdbcDao implements FileDao {
             // TODO: check this
             return new File(rs.getInt("fileid"),
                     rs.getInt("userid"),
-                    rs.getInt("course"),
+                    rs.getInt("courseid"),
                     rs.getString("subject"),
-                    rs.getString("filename"),
-                    rs.getBytes("uploaded_file")
+                    rs.getString("filename"),//FIXME Viene char(300)?
+                    rs.getInt("filesize"),
+                    rs.getBinaryStream("uploaded_file")
             );
         }
 
     };
 
     @Override
-    public File createFile(byte[] data) {
+    public File createFile(InputStream data) {
         // TODO Auto-generated method stub
         return null;
     }
 
 
     @Override
-    public List<File> findByCourseId(int courseid) {
-        return jdbcTemplate.query("SELECT * FROM files WHERE course = ?", ROW_MAPPER, courseid);
+    public List<File> findByCourseId(final int courseid) {
+        return jdbcTemplate.query("SELECT * FROM files WHERE courseid = ?", ROW_MAPPER, courseid);
     }
 
     @Override
-    public File findById(int fileid) {
+    public File findById(final int fileid) {
         List<File> list = jdbcTemplate.query("SELECT * FROM files WHERE fileid= ?", ROW_MAPPER, fileid);
         return list.get(0);
     }
