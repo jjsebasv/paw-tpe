@@ -73,7 +73,7 @@ public class FileJdbcDao implements FileDao {
 
     @Override
     public List<File> getAll() {
-        return jdbcTemplate.query("SELECT * FROM files", ROW_MAPPER);
+        return jdbcTemplate.query("SELECT * FROM files NATURAL JOIN courses NATURAL JOIN users ", ROW_MAPPER);
     }
 
 
