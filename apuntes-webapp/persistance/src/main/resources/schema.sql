@@ -20,6 +20,5 @@ CREATE TABLE IF NOT EXISTS files (
   courseid      INTEGER REFERENCES courses (courseid),
   subject       VARCHAR(100),
   fileName      CHAR(300),
-  fileSize      INTEGER,
   uploaded_file BYTEA
 );

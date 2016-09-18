@@ -1,5 +1,10 @@
 package ar.edu.itba.paw.config;
 
+import java.io.FileInputStream;
+import java.io.IOException;
+import java.io.InputStream;
+import java.util.Properties;
+
 import javax.sql.DataSource;
 
 import org.springframework.beans.factory.annotation.Value;
@@ -54,9 +59,10 @@ public class WebConfig extends WebMvcConfigurerAdapter {
     public DataSource dataSource() {
         final SimpleDriverDataSource ds = new SimpleDriverDataSource();
         ds.setDriverClass(org.postgresql.Driver.class);
-        ds.setUrl("jdbc:postgresql://localhost/paw");
-        ds.setUsername("root");
-        ds.setPassword("root");
+        ds.setUrl("jdbc:postgresql://localhost/paw"/*getApplicationProperty("db_url")*/);
+        ds.setUsername("root"/*getApplicationProperty("db_username")*/);
+        ds.setPassword("root"/*getApplicationProperty("db_password")*/);
+
         return ds;
     }
 
@@ -64,6 +70,19 @@ public class WebConfig extends WebMvcConfigurerAdapter {
     public void addResourceHandlers(final ResourceHandlerRegistry registry) {
         // TODO Auto-generated method stub
         registry.addResourceHandler("/css/**").addResourceLocations("/css/");
+    }
+    
+    private String getApplicationProperty(String key) {
+    	String value = "";
+    	try {
+            Properties prop = new Properties();
+            InputStream input = new FileInputStream("config.properties");
+            prop.load(input);
+            value = prop.getProperty(key);
+        } catch (IOException e) {
+        	System.out.println(e);
+        }
+    	return value;
     }
 
 }
