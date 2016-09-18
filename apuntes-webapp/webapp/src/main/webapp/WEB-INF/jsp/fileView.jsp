@@ -51,11 +51,11 @@
                 <div class="review-pannel panel panel-default">
 					
                     <div class="panel-body">                    
-                    	<form:form method="POST" action="${file.fileid}/addReview" modelAttribute="review">
+                    	<form:form method="POST" action="/webapp/file/${file.fileid}/addReview" modelAttribute="review">
 				            <table>
 				               <tr>
 				                   <td><form:label path="ranking">Ranking</form:label></td>
-				                   <td><form:input type="number" path="ranking"/></td>
+				                   <td><form:input path="ranking"/></td>
 				               </tr>
 				               <tr>
 				                   <td><form:label path="review">Review</form:label></td>

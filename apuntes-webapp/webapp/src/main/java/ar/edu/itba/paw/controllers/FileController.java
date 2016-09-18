@@ -18,9 +18,12 @@ import org.springframework.web.bind.annotation.RequestMethod;
 import org.springframework.web.servlet.ModelAndView;
 
 import ar.edu.itba.paw.interfaces.FileDao;
+import ar.edu.itba.paw.interfaces.FileService;
+import ar.edu.itba.paw.interfaces.ReviewService;
 import ar.edu.itba.paw.models.File;
 import ar.edu.itba.paw.models.Review;
 import ar.edu.itba.paw.persistance.FileJdbcDao;
+import forms.ReviewForm;
 
 import javax.crypto.Mac;
 import javax.servlet.http.HttpServletResponse;
@@ -29,12 +32,14 @@ import java.io.IOException;
 @Controller
 public class FileController {
 
-    private final FileDao fd;
+    private final FileService fs;
+    private final ReviewService rs;
 
 
     @Autowired
-    public FileController(FileDao fd) {
-        this.fd = fd;
+    public FileController(FileService fs, ReviewService rs) {
+        this.fs = fs;
+        this.rs = rs;
     }
 
 
@@ -55,7 +60,7 @@ public class FileController {
     //FIXME Preguntar por la exception
     public void downloadFile(HttpServletResponse response, @PathVariable("id") int id) throws IOException {
 
-        final File file = fd.findById(id);
+        final File file = fs.findById(id);
 
         //TODO Guardar mimetype para permitirle al navegador decidir
         response.setContentType("application/octet-stream");
@@ -69,13 +74,9 @@ public class FileController {
     }
     
     @RequestMapping(value = "/file/{id:[\\d]+}/addReview", method = RequestMethod.POST)
-    public String submit(@ModelAttribute("fileView")Review review, BindingResult result, ModelMap model,@PathVariable("id") int id) {
+    public String submit(@ModelAttribute("fileView")ReviewForm review, BindingResult result, ModelMap model,@PathVariable("id") int id) {
         
-        model.addAttribute("fileid", id);
-        model.addAttribute("ranking", review.getRanking());
-        model.addAttribute("review", review.getReview());
-        model.addAttribute("reviewid", 1);
-        model.addAttribute("userid", fd.findById(id).getUserid());
+		rs.createReview(1, 2, 3, review.getRanking(), review.getReview());
         System.out.println(review.getRanking());
         return "fileView";
     }
