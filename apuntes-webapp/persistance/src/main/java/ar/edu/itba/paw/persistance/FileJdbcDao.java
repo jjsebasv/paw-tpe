@@ -7,6 +7,8 @@ import java.util.List;
 
 import javax.sql.DataSource;
 
+import ar.edu.itba.paw.models.Course;
+import ar.edu.itba.paw.models.User;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.jdbc.core.JdbcTemplate;
 import org.springframework.jdbc.core.RowMapper;
@@ -36,9 +38,10 @@ public class FileJdbcDao implements FileDao {
         public File mapRow(ResultSet rs, int rowNum) throws SQLException {
             // TODO Auto-generated method stub
             // TODO: check this
+
             return new File(rs.getInt("fileid"),
-                    rs.getInt("userid"),
-                    rs.getInt("courseid"),
+                    new User(rs.getString("username"), rs.getString("password"),rs.getInt("userid")),
+                    new Course(rs.getInt("courseid"),rs.getString("name")),
                     rs.getString("subject"),
                     rs.getString("filename"),//FIXME Viene char(300)?
                     rs.getInt("filesize"),
@@ -57,14 +60,16 @@ public class FileJdbcDao implements FileDao {
 
     @Override
     public List<File> findByCourseId(final int courseid) {
-        return jdbcTemplate.query("SELECT * FROM files WHERE courseid = ?", ROW_MAPPER, courseid);
+
+        return jdbcTemplate.query("SELECT * FROM files NATURAL JOIN courses NATURAL JOIN users WHERE courseid= ?", ROW_MAPPER, courseid);
     }
 
     @Override
     public File findById(final int fileid) {
-        List<File> list = jdbcTemplate.query("SELECT * FROM files WHERE fileid= ?", ROW_MAPPER, fileid);
+        List<File> list = jdbcTemplate.query("SELECT * FROM files NATURAL JOIN courses NATURAL JOIN users WHERE fileid= ?", ROW_MAPPER, fileid);
         return list.get(0);
     }
+
 
     @Override
     public List<File> getAll() {

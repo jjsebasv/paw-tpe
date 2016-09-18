@@ -1,6 +1,8 @@
 <%@ include file="header.jsp" %>
 
 <body>
+
+
 <div id="wrapper">
 
     <%@ include file="headerBody.jsp" %>
@@ -13,6 +15,14 @@
             <!-- /.col-lg-12 -->
         </div>
         <!-- /.row -->
+
+        <div class="row">
+            <nav class="breadcrumb">
+                <a class="breadcrumb-item" href="<%=request.getContextPath()%>"><i class="fa fa-home"></i> / </a>
+                <a class="breadcrumb-item" href="<%=request.getContextPath()%>/courses/${file.course.courseid}">${file.course.name} / </a>
+                <span class="breadcrumb-item active">${file.subject}</span>
+            </nav>
+        </div>
 
         <!-- /.row -->
         <div class="row">

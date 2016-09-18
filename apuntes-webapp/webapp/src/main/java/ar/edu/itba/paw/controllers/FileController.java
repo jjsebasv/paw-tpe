@@ -1,5 +1,6 @@
 package ar.edu.itba.paw.controllers;
 
+import ar.edu.itba.paw.interfaces.UserDao;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.core.io.InputStreamResource;
 import org.springframework.http.HttpHeaders;
@@ -23,10 +24,12 @@ public class FileController {
 
     private final FileDao fd;
 
+
     @Autowired
     public FileController(FileDao fd) {
         this.fd = fd;
     }
+
 
     @RequestMapping("/file/{id:[\\d]+}")
     public ModelAndView courseView(@PathVariable("id") int id) {

@@ -4,17 +4,17 @@ import java.io.InputStream;
 
 public class File {
     private int fileid;
-    private int userid;
-    private int courseid;
+    private User user;
+    private Course course;
     private String subject;
     private String fileName;
     private int fileSize;
     private InputStream data;
 
-    public File(final int fileid, final int userid, final int courseid, final String subject, final String fileName, final int fileSize, final InputStream data) {
+    public File(final int fileid, final User user, final Course course, final String subject, final String fileName, final int fileSize, final InputStream data) {
         this.fileid = fileid;
-        this.userid = userid;
-        this.courseid = courseid;
+        this.user = user;
+        this.course = course;
         this.subject = subject;
         this.fileName = fileName;
         this.fileSize = fileSize;
@@ -29,20 +29,20 @@ public class File {
         this.fileid = fileid;
     }
 
-    public int getUserid() {
-        return userid;
+    public User getUser() {
+        return user;
     }
 
-    public void setUserid(int userid) {
-        this.userid = userid;
+    public void setUser(User user) {
+        this.user = user;
     }
 
-    public int getCourseid() {
-        return courseid;
+    public Course getCourse() {
+        return course;
     }
 
-    public void setCourseid(int courseid) {
-        this.courseid = courseid;
+    public void setCourse(Course course) {
+        this.course = course;
     }
 
     public String getSubject() {
