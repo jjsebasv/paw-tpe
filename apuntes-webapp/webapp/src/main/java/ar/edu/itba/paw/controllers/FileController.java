@@ -10,6 +10,7 @@ import org.springframework.http.ResponseEntity;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.ModelMap;
 import org.springframework.util.FileCopyUtils;
+import org.springframework.validation.BindingResult;
 import org.springframework.web.bind.annotation.ModelAttribute;
 import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.RequestMapping;
@@ -41,6 +42,7 @@ public class FileController {
     public ModelAndView courseView(@PathVariable("id") int id) {
         ModelAndView mav = new ModelAndView("fileView");
         try {
+        	final File file = fd.findById(id);
         	mav.addObject("file", fd.findById(id));
         	mav.addObject("username", fd.getUser(file.getUserid()).getName() );
         } catch (Exception e) {
@@ -65,16 +67,17 @@ public class FileController {
         FileCopyUtils.copy(file.getData(), response.getOutputStream());
 
     }
-    
+ 
     @RequestMapping(value = "/file/{id:[\\d]+}/addReview", method = RequestMethod.POST)
-    public String addReview(@PathVariable("id") int id, @ModelAttribute("WebConfig")Review review, ModelMap model) {
-       model.addAttribute("fileid", id);
-       model.addAttribute("ranking", review.getRanking());
-       model.addAttribute("review", review.getReview());
-       model.addAttribute("reviewid", 1);
-       model.addAttribute("userid", fd.findById(id).getUserid());
-       
-       return "/file/"+id;
+    public Review submit(@PathVariable("id") int id, @ModelAttribute("fileView")Review review, BindingResult result, ModelMap model) {
+        
+        model.addAttribute("fileid", id);
+        model.addAttribute("ranking", review.getRanking());
+        model.addAttribute("review", review.getReview());
+        model.addAttribute("reviewid", 1);
+        model.addAttribute("userid", fd.findById(id).getUserid());
+        
+        return review;
     }
 
 }

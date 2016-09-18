@@ -50,29 +50,23 @@
                 </div>
                 <div class="review-pannel panel panel-default">
 					
-                    <div class="panel-body">
-                    	<form method="POST" action="<%=request.getContextPath()%>/file/${file.fileid}/addReview">
-							<table>
-						   		<tr>
-						    		<td><form:label path="name">Name</form:label></td>
-						        	<td><form:input path="name" /></td>
-							    </tr>
-							    <tr>
-							        <td><form:label path="age">Age</form:label></td>
-							        <td><form:input path="age" /></td>
-							    </tr>
-							    <tr>
-							        <td><form:label path="id">id</form:label></td>
-							        <td><form:input path="id" /></td>
-							    </tr>
-							    <tr>
-							        <td colspan="2">
-							            <input type="submit" value="Submit"/>
-							        </td>
-							    </tr>
-							</table>  
-						</form>
-  
+                    <div class="panel-body">                    
+                    	<form:form method="POST" action="${file.fileid}/addReview" modelAttribute="review">
+				            <table>
+				               <tr>
+				                   <td><form:label path="ranking">Ranking</form:label></td>
+				                   <td><form:input path="ranking"/></td>
+				               </tr>
+				               <tr>
+				                   <td><form:label path="review">Review</form:label></td>
+				                   <td><form:input path="review"/></td>
+				               </tr>
+				               <tr>
+				                   <td><input type="submit" value="Submit"/></td>
+				               </tr>
+				           </table>
+				       </form:form>
+                    
                         Reviews
                         <hr>
                         <div class="review">
