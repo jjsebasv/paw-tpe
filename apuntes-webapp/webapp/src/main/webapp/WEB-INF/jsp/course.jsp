@@ -106,8 +106,6 @@
                     <!-- /.panel-body -->
                 </div>
                 <!-- /.panel -->
-
-
             </div>
             <!-- /.col-lg-4 -->
         </div>
