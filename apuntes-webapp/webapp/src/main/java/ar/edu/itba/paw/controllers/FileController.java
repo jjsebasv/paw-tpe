@@ -8,13 +8,18 @@ import org.springframework.http.HttpStatus;
 import org.springframework.http.MediaType;
 import org.springframework.http.ResponseEntity;
 import org.springframework.stereotype.Controller;
+import org.springframework.ui.ModelMap;
 import org.springframework.util.FileCopyUtils;
+import org.springframework.web.bind.annotation.ModelAttribute;
 import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.RequestMapping;
+import org.springframework.web.bind.annotation.RequestMethod;
 import org.springframework.web.servlet.ModelAndView;
 
 import ar.edu.itba.paw.interfaces.FileDao;
 import ar.edu.itba.paw.models.File;
+import ar.edu.itba.paw.models.Review;
+import ar.edu.itba.paw.persistance.FileJdbcDao;
 
 import javax.crypto.Mac;
 import javax.servlet.http.HttpServletResponse;
@@ -37,7 +42,8 @@ public class FileController {
         ModelAndView mav = new ModelAndView("fileView");
         try {
         	mav.addObject("file", fd.findById(id));
-		} catch (Exception e) {
+        	mav.addObject("username", fd.getUser(file.getUserid()).getName() );
+        } catch (Exception e) {
 			mav = new ModelAndView("404");
 		}     
         return mav;
@@ -58,6 +64,17 @@ public class FileController {
 
         FileCopyUtils.copy(file.getData(), response.getOutputStream());
 
+    }
+    
+    @RequestMapping(value = "/file/{id:[\\d]+}/addReview", method = RequestMethod.POST)
+    public String addReview(@PathVariable("id") int id, @ModelAttribute("WebConfig")Review review, ModelMap model) {
+       model.addAttribute("fileid", id);
+       model.addAttribute("ranking", review.getRanking());
+       model.addAttribute("review", review.getReview());
+       model.addAttribute("reviewid", 1);
+       model.addAttribute("userid", fd.findById(id).getUserid());
+       
+       return "/file/"+id;
     }
 
 }

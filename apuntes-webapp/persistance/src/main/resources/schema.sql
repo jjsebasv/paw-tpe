@@ -22,3 +22,11 @@ CREATE TABLE IF NOT EXISTS files (
   fileName      CHAR(300),
   uploaded_file BYTEA
 );
+
+CREATE TABLE IF NOT EXISTS reviews (
+  reviewid	SERIAL PRIMARY KEY,
+  fileid	INTEGER REFERENCES files (fileid),
+  userid	INTEGER REFERENCES users (userid),
+  ranking	INTEGER,
+  review	VARCHAR(500)
+);
