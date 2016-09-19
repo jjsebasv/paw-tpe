@@ -4,7 +4,7 @@ import ar.edu.itba.paw.models.User;
 
 public interface UserDao {
 
-    User findById(final long id);
+    User findById(int id);
 
     User create(String username, String password);
 

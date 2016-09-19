@@ -8,6 +8,7 @@ import java.util.Map;
 
 import javax.sql.DataSource;
 
+import ar.edu.itba.paw.models.File;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.jdbc.core.JdbcTemplate;
 import org.springframework.jdbc.core.RowMapper;
@@ -22,7 +23,7 @@ import ar.edu.itba.paw.models.User;
 @Repository
 public class ReviewJdbcDao implements ReviewDao {
 
-	private final JdbcTemplate jdbcTemplate;
+    private final JdbcTemplate jdbcTemplate;
     private final SimpleJdbcInsert jdbcInsert;
 
     @Autowired
@@ -31,50 +32,51 @@ public class ReviewJdbcDao implements ReviewDao {
         jdbcInsert = new SimpleJdbcInsert(jdbcTemplate)
                 .withTableName("reviews")
                 .usingGeneratedKeyColumns("reviewid");
-    };
-	
+    }
+
     private final static RowMapper<Review> ROW_MAPPER = new RowMapper<Review>() {
-    	
+
         @Override
         public Review mapRow(ResultSet rs, int rowNum) throws SQLException {
-        	return new Review(rs.getInt("reviewid"), rs.getInt("fileid"), rs.getInt("userid"), rs.getDouble("ranking"), rs.getString("review"));
+            return new Review(rs.getInt("reviewid"),
+                    new File(rs.getInt("fileid"),
+                            null,//FIXME
+                            null,//FIXME
+                            rs.getString("subject"),
+                            rs.getString("fileName"),
+                            rs.getInt("fileSize"),
+                            null),//FIXME
+                    new User(rs.getInt("userid"),
+                            rs.getString("username"),
+                            null), //FIXME
+                    rs.getDouble("ranking"),
+                    rs.getString("review"));
         }
 
     };
-    
-    private final static RowMapper<User> USER_ROW_MAPPER = new RowMapper<User>() {
 
-        @Override
-        public User mapRow(ResultSet rs, int rowNum) throws SQLException {
-            // TODO Auto-generated method stub
-            return new User(rs.getString("username"), rs.getString("password"), rs.getInt("userid"));
-        }
 
-    };
-    
-	@Override
-	public Review createReview(int fileid, long userid, double ranking, String review) {
-		// TODO Auto-generated method stub
+    @Override
+    public Review createReview(final File file, final User user, final double ranking, final String review) {
+        // TODO Auto-generated method stub
         final Map<String, Object> args = new HashMap<>();
-        args.put("fileid", fileid);
-        args.put("userid", userid);
+        args.put("fileid", file.getFileid());
+        args.put("userid", user.getUserid());
         args.put("ranking", ranking);
         args.put("review", review);
 
         final Number reviewid = jdbcInsert.executeAndReturnKey(args);
-        return new Review(reviewid.intValue(), fileid, userid, ranking, review);
-	}
+        return new Review(reviewid.intValue(), file, user, ranking, review);
+    }
 
-	@Override
-	public List<Review> findByFileId(int fileid) {
-		// TODO Auto-generated method stub
-		List<Review> list = jdbcTemplate.query("SELECT * FROM reviews WHERE fileid = ?", ROW_MAPPER, fileid);
-		return list;
-	}
-	
-	@Override
-	public String getUsername(final int userid) {
-		return jdbcTemplate.query("SELECT * FROM users WHERE userid = ?", USER_ROW_MAPPER, userid).get(0).getUsername();
-	}
+    @Override
+    public List<Review> findByFileId(int fileid) {
+        //TODO Check query
+        return jdbcTemplate.query("SELECT reviews.reviewid, reviews.fileid AS fileid, files.subject, files.filename, files.fileSize," +
+                "reviews.userid AS userid, users.username, reviews.ranking, reviews.review FROM reviews " +
+                "INNER JOIN users ON users.userid=reviews.userid " +
+                "INNER JOIN files ON files.fileid=reviews.fileid " +
+                "WHERE reviews.fileid = ?", ROW_MAPPER, fileid);
+    }
 
 }

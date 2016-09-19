@@ -1,11 +1,8 @@
 package ar.edu.itba.paw.services;
 
-import ar.edu.itba.paw.interfaces.CourseDao;
 import ar.edu.itba.paw.interfaces.FileDao;
 import ar.edu.itba.paw.interfaces.FileService;
 import ar.edu.itba.paw.models.File;
-import ar.edu.itba.paw.models.User;
-
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
@@ -44,10 +41,4 @@ public class FileServiceImpl implements FileService {
         return fileDao.getAll();
     }
 
-
-	@Override
-	public User getUser(final int userid) {
-		// TODO Auto-generated method stub
-		return fileDao.getUser(userid);
-	}
 }

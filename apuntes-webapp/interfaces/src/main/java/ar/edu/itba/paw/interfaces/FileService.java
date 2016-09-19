@@ -15,6 +15,4 @@ public interface FileService {
     List<File> findByCourseId(int courseid);
 
     List<File> getAll();
-    
-    User getUser(int userid);
 }

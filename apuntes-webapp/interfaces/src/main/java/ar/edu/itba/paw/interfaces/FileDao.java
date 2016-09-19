@@ -15,6 +15,4 @@ public interface FileDao {
     List<File> findByCourseId(int id);
 
     List<File> getAll();
-
-    User getUser(int userid);
 }

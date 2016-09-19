@@ -28,7 +28,7 @@ public class UserJdbcDaoTest {
 		
 		// Postcondiciones
 		Assert.assertNotNull("User with id 42 is null!", user);
-		Assert.assertEquals("Searched for user 42, got another one", 42, user.getId());
+		Assert.assertEquals("Searched for user 42, got another one", 42, user.getUserid());
 	}
 	
 	@Test
@@ -51,6 +51,6 @@ public class UserJdbcDaoTest {
 		
 		// Postcondiciones: db con N+1 registros
 		Assert.assertNotNull("The created user had a null pointer", user);
-		Assert.assertEquals("The created user has an incorrect name", USERNAME, user.getUsername());
+		Assert.assertEquals("The created user has an incorrect name", USERNAME, user.getName());
 	}
 }
