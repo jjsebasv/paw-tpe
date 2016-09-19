@@ -17,12 +17,9 @@ import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestMethod;
 import org.springframework.web.servlet.ModelAndView;
 
-import ar.edu.itba.paw.interfaces.FileDao;
 import ar.edu.itba.paw.interfaces.FileService;
 import ar.edu.itba.paw.interfaces.ReviewService;
 import ar.edu.itba.paw.models.File;
-import ar.edu.itba.paw.models.Review;
-import ar.edu.itba.paw.persistance.FileJdbcDao;
 import forms.ReviewForm;
 
 import javax.crypto.Mac;
@@ -37,7 +34,7 @@ public class FileController {
 
 
     @Autowired
-    public FileController(FileService fs, ReviewService rs) {
+    public FileController(ReviewService rs, FileService fs) {
         this.fs = fs;
         this.rs = rs;
     }
@@ -75,7 +72,6 @@ public class FileController {
     
     @RequestMapping(value = "/file/{id:[\\d]+}/addReview", method = RequestMethod.POST)
     public String submit(@ModelAttribute("fileView")ReviewForm review, BindingResult result, ModelMap model,@PathVariable("id") int id) {
-        
 		rs.createReview(1, 2, 3, review.getRanking(), review.getReview());
         System.out.println(review.getRanking());
         return "fileView";

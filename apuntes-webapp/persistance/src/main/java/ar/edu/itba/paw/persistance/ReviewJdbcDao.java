@@ -26,7 +26,7 @@ public class ReviewJdbcDao implements ReviewDao {
         jdbcInsert = new SimpleJdbcInsert(jdbcTemplate)
                 .withTableName("reviews")
                 .usingGeneratedKeyColumns("reviewid");
-    }
+    };
 	
     private final static RowMapper<Review> ROW_MAPPER = new RowMapper<Review>() {
     	
