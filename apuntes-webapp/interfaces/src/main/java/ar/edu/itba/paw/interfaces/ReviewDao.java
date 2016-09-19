@@ -6,7 +6,7 @@ import ar.edu.itba.paw.models.Review;
 
 public interface ReviewDao {
 
-	Review createReview(int fileid, int userid, double ranking, String review);
+	Review createReview(int fileid, long userid, double ranking, String review);
 
 	List<Review> findByFileId(int fileid);
 

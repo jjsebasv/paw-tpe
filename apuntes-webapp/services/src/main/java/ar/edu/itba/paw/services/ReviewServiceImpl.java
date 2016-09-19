@@ -20,7 +20,7 @@ public class ReviewServiceImpl implements ReviewService {
     }
 	
 	@Override
-	public Review createReview(int fileid, int userid, double ranking, String review) {
+	public Review createReview(int fileid, long userid, double ranking, String review) {
 		// TODO Auto-generated method stub
 		return reviewDao.createReview(fileid, userid, ranking, review);
 	}

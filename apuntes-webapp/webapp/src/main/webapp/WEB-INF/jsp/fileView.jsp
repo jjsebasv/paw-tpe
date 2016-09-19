@@ -37,7 +37,6 @@
                     <div class="panel-body">
                         A file by ${username}
                         <hr>
-                        <a class="btn btn-primary" href="<%=request.getContextPath()%>/download/${file.fileid}">Download</a>
 
                         <a href="<%=request.getContextPath()%>/download/${file.fileid}">
 	                        <button type="button" class="btn btn-primary btn-circle btn-xl">
@@ -81,7 +80,7 @@
                     </div>
                     <!-- /.panel-body -->
                 </div>
-                <a class="btn btn-info" href="<%=request.getContextPath()%>/courses/${file.courseid}"> < Go Back</a>
+                <a class="btn btn-info" href="<%=request.getContextPath()%>/courses/${file.course.courseid}"> < Go Back</a>
                 <!-- /.panel -->
             </div>
             <!-- /.col-lg-4 -->

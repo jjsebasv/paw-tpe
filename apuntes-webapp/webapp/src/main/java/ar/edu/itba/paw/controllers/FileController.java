@@ -47,7 +47,7 @@ public class FileController {
         try {
         	final File file = fs.findById(id);
         	mav.addObject("file", fs.findById(id));
-        	mav.addObject("username", fs.getUser(file.getUserid()).getName() );
+        	mav.addObject("username", file.getUser().getName() );
         	mav.addObject("reviewForm", new ReviewForm());
             mav.addObject("reviews", rs.findByFileId((int) id));
         } catch (Exception e) {
@@ -75,7 +75,7 @@ public class FileController {
     
     @RequestMapping(value = "/file/{id:[\\d]+}/addReview", method = RequestMethod.POST)
     public ModelAndView submit(@ModelAttribute("reviewForm") ReviewForm reviewForm, BindingResult result, Model model, @PathVariable("id") int fileid) {
-		rs.createReview(fileid, fs.findById(fileid).getUserid(), reviewForm.getRanking(), reviewForm.getReview());
+		rs.createReview(fileid, fs.findById(fileid).getUser().getId(), reviewForm.getRanking(), reviewForm.getReview());
 		ModelAndView mav = new ModelAndView("redirect:/file/"+fileid);
         return mav;
     };

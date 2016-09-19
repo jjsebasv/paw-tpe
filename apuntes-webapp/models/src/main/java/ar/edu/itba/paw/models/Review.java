@@ -4,11 +4,11 @@ public class Review {
 
 	private int reviewid;
 	private int fileid;
-	private int userid;
+	private long userid;
 	private double ranking;
 	private String review;
 	
-	public Review(int reviewid, int fileid, int userid, double ranking, String review) {
+	public Review(int reviewid, int fileid, long userid, double ranking, String review) {
 		super();
 		this.reviewid = reviewid;
 		this.fileid = fileid;
@@ -30,10 +30,10 @@ public class Review {
 		this.fileid = fileid;
 	}
 	
-	public int getUserid() {
+	public long getUserid() {
 		return userid;
 	}
-	public void setUserid(int userid) {
+	public void setUserid(long userid) {
 		this.userid = userid;
 	}
 	
