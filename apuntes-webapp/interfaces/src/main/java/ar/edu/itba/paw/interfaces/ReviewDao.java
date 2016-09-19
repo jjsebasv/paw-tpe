@@ -1,9 +1,13 @@
 package ar.edu.itba.paw.interfaces;
 
+import java.util.List;
+
 import ar.edu.itba.paw.models.Review;
 
 public interface ReviewDao {
 
-	Review createReview(int reviewid, int fileid, int userid, double ranking, String review);
+	Review createReview(int fileid, int userid, double ranking, String review);
+
+	List<Review> findByFileId(int fileid);
 
 }

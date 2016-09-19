@@ -50,8 +50,16 @@
                 </div>
                 <div class="review-pannel panel panel-default">
 					
-                    <div class="panel-body">                    
-                    	<form:form method="POST" action="/webapp/file/${file.fileid}/addReview" modelAttribute="review">
+                    <div class="panel-body">                   
+                    	<h3>Reviews</h3>
+                        <hr>
+                        <c:forEach items="${reviews}" var="review">
+							<div class="review">
+                        		 ${review.review}
+                        	</div>          
+						</c:forEach>              
+                        <hr>
+                    	<form:form method="POST" action="/webapp/file/${file.fileid}/addReview" modelAttribute="reviewForm">
 				            <table>
 				               <tr>
 				                   <td><form:label path="ranking">Ranking</form:label></td>
@@ -62,19 +70,11 @@
 				                   <td><form:input path="review"/></td>
 				               </tr>
 				               <tr>
-				                   <td><input type="submit" value="Submit"/></td>
+				                   <td><input class="btn btn-success" type="submit" value="Submit"/></td>
 				               </tr>
 				           </table>
 				       </form:form>
                     
-                        Reviews
-                        <hr>
-                        <div class="review">
-                        	esto es un review
-                        </div>                        
-                        <hr>
-						<textarea rows="5" cols="55"></textarea>
-						<a class="btn btn-success">Submit Review</a>
                     </div>
                     <!-- /.panel-body -->
                 </div>

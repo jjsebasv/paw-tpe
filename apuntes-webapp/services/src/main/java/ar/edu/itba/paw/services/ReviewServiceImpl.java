@@ -1,5 +1,7 @@
 package ar.edu.itba.paw.services;
 
+import java.util.List;
+
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
@@ -18,9 +20,15 @@ public class ReviewServiceImpl implements ReviewService {
     }
 	
 	@Override
-	public Review createReview(int reviewid, int fileid, int userid, double ranking, String review) {
+	public Review createReview(int fileid, int userid, double ranking, String review) {
 		// TODO Auto-generated method stub
-		return reviewDao.createReview(reviewid, fileid, userid, ranking, review);
+		return reviewDao.createReview(fileid, userid, ranking, review);
+	}
+
+	@Override
+	public List<Review> findByFileId(int fileid) {
+		// TODO Auto-generated method stub
+		return reviewDao.findByFileId(fileid);
 	}
 
 }
