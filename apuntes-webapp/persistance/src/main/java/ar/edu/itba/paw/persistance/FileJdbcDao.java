@@ -17,6 +17,7 @@ import org.springframework.stereotype.Repository;
 
 import ar.edu.itba.paw.interfaces.FileDao;
 import ar.edu.itba.paw.models.File;
+import ar.edu.itba.paw.models.User;
 
 @Repository
 public class FileJdbcDao implements FileDao {
@@ -50,6 +51,15 @@ public class FileJdbcDao implements FileDao {
         }
 
     };
+    
+    private final static RowMapper<User> USER_ROW_MAPPER = new RowMapper<User>() {
+		@Override
+		public User mapRow(ResultSet rs, int rowNum) throws SQLException {
+			// TODO Auto-generated method stub
+			return new User(rs.getString("username"), rs.getString("password"), rs.getLong("userid"));
+		}
+    	
+    };
 
     @Override
     public File createFile(InputStream data) {
@@ -74,6 +84,12 @@ public class FileJdbcDao implements FileDao {
     @Override
     public List<File> getAll() {
         return jdbcTemplate.query("SELECT * FROM files NATURAL JOIN courses NATURAL JOIN users ", ROW_MAPPER);
+    }
+    
+    @Override
+    public User getUser(final int userid) {
+    	List<User> list = jdbcTemplate.query("SELECT * FROM users WHERE userid = ?", USER_ROW_MAPPER, userid);
+    	return list.get(0);
     }
 
 

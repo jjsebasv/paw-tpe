@@ -31,6 +31,9 @@ public class WebConfig extends WebMvcConfigurerAdapter {
     @Value("classpath:schema.sql")
     private Resource schemaSql;
 
+    @Value("classpath:config.properties")
+    private Resource config;
+
     @Bean
     public DataSourceInitializer dataSourceInitializer(final DataSource ds) {
         final DataSourceInitializer dsi = new DataSourceInitializer();
@@ -71,18 +74,17 @@ public class WebConfig extends WebMvcConfigurerAdapter {
         // TODO Auto-generated method stub
         registry.addResourceHandler("/css/**").addResourceLocations("/css/");
     }
-    
+
     private String getApplicationProperty(String key) {
-    	String value = "";
-    	try {
+        String value = "";
+        try {
             Properties prop = new Properties();
-            InputStream input = new FileInputStream("config.properties");
-            prop.load(input);
+            prop.load(config.getInputStream());
             value = prop.getProperty(key);
         } catch (IOException e) {
-        	System.out.println(e);
+            System.out.println(e);
         }
-    	return value;
+        return value;
     }
 
 }
