@@ -37,7 +37,6 @@
                     <div class="panel-body">
                         A file by ${username}
                         <hr>
-
                         <a href="<%=request.getContextPath()%>/download/${file.fileid}">
 	                        <button type="button" class="btn btn-primary btn-circle btn-xl">
 	                        	<i class="fa fa-download"></i>
