@@ -76,5 +76,10 @@ public class ReviewJdbcDao implements ReviewDao {
                 "INNER JOIN files ON files.fileid=reviews.fileid " +
                 "WHERE reviews.fileid = ?", ROW_MAPPER, fileid);
     }
+    //8809
+    @Override
+    public double getAverage(int fileid) {
+    	return jdbcTemplate.queryForObject("SELECT ROUND(AVG(ranking),2) FROM reviews WHERE fileid = ?", Double.class, fileid);
+    }
 
 }

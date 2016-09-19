@@ -46,6 +46,7 @@ public class FileController {
         mav.addObject("username", file.getUser().getName());
         mav.addObject("reviewForm", new ReviewForm());
         mav.addObject("reviews", rs.findByFileId((int) id));
+        mav.addObject("average", rs.getAverage(id));
 
         return mav;
     }
@@ -76,8 +77,6 @@ public class FileController {
         rs.createReview(file, user, reviewForm.getRanking(), reviewForm.getReview());
 
         return new ModelAndView("redirect:/file/" + fileid);
-    }
-
-    ;
+    };
 
 }

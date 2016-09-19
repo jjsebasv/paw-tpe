@@ -30,4 +30,10 @@ public class ReviewServiceImpl implements ReviewService {
         return reviewDao.findByFileId(fileid);
     }
 
+	@Override
+	public double getAverage(int fileid) {
+		// TODO Auto-generated method stub
+		return reviewDao.getAverage(fileid);
+	}
+
 }

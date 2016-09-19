@@ -35,7 +35,7 @@
 					
                     <!-- /.panel-heading -->
                     <div class="panel-body">
-                        A file by ${username}
+                        A file by ${username} - File points: ${average}
                         <hr>
                         <a href="<%=request.getContextPath()%>/download/${file.fileid}">
 	                        <button type="button" class="btn btn-primary btn-circle btn-xl">
@@ -58,7 +58,7 @@
                             <form:form method="POST" action="/webapp/file/${file.fileid}/addReview" modelAttribute="reviewForm">
                                 <fieldset>
                                     <div class="form-group">
-                                        <form:input path="ranking" class="form-control" placeholder="Ranking"/>
+                                        <form:input path="ranking" type='number' min='0' max='5' class="form-control" placeholder="Ranking"/>
                                     </div>
                                     <div class="form-group">
                                         <form:input path="review" class="form-control" placeholder="Review"/>
@@ -84,6 +84,7 @@
                                         <li class="list-group-item">
                                             <span class="badge">${review.ranking}</span>
                                             <p>${review.review}</p>
+                                            <p class="right">By: ${review.user.name}</p>
                                         </li>
                                     </ul>
                                 </c:forEach>

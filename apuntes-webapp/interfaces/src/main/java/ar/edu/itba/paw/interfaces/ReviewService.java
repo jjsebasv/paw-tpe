@@ -11,4 +11,6 @@ public interface ReviewService {
     Review createReview(File file, User user, double ranking, String review);
 
     List<Review> findByFileId(int fileid);
+    
+    double getAverage(int fileid);
 }

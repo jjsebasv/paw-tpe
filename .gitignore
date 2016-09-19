@@ -6,3 +6,4 @@ target/
 *.iml
 bin/
 *.DS_Store
+config.propierties
