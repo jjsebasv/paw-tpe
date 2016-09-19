@@ -36,7 +36,7 @@
 
                 <li>
 
-                    <a href="<%=request.getContextPath()%>"><i class="fa fa-book fa-fw"></i> Cursos</a>
+                    <a href="<%=request.getContextPath()%>"><i class="fa fa-book fa-fw"></i> Courses</a>
 
                 </li>
 

@@ -36,15 +36,17 @@ public class FileController {
     @RequestMapping("/file/{id:[\\d]+}")
     public ModelAndView courseView(@PathVariable("id") int id) {
         ModelAndView mav = new ModelAndView("fileView");
-        try {
-            final File file = fs.findById(id);
-            mav.addObject("file", fs.findById(id));
-            mav.addObject("username", file.getUser().getName());
-            mav.addObject("reviewForm", new ReviewForm());
-            mav.addObject("reviews", rs.findByFileId((int) id));
-        } catch (Exception e) {
-            mav = new ModelAndView("404");
-        }
+
+        final File file = fs.findById(id);
+
+        if(file==null)
+            return new ModelAndView("404");
+
+        mav.addObject("file", fs.findById(id));
+        mav.addObject("username", file.getUser().getName());
+        mav.addObject("reviewForm", new ReviewForm());
+        mav.addObject("reviews", rs.findByFileId((int) id));
+
         return mav;
     }
 

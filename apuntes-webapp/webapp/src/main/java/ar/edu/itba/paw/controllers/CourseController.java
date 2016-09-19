@@ -28,12 +28,12 @@ public class CourseController {
         final ModelAndView mav = new ModelAndView("course");
 
         Course course = cs.findById((int) id);
+        if(course==null)
+            return new ModelAndView("404");
 
-        assert course != null;
 
         mav.addObject("course", course);
         mav.addObject("files", fs.findByCourseId((int) id));
-
 
         return mav;
     }

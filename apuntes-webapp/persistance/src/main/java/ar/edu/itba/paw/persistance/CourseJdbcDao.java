@@ -50,7 +50,9 @@ public class CourseJdbcDao implements CourseDao {
     @Override
     public Course findById(final int courseid) {
         List<Course> list = jdbcTemplate.query("SELECT * FROM courses WHERE courseid = ?", ROW_MAPPER, courseid);
-
+        if(list.isEmpty()){
+            return null;
+        }
         return list.get(0);
     }
 

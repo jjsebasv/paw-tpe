@@ -61,6 +61,9 @@ public class FileJdbcDao implements FileDao {
     @Override
     public File findById(final int fileid) {
         List<File> list = jdbcTemplate.query("SELECT * FROM files NATURAL JOIN courses NATURAL JOIN users WHERE fileid= ?", ROW_MAPPER, fileid);
+        if(list.isEmpty()){
+            return null;
+        }
         return list.get(0);
     }
 

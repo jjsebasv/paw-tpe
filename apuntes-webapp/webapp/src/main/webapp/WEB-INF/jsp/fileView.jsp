@@ -46,40 +46,59 @@
                     </div>
                     <!-- /.panel-body -->
                 </div>
-                <div class="review-pannel panel panel-default">
-					
-                    <div class="panel-body">                   
-                    	<h3>Reviews</h3>
-                        <hr>
-                        <c:forEach items="${reviews}" var="review">
-                        	<ul class="list-group">
-							  <li class="list-group-item">
-							    <span class="badge">${review.ranking}</span>
-							    <p>${review.review}</p>
-							  </li>
-							</ul>     
-						</c:forEach>              
-                        <hr>
-                    	<form:form method="POST" action="/webapp/file/${file.fileid}/addReview" modelAttribute="reviewForm">
-				            <table>
-				               <tr>
-				                   <td><form:label path="ranking">Ranking</form:label></td>
-				                   <td><form:input path="ranking"/></td>
-				               </tr>
-				               <tr>
-				                   <td><form:label path="review">Review</form:label></td>
-				                   <td><form:input path="review"/></td>
-				               </tr>
-				               <tr>
-				                   <td><input class="btn btn-success" type="submit" value="Submit"/></td>
-				               </tr>
-				           </table>
-				       </form:form>
-                    
+                <div class="row">
+
+                    <div class="col-lg-5">
+
+
+                        <div class="panel-body">
+                            <h3>Add a file review!</h3>
+                            <hr>
+                            <div class="col-lg-offset-2 col-lg-8">
+                            <form:form method="POST" action="/webapp/file/${file.fileid}/addReview" modelAttribute="reviewForm">
+                                <fieldset>
+                                    <div class="form-group">
+                                        <form:input path="ranking" class="form-control" placeholder="Ranking"/>
+                                    </div>
+                                    <div class="form-group">
+                                        <form:input path="review" class="form-control" placeholder="Review"/>
+                                    </div>
+                                    <input class="btn btn-lg btn-primary btn-block" type="submit" value="Submit"/>
+                                    <!-- Change this to a button or input when using this as a form -->
+
+                                </fieldset>
+                            </form:form>
+                            </div>
+                        </div>
+
                     </div>
-                    <!-- /.panel-body -->
+
+                    <div class="col-lg-7">
+                        <div class="review-pannel panel panel-default">
+
+                            <div class="panel-body">
+                                <h3>Reviews Feed</h3>
+                                <hr>
+                                <c:forEach items="${reviews}" var="review">
+                                    <ul class="list-group">
+                                        <li class="list-group-item">
+                                            <span class="badge">${review.ranking}</span>
+                                            <p>${review.review}</p>
+                                        </li>
+                                    </ul>
+                                </c:forEach>
+                                <hr>
+
+
+                            </div>
+                            <!-- /.panel-body -->
+                        </div>
+                    </div>
+
                 </div>
-                <a class="btn btn-info" href="<%=request.getContextPath()%>/courses/${file.course.courseid}"> < Go Back</a>
+
+
+
                 <!-- /.panel -->
             </div>
             <!-- /.col-lg-4 -->
