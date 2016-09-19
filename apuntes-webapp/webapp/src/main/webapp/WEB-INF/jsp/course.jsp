@@ -36,7 +36,7 @@
                                 <li>
                                     <a href="<%=request.getContextPath()%>/file/${file.fileid}"
                                        class="list-group-item">
-                                        <i class="fa fa-download fa-fw"></i> ${file.subject}
+                                        <i class="fa fa-download fa-fw"></i> ${file.fileName}
                                     </a>
                                 </li>
                             </c:forEach>

@@ -20,5 +20,14 @@ CREATE TABLE IF NOT EXISTS files (
   courseid      INTEGER REFERENCES courses (courseid),
   subject       VARCHAR(100),
   fileName      CHAR(300),
+  filesize      INTEGER,
   uploaded_file BYTEA
+);
+
+CREATE TABLE IF NOT EXISTS reviews (
+  reviewid SERIAL PRIMARY KEY,
+  fileid   INTEGER REFERENCES files (fileid),
+  userid   INTEGER REFERENCES users (userid),
+  ranking  INTEGER,
+  review   VARCHAR(500)
 );

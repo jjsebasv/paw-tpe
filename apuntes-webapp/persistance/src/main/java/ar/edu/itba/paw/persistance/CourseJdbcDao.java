@@ -2,7 +2,6 @@ package ar.edu.itba.paw.persistance;
 
 import ar.edu.itba.paw.interfaces.CourseDao;
 import ar.edu.itba.paw.models.Course;
-import ar.edu.itba.paw.models.User;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.jdbc.core.JdbcTemplate;
 import org.springframework.jdbc.core.RowMapper;
@@ -13,7 +12,6 @@ import javax.sql.DataSource;
 import java.sql.ResultSet;
 import java.sql.SQLException;
 import java.util.List;
-
 
 @Repository
 public class CourseJdbcDao implements CourseDao {

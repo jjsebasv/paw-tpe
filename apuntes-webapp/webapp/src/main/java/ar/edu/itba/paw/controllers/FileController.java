@@ -1,34 +1,35 @@
 package ar.edu.itba.paw.controllers;
 
-import ar.edu.itba.paw.interfaces.UserDao;
+import ar.edu.itba.paw.interfaces.FileService;
+import ar.edu.itba.paw.interfaces.ReviewService;
+import ar.edu.itba.paw.models.File;
+import ar.edu.itba.paw.models.User;
+import forms.ReviewForm;
 import org.springframework.beans.factory.annotation.Autowired;
-import org.springframework.core.io.InputStreamResource;
-import org.springframework.http.HttpHeaders;
-import org.springframework.http.HttpStatus;
-import org.springframework.http.MediaType;
-import org.springframework.http.ResponseEntity;
 import org.springframework.stereotype.Controller;
+import org.springframework.ui.Model;
 import org.springframework.util.FileCopyUtils;
+import org.springframework.validation.BindingResult;
+import org.springframework.web.bind.annotation.ModelAttribute;
 import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.RequestMapping;
+import org.springframework.web.bind.annotation.RequestMethod;
 import org.springframework.web.servlet.ModelAndView;
 
-import ar.edu.itba.paw.interfaces.FileDao;
-import ar.edu.itba.paw.models.File;
-
-import javax.crypto.Mac;
 import javax.servlet.http.HttpServletResponse;
 import java.io.IOException;
 
 @Controller
 public class FileController {
 
-    private final FileDao fd;
+    private final FileService fs;
+    private final ReviewService rs;
 
 
     @Autowired
-    public FileController(FileDao fd) {
-        this.fd = fd;
+    public FileController(ReviewService rs, FileService fs) {
+        this.fs = fs;
+        this.rs = rs;
     }
 
 
@@ -36,10 +37,14 @@ public class FileController {
     public ModelAndView courseView(@PathVariable("id") int id) {
         ModelAndView mav = new ModelAndView("fileView");
         try {
-        	mav.addObject("file", fd.findById(id));
-		} catch (Exception e) {
-			mav = new ModelAndView("404");
-		}     
+            final File file = fs.findById(id);
+            mav.addObject("file", fs.findById(id));
+            mav.addObject("username", file.getUser().getName());
+            mav.addObject("reviewForm", new ReviewForm());
+            mav.addObject("reviews", rs.findByFileId((int) id));
+        } catch (Exception e) {
+            mav = new ModelAndView("404");
+        }
         return mav;
     }
 
@@ -47,7 +52,7 @@ public class FileController {
     //FIXME Preguntar por la exception
     public void downloadFile(HttpServletResponse response, @PathVariable("id") int id) throws IOException {
 
-        final File file = fd.findById(id);
+        final File file = fs.findById(id);
 
         //TODO Guardar mimetype para permitirle al navegador decidir
         response.setContentType("application/octet-stream");
@@ -55,9 +60,23 @@ public class FileController {
         //TODO Validar el nombre para prevenir header injection
         //FIXME Ver la necesidad del uso de trim()
         response.setHeader("Content-Disposition", String.format("attachment; filename=\"%s\";", file.getFileName().trim()));
+        response.setContentLength(file.getFileSize());
 
         FileCopyUtils.copy(file.getData(), response.getOutputStream());
 
     }
+
+    @RequestMapping(value = "/file/{id:[\\d]+}/addReview", method = RequestMethod.POST)
+    public ModelAndView submit(@ModelAttribute("reviewForm") ReviewForm reviewForm, BindingResult result, Model model, @PathVariable("id") int fileid) {
+
+        final File file = fs.findById(fileid);
+        final User user = new User(1, "usuario cableado", "1234"); //FIXME Para cuando haya manejo de sesion
+
+        rs.createReview(file, user, reviewForm.getRanking(), reviewForm.getReview());
+
+        return new ModelAndView("redirect:/file/" + fileid);
+    }
+
+    ;
 
 }

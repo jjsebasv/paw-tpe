@@ -1,11 +1,10 @@
 package ar.edu.itba.paw.services;
 
-import org.springframework.beans.factory.annotation.Autowired;
-import org.springframework.stereotype.Service;
-
 import ar.edu.itba.paw.interfaces.UserDao;
 import ar.edu.itba.paw.interfaces.UserService;
 import ar.edu.itba.paw.models.User;
+import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.stereotype.Service;
 
 @Service
 public class UserServiceImpl implements UserService {
@@ -17,12 +16,12 @@ public class UserServiceImpl implements UserService {
         this.userDao = userDao;
     }
 
-    public User findById(long id) {
+    public User findById(int id) {
         return userDao.findById(id);
     }
 
-    public long create(String username, String password) {
-        return userDao.create(username, password).getId();
+    public int create(String username, String password) {
+        return userDao.create(username, password).getUserid();
     }
 
 
