@@ -22,7 +22,7 @@
             <nav class="breadcrumb">
                 <a class="breadcrumb-item" href="<%=request.getContextPath()%>"><i class="fa fa-home"></i> / </a>
                 <a class="breadcrumb-item" href="<%=request.getContextPath()%>/courses/${file.course.courseid}">${file.course.name} / </a>
-                <span class="breadcrumb-item active">${file.subject}</span>
+                <span class="breadcrumb-item active">${file.fileName}</span>
             </nav>
         </div>
 
