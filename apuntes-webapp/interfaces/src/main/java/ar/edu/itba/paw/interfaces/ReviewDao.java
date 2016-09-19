@@ -10,4 +10,6 @@ public interface ReviewDao {
 
 	List<Review> findByFileId(int fileid);
 
+	String getUsername(int userid);
+
 }

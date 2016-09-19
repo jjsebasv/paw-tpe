@@ -31,4 +31,10 @@ public class ReviewServiceImpl implements ReviewService {
 		return reviewDao.findByFileId(fileid);
 	}
 
+	@Override
+	public String getUsername(int userid) {
+		// TODO Auto-generated method stub
+		return reviewDao.getUsername(userid);
+	}
+
 }

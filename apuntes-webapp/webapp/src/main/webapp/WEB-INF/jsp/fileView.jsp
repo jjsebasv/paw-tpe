@@ -54,9 +54,12 @@
                     	<h3>Reviews</h3>
                         <hr>
                         <c:forEach items="${reviews}" var="review">
-							<div class="review">
-                        		 ${review.review}
-                        	</div>          
+                        	<ul class="list-group">
+							  <li class="list-group-item">
+							    <span class="badge">${review.ranking}</span>
+							    <p>${review.review}</p>
+							  </li>
+							</ul>     
 						</c:forEach>              
                         <hr>
                     	<form:form method="POST" action="/webapp/file/${file.fileid}/addReview" modelAttribute="reviewForm">

@@ -42,10 +42,19 @@ public class ReviewJdbcDao implements ReviewDao {
 
     };
     
+    private final static RowMapper<User> USER_ROW_MAPPER = new RowMapper<User>() {
+
+        @Override
+        public User mapRow(ResultSet rs, int rowNum) throws SQLException {
+            // TODO Auto-generated method stub
+            return new User(rs.getString("username"), rs.getString("password"), rs.getInt("userid"));
+        }
+
+    };
+    
 	@Override
 	public Review createReview(int fileid, int userid, double ranking, String review) {
 		// TODO Auto-generated method stub
-		System.out.println("estamo aca");
         final Map<String, Object> args = new HashMap<>();
         args.put("fileid", fileid);
         args.put("userid", userid);
@@ -61,6 +70,11 @@ public class ReviewJdbcDao implements ReviewDao {
 		// TODO Auto-generated method stub
 		List<Review> list = jdbcTemplate.query("SELECT * FROM reviews WHERE fileid = ?", ROW_MAPPER, fileid);
 		return list;
+	}
+	
+	@Override
+	public String getUsername(final int userid) {
+		return jdbcTemplate.query("SELECT * FROM users WHERE userid = ?", USER_ROW_MAPPER, userid).get(0).getUsername();
 	}
 
 }

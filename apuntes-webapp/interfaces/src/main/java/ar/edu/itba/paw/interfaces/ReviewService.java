@@ -10,4 +10,6 @@ public interface ReviewService {
 
 	public List<Review> findByFileId(int fileid);
 	
+	public String getUsername(final int userid);
+	
 }
