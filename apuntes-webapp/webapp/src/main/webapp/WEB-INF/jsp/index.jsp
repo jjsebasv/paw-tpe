@@ -8,7 +8,7 @@
         <div id="page-wrapper">
             <div class="row">
                 <div class="col-lg-12">
-                    <h1 class="page-header">Courses</h1>
+                    <h1 class="page-header">Programs</h1>
                 </div>
                 <!-- /.col-lg-12 -->
             </div>
@@ -25,11 +25,11 @@
                             <ul class="list-group">
 
 
-                                    <c:forEach items="${courses}" var="course">
+                                    <c:forEach items="${programs}" var="program">
                                         <li>
-                                            <a href="<%=request.getContextPath()%>/courses/${course.courseid}"
+                                            <a href="<%=request.getContextPath()%>/program/${program.programid}"
                                                class="list-group-item">
-                                                <!--<i class="fa fa-download fa-fw"></i>-->${course.name}
+                                                <!--<i class="fa fa-download fa-fw"></i>-->${program.name}
                                             </a>
                                         </li>
                                     </c:forEach>

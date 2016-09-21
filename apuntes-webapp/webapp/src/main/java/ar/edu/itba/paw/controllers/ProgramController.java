@@ -1,8 +1,9 @@
 package ar.edu.itba.paw.controllers;
 
 import ar.edu.itba.paw.interfaces.CourseService;
-import ar.edu.itba.paw.interfaces.FileService;
+import ar.edu.itba.paw.interfaces.ProgramService;
 import ar.edu.itba.paw.models.Course;
+import ar.edu.itba.paw.models.Program;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
 import org.springframework.web.bind.annotation.PathVariable;
@@ -10,33 +11,35 @@ import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.servlet.ModelAndView;
 
 @Controller
-public class CourseController {
+public class ProgramController {
 
+    private final ProgramService ps;
 
     private final CourseService cs;
-    private final FileService fs;
-
 
     @Autowired
-    public CourseController(CourseService cs, FileService fs) {
+    public ProgramController(ProgramService ps, CourseService cs) {
+        this.ps = ps;
         this.cs = cs;
-        this.fs = fs;
     }
 
-    @RequestMapping(value = "/course/{code:[\\d]{2}\\.[\\d]{2}}")
-    public ModelAndView courseView(@PathVariable("code") String code) {
-        final ModelAndView mav = new ModelAndView("course");
 
-        Course course = cs.findByCode(code);
-        if (course == null) {
+    @RequestMapping("/program/{id:[\\d]+}")
+    public ModelAndView programView(@PathVariable("id") int programid) {
+
+        final ModelAndView mav = new ModelAndView("program");
+
+        Program program = ps.findById(programid);
+        if (program == null) {
             //FIXME Add 404 http resp code
             return new ModelAndView("404");
         }
 
-        mav.addObject("course", course);
-        mav.addObject("files", fs.findByCourseId(course.getCourseid()));
+        mav.addObject("program", program);
+        mav.addObject("courses", cs.findByProgram(programid));
 
         return mav;
+
     }
 
 }

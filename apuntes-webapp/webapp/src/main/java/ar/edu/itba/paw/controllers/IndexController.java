@@ -1,6 +1,7 @@
 package ar.edu.itba.paw.controllers;
 
 import ar.edu.itba.paw.interfaces.CourseService;
+import ar.edu.itba.paw.interfaces.ProgramService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
 import org.springframework.web.bind.annotation.RequestMapping;
@@ -14,18 +15,18 @@ public class IndexController {
 
     //private final UserService us;
 
-    private final CourseService cs;
+    private final ProgramService ps;
 
     @Autowired
-    public IndexController(/*UserService us,*/ CourseService cs) {
+    public IndexController(/*UserService us,*/ ProgramService ps) {
         //this.us = us;
-        this.cs = cs;
+        this.ps = ps;
     }
 
     @RequestMapping("/")
     public ModelAndView index() {
         final ModelAndView mav = new ModelAndView("index");
-        mav.addObject("courses", cs.getAll());
+        mav.addObject("programs", ps.getAll());
         return mav;
     }
 //
