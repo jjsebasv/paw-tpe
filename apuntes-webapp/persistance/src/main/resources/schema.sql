@@ -11,6 +11,7 @@ CREATE TABLE IF NOT EXISTS programs (
 
 CREATE TABLE IF NOT EXISTS courses (
   courseid SERIAL PRIMARY KEY,
+  code     CHAR(5) UNIQUE,
   name     VARCHAR(200)
 );
 

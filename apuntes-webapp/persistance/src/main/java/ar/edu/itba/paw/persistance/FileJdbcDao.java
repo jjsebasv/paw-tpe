@@ -36,7 +36,7 @@ public class FileJdbcDao implements FileDao {
         public File mapRow(ResultSet rs, int rowNum) throws SQLException {
             return new File(rs.getInt("fileid"),
                     new User(rs.getInt("userid"), rs.getString("username"), rs.getString("password")),
-                    new Course(rs.getInt("courseid"), rs.getString("name")),
+                    new Course(rs.getInt("courseid"), rs.getString("code"), rs.getString("name")),
                     rs.getString("subject"),
                     rs.getString("filename"),//FIXME Viene char(300)?
                     rs.getInt("filesize"),
@@ -61,7 +61,7 @@ public class FileJdbcDao implements FileDao {
     @Override
     public File findById(final int fileid) {
         List<File> list = jdbcTemplate.query("SELECT * FROM files NATURAL JOIN courses NATURAL JOIN users WHERE fileid= ?", ROW_MAPPER, fileid);
-        if(list.isEmpty()){
+        if (list.isEmpty()) {
             return null;
         }
         return list.get(0);

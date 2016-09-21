@@ -12,4 +12,8 @@ public interface CourseService {
 
     Course findById(int courseid);
 
+    Course findByCode(String code);
+
+    List<Course> findByProgram(int programid);
+
 }
