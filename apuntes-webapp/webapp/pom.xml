@@ -63,7 +63,7 @@
 	</dependency>
 	<dependency>
 		<groupId>ar.edu.itba.paw</groupId>
-		<artifactId>persistance</artifactId>
+		<artifactId>persistence</artifactId>
 		<version>${parent.version}</version>
 		<scope>runtime</scope>
 	</dependency>

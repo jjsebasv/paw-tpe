@@ -4,7 +4,7 @@ import org.junit.Before;
 import org.junit.Test;
 
 import ar.edu.itba.paw.models.User;
-import ar.edu.itba.paw.persistance.UserJdbcDao;
+import ar.edu.itba.paw.persistence.UserJdbcDao;
 import junit.framework.Assert;
 
 public class UserJdbcDaoTest {
