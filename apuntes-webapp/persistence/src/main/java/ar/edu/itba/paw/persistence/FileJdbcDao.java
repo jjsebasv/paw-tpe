@@ -38,7 +38,7 @@ public class FileJdbcDao implements FileDao {
                     new User(rs.getInt("userid"), rs.getString("username"), rs.getString("password")),
                     new Course(rs.getInt("courseid"), rs.getString("code"), rs.getString("name")),
                     rs.getString("subject"),
-                    rs.getString("filename"),//FIXME Viene char(300)?
+                    rs.getString("filename"),
                     rs.getInt("filesize"),
                     rs.getBinaryStream("uploaded_file")
             );

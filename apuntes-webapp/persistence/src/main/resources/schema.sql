@@ -11,7 +11,7 @@ CREATE TABLE IF NOT EXISTS programs (
 
 CREATE TABLE IF NOT EXISTS courses (
   courseid SERIAL PRIMARY KEY,
-  code     CHAR(5) UNIQUE NOT NULL ,
+  code     CHAR(5) UNIQUE NOT NULL,
   name     VARCHAR(200)
 );
 
@@ -24,8 +24,8 @@ CREATE TABLE IF NOT EXISTS coursesToPrograms (
 
 CREATE TABLE IF NOT EXISTS files (
   fileid        SERIAL PRIMARY KEY,
-  userid        INTEGER REFERENCES users (userid) NOT NULL ,
-  courseid      INTEGER REFERENCES courses (courseid) NOT NULL ,
+  userid        INTEGER REFERENCES users (userid)     NOT NULL,
+  courseid      INTEGER REFERENCES courses (courseid) NOT NULL,
   subject       VARCHAR(100),
   fileName      VARCHAR(300),
   filesize      INTEGER,
@@ -35,9 +35,9 @@ CREATE TABLE IF NOT EXISTS files (
 
 CREATE TABLE IF NOT EXISTS reviews (
   reviewid SERIAL PRIMARY KEY,
-  fileid   INTEGER REFERENCES files (fileid) NOT NULL ,
-  userid   INTEGER REFERENCES users (userid) NOT NULL ,
-  ranking  INTEGER NOT NULL,
+  fileid   INTEGER REFERENCES files (fileid) NOT NULL,
+  userid   INTEGER REFERENCES users (userid) NOT NULL,
+  ranking  INTEGER                           NOT NULL,
   review   VARCHAR(500),
 
   CONSTRAINT reviews_onePerUser UNIQUE (fileid, userid)

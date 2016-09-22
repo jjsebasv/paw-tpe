@@ -27,7 +27,6 @@ public class ReviewServiceImpl implements ReviewService {
 
     @Override
     public List<Review> findByFileId(int fileid) {
-        // TODO Auto-generated method stub
         return reviewDao.findByFileId(fileid);
     }
 

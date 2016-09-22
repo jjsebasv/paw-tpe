@@ -57,7 +57,6 @@ public class ReviewJdbcDao implements ReviewDao {
 
     @Override
     public Review createReview(final File file, final User user, final double ranking, final String review) {
-        // TODO Auto-generated method stub
         final Map<String, Object> args = new HashMap<>();
         args.put("fileid", file.getFileid());
         args.put("userid", user.getUserid());
