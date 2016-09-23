@@ -89,7 +89,7 @@ public class CourseJdbcDao implements CourseDao {
 
     @Override
     public List<Course> findByProgram(int programid) {
-
+    	
         final String query = "SELECT * FROM " + COURSE_TABLE_NAME +
                 " INNER JOIN coursesToPrograms ON courses.courseid = coursesToPrograms.courseid" +
                 " INNER JOIN programs ON coursesToPrograms.programid = programs.programid" +

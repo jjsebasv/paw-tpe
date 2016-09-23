@@ -25,7 +25,7 @@ import java.util.Properties;
 @Configuration
 public class WebConfig extends WebMvcConfigurerAdapter {
 
-    @Value("classpath:schema.sql")
+	@Value("classpath:schema.sql")
     private Resource schemaSql;
 
     @Value("classpath:config.properties")
