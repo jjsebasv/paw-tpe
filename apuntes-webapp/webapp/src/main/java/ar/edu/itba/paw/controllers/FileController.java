@@ -60,8 +60,7 @@ public class FileController {
         response.setContentType("application/octet-stream");
 
         //TODO Validar el nombre para prevenir header injection
-        //FIXME Ver la necesidad del uso de trim()
-        response.setHeader("Content-Disposition", String.format("attachment; filename=\"%s\";", file.getFileName().trim()));
+        response.setHeader("Content-Disposition", String.format("attachment; filename=\"%s\";", file.getFileName()));
         response.setContentLength(file.getFileSize());
 
         FileCopyUtils.copy(file.getData(), response.getOutputStream());

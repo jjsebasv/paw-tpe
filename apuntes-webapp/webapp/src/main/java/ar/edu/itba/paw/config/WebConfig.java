@@ -1,12 +1,5 @@
 package ar.edu.itba.paw.config;
 
-import java.io.FileInputStream;
-import java.io.IOException;
-import java.io.InputStream;
-import java.util.Properties;
-
-import javax.sql.DataSource;
-
 import org.springframework.beans.factory.annotation.Value;
 import org.springframework.context.annotation.Bean;
 import org.springframework.context.annotation.ComponentScan;
@@ -23,12 +16,16 @@ import org.springframework.web.servlet.config.annotation.WebMvcConfigurerAdapter
 import org.springframework.web.servlet.view.InternalResourceViewResolver;
 import org.springframework.web.servlet.view.JstlView;
 
+import javax.sql.DataSource;
+import java.io.IOException;
+import java.util.Properties;
+
 @EnableWebMvc
-@ComponentScan({"ar.edu.itba.paw.controllers", "ar.edu.itba.paw.services", "ar.edu.itba.paw.persistance"})
+@ComponentScan({"ar.edu.itba.paw.controllers", "ar.edu.itba.paw.services", "ar.edu.itba.paw.persistence"})
 @Configuration
 public class WebConfig extends WebMvcConfigurerAdapter {
 
-    @Value("classpath:schema.sql")
+	@Value("classpath:schema.sql")
     private Resource schemaSql;
 
     @Value("classpath:config.properties")
@@ -74,7 +71,6 @@ public class WebConfig extends WebMvcConfigurerAdapter {
 
     @Override
     public void addResourceHandlers(final ResourceHandlerRegistry registry) {
-        // TODO Auto-generated method stub
         registry.addResourceHandler("/css/**").addResourceLocations("/css/");
     }
 

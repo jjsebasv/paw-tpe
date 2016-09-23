@@ -11,7 +11,7 @@
         <module>webapp</module>
         <module>services</module>
         <module>models</module>
-        <module>persistance</module>
+        <module>persistence</module>
         <module>interfaces</module>
     </modules>
 
@@ -23,6 +23,8 @@
         <spring-jdbc.version>4.3.2.RELEASE</spring-jdbc.version>
         <spring-context.version>4.3.2.RELEASE</spring-context.version>
         <junit.version>4.12</junit.version>
+        <org.postgresql.version>9.3-1102-jdbc41</org.postgresql.version>
+        <org.hsqldb.version>2.3.1</org.hsqldb.version>
     </properties>
     <build>
 
@@ -78,6 +80,12 @@
             </dependency>
 
             <dependency>
+                <groupId>org.postgresql</groupId>
+                <artifactId>postgresql</artifactId>
+                <version>${org.postgresql.version}</version>
+            </dependency>
+
+            <dependency>
                 <groupId>org.srpingframework</groupId>
                 <artifactId>spring-context</artifactId>
                 <version>${spring-context.version}</version>
@@ -87,6 +95,20 @@
                 <groupId>junit</groupId>
                 <artifactId>junit</artifactId>
                 <version>${junit.version}</version>
+            </dependency>
+
+            <dependency>
+                <groupId>org.springframework</groupId>
+                <artifactId>spring-test</artifactId>
+                <version>${org.springframework.version}</version>
+                <scope>test</scope>
+            </dependency>
+
+            <dependency>
+                <groupId>org.hsqldb</groupId>
+                <artifactId>hsqldb</artifactId>
+                <version>${org.hsqldb.version}</version>
+                <scope>test</scope>
             </dependency>
 
         </dependencies>

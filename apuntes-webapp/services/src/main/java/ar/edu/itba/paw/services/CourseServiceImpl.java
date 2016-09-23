@@ -32,4 +32,14 @@ public class CourseServiceImpl implements CourseService {
     public Course findById(int courseid) {
         return courseDao.findById(courseid);
     }
+
+    @Override
+    public Course findByCode(final String code) {
+        return courseDao.findByCode(code);
+    }
+
+    @Override
+    public List<Course> findByProgram(final int programid) {
+        return courseDao.findByProgram(programid);
+    }
 }
