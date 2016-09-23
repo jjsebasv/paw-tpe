@@ -7,7 +7,7 @@
 
 <div id="wrapper">
 
-    <%@ include file="headerBody.jsp" %>
+    <%@ include file="navbar.jsp" %>
 
     <div id="page-wrapper">
         <div class="row">

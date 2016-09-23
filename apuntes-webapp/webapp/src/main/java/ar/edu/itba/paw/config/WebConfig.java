@@ -25,11 +25,19 @@ import java.util.Properties;
 @Configuration
 public class WebConfig extends WebMvcConfigurerAdapter {
 
+    private static final String RESOURCES = "/resources/";
+    private static final String RESOURCES_PATH = "/resources/**";
+
 	@Value("classpath:schema.sql")
     private Resource schemaSql;
 
     @Value("classpath:config.properties")
     private Resource config;
+
+    @Override
+    public void addResourceHandlers(ResourceHandlerRegistry registry) {
+        registry.addResourceHandler(RESOURCES_PATH).addResourceLocations(RESOURCES);
+    }
 
     @Bean
     public DataSourceInitializer dataSourceInitializer(final DataSource ds) {
@@ -67,11 +75,6 @@ public class WebConfig extends WebMvcConfigurerAdapter {
         ds.setUsername("root");
         ds.setPassword("root");*/
         return ds;
-    }
-
-    @Override
-    public void addResourceHandlers(final ResourceHandlerRegistry registry) {
-        registry.addResourceHandler("/css/**").addResourceLocations("/css/");
     }
 
     private String getApplicationProperty(String key) {

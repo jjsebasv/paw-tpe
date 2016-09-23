@@ -1,59 +1,26 @@
 <%@ include file="header.jsp" %>
 
 <body>
-    <div id="wrapper">
-
-        <%@ include file="headerBody.jsp" %>
-
-        <div id="page-wrapper">
-            <div class="row">
-                <div class="col-lg-12">
-                    <h1 class="page-header">Programs</h1>
-                </div>
-                <!-- /.col-lg-12 -->
-            </div>
-            <!-- /.row -->
-
-            <!-- /.row -->
-            <div class="row">
-
-                <div class="col-lg-12">
-                    <div class="panel panel-default">
-
-                        <!-- /.panel-heading -->
-                        <div class="panel-body">
-                            <ul class="list-group">
-
-
-                                    <c:forEach items="${programs}" var="program">
-                                        <li>
-                                            <a href="<%=request.getContextPath()%>/program/${program.programid}"
-                                               class="list-group-item">
-                                                <!--<i class="fa fa-download fa-fw"></i>-->${program.name}
-                                            </a>
-                                        </li>
-                                    </c:forEach>
-
-                            </ul>
-                            <!-- /.list-group -->
-
-                        </div>
-                        <!-- /.panel-body -->
-                    </div>
-                    <!-- /.panel -->
-
-
-                </div>
-                <!-- /.col-lg-4 -->
-            </div>
-            <!-- /.row -->
-        </div>
-        <!-- /#page-wrapper -->
-
-
+  <%@ include file="navbar.jsp" %>
+  <section class="main-section">
+    <div class='overlay'></div>
+    <h1>Lorem ipsum</h1>
+    <div class="separator"></div>
+    <h2>Lorem ipsum dolor sit amet, consectetur adipiscing elit</h2>
+  </section>
+  <section class="section-program">
+    <h3>Carreras de grado</h3>
+    <div class="separator"></div>
+    <h4>Lorem ipsum dolor sit amet</h4>
+    <div class="programs-wrapper">
+      <c:forEach items="${programs}" var="program">
+          <div class="program-item">
+              <a href="<%=request.getContextPath()%>/program/${program.programid}">
+                 #${program.name}
+              </a>
+          </div>
+      </c:forEach>
     </div>
-
-
+  </section>
+  <%@ include file="footer.jsp" %>
 </body>
-
-<%@ include file="footer.jsp" %>
