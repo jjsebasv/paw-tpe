@@ -61,7 +61,7 @@
                                         <form:input path="ranking" type='number' min='0' max='5' class="form-control" placeholder="Ranking"/>
                                     </div>
                                     <div class="form-group">
-                                        <form:input path="review" class="form-control" placeholder="Review"/>
+                                        <form:input path="review" htmlEscape="true" class="form-control" placeholder="Review"/>
                                     </div>
                                     <input class="btn btn-lg btn-primary btn-block" type="submit" value="Submit"/>
                                     <!-- Change this to a button or input when using this as a form -->
