@@ -1,8 +1,8 @@
 package ar.edu.itba.paw.services;
 
-import ar.edu.itba.paw.interfaces.FileDao;
-import ar.edu.itba.paw.interfaces.FileService;
-import ar.edu.itba.paw.models.File;
+import ar.edu.itba.paw.interfaces.DocumentDao;
+import ar.edu.itba.paw.interfaces.DocumentService;
+import ar.edu.itba.paw.models.Document;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
@@ -10,34 +10,34 @@ import java.io.InputStream;
 import java.util.List;
 
 @Service
-public class FileServiceImpl implements FileService {
+public class DocumentServiceImpl implements DocumentService {
 
-    private final FileDao fileDao;
+    private final DocumentDao fileDao;
 
     @Autowired
-    public FileServiceImpl(FileDao fileDao) {
+    public DocumentServiceImpl(DocumentDao fileDao) {
         this.fileDao = fileDao;
     }
 
 
     @Override
-    public File createFile(InputStream data) {
+    public Document createFile(InputStream data) {
         //TODO Validar el nombre para prevenir header injection
         return null;
     }
 
     @Override
-    public File findById(final int fileid) {
+    public Document findById(final int fileid) {
         return fileDao.findById(fileid);
     }
 
     @Override
-    public List<File> findByCourseId(final int courseid) {
+    public List<Document> findByCourseId(final int courseid) {
         return fileDao.findByCourseId(courseid);
     }
 
     @Override
-    public List<File> getAll() {
+    public List<Document> getAll() {
         return fileDao.getAll();
     }
 

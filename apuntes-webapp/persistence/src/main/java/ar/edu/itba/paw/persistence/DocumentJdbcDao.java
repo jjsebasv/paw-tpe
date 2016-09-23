@@ -1,9 +1,9 @@
 package ar.edu.itba.paw.persistence;
 
-import ar.edu.itba.paw.interfaces.FileDao;
+import ar.edu.itba.paw.interfaces.DocumentDao;
 import ar.edu.itba.paw.models.Course;
-import ar.edu.itba.paw.models.File;
-import ar.edu.itba.paw.models.User;
+import ar.edu.itba.paw.models.Document;
+import ar.edu.itba.paw.models.Client;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.jdbc.core.JdbcTemplate;
 import org.springframework.jdbc.core.RowMapper;
@@ -17,25 +17,25 @@ import java.sql.SQLException;
 import java.util.List;
 
 @Repository
-public class FileJdbcDao implements FileDao {
+public class DocumentJdbcDao implements DocumentDao {
 
     private final JdbcTemplate jdbcTemplate;
     private final SimpleJdbcInsert jdbcInsert;
 
     @Autowired
-    public FileJdbcDao(final DataSource ds) {
+    public DocumentJdbcDao(final DataSource ds) {
         jdbcTemplate = new JdbcTemplate(ds);
         jdbcInsert = new SimpleJdbcInsert(jdbcTemplate)
                 .withTableName("files")
                 .usingGeneratedKeyColumns("fileid");
     }
 
-    private final static RowMapper<File> ROW_MAPPER = new RowMapper<File>() {
+    private final static RowMapper<Document> ROW_MAPPER = new RowMapper<Document>() {
 
         @Override
-        public File mapRow(ResultSet rs, int rowNum) throws SQLException {
-            return new File(rs.getInt("fileid"),
-                    new User(rs.getInt("userid"), rs.getString("username"), rs.getString("password")),
+        public Document mapRow(ResultSet rs, int rowNum) throws SQLException {
+            return new Document(rs.getInt("fileid"),
+                    new Client(rs.getInt("userid"), rs.getString("username"), rs.getString("password")),
                     new Course(rs.getInt("courseid"), rs.getString("code"), rs.getString("name")),
                     rs.getString("subject"),
                     rs.getString("filename"),
@@ -47,20 +47,20 @@ public class FileJdbcDao implements FileDao {
     };
 
     @Override
-    public File createFile(InputStream data) {
+    public Document createFile(InputStream data) {
         // TODO Auto-generated method stub
         return null;
     }
 
 
     @Override
-    public List<File> findByCourseId(final int courseid) {
+    public List<Document> findByCourseId(final int courseid) {
         return jdbcTemplate.query("SELECT * FROM files NATURAL JOIN courses NATURAL JOIN users WHERE courseid= ?", ROW_MAPPER, courseid);
     }
 
     @Override
-    public File findById(final int fileid) {
-        List<File> list = jdbcTemplate.query("SELECT * FROM files NATURAL JOIN courses NATURAL JOIN users WHERE fileid= ?", ROW_MAPPER, fileid);
+    public Document findById(final int fileid) {
+        List<Document> list = jdbcTemplate.query("SELECT * FROM files NATURAL JOIN courses NATURAL JOIN users WHERE fileid= ?", ROW_MAPPER, fileid);
         if (list.isEmpty()) {
             return null;
         }
@@ -69,7 +69,7 @@ public class FileJdbcDao implements FileDao {
 
 
     @Override
-    public List<File> getAll() {
+    public List<Document> getAll() {
         return jdbcTemplate.query("SELECT * FROM files NATURAL JOIN courses NATURAL JOIN users ", ROW_MAPPER);
     }
 

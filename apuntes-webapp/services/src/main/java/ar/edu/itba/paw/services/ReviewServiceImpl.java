@@ -2,9 +2,9 @@ package ar.edu.itba.paw.services;
 
 import ar.edu.itba.paw.interfaces.ReviewDao;
 import ar.edu.itba.paw.interfaces.ReviewService;
-import ar.edu.itba.paw.models.File;
+import ar.edu.itba.paw.models.Document;
 import ar.edu.itba.paw.models.Review;
-import ar.edu.itba.paw.models.User;
+import ar.edu.itba.paw.models.Client;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
@@ -21,7 +21,7 @@ public class ReviewServiceImpl implements ReviewService {
     }
 
     @Override
-    public Review createReview(final File file, final User user, double ranking, String review) {
+    public Review createReview(final Document file, final Client user, double ranking, String review) {
         return reviewDao.createReview(file, user, ranking, review);
     }
 

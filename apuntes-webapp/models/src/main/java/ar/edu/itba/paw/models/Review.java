@@ -3,12 +3,12 @@ package ar.edu.itba.paw.models;
 public class Review {
 
     private final int reviewid;
-    private final File file;
-    private final User user;
+    private final Document file;
+    private final Client user;
     private final double ranking;
     private final String review;
 
-    public Review(final int reviewid, final File file, final User user, final double ranking, final String review) {
+    public Review(final int reviewid, final Document file, final Client user, final double ranking, final String review) {
 
         this.reviewid = reviewid;
         this.file = file;
@@ -21,11 +21,11 @@ public class Review {
         return reviewid;
     }
 
-    public File getFile() {
+    public Document getFile() {
         return file;
     }
 
-    public User getUser() {
+    public Client getUser() {
         return user;
     }
 

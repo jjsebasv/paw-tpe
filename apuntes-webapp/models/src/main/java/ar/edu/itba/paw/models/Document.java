@@ -2,16 +2,16 @@ package ar.edu.itba.paw.models;
 
 import java.io.InputStream;
 
-public class File {
+public class Document {
     private final int fileid;
-    private final User user;
+    private final Client user;
     private final Course course;
     private final String subject;
     private final String fileName;
     private final int fileSize;
     private final InputStream data;
 
-    public File(final int fileid, final User user, final Course course, final String subject, final String fileName, final int fileSize, final InputStream data) {
+    public Document(final int fileid, final Client user, final Course course, final String subject, final String fileName, final int fileSize, final InputStream data) {
         this.fileid = fileid;
         this.user = user;
         this.course = course;
@@ -25,7 +25,7 @@ public class File {
         return fileid;
     }
 
-    public User getUser() {
+    public Client getUser() {
         return user;
     }
 

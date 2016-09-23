@@ -8,7 +8,7 @@ import java.util.Map;
 
 import javax.sql.DataSource;
 
-import ar.edu.itba.paw.models.File;
+import ar.edu.itba.paw.models.Document;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.jdbc.core.JdbcTemplate;
 import org.springframework.jdbc.core.RowMapper;
@@ -17,7 +17,7 @@ import org.springframework.stereotype.Repository;
 
 import ar.edu.itba.paw.interfaces.ReviewDao;
 import ar.edu.itba.paw.models.Review;
-import ar.edu.itba.paw.models.User;
+import ar.edu.itba.paw.models.Client;
 
 @Repository
 public class ReviewJdbcDao implements ReviewDao {
@@ -38,14 +38,14 @@ public class ReviewJdbcDao implements ReviewDao {
         @Override
         public Review mapRow(ResultSet rs, int rowNum) throws SQLException {
             return new Review(rs.getInt("reviewid"),
-                    new File(rs.getInt("fileid"),
+                    new Document(rs.getInt("fileid"),
                             null,//FIXME
                             null,//FIXME
                             rs.getString("subject"),
                             rs.getString("fileName"),
                             rs.getInt("fileSize"),
                             null),//FIXME
-                    new User(rs.getInt("userid"),
+                    new Client(rs.getInt("userid"),
                             rs.getString("username"),
                             null), //FIXME
                     rs.getDouble("ranking"),
@@ -56,7 +56,7 @@ public class ReviewJdbcDao implements ReviewDao {
 
 
     @Override
-    public Review createReview(final File file, final User user, final double ranking, final String review) {
+    public Review createReview(final Document file, final Client user, final double ranking, final String review) {
         final Map<String, Object> args = new HashMap<>();
         args.put("fileid", file.getFileid());
         args.put("userid", user.getUserid());

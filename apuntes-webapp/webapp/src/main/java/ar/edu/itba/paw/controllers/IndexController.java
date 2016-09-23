@@ -8,7 +8,7 @@ import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.servlet.ModelAndView;
 
-import ar.edu.itba.paw.interfaces.UserService;
+import ar.edu.itba.paw.interfaces.ClientService;
 
 @Controller
 public class IndexController {

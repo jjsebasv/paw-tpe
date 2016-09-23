@@ -1,7 +1,7 @@
 package ar.edu.itba.paw.controllers;
 
 import ar.edu.itba.paw.interfaces.CourseService;
-import ar.edu.itba.paw.interfaces.FileService;
+import ar.edu.itba.paw.interfaces.DocumentService;
 import ar.edu.itba.paw.models.Course;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
@@ -14,11 +14,11 @@ public class CourseController {
 
 
     private final CourseService cs;
-    private final FileService fs;
+    private final DocumentService fs;
 
 
     @Autowired
-    public CourseController(CourseService cs, FileService fs) {
+    public CourseController(CourseService cs, DocumentService fs) {
         this.cs = cs;
         this.fs = fs;
     }
