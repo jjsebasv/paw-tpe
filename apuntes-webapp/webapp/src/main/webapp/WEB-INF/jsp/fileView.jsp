@@ -35,7 +35,7 @@
 					
                     <!-- /.panel-heading -->
                     <div class="panel-body">
-                        A file by ${username}
+                        A file by ${username} - File points: ${average}
                         <hr>
                         <a href="<%=request.getContextPath()%>/download/${file.fileid}">
 	                        <button type="button" class="btn btn-primary btn-circle btn-xl">
@@ -58,10 +58,10 @@
                             <form:form method="POST" action="/webapp/file/${file.fileid}/addReview" modelAttribute="reviewForm">
                                 <fieldset>
                                     <div class="form-group">
-                                        <form:input path="ranking" class="form-control" placeholder="Ranking"/>
+                                        <form:input path="ranking" type='number' value="5" min='1' max='5' step="1" class="form-control" placeholder="Ranking"/>
                                     </div>
                                     <div class="form-group">
-                                        <form:input path="review" class="form-control" placeholder="Review"/>
+                                        <form:input path="review" htmlEscape="true" class="form-control" placeholder="Review"/>
                                     </div>
                                     <input class="btn btn-lg btn-primary btn-block" type="submit" value="Submit"/>
                                     <!-- Change this to a button or input when using this as a form -->
@@ -84,6 +84,7 @@
                                         <li class="list-group-item">
                                             <span class="badge">${review.ranking}</span>
                                             <p>${review.review}</p>
+                                            <p class="right">By: ${review.user.name}</p>
                                         </li>
                                     </ul>
                                 </c:forEach>
