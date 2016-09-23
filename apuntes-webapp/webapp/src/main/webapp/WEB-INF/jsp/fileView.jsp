@@ -58,7 +58,7 @@
                             <form:form method="POST" action="/webapp/file/${file.fileid}/addReview" modelAttribute="reviewForm">
                                 <fieldset>
                                     <div class="form-group">
-                                        <form:input path="ranking" type='number' min='0' max='5' class="form-control" placeholder="Ranking"/>
+                                        <form:input path="ranking" type='number' value="5" min='1' max='5' step="1" class="form-control" placeholder="Ranking"/>
                                     </div>
                                     <div class="form-group">
                                         <form:input path="review" htmlEscape="true" class="form-control" placeholder="Review"/>

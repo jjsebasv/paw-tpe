@@ -44,7 +44,7 @@ CREATE TABLE IF NOT EXISTS reviews (
   reviewid SERIAL PRIMARY KEY,
   fileid   INTEGER REFERENCES files (fileid) NOT NULL,
   userid   INTEGER REFERENCES users (userid) NOT NULL,
-  ranking  INTEGER                           NOT NULL,
+  ranking  INTEGER                           NOT NULL CHECK (ranking >= 1 and ranking <= 5),
   review   VARCHAR(500),
 
   CONSTRAINT reviews_onePerUser UNIQUE (fileid, userid)
@@ -83,7 +83,7 @@ INSERT INTO files (userid, courseid, subject, fileName, fileSize, uploaded_file)
   (3, 2, 'JSTL.pdf', 'JSTL.pdf', 446520, null);
 
 INSERT INTO reviews (fileid, userid, ranking, review) values
-  (1, 1, 5, 'Parcial resuelto, muy bueno!'),
-  (1, 2, 1, 'Esta mal resuelto! Banda de gilada'),
+  (1, 4, 5, 'Parcial resuelto, muy bueno!'),
+  (1, 3, 1, 'Esta mal resuelto! Banda de gilada'),
   (2, 3, 2, 'Lo recomiendo');
 
