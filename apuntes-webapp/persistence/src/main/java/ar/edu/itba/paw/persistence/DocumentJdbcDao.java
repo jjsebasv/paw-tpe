@@ -21,26 +21,44 @@ public class DocumentJdbcDao implements DocumentDao {
 
     private final JdbcTemplate jdbcTemplate;
     private final SimpleJdbcInsert jdbcInsert;
+    
+    public static final String DOCUMENT_TABLE_NAME = "documents";
+    public static final String DOCUMENT_COLUMN_DOCUMENT_ID = "document_id";
+    public static final String DOCUMENT_COLUMN_CLIENT_ID = "client_id";
+    public static final String DOCUMENT_COLUMN_COURSE_ID = "course_id";
+    public static final String DOCUMENT_COLUMN_SUBJECT = "subject";
+    public static final String DOCUMENT_COLUMN_NAME = "document_name";
+    public static final String DOCUMENT_COLUMN_SIZE = "document_size";
+    public static final String DOCUMENT_COLUMN_UPLOADED_DOCUMENT = "uploaded_document";
+    public static final String CLIENT_TABLE_NAME = "clients";
+    public static final String CLIENT_COLUMN_ID = "client_id";
+    public static final String CLIENT_COLUMN_USERNAME = "username";
+    public static final String CLIENT_COLUMN_PASSWORD = "password";
+    public static final String COURSE_TABLE_NAME = "courses";
+    public static final String COURSE_COLUMN_ID = "course_id";
+    public static final String COURSE_COLUMN_CODE = "code";
+    public static final String COURSE_COLUMN_NAME = "name";
 
     @Autowired
     public DocumentJdbcDao(final DataSource ds) {
         jdbcTemplate = new JdbcTemplate(ds);
         jdbcInsert = new SimpleJdbcInsert(jdbcTemplate)
-                .withTableName("files")
-                .usingGeneratedKeyColumns("fileid");
+                .withTableName(DOCUMENT_TABLE_NAME)
+                .usingGeneratedKeyColumns(DOCUMENT_COLUMN_DOCUMENT_ID);
     }
 
     private final static RowMapper<Document> ROW_MAPPER = new RowMapper<Document>() {
 
         @Override
         public Document mapRow(ResultSet rs, int rowNum) throws SQLException {
-            return new Document(rs.getInt("fileid"),
-                    new Client(rs.getInt("userid"), rs.getString("username"), rs.getString("password")),
-                    new Course(rs.getInt("courseid"), rs.getString("code"), rs.getString("name")),
-                    rs.getString("subject"),
-                    rs.getString("filename"),
-                    rs.getInt("filesize"),
-                    rs.getBinaryStream("uploaded_file")
+        	
+            return new Document(rs.getInt(DOCUMENT_COLUMN_DOCUMENT_ID),
+                    new Client(rs.getInt(CLIENT_COLUMN_ID), rs.getString(CLIENT_COLUMN_USERNAME), rs.getString(CLIENT_COLUMN_PASSWORD)),
+                    new Course(rs.getInt(COURSE_COLUMN_ID), rs.getString(COURSE_COLUMN_CODE), rs.getString(COURSE_COLUMN_NAME)),
+                    rs.getString(DOCUMENT_COLUMN_SUBJECT),
+                    rs.getString(DOCUMENT_COLUMN_NAME),
+                    rs.getInt(DOCUMENT_COLUMN_SIZE),
+                    rs.getBinaryStream(DOCUMENT_COLUMN_UPLOADED_DOCUMENT)
             );
         }
 
@@ -55,12 +73,16 @@ public class DocumentJdbcDao implements DocumentDao {
 
     @Override
     public List<Document> findByCourseId(final int courseid) {
-        return jdbcTemplate.query("SELECT * FROM files NATURAL JOIN courses NATURAL JOIN users WHERE courseid= ?", ROW_MAPPER, courseid);
+    	String query = "SELECT * FROM " + DOCUMENT_TABLE_NAME + " NATURAL JOIN " + COURSE_TABLE_NAME +
+				" NATURAL JOIN " + CLIENT_TABLE_NAME + " WHERE " + COURSE_COLUMN_ID + 
+				"= ?";
+        return jdbcTemplate.query(query, ROW_MAPPER, courseid);
     }
 
     @Override
     public Document findById(final int fileid) {
-        List<Document> list = jdbcTemplate.query("SELECT * FROM files NATURAL JOIN courses NATURAL JOIN users WHERE fileid= ?", ROW_MAPPER, fileid);
+        List<Document> list = jdbcTemplate.query("SELECT * FROM " + DOCUMENT_TABLE_NAME + " NATURAL JOIN " + COURSE_TABLE_NAME + 
+        		" NATURAL JOIN " + CLIENT_TABLE_NAME + " WHERE " + DOCUMENT_COLUMN_DOCUMENT_ID + "= ?", ROW_MAPPER, fileid);
         if (list.isEmpty()) {
             return null;
         }
@@ -70,7 +92,8 @@ public class DocumentJdbcDao implements DocumentDao {
 
     @Override
     public List<Document> getAll() {
-        return jdbcTemplate.query("SELECT * FROM files NATURAL JOIN courses NATURAL JOIN users ", ROW_MAPPER);
+        return jdbcTemplate.query("SELECT * FROM " + DOCUMENT_TABLE_NAME + " NATURAL JOIN " + COURSE_TABLE_NAME +
+				" NATURAL JOIN " + CLIENT_TABLE_NAME, ROW_MAPPER);
     }
 
 }

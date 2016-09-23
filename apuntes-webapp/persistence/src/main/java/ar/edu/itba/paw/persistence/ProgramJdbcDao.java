@@ -18,13 +18,12 @@ import java.util.List;
 public class ProgramJdbcDao implements ProgramDao {
 
     public static final String PROGRAM_TABLE_NAME = "programs";
-
-    public static final String PROGRAM_COLUMN_ID = "programid";
+    public static final String PROGRAM_COLUMN_ID = "program_id";
     public static final String PROGRAM_COLUMN_NAME = "name";
 
     private final JdbcTemplate jdbcTemplate;
     private final SimpleJdbcInsert jdbcInsert;
-
+    
     private final static RowMapper<Program> ROW_MAPPER = new RowMapper<Program>() {
 
         @Override

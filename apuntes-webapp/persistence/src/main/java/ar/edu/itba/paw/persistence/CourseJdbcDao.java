@@ -17,10 +17,12 @@ import java.util.List;
 public class CourseJdbcDao implements CourseDao {
 
     public static final String COURSE_TABLE_NAME = "courses";
-
-    public static final String COURSE_COLUMN_ID = "courseid";
+    public static final String COURSE_COLUMN_ID = "course_id";
     public static final String COURSE_COLUMN_CODE = "code";
     public static final String COURSE_COLUMN_NAME = "name";
+    public static final String PROGRAM_TABLE_NAME = "programs";
+    public static final String PROGRAM_COLUMN_ID = "program_id";
+    public static final String PROGRAM_COLUMN_NAME = "name";
 
     private final JdbcTemplate jdbcTemplate;
     private final SimpleJdbcInsert jdbcInsert;
@@ -91,9 +93,9 @@ public class CourseJdbcDao implements CourseDao {
     public List<Course> findByProgram(int programid) {
     	
         final String query = "SELECT * FROM " + COURSE_TABLE_NAME +
-                " INNER JOIN coursesToPrograms ON courses.courseid = coursesToPrograms.courseid" +
-                " INNER JOIN programs ON coursesToPrograms.programid = programs.programid" +
-                " WHERE programs.programid = ?";
+                " INNER JOIN coursesToPrograms ON " + COURSE_TABLE_NAME + "." + COURSE_COLUMN_ID + " = coursesToPrograms.course_id" +
+                " INNER JOIN programs ON coursesToPrograms.program_id = programs.program_id" +
+                " WHERE programs.program_id = ?";
 
         return jdbcTemplate.query(query, ROW_MAPPER, programid);
     }

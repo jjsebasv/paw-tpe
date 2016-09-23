@@ -17,6 +17,11 @@ import java.util.Map;
 
 @Repository
 public class ClientJdbcDao implements ClientDao {
+	
+    public static final String CLIENT_TABLE_NAME = "clients";
+    public static final String CLIENT_COLUMN_ID = "client_id";
+    public static final String CLIENT_COLUMN_USERNAME = "username";
+    public static final String CLIENT_COLUMN_PASSWORD = "password";
 
     private final JdbcTemplate jdbcTemplate;
     private final SimpleJdbcInsert jdbcInsert;
@@ -25,7 +30,7 @@ public class ClientJdbcDao implements ClientDao {
 
         @Override
         public Client mapRow(ResultSet rs, int rowNum) throws SQLException {
-            return new Client(rs.getInt("userid"), rs.getString("username"), rs.getString("password"));
+            return new Client(rs.getInt(CLIENT_COLUMN_ID), rs.getString(CLIENT_COLUMN_USERNAME), rs.getString(CLIENT_COLUMN_PASSWORD));
         }
 
     };
@@ -34,12 +39,12 @@ public class ClientJdbcDao implements ClientDao {
     public ClientJdbcDao(final DataSource ds) {
         jdbcTemplate = new JdbcTemplate(ds);
         jdbcInsert = new SimpleJdbcInsert(jdbcTemplate)
-                .withTableName("users")
-                .usingGeneratedKeyColumns("userid");
+                .withTableName(CLIENT_TABLE_NAME)
+                .usingGeneratedKeyColumns(CLIENT_COLUMN_ID);
     }
 
     public Client findById(int id) {
-        List<Client> list = jdbcTemplate.query("SELECT * FROM users WHERE userid = ?", ROW_MAPPER, id);
+        List<Client> list = jdbcTemplate.query("SELECT * FROM " + CLIENT_TABLE_NAME + " WHERE" + CLIENT_COLUMN_ID + " = ?", ROW_MAPPER, id);
         System.out.println(list);
         return list.get(0);
     }
