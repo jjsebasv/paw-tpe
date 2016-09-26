@@ -14,11 +14,9 @@
     <h4>Lorem ipsum dolor sit amet</h4>
     <div class="programs-wrapper">
       <c:forEach items="${programs}" var="program">
-          <div class="program-item">
-              <a href="<%=request.getContextPath()%>/program/${program.programid}">
-                 #${program.name}
-              </a>
-          </div>
+	      <a class="program-item" href="<%=request.getContextPath()%>/program/${program.programid}">
+    	      #${program.name}
+          </a>
       </c:forEach>
     </div>
   </section>

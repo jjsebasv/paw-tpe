@@ -9,11 +9,15 @@
 
       </nav>
   </div>
-  <c:forEach items="${courses}" var="course">
+  <div class="default-list">
+  	<c:forEach items="${courses}" var="course">
           <a href="<%=request.getContextPath()%>/course/${course.code}"
              class="list-group-item">
-             ${course.name}
+             <span class="list-item">
+             	${course.name}
+             </span>
           </a>
-  </c:forEach>
+ 	</c:forEach>
+  </div>
   <%@ include file="footer.jsp" %>
 </body>
