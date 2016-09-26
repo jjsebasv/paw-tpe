@@ -69,6 +69,7 @@ h4 {
   width: 100%;
   background-color: rgba(0, 0, 0, 0.6);
   position: absolute;
+  top: 0;
 }
 
 .programs-wrapper {
@@ -87,17 +88,16 @@ h4 {
   margin: 10px;
   background-color: #5A71E1;
   padding: 5px 10px;
-  border-radius: 5px; 
-}
-
-.program-item a {
+  border-radius: 5px;
+  border: 1px solid #5A71E1;
   color: #FFF;
   font-weight: 300;
 }
 
-.program-item a:hover {
-  color: #FFF;
+.program-item:hover {
+  color: #5A71E1;
   text-decoration: none;
+  background-color: #FFF;
 }
 
 .section-program {
@@ -124,6 +124,7 @@ h4 {
 }
 
 .navbar-default .navbar-brand {
+<<<<<<< HEAD
   color: #FFF;
   padding-left: 40px;
 }
@@ -184,4 +185,5 @@ h4 {
   text-decoration: none;
   text-transform: none;
   margin-bottom: 10px;
+  color: #5A71E1;
 }
