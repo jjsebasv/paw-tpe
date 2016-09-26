@@ -4,6 +4,9 @@ import ar.edu.itba.paw.interfaces.CourseService;
 import ar.edu.itba.paw.interfaces.ProgramService;
 import ar.edu.itba.paw.models.Course;
 import ar.edu.itba.paw.models.Program;
+
+import java.util.List;
+
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
 import org.springframework.web.bind.annotation.PathVariable;
@@ -35,8 +38,10 @@ public class ProgramController {
             return new ModelAndView("404");
         }
 
+        final List<Course> courses= cs.findByProgram(programid);
         mav.addObject("program", program);
-        mav.addObject("courses", cs.findByProgram(programid));
+        mav.addObject("courses", courses);
+        mav.addObject("coursesSize", courses.size());
 
         return mav;
 
