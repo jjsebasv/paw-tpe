@@ -2,8 +2,12 @@ package ar.edu.itba.paw.models;
 
 public class Client {
 
+//	@Size(min = 6, max = 100)
+//	@Pattern(regexp = "[a-zA-Z0-9]+")
     private final String name;
     private final int userid;
+    
+//	@Size(min = 6, max = 10)
     private final String password;
 
     public Client(final int userid, final String name, final String password) {

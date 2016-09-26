@@ -3,49 +3,52 @@ package ar.edu.itba.paw.models;
 import java.io.InputStream;
 
 public class Document {
-    private final int fileid;
+	
+    private final int documentId;
     private final Client user;
     private final Course course;
     private final String subject;
-    private final String fileName;
-    private final int fileSize;
+    private final String documentName;
+    private final int documentSize;
     private final InputStream data;
 
-    public Document(final int fileid, final Client user, final Course course, final String subject, final String fileName, final int fileSize, final InputStream data) {
-        this.fileid = fileid;
+    public Document(final int documentId, final Client user, final Course course, final String subject, final String documentName, final int documentSize, final InputStream data) {
+        this.documentId = documentId;
         this.user = user;
         this.course = course;
         this.subject = subject;
-        this.fileName = fileName;
-        this.fileSize = fileSize;
+        this.documentName = documentName;
+        this.documentSize = documentSize;
         this.data = data;
     }
 
-    public int getFileid() {
-        return fileid;
-    }
+	public int getDocumentId() {
+		return documentId;
+	}
 
-    public Client getUser() {
-        return user;
-    }
+	public Client getUser() {
+		return user;
+	}
 
-    public Course getCourse() {
-        return course;
-    }
+	public Course getCourse() {
+		return course;
+	}
 
-    public String getSubject() {
-        return subject;
-    }
+	public String getSubject() {
+		return subject;
+	}
 
-    public String getFileName() {
-        return fileName;
-    }
+	public String getDocumentName() {
+		return documentName;
+	}
 
-    public int getFileSize() {
-        return fileSize;
-    }
+	public int getDocumentSize() {
+		return documentSize;
+	}
 
-    public InputStream getData() {
-        return data;
-    }
+	public InputStream getData() {
+		return data;
+	}
+
+
 }

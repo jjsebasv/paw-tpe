@@ -33,7 +33,7 @@ public class DocumentController {
     }
 
 
-    @RequestMapping("/file/{id:[\\d]+}")
+    @RequestMapping("/document/{id:[\\d]+}")
     public ModelAndView courseView(@PathVariable("id") int id) {
         ModelAndView mav = new ModelAndView("documentView");
 
@@ -42,7 +42,7 @@ public class DocumentController {
         if(file==null)
             return new ModelAndView("404");
 
-        mav.addObject("file", fs.findById(id));
+        mav.addObject("document", fs.findById(id));
         mav.addObject("username", file.getUser().getName());
         mav.addObject("reviewForm", new ReviewForm());
         mav.addObject("reviews", rs.findByFileId((int) id));
@@ -61,8 +61,8 @@ public class DocumentController {
         response.setContentType("application/octet-stream");
 
         //TODO Validar el nombre para prevenir header injection
-        response.setHeader("Content-Disposition", String.format("attachment; filename=\"%s\";", file.getFileName()));
-        response.setContentLength(file.getFileSize());
+        response.setHeader("Content-Disposition", String.format("attachment; filename=\"%s\";", file.getDocumentName()));
+        response.setContentLength(file.getDocumentSize());
 
         FileCopyUtils.copy(file.getData(), response.getOutputStream());
 

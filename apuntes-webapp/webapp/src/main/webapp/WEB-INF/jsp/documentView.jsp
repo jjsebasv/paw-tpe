@@ -3,115 +3,53 @@
 <%@ taglib uri="http://www.springframework.org/tags/form" prefix="form" %>
 
 <body>
-
-
-<div id="wrapper">
-
-    <%@ include file="navbar.jsp" %>
-
-    <div id="page-wrapper">
-        <div class="row">
-            <div class="col-lg-12">
-                <h1 class="page-header">${file.subject} - ${file.fileName}</h1>
-            </div>
-            <!-- /.col-lg-12 -->
+  <%@ include file="navbar.jsp" %>
+  <div class="content-wrapper">
+    <div class="white-container file-container">
+      <a href="<%=request.getContextPath()%>/course/${document.course.code}" class="back-button">
+        <img src="../resources/assets/back.svg">
+      </a>
+      <h3 class="program-title">${document.documentName}</h3>
+      <div class="white-container-content">
+        <div class="document-info">
+          <p class="subtitle">Subido por: ${username}</p>
+          <p class="subtitle">Calificacion: ${average}</p>
+          <a class="download-button" href="<%=request.getContextPath()%>/download/${file.fileid}">
+            Descargar
+          </a>
         </div>
-        <!-- /.row -->
+        <h4>Comentarios</h4>
+        <ul class="reviews-wrapper">
+          <c:forEach items="${reviews}" var="review">
+            <li class="review-item row">
+              <span class="light-text review-time">Hace 3hr</span>
+              <img class="avatar" src="https://cdn1.iconfinder.com/data/icons/user-pictures/101/malecostume-512.png">
+              <div class="column review-info-wrapper">
+                <span class="ranking">${review.ranking}</span>
+                <p>${review.review}</p>
+                <span class="light-text">${review.user.name}</span>
+              </div>
+            </li>
+          </c:forEach>
+        </ul>
+        <h4>Deja un comentario!</h4>
+        <form:form method="POST" action="/webapp/document/${document.documentId}/addReview" modelAttribute="reviewForm">
+          <fieldset  class="review-form">
+              <div class="form-group">
+                <label>Calificacion:</label>
+                <form:input path="ranking" type='number' value="5" min='1' max='5' step="1" class="form-control ranking-input" placeholder="Ranking"/>
+              </div>
+              <div class="form-group">
+                <label>Comentario:</label>
+                <form:textarea path="review" htmlEscape="true" class="form-control review-input"/>
+              </div>
+              <input type="submit" class="submit-button" value="Enviar"/>
+              <!-- Change this to a button or input when using this as a form -->
 
-        <div class="row">
-            <nav class="breadcrumb">
-                <a class="breadcrumb-item" href="<%=request.getContextPath()%>"><i class="fa fa-home"></i> / </a>
-                <a class="breadcrumb-item" href="<%=request.getContextPath()%>/courses/${file.course.courseid}">${file.course.name} / </a>
-                <span class="breadcrumb-item active">${file.fileName}</span>
-            </nav>
-        </div>
-
-        <!-- /.row -->
-        <div class="row">
-			
-            <div class="col-lg-12">
-                
-                <div class="panel panel-default">
-					
-                    <!-- /.panel-heading -->
-                    <div class="panel-body">
-                        A file by ${username} - File points: ${average}
-                        <hr>
-                        <a href="<%=request.getContextPath()%>/download/${file.fileid}">
-	                        <button type="button" class="btn btn-primary btn-circle btn-xl">
-	                        	<i class="fa fa-download"></i>
-    	                    </button>
-                        </a>
-
-                    </div>
-                    <!-- /.panel-body -->
-                </div>
-                <div class="row">
-
-                    <div class="col-lg-5">
-
-
-                        <div class="panel-body">
-                            <h3>Add a file review!</h3>
-                            <hr>
-                            <div class="col-lg-offset-2 col-lg-8">
-                            <form:form method="POST" action="/webapp/file/${file.fileid}/addReview" modelAttribute="reviewForm">
-                                <fieldset>
-                                    <div class="form-group">
-                                        <form:input path="ranking" type='number' value="5" min='1' max='5' step="1" class="form-control" placeholder="Ranking"/>
-                                    </div>
-                                    <div class="form-group">
-                                        <form:input path="review" htmlEscape="true" class="form-control" placeholder="Review"/>
-                                    </div>
-                                    <input class="btn btn-lg btn-primary btn-block" type="submit" value="Submit"/>
-                                    <!-- Change this to a button or input when using this as a form -->
-
-                                </fieldset>
-                            </form:form>
-                            </div>
-                        </div>
-
-                    </div>
-
-                    <div class="col-lg-7">
-                        <div class="review-pannel panel panel-default">
-
-                            <div class="panel-body">
-                                <h3>Reviews Feed</h3>
-                                <hr>
-                                <c:forEach items="${reviews}" var="review">
-                                    <ul class="list-group">
-                                        <li class="list-group-item">
-                                            <span class="badge">${review.ranking}</span>
-                                            <p>${review.review}</p>
-                                            <p class="right">By: ${review.user.name}</p>
-                                        </li>
-                                    </ul>
-                                </c:forEach>
-                                <hr>
-
-
-                            </div>
-                            <!-- /.panel-body -->
-                        </div>
-                    </div>
-
-                </div>
-
-
-
-                <!-- /.panel -->
-            </div>
-            <!-- /.col-lg-4 -->
-        </div>
-        <!-- /.row -->
+          </fieldset>
+        </form:form>
+      </div>
     </div>
-    <!-- /#page-wrapper -->
-
-
-</div>
-
-
+  </div>
+  <%@ include file="footer.jsp" %>
 </body>
-
-<%@ include file="footer.jsp" %>

@@ -3,12 +3,12 @@
 html {
   font-family: 'Lato', sans-serif;
   font-weight: 300;
-  background-color: #5A71E1;
+  background-color: #F6F6F6;
   height: 100%;
 }
 
 body {
-  color: #FFFFFF;
+  color: #F87D09;
   display: -webkit-box;
   display: -webkit-flex;
   display: -ms-flexbox;

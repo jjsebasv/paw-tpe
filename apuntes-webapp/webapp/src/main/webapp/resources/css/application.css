@@ -29,6 +29,38 @@ h4 {
   font-size: 22px;
 }
 
+a,
+a:hover {
+  text-decoration: none;
+}
+
+.row {
+  margin: 0;
+  display: flex;
+  flex-direction: row;
+}
+
+.column {
+  display: flex;
+  flex-direction: column;
+}
+
+.back-button {
+  position: absolute;
+  top: 10px;
+  left: 10px;
+  background-color: transparent;
+  border: 0;
+}
+
+.back-button img {
+  height: 25px;
+}
+
+.light-text {
+  font-weight: 300;
+}
+
 /****** Landing ******/
 
 .main-section {
@@ -55,13 +87,14 @@ h4 {
   z-index: 1;
   font-weight: 300;
   margin-top: 30px;
+  text-align: center;
 }
 
 .separator {
   height: 5px;
   width: 100px;
   z-index: 1;
-  background-color: #FB4284;
+  background-color: #F87D09;
 }
 
 .overlay {
@@ -86,16 +119,16 @@ h4 {
 .program-item {
   font-size: 20px;
   margin: 10px;
-  background-color: #5A71E1;
+  background-color: #004A55;
   padding: 5px 10px;
   border-radius: 5px;
-  border: 1px solid #5A71E1;
+  border: 1px solid #004A55;
   color: #FFF;
   font-weight: 300;
 }
 
 .program-item:hover {
-  color: #5A71E1;
+  color: #004A55;
   text-decoration: none;
   background-color: #FFF;
 }
@@ -120,12 +153,12 @@ h4 {
   flex-direction: row;
   align-items: center;
   top: 0;
-  background-color: #5A71E1;
+  background-color: #FFF;
+  box-shadow: 0px 6px 5px -1px #e3e3e3;
 }
 
 .navbar-default .navbar-brand {
-<<<<<<< HEAD
-  color: #FFF;
+  color: #004A55;
   padding-left: 40px;
 }
 
@@ -144,7 +177,7 @@ h4 {
   font-size: 12px;
   display: block;
   width: 10px;
-  background-color: #2EB872;
+  background-color: #A7CDCC;
 }
 
 .list-item {
@@ -154,14 +187,21 @@ h4 {
   font-size: 12px;
   height: 50px;
   margin-bottom: 10px;
+  text-align: left;
+}
+
+.list-item:hover {
+  background-color: #FFF;
 }
 
 .list-item:hover .border {
-  background-color: #FB4284;
+  background-color: #F87D09;
 }
 
 .list-item:hover a {
-  color: #FB4284;
+  color: #F87D09;
+  border: 2px solid #F87D09;
+  border-radius: 0;
 }
 
 .list-item a {
@@ -169,6 +209,12 @@ h4 {
   width: calc(100% - 10px);
   border-radius: 0;
   font-weight: 700;
+  border: 2px solid #A7CDCC;
+  border-radius: 0;
+}
+
+.list-group-item:last-child {
+  border-radius: 0;
 }
 
 .course-size {
@@ -176,14 +222,159 @@ h4 {
 }
 
 .content-wrapper {
-  margin-left: 40px;
-  margin-top: 50px;
+  padding: 0 40px;
+  padding-top: 50px;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  min-height: 100%;
+  background-color: #FAFAFA;
+}
+
+.white-container {
+  width: 600px;
+  background-color: #FFF;
+  border-radius: 5px;
+  box-shadow: 0 0 50px 0 #D7D7D7;
+  margin-bottom: 50px;
+  position: relative;
+}
+
+.white-container-content {
+  padding: 20px;
+  text-align: center;
 }
 
 .program-title {
-  font-weight: 700;
+  text-align: center;
+  font-weight: 300;
   text-decoration: none;
   text-transform: none;
   margin-bottom: 10px;
-  color: #5A71E1;
+  background-color: #004A55;
+  color: #FFF;
+  padding: 5px 10px;
+  border-top-left-radius: 5px;
+  border-top-right-radius: 5px;
+}
+
+a.list-group-item:hover {
+  background-color: #FFF;
+}
+
+
+/****** file *******/
+
+.file-container h4,
+.reviews-wrapper {
+  text-align: left;
+}
+
+.file-container h4 {
+  margin-top: 50px;
+  margin-bottom: 20px;
+}
+
+.download-button {
+  background-color: #F87D09;
+  padding: 5px 10px;
+  font-size: 18px;
+  border-radius: 5px;
+  color: #FFF;
+  min-width: 100px;
+  margin-top: 40px;
+  display: block;
+  max-width: 150px;
+  margin: 40px auto;
+}
+
+.document-info {
+  text-align: center;
+}
+
+fieldset {
+  border: 0;
+  padding: 0;
+  margin: 0;
+}
+
+.form-control {
+  border-radius: 0;
+}
+
+.subtitle {
+  font-size: 16px;
+}
+
+.reviews-wrapper {
+  padding: 0;
+}
+
+.review-item {
+  font-size: 14px;
+  list-style: none;
+  display: flex;
+  flex-direction: row;
+  align-items: flex-start;
+  margin: 0;
+  margin-bottom: 25px;
+  position: relative;
+}
+
+.review-item p {
+  margin: 0;
+}
+
+.submit-button {
+  font-size: 16px;
+  border-radius: 5px;
+  border: 2px solid #F87D09;
+  color: #F87D09;
+  background-color: #FFF;
+  min-width: 100px;
+}
+
+.review-form {
+  display: flex;
+  flex-direction: column;
+  align-items: flex-start;
+}
+
+.review-form .submit-button {
+  align-self: flex-end;
+}
+
+.avatar {
+  width: 50px;
+  margin-right: 15px;
+}
+
+.ranking-input {
+  border: 0;
+  border-bottom: 2px solid #004A55;
+  width: 60px;
+  background: none;
+  box-shadow: none;
+  transition: none;
+}
+
+.review-info-wrapper {
+  width: calc(100% - 65px);
+}
+
+.review-time {
+  position: absolute;
+  right: 10px;
+}
+
+textarea.form-control.review-input {
+  resize: none;
+  height: 100px;
+  border: 2px solid #004A55;
+  border-radius: 5px;
+}
+
+.ranking {
+  font-weight: 700;
+  color: #004A55;
 }

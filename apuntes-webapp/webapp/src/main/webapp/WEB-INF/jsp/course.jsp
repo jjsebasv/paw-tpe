@@ -1,65 +1,28 @@
 <%@ include file="header.jsp" %>
 
 <body>
-<div id="wrapper">
-
-    <%@ include file="navbar.jsp" %>
-
-    <div id="page-wrapper">
-        <div class="row">
-            <div class="col-lg-12">
-                <h1 class="page-header">${course.name}</h1>
-            </div>
-            <!-- /.col-lg-12 -->
-        </div>
-        <!-- /.row -->
-
-        <div class="row">
-            <nav class="breadcrumb">
-                <a class="breadcrumb-item" href="<%=request.getContextPath()%>"><i class="fa fa-home"></i> / </a>
-                <span class="breadcrumb-item active">${course.name}</span>
-
-            </nav>
-        </div>
-
-        <!-- /.row -->
-        <div class="row">
-
-            <div class="col-lg-12">
-                <div class="panel panel-default">
-
-                    <!-- /.panel-heading -->
-                    <div class="panel-body">
-                        <ul class="list-group">
-
-                            <c:forEach items="${files}" var="file">
-                                <li>
-                                    <a href="<%=request.getContextPath()%>/file/${file.fileid}"
-                                       class="list-group-item">
-                                        <i class="fa fa-download fa-fw"></i> ${file.fileName}
-                                    </a>
-                                </li>
-                            </c:forEach>
-
-
-                        </ul>
-                        <!-- /.list-group -->
-
-                    </div>
-                    <!-- /.panel-body -->
-                </div>
-                <!-- /.panel -->
-            </div>
-            <!-- /.col-lg-4 -->
-        </div>
-        <!-- /.row -->
+<%@ include file="navbar.jsp" %>
+  <div class="content-wrapper">
+    <div class=white-container>
+      <h3 class="program-title">#${course.name}</h3>
+      <div class="white-container-content">
+        <h4 class="course-size">${documentsSize} Archivos</h4>
+        <ul class="list-wrapper">
+          <c:forEach items="${documents}" var="document">
+            <li class="list-item">
+              <div class="border"></div>
+              <a href="<%=request.getContextPath()%>/document/${document.documentId}"
+                 class="list-group-item">
+                 <span>${document.documentName}</span>
+              </a>
+            </li>
+          </c:forEach>
+        </ul>
+        <c:if test="${coursesSize == 0}">
+          <h4>No hay apuntes cargados!</h4>
+        </c:if>
+      </div>
     </div>
-    <!-- /#page-wrapper -->
-
-
-</div>
-
-
+  </div>
+  <%@ include file="footer.jsp" %>
 </body>
-
-<%@ include file="footer.jsp" %>
