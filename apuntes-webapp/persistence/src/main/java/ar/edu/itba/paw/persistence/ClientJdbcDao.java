@@ -44,7 +44,7 @@ public class ClientJdbcDao implements ClientDao {
     }
 
     public Client findById(int id) {
-        List<Client> list = jdbcTemplate.query("SELECT * FROM " + CLIENT_TABLE_NAME + " WHERE" + CLIENT_COLUMN_ID + " = ?", ROW_MAPPER, id);
+        List<Client> list = jdbcTemplate.query("SELECT * FROM " + CLIENT_TABLE_NAME + " WHERE " + CLIENT_COLUMN_ID + " = ?", ROW_MAPPER, id);
         System.out.println(list);
         return list.get(0);
     }

@@ -377,4 +377,14 @@ textarea.form-control.review-input {
 .ranking {
   font-weight: 700;
   color: #004A55;
+	font-size: 14px;
+}
+
+/****** Upload Document ******/
+
+.upload-document-form {
+	align-items: center;
+	display: flex;
+	justify-content: space-around;
+	padding: 50px;
 }

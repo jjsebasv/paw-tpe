@@ -2,6 +2,8 @@ package ar.edu.itba.paw.services;
 
 import ar.edu.itba.paw.interfaces.DocumentDao;
 import ar.edu.itba.paw.interfaces.DocumentService;
+import ar.edu.itba.paw.models.Client;
+import ar.edu.itba.paw.models.Course;
 import ar.edu.itba.paw.models.Document;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
@@ -12,11 +14,11 @@ import java.util.List;
 @Service
 public class DocumentServiceImpl implements DocumentService {
 
-    private final DocumentDao fileDao;
+    private final DocumentDao documentDao;
 
     @Autowired
-    public DocumentServiceImpl(DocumentDao fileDao) {
-        this.fileDao = fileDao;
+    public DocumentServiceImpl(DocumentDao documentDao) {
+        this.documentDao = documentDao;
     }
 
 
@@ -27,18 +29,26 @@ public class DocumentServiceImpl implements DocumentService {
     }
 
     @Override
-    public Document findById(final int fileid) {
-        return fileDao.findById(fileid);
+    public Document findById(final int documentid) {
+        return documentDao.findById(documentid);
     }
 
     @Override
     public List<Document> findByCourseId(final int courseid) {
-        return fileDao.findByCourseId(courseid);
+        return documentDao.findByCourseId(courseid);
     }
 
     @Override
     public List<Document> getAll() {
-        return fileDao.getAll();
+        return documentDao.getAll();
     }
+
+
+	@Override
+	public Document createDocument(Client user, Course course, String subject, String filename, int filesize,
+			byte[] data) {
+		// TODO Auto-generated method stub
+		return documentDao.createDocument(user, course, subject, filename, filesize, data);
+	}
 
 }
