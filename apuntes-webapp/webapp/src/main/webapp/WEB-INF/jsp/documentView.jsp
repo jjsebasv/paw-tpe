@@ -1,7 +1,6 @@
 <%@ include file="header.jsp" %>
 <%@ taglib prefix="c" uri="http://java.sun.com/jstl/core_rt" %>
 <%@ taglib uri="http://www.springframework.org/tags/form" prefix="form" %>
-
 <body>
   <%@ include file="navbar.jsp" %>
   <div class="content-wrapper">
