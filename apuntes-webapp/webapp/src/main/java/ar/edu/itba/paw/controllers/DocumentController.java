@@ -76,7 +76,7 @@ public class DocumentController {
 
         rs.createReview(file, user, reviewForm.getRanking(), reviewForm.getReview());
 
-        return new ModelAndView("redirect:/file/" + fileid);
+        return new ModelAndView("redirect:/document/" + fileid);
     };
 
 }
