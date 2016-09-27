@@ -68,7 +68,7 @@ public class DocumentController {
 
     }
 
-    @RequestMapping(value = "/file/{id:[\\d]+}/addReview", method = RequestMethod.POST)
+    @RequestMapping(value = "/document/{id:[\\d]+}/addReview", method = RequestMethod.POST)
     public ModelAndView submit(@ModelAttribute("reviewForm") ReviewForm reviewForm, BindingResult result, Model model, @PathVariable("id") int fileid) {
 
         final Document file = fs.findById(fileid);
