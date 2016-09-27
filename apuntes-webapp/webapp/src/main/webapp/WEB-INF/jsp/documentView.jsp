@@ -13,7 +13,7 @@
         <div class="document-info">
           <p class="subtitle">Subido por: ${username}</p>
           <p class="subtitle">Calificacion: ${average}</p>
-          <a class="download-button" href="<%=request.getContextPath()%>/download/${file.fileid}">
+          <a class="download-button" href="<%=request.getContextPath()%>/download/${document.documentId}">
             Descargar
           </a>
         </div>
