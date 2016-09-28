@@ -32,7 +32,7 @@
           </c:forEach>
         </ul>
         <h4>Deja un comentario!</h4>
-        <form:form method="POST" action="/webapp/document/${document.documentId}/addReview" modelAttribute="reviewForm">
+        <form:form method="POST" action="<%=request.getContextPath()%>/document/${document.documentId}/addReview" modelAttribute="reviewForm">
           <fieldset  class="review-form">
               <div class="form-group">
                 <label>Calificacion:</label>
