@@ -29,7 +29,7 @@ public class DocumentJdbcDao implements DocumentDao {
 
     private final JdbcTemplate jdbcTemplate;
     private final SimpleJdbcInsert jdbcInsert;
-    
+
     public static final String DOCUMENT_TABLE_NAME = "documents";
     public static final String DOCUMENT_COLUMN_DOCUMENT_ID = "document_id";
     public static final String DOCUMENT_COLUMN_CLIENT_ID = "client_id";
@@ -59,7 +59,7 @@ public class DocumentJdbcDao implements DocumentDao {
 
         @Override
         public Document mapRow(ResultSet rs, int rowNum) throws SQLException {
-        	
+
             return new Document(rs.getInt(DOCUMENT_COLUMN_DOCUMENT_ID),
                     new Client(rs.getInt(CLIENT_COLUMN_ID), rs.getString(CLIENT_COLUMN_USERNAME), rs.getString(CLIENT_COLUMN_PASSWORD)),
                     new Course(rs.getInt(COURSE_COLUMN_ID), rs.getString(COURSE_COLUMN_CODE), rs.getString(COURSE_COLUMN_NAME)),
@@ -82,14 +82,14 @@ public class DocumentJdbcDao implements DocumentDao {
     @Override
     public List<Document> findByCourseId(final int courseid) {
     	String query = "SELECT * FROM " + DOCUMENT_TABLE_NAME + " NATURAL JOIN " + COURSE_TABLE_NAME +
-				" NATURAL JOIN " + CLIENT_TABLE_NAME + " WHERE " + COURSE_COLUMN_ID + 
+				" NATURAL JOIN " + CLIENT_TABLE_NAME + " WHERE " + COURSE_COLUMN_ID +
 				"= ?";
         return jdbcTemplate.query(query, ROW_MAPPER, courseid);
     }
 
     @Override
     public Document findById(final int fileid) {
-        List<Document> list = jdbcTemplate.query("SELECT * FROM " + DOCUMENT_TABLE_NAME + " NATURAL JOIN " + COURSE_TABLE_NAME + 
+        List<Document> list = jdbcTemplate.query("SELECT * FROM " + DOCUMENT_TABLE_NAME + " NATURAL JOIN " + COURSE_TABLE_NAME +
         		" NATURAL JOIN " + CLIENT_TABLE_NAME + " WHERE " + DOCUMENT_COLUMN_DOCUMENT_ID + "= ?", ROW_MAPPER, fileid);
         if (list.isEmpty()) {
             return null;

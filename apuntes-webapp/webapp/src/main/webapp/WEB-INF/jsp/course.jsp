@@ -13,7 +13,7 @@
               <div class="border"></div>
               <a href="<%=request.getContextPath()%>/document/${document.documentId}"
                  class="list-group-item">
-                 <span>${document.documentName}</span>
+                 <span>${document.subject}</span>
               </a>
             </li>
           </c:forEach>

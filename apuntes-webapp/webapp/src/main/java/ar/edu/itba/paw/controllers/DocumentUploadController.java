@@ -30,7 +30,7 @@ import forms.ReviewForm;
 
 @Controller
 public class DocumentUploadController {
-	
+
     private final DocumentService ds;
     private final ClientService clientS;
     private final CourseService courseS;
@@ -46,19 +46,17 @@ public class DocumentUploadController {
     public ModelAndView uploadDocument() {
         final ModelAndView mav = new ModelAndView("documentUploadView");
         mav.addObject("documentForm", new DocumentForm());
-    	System.out.println("im here bitches");
         return mav;
     }
-    
+
     @RequestMapping(value = "/uploadDocument/finish", method = RequestMethod.POST)
     public @ResponseBody
     ModelAndView submit(@ModelAttribute("documentForm") DocumentForm documentForm, BindingResult result, Model model, @RequestParam CommonsMultipartFile document, HttpServletRequest request) {
     	ds.createDocument(clientS.findById(1), courseS.findById(1), documentForm.getSubject(), document.getName(), (int)document.getSize(), document.getBytes());
-    	System.out.println(document.getBytes());
-        return new ModelAndView("redirect:/uploadDocument");
+      return new ModelAndView("redirect:/uploadDocument");
     }
-    
-    
 
-	
+
+
+
 }
