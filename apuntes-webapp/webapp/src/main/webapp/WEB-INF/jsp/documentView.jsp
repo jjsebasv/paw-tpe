@@ -5,7 +5,7 @@
   <%@ include file="navbar.jsp" %>
   <div class="content-wrapper">
     <div class="white-container file-container">
-      <a href="<%=request.getContextPath()%>/course/${document.course.code}" class="back-button">
+      <a href="${pageContext.request.contextPath}/course/${document.course.code}" class="back-button">
         <img src="../resources/assets/back.svg">
       </a>
       <h3 class="program-title">${document.documentName}</h3>
@@ -13,7 +13,7 @@
         <div class="document-info">
           <p class="subtitle">Subido por: ${username}</p>
           <p class="subtitle">Calificacion: ${average}</p>
-          <a class="download-button" href="<%=request.getContextPath()%>/download/${document.documentId}">
+          <a class="download-button" href="${pageContext.request.contextPath}/download/${document.documentId}">
             Descargar
           </a>
         </div>
@@ -32,7 +32,7 @@
           </c:forEach>
         </ul>
         <h4>Deja un comentario!</h4>
-        <form:form method="POST" action="<%=request.getContextPath()%>/document/${document.documentId}/addReview" modelAttribute="reviewForm">
+        <form:form method="POST" action="${pageContext.request.contextPath}/document/${document.documentId}/addReview" modelAttribute="reviewForm">
           <fieldset  class="review-form">
               <div class="form-group">
                 <label>Calificacion:</label>

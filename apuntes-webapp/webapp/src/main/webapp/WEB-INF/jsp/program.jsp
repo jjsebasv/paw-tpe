@@ -11,7 +11,7 @@
           <c:forEach items="${courses}" var="course">
             <li class="list-item">
               <div class="border"></div>
-              <a href="<%=request.getContextPath()%>/course/${course.code}"
+              <a href="${pageContext.request.contextPath}/course/${course.code}"
                  class="list-group-item">
                  <span>${course.code}</span>
                  <span>${course.name}</span>

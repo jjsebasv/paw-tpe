@@ -6,7 +6,7 @@
 <head>
     <meta charset="utf-8">
     <title>Campus - PAW</title>
-    <link href="<%=request.getContextPath()%>/resources/css/bootstrap/bootstrap.min.css" rel="stylesheet">
-    <link rel="stylesheet" type="text/css" href="<%=request.getContextPath()%>/resources/css/normalize.css">
-    <link rel="stylesheet" type="text/css" href="<%=request.getContextPath()%>/resources/css/application.css">
+    <link href="${pageContext.request.contextPath}/resources/css/bootstrap/bootstrap.min.css" rel="stylesheet">
+    <link rel="stylesheet" type="text/css" href="${pageContext.request.contextPath}/resources/css/normalize.css">
+    <link rel="stylesheet" type="text/css" href="${pageContext.request.contextPath}/resources/css/application.css">
 </head>

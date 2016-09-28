@@ -11,7 +11,7 @@
           <c:forEach items="${documents}" var="document">
             <li class="list-item">
               <div class="border"></div>
-              <a href="<%=request.getContextPath()%>/document/${document.documentId}"
+              <a href="${pageContext.request.contextPath}/document/${document.documentId}"
                  class="list-group-item">
                  <span>${document.documentName}</span>
               </a>
