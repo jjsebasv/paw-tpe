@@ -24,7 +24,7 @@ public class ReviewJdbcDao implements ReviewDao {
 
     private final JdbcTemplate jdbcTemplate;
     private final SimpleJdbcInsert jdbcInsert;
-    
+
     public static final String REVIEW_TABLE_NAME = "reviews";
     public static final String REVIEW_COLUMN_ID = "review_id";
     public static final String REVIEW_COLUMN_DOCUMENT_ID = "document_id";
@@ -98,7 +98,7 @@ public class ReviewJdbcDao implements ReviewDao {
     //8809
     @Override
     public double getAverage(int fileid) {
-    	return jdbcTemplate.queryForObject("SELECT ROUND(AVG(" + REVIEW_COLUMN_RANKING + "),2) FROM " + REVIEW_TABLE_NAME + " WHERE " + REVIEW_COLUMN_DOCUMENT_ID + "= ?", Double.class, fileid);
+    	return jdbcTemplate.queryForObject("SELECT ROUND(coalesce(AVG(" + REVIEW_COLUMN_RANKING + "), 0),2) FROM " + REVIEW_TABLE_NAME + " WHERE " + REVIEW_COLUMN_DOCUMENT_ID + "= ?", Double.class, fileid);
     }
 
 }
