@@ -3,7 +3,7 @@
     <head>
         <meta charset="utf-8">
         <title>Campus - PAW</title>
-        <link rel="stylesheet" type="text/css" href="/webapp/resources/css/404.css">
+        <link rel="stylesheet" type="text/css" href="<%=request.getContextPath()%>/resources/css/404.css">
     </head>
     <body><ul class="perspective">
         <li class="perspective-line">
