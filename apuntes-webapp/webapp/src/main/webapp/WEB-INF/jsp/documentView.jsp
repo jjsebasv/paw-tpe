@@ -1,11 +1,12 @@
 <%@ include file="header.jsp" %>
 <%@ taglib prefix="c" uri="http://java.sun.com/jstl/core_rt" %>
 <%@ taglib uri="http://www.springframework.org/tags/form" prefix="form" %>
+<spring:htmlEscape defaultHtmlEscape="true"/>
 <body>
   <%@ include file="navbar.jsp" %>
   <div class="content-wrapper">
     <div class="white-container file-container">
-      <a href="<%=request.getContextPath()%>/course/${document.course.code}" class="back-button">
+      <a href="${pageContext.request.contextPath}/course/${document.course.code}" class="back-button">
         <img src="../resources/assets/back.svg">
       </a>
       <h3 class="program-title">${document.subject}</h3>
@@ -13,7 +14,7 @@
         <div class="document-info">
           <p class="subtitle">Subido por: ${username}</p>
           <p class="subtitle">Calificacion: ${average}</p>
-          <a class="download-button" href="<%=request.getContextPath()%>/download/${document.documentId}">
+          <a class="download-button" href="${pageContext.request.contextPath}/download/${document.documentId}">
             Descargar
           </a>
         </div>

@@ -1,6 +1,5 @@
-jQuery(document).ready(function($) {
+jQuery(document).ready(function($, html) {
 
 	$('.course-select').select2();
-  console.log("hola gilada");
 
 });
