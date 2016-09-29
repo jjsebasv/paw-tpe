@@ -27,7 +27,8 @@ public class ReviewServiceImpl implements ReviewService {
 
     @Override
     public List<Review> findByFileId(int fileid) {
-        return reviewDao.findByFileId(fileid);
+    	List<Review> list = reviewDao.findByFileId(fileid);
+      return list;
     }
 
 	@Override

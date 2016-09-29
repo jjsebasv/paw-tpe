@@ -2,6 +2,9 @@ package ar.edu.itba.paw.controllers;
 
 import ar.edu.itba.paw.interfaces.CourseService;
 import ar.edu.itba.paw.interfaces.ProgramService;
+import forms.DocumentForm;
+import forms.ReviewForm;
+
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
 import org.springframework.web.bind.annotation.RequestMapping;
@@ -27,6 +30,7 @@ public class IndexController {
     public ModelAndView index() {
         final ModelAndView mav = new ModelAndView("index");
         mav.addObject("programs", ps.getAll());
+        mav.addObject("documentForm", new DocumentForm());
         return mav;
     }
 //
@@ -36,7 +40,6 @@ public class IndexController {
 //            @RequestParam(value = "password", required = true) final String password,
 //            @RequestParam(value = "repeatPassword", required = true) final String repeatPassword) {
 //        // TODO: validate password and repeatePassword
-//        System.out.println("bla");
 //        final long userid = us.create(username, password);
 //        return new ModelAndView("redirect:/bla?userId=" + userid);
 //    }

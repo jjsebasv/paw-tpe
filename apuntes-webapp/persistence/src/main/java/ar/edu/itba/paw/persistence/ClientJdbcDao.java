@@ -17,7 +17,7 @@ import java.util.Map;
 
 @Repository
 public class ClientJdbcDao implements ClientDao {
-	
+
     public static final String CLIENT_TABLE_NAME = "clients";
     public static final String CLIENT_COLUMN_ID = "client_id";
     public static final String CLIENT_COLUMN_USERNAME = "username";
@@ -44,8 +44,7 @@ public class ClientJdbcDao implements ClientDao {
     }
 
     public Client findById(int id) {
-        List<Client> list = jdbcTemplate.query("SELECT * FROM " + CLIENT_TABLE_NAME + " WHERE" + CLIENT_COLUMN_ID + " = ?", ROW_MAPPER, id);
-        System.out.println(list);
+        List<Client> list = jdbcTemplate.query("SELECT * FROM " + CLIENT_TABLE_NAME + " WHERE " + CLIENT_COLUMN_ID + " = ?", ROW_MAPPER, id);
         return list.get(0);
     }
 
