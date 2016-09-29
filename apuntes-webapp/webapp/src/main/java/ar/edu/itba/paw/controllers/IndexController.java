@@ -40,7 +40,6 @@ public class IndexController {
 //            @RequestParam(value = "password", required = true) final String password,
 //            @RequestParam(value = "repeatPassword", required = true) final String repeatPassword) {
 //        // TODO: validate password and repeatePassword
-//        System.out.println("bla");
 //        final long userid = us.create(username, password);
 //        return new ModelAndView("redirect:/bla?userId=" + userid);
 //    }

@@ -10,6 +10,13 @@
               <div class="form-group">
                   <form:input path="subject" htmlEscape="true" class="form-control" placeholder="Subject"/>
               </div>
+              <form:select path="courseid" class="form-control course-select">
+				  <c:forEach var="course" items="${courses}">
+				      <form:option value="${course.courseid}">
+				      	${course.code} - ${course.name}
+				      </form:option>
+				  </c:forEach>
+			  </form:select>
               <div class="form-group">
                   <input type='file' class="form-control" name="document" placeholder="Document"/>
               </div>

@@ -16,6 +16,7 @@ public class DocumentForm {
     private String fileName;
     private int fileSize;
     private InputStream data;
+    private int courseid;
     
     private MultipartFile document;
     
@@ -33,6 +34,14 @@ public class DocumentForm {
 
 	public void setFileid(int fileid) {
 		this.fileid = fileid;
+	}
+	
+	public int getCourseid() {
+		return courseid;
+	}
+
+	public void setCourseid(int courseid) {
+		this.courseid = courseid;
 	}
 
 	public Client getUser() {

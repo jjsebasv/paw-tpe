@@ -45,14 +45,17 @@ public class DocumentUploadController {
     @RequestMapping(value = "/uploadDocument")
     public ModelAndView uploadDocument() {
         final ModelAndView mav = new ModelAndView("documentUploadView");
+        
         mav.addObject("documentForm", new DocumentForm());
+        mav.addObject("courses", courseS.getAll());
+        
         return mav;
     }
 
     @RequestMapping(value = "/uploadDocument/finish", method = RequestMethod.POST)
     public @ResponseBody
     ModelAndView submit(@ModelAttribute("documentForm") DocumentForm documentForm, BindingResult result, Model model, @RequestParam CommonsMultipartFile document, HttpServletRequest request) {
-    	ds.createDocument(clientS.findById(1), courseS.findById(1), documentForm.getSubject(), document.getName(), (int)document.getSize(), document.getBytes());
+      ds.createDocument(clientS.findById(1), courseS.findById(documentForm.getCourseid()), documentForm.getSubject(), document.getOriginalFilename(), (int)document.getSize(), document.getBytes());
       return new ModelAndView("redirect:/uploadDocument");
     }
 
