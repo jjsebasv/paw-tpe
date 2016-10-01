@@ -2,14 +2,16 @@ package ar.edu.itba.paw.controllers.api;
 
 import ar.edu.itba.paw.interfaces.CourseService;
 import ar.edu.itba.paw.models.Course;
-import ar.edu.itba.paw.models.Document;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.MediaType;
-import org.springframework.stereotype.Controller;
-import org.springframework.web.bind.annotation.*;
-import org.springframework.web.servlet.ModelAndView;
+import org.springframework.web.bind.annotation.RequestMapping;
+import org.springframework.web.bind.annotation.RequestParam;
+import org.springframework.web.bind.annotation.RestController;
 
+import java.util.HashMap;
 import java.util.List;
+import java.util.Map;
+import java.util.stream.Collectors;
 
 @RestController
 public class ApiCourseController {
@@ -21,9 +23,8 @@ public class ApiCourseController {
         this.cs = cs;
     }
 
-
     @RequestMapping(value = "/api/course/search", produces = MediaType.APPLICATION_JSON_VALUE)
-    public List<Course> courseView(@RequestParam(value = "name", defaultValue = "", required = false) String name) {
+    public List<Map<String, String>> courseView(@RequestParam(value = "term", defaultValue = "", required = false) String name) {
 
         List<Course> courses;
         if (name.isEmpty()) {
@@ -32,7 +33,14 @@ public class ApiCourseController {
             courses = cs.findByName(name);
         }
 
-        return courses;
+        return courses.parallelStream().
+                map(
+                        course -> new HashMap<String, String>() {{
+                            put("id", String.valueOf(course.getCourseid()));
+                            put("text", String.format("%s - %s", course.getCode(), course.getName()));
+                        }}
+                )
+                .collect(Collectors.toList());
     }
 
 }

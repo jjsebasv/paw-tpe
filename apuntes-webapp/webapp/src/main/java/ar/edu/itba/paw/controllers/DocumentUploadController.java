@@ -47,7 +47,7 @@ public class DocumentUploadController {
         final ModelAndView mav = new ModelAndView("documentUploadView");
         
         mav.addObject("documentForm", new DocumentForm());
-        mav.addObject("courses", courseS.getAll());
+//        mav.addObject("courses", courseS.getAll());
         
         return mav;
     }
