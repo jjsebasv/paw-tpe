@@ -62,6 +62,12 @@
             </dependency>
 
             <dependency>
+                <groupId>org.springframework</groupId>
+                <artifactId>spring-context</artifactId>
+                <version>${org.springframework.version}</version>
+            </dependency>
+
+            <dependency>
                 <groupId>javax.servlet</groupId>
                 <artifactId>servlet-api</artifactId>
                 <version>${servlet-api.version}</version>
@@ -87,15 +93,10 @@
             </dependency>
 
             <dependency>
-                <groupId>org.srpingframework</groupId>
-                <artifactId>spring-context</artifactId>
-                <version>${spring-context.version}</version>
-            </dependency>
-
-            <dependency>
                 <groupId>junit</groupId>
                 <artifactId>junit</artifactId>
                 <version>${junit.version}</version>
+                <scope>test</scope>
             </dependency>
 
             <dependency>
@@ -123,12 +124,6 @@
                 <artifactId>javax.servlet.jsp-api</artifactId>
                 <version>2.3.1</version>
                 <scope>provided</scope>
-            </dependency>
-
-            <dependency>
-                <groupId>org.hibernate</groupId>
-                <artifactId>hibernate-core</artifactId>
-                <version>4.3.6.Final</version>
             </dependency>
 
             <dependency>

@@ -45,14 +45,19 @@ public class ClientJdbcDao implements ClientDao {
 
     public Client findById(int id) {
         List<Client> list = jdbcTemplate.query("SELECT * FROM " + CLIENT_TABLE_NAME + " WHERE " + CLIENT_COLUMN_ID + " = ?", ROW_MAPPER, id);
+
+        if (list.isEmpty()) {
+            return null;
+        }
+
         return list.get(0);
     }
 
     @Override
     public Client create(String username, String password) {
         final Map<String, Object> args = new HashMap<>();
-        args.put("username", username);
-        args.put("password", password);
+        args.put(CLIENT_COLUMN_USERNAME, username);
+        args.put(CLIENT_COLUMN_PASSWORD, password);
 
         final Number userid = jdbcInsert.executeAndReturnKey(args);
         return new Client(userid.intValue(), username, password);

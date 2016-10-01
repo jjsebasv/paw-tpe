@@ -21,7 +21,7 @@ public class ClientServiceImpl implements ClientService {
     }
 
     public int create(String username, String password) {
-        return userDao.create(username, password).getUserid();
+        return userDao.create(username, password).getClientId();
     }
 
 

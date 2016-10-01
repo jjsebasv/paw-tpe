@@ -78,7 +78,7 @@ public class ReviewJdbcDao implements ReviewDao {
     public Review createReview(final Document file, final Client user, final double ranking, final String review) {
         final Map<String, Object> args = new HashMap<>();
         args.put("document_id", file.getDocumentId());
-        args.put("client_id", user.getUserid());
+        args.put("client_id", user.getClientId());
         args.put("ranking", ranking);
         args.put("review", review);
 

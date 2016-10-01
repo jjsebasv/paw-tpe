@@ -3,11 +3,9 @@ package ar.edu.itba.paw.persistence;
 import ar.edu.itba.paw.interfaces.DocumentDao;
 import ar.edu.itba.paw.models.Course;
 import ar.edu.itba.paw.models.Document;
-import ar.edu.itba.paw.models.Review;
 import ar.edu.itba.paw.models.Client;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.jdbc.core.JdbcTemplate;
-import org.springframework.jdbc.core.PreparedStatementCreator;
 import org.springframework.jdbc.core.RowMapper;
 import org.springframework.jdbc.core.simple.SimpleJdbcInsert;
 import org.springframework.stereotype.Repository;
@@ -16,8 +14,6 @@ import javax.sql.DataSource;
 
 import java.io.ByteArrayInputStream;
 import java.io.InputStream;
-import java.sql.Connection;
-import java.sql.PreparedStatement;
 import java.sql.ResultSet;
 import java.sql.SQLException;
 import java.util.HashMap;
@@ -110,7 +106,7 @@ public class DocumentJdbcDao implements DocumentDao {
 			byte[] data) {
 		// TODO Auto-generated method stub
 		final Map<String, Object> args = new HashMap<>();
-        args.put("client_id", user.getUserid());
+        args.put("client_id", user.getClientId());
         args.put("course_id", course.getCourseid());
         args.put("subject", subject);
         args.put("document_name", filename);
