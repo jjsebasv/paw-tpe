@@ -18,10 +18,10 @@ import java.util.Map;
 @Repository
 public class ClientJdbcDao implements ClientDao {
 
-    public static final String CLIENT_TABLE_NAME = "clients";
-    public static final String CLIENT_COLUMN_ID = "client_id";
-    public static final String CLIENT_COLUMN_USERNAME = "username";
-    public static final String CLIENT_COLUMN_PASSWORD = "password";
+    /*package*/ static final String CLIENT_TABLE_NAME = "clients";
+    /*package*/ static final String CLIENT_COLUMN_ID = "client_id";
+    /*package*/ static final String CLIENT_COLUMN_USERNAME = "username";
+    /*package*/ static final String CLIENT_COLUMN_PASSWORD = "password";
 
     private final JdbcTemplate jdbcTemplate;
     private final SimpleJdbcInsert jdbcInsert;

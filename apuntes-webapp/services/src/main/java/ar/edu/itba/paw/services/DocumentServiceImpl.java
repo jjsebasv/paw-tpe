@@ -23,12 +23,6 @@ public class DocumentServiceImpl implements DocumentService {
 
 
     @Override
-    public Document createFile(InputStream data) {
-        //TODO Validar el nombre para prevenir header injection
-        return null;
-    }
-
-    @Override
     public Document findById(final int documentid) {
         return documentDao.findById(documentid);
     }
@@ -43,12 +37,9 @@ public class DocumentServiceImpl implements DocumentService {
         return documentDao.getAll();
     }
 
-
-	@Override
-	public Document createDocument(Client user, Course course, String subject, String filename, int filesize,
-			byte[] data) {
-		// TODO Auto-generated method stub
-		return documentDao.createDocument(user, course, subject, filename, filesize, data);
-	}
+    @Override
+    public Document createDocument(Client user, Course course, String subject, String filename, int filesize, byte[] data) {
+        return documentDao.createDocument(user, course, subject, filename, filesize, data);
+    }
 
 }

@@ -1,15 +1,12 @@
 package ar.edu.itba.paw.interfaces;
 
-import java.io.InputStream;
-import java.util.List;
-
-import ar.edu.itba.paw.models.Document;
 import ar.edu.itba.paw.models.Client;
 import ar.edu.itba.paw.models.Course;
+import ar.edu.itba.paw.models.Document;
+
+import java.util.List;
 
 public interface DocumentDao {
-
-    Document createFile(InputStream data);
 
     Document findById(int fileid);
 

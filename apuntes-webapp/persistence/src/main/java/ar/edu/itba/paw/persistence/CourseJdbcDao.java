@@ -18,13 +18,10 @@ import java.util.List;
 @Repository
 public class CourseJdbcDao implements CourseDao {
 
-    public static final String COURSE_TABLE_NAME = "courses";
-    public static final String COURSE_COLUMN_ID = "course_id";
-    public static final String COURSE_COLUMN_CODE = "code";
-    public static final String COURSE_COLUMN_NAME = "name";
-    public static final String PROGRAM_TABLE_NAME = "programs";
-    public static final String PROGRAM_COLUMN_ID = "program_id";
-    public static final String PROGRAM_COLUMN_NAME = "name";
+    /*package*/ static final String COURSE_TABLE_NAME = "courses";
+    /*package*/ static final String COURSE_COLUMN_ID = "course_id";
+    /*package*/ static final String COURSE_COLUMN_CODE = "code";
+    /*package*/ static final String COURSE_COLUMN_NAME = "name";
 
     private final JdbcTemplate jdbcTemplate;
     private final SimpleJdbcInsert jdbcInsert;

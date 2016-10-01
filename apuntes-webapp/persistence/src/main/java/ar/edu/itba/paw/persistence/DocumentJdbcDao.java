@@ -1,9 +1,9 @@
 package ar.edu.itba.paw.persistence;
 
 import ar.edu.itba.paw.interfaces.DocumentDao;
+import ar.edu.itba.paw.models.Client;
 import ar.edu.itba.paw.models.Course;
 import ar.edu.itba.paw.models.Document;
-import ar.edu.itba.paw.models.Client;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.jdbc.core.JdbcTemplate;
 import org.springframework.jdbc.core.RowMapper;
@@ -11,14 +11,15 @@ import org.springframework.jdbc.core.simple.SimpleJdbcInsert;
 import org.springframework.stereotype.Repository;
 
 import javax.sql.DataSource;
-
 import java.io.ByteArrayInputStream;
-import java.io.InputStream;
 import java.sql.ResultSet;
 import java.sql.SQLException;
 import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
+
+import static ar.edu.itba.paw.persistence.ClientJdbcDao.*;
+import static ar.edu.itba.paw.persistence.CourseJdbcDao.*;
 
 @Repository
 public class DocumentJdbcDao implements DocumentDao {
@@ -26,22 +27,14 @@ public class DocumentJdbcDao implements DocumentDao {
     private final JdbcTemplate jdbcTemplate;
     private final SimpleJdbcInsert jdbcInsert;
 
-    public static final String DOCUMENT_TABLE_NAME = "documents";
-    public static final String DOCUMENT_COLUMN_DOCUMENT_ID = "document_id";
-    public static final String DOCUMENT_COLUMN_CLIENT_ID = "client_id";
-    public static final String DOCUMENT_COLUMN_COURSE_ID = "course_id";
-    public static final String DOCUMENT_COLUMN_SUBJECT = "subject";
-    public static final String DOCUMENT_COLUMN_NAME = "document_name";
-    public static final String DOCUMENT_COLUMN_SIZE = "document_size";
-    public static final String DOCUMENT_COLUMN_UPLOADED_DOCUMENT = "uploaded_document";
-    public static final String CLIENT_TABLE_NAME = "clients";
-    public static final String CLIENT_COLUMN_ID = "client_id";
-    public static final String CLIENT_COLUMN_USERNAME = "username";
-    public static final String CLIENT_COLUMN_PASSWORD = "password";
-    public static final String COURSE_TABLE_NAME = "courses";
-    public static final String COURSE_COLUMN_ID = "course_id";
-    public static final String COURSE_COLUMN_CODE = "code";
-    public static final String COURSE_COLUMN_NAME = "name";
+    /*package*/ static final String DOCUMENT_TABLE_NAME = "documents";
+    /*package*/ static final String DOCUMENT_COLUMN_DOCUMENT_ID = "document_id";
+    /*package*/ static final String DOCUMENT_COLUMN_CLIENT_ID = "client_id";
+    /*package*/ static final String DOCUMENT_COLUMN_COURSE_ID = "course_id";
+    /*package*/ static final String DOCUMENT_COLUMN_SUBJECT = "subject";
+    /*package*/ static final String DOCUMENT_COLUMN_NAME = "document_name";
+    /*package*/ static final String DOCUMENT_COLUMN_SIZE = "document_size";
+    /*package*/ static final String DOCUMENT_COLUMN_UPLOADED_DOCUMENT = "uploaded_document";
 
     @Autowired
     public DocumentJdbcDao(final DataSource ds) {
@@ -69,53 +62,43 @@ public class DocumentJdbcDao implements DocumentDao {
     };
 
     @Override
-    public Document createFile(InputStream data) {
-        // TODO Auto-generated method stub
-        return null;
-    }
-
-
-    @Override
     public List<Document> findByCourseId(final int courseid) {
-    	String query = "SELECT * FROM " + DOCUMENT_TABLE_NAME + " NATURAL JOIN " + COURSE_TABLE_NAME +
-				" NATURAL JOIN " + CLIENT_TABLE_NAME + " WHERE " + COURSE_COLUMN_ID +
-				"= ?";
+        String query = "SELECT * FROM " + DOCUMENT_TABLE_NAME + " NATURAL JOIN " + COURSE_TABLE_NAME +
+                " NATURAL JOIN " + CLIENT_TABLE_NAME + " WHERE " + COURSE_COLUMN_ID +
+                "= ?";
         return jdbcTemplate.query(query, ROW_MAPPER, courseid);
     }
 
     @Override
     public Document findById(final int fileid) {
         List<Document> list = jdbcTemplate.query("SELECT * FROM " + DOCUMENT_TABLE_NAME + " NATURAL JOIN " + COURSE_TABLE_NAME +
-        		" NATURAL JOIN " + CLIENT_TABLE_NAME + " WHERE " + DOCUMENT_COLUMN_DOCUMENT_ID + "= ?", ROW_MAPPER, fileid);
+                " NATURAL JOIN " + CLIENT_TABLE_NAME + " WHERE " + DOCUMENT_COLUMN_DOCUMENT_ID + "= ?", ROW_MAPPER, fileid);
         if (list.isEmpty()) {
             return null;
         }
         return list.get(0);
     }
 
-
     @Override
     public List<Document> getAll() {
         return jdbcTemplate.query("SELECT * FROM " + DOCUMENT_TABLE_NAME + " NATURAL JOIN " + COURSE_TABLE_NAME +
-				" NATURAL JOIN " + CLIENT_TABLE_NAME, ROW_MAPPER);
+                " NATURAL JOIN " + CLIENT_TABLE_NAME, ROW_MAPPER);
     }
 
-
-	@Override
-	public Document createDocument(Client user, Course course, String subject, String filename, int filesize,
-			byte[] data) {
-		// TODO Auto-generated method stub
-		final Map<String, Object> args = new HashMap<>();
-        args.put("client_id", user.getClientId());
-        args.put("course_id", course.getCourseid());
-        args.put("subject", subject);
-        args.put("document_name", filename);
-        args.put("document_size", filesize);
-        args.put("uploaded_document", data);
+    @Override
+    public Document createDocument(Client user, Course course, String subject, String filename, int filesize,
+                                   byte[] data) {
+        // TODO Auto-generated method stub
+        final Map<String, Object> args = new HashMap<>();
+        args.put(DOCUMENT_COLUMN_CLIENT_ID, user.getClientId());
+        args.put(DOCUMENT_COLUMN_COURSE_ID, course.getCourseid());
+        args.put(DOCUMENT_COLUMN_SUBJECT, subject);
+        args.put(DOCUMENT_COLUMN_NAME, filename);
+        args.put(DOCUMENT_COLUMN_SIZE, filesize);
+        args.put(DOCUMENT_COLUMN_UPLOADED_DOCUMENT, data);
 
         final Number documentid = jdbcInsert.executeAndReturnKey(args);
         return new Document(documentid.intValue(), user, course, subject, filename, filesize, new ByteArrayInputStream(data));
-	}
-
+    }
 
 }

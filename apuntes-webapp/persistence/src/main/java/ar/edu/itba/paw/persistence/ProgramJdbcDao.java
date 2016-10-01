@@ -17,9 +17,9 @@ import java.util.List;
 @Repository
 public class ProgramJdbcDao implements ProgramDao {
 
-    public static final String PROGRAM_TABLE_NAME = "programs";
-    public static final String PROGRAM_COLUMN_ID = "program_id";
-    public static final String PROGRAM_COLUMN_NAME = "name";
+    /*package*/ static final String PROGRAM_TABLE_NAME = "programs";
+    /*package*/ static final String PROGRAM_COLUMN_ID = "program_id";
+    /*package*/ static final String PROGRAM_COLUMN_NAME = "name";
 
     private final JdbcTemplate jdbcTemplate;
     private final SimpleJdbcInsert jdbcInsert;

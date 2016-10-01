@@ -27,14 +27,12 @@ public class ReviewServiceImpl implements ReviewService {
 
     @Override
     public List<Review> findByFileId(int fileid) {
-    	List<Review> list = reviewDao.findByFileId(fileid);
-      return list;
+        return reviewDao.findByFileId(fileid);
     }
 
-	@Override
-	public double getAverage(int fileid) {
-		// TODO Auto-generated method stub
-		return reviewDao.getAverage(fileid);
-	}
+    @Override
+    public double getAverage(int fileid) {
+        return reviewDao.getAverage(fileid);
+    }
 
 }

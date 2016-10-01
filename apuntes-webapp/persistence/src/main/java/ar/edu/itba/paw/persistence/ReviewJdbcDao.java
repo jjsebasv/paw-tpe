@@ -1,23 +1,25 @@
 package ar.edu.itba.paw.persistence;
 
-import java.sql.ResultSet;
-import java.sql.SQLException;
-import java.util.HashMap;
-import java.util.List;
-import java.util.Map;
-
-import javax.sql.DataSource;
-
+import ar.edu.itba.paw.interfaces.ReviewDao;
+import ar.edu.itba.paw.models.Client;
 import ar.edu.itba.paw.models.Document;
+import ar.edu.itba.paw.models.Review;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.jdbc.core.JdbcTemplate;
 import org.springframework.jdbc.core.RowMapper;
 import org.springframework.jdbc.core.simple.SimpleJdbcInsert;
 import org.springframework.stereotype.Repository;
 
-import ar.edu.itba.paw.interfaces.ReviewDao;
-import ar.edu.itba.paw.models.Review;
-import ar.edu.itba.paw.models.Client;
+import javax.sql.DataSource;
+import java.sql.ResultSet;
+import java.sql.SQLException;
+import java.util.HashMap;
+import java.util.List;
+import java.util.Map;
+
+import static ar.edu.itba.paw.persistence.ClientJdbcDao.CLIENT_COLUMN_ID;
+import static ar.edu.itba.paw.persistence.ClientJdbcDao.CLIENT_COLUMN_USERNAME;
+import static ar.edu.itba.paw.persistence.DocumentJdbcDao.*;
 
 @Repository
 public class ReviewJdbcDao implements ReviewDao {
@@ -25,24 +27,13 @@ public class ReviewJdbcDao implements ReviewDao {
     private final JdbcTemplate jdbcTemplate;
     private final SimpleJdbcInsert jdbcInsert;
 
-    public static final String REVIEW_TABLE_NAME = "reviews";
-    public static final String REVIEW_COLUMN_ID = "review_id";
-    public static final String REVIEW_COLUMN_DOCUMENT_ID = "document_id";
-    public static final String REVIEW_COLUMN_CLIENT_ID = "client_id";
-    public static final String REVIEW_COLUMN_RANKING = "ranking";
-    public static final String REVIEW_COLUMN_REVIEW = "review";
-    public static final String DOCUMENT_TABLE_NAME = "documents";
-    public static final String DOCUMENT_COLUMN_DOCUMENT_ID = "document_id";
-    public static final String DOCUMENT_COLUMN_CLIENT_ID = "client_id";
-    public static final String DOCUMENT_COLUMN_COURSE_ID = "course_id";
-    public static final String DOCUMENT_COLUMN_SUBJECT = "subject";
-    public static final String DOCUMENT_COLUMN_NAME = "document_name";
-    public static final String DOCUMENT_COLUMN_SIZE = "document_size";
-    public static final String DOCUMENT_COLUMN_UPLOADED_DOCUMENT = "uploaded_document";
-    public static final String CLIENT_TABLE_NAME = "clients";
-    public static final String CLIENT_COLUMN_ID = "client_id";
-    public static final String CLIENT_COLUMN_USERNAME = "username";
-    public static final String CLIENT_COLUMN_PASSWORD = "password";
+    /*package*/ static final String REVIEW_TABLE_NAME = "reviews";
+    /*package*/ static final String REVIEW_COLUMN_ID = "review_id";
+    /*package*/ static final String REVIEW_COLUMN_DOCUMENT_ID = "document_id";
+    /*package*/ static final String REVIEW_COLUMN_CLIENT_ID = "client_id";
+    /*package*/ static final String REVIEW_COLUMN_RANKING = "ranking";
+    /*package*/ static final String REVIEW_COLUMN_REVIEW = "review";
+
 
     @Autowired
     public ReviewJdbcDao(final DataSource ds) {
@@ -77,10 +68,10 @@ public class ReviewJdbcDao implements ReviewDao {
     @Override
     public Review createReview(final Document file, final Client user, final double ranking, final String review) {
         final Map<String, Object> args = new HashMap<>();
-        args.put("document_id", file.getDocumentId());
-        args.put("client_id", user.getClientId());
-        args.put("ranking", ranking);
-        args.put("review", review);
+        args.put(DOCUMENT_COLUMN_DOCUMENT_ID, file.getDocumentId());
+        args.put(DOCUMENT_COLUMN_CLIENT_ID, user.getClientId());
+        args.put(REVIEW_COLUMN_RANKING, ranking);
+        args.put(REVIEW_COLUMN_REVIEW, review);
 
         final Number reviewid = jdbcInsert.executeAndReturnKey(args);
         return new Review(reviewid.intValue(), file, user, ranking, review);
@@ -96,10 +87,12 @@ public class ReviewJdbcDao implements ReviewDao {
                 "WHERE reviews.document_id = ?", ROW_MAPPER, fileid);
         return list;
     }
+
     //8809
     @Override
     public double getAverage(int fileid) {
-    	return jdbcTemplate.queryForObject("SELECT ROUND(coalesce(AVG(" + REVIEW_COLUMN_RANKING + "), 0),2) FROM " + REVIEW_TABLE_NAME + " WHERE " + REVIEW_COLUMN_DOCUMENT_ID + "= ?", Double.class, fileid);
+        return jdbcTemplate.queryForObject("SELECT ROUND(coalesce(AVG(" + REVIEW_COLUMN_RANKING + "), 0),2) " +
+                "FROM " + REVIEW_TABLE_NAME + " WHERE " + REVIEW_COLUMN_DOCUMENT_ID + "= ?", Double.class, fileid);
     }
 
 }
