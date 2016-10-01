@@ -58,16 +58,59 @@ public class CourseJdbcDaoTest {
         final Course lookupCourse = list.get(0);
 
         Assert.assertEquals(course, lookupCourse);
-
-
     }
 
-//    @Test
-//    public void testFindByIdNonExistingUser() {
-//
-//        final Client user = clientDao.findById(13);
-//
-//        // Postcondiciones
-//        Assert.assertNull("User with id 42 is null!", user);
-//    }
+    @Test
+    public void testFindByNonExistingName() {
+        final Course course = courseDao.create(COURSE_CODE, COURSE_NAME);
+
+        final List<Course> list = courseDao.findByName("abc");
+
+        Assert.assertNotNull(list);
+
+        Assert.assertTrue(list.isEmpty());
+    }
+
+    @Test
+    public void testFindByCode() {
+        final Course course = courseDao.create(COURSE_CODE, COURSE_NAME);
+
+        final Course lookupCourse = courseDao.findByCode(COURSE_CODE);
+
+        Assert.assertNotNull(lookupCourse);
+
+        Assert.assertEquals(course, lookupCourse);
+    }
+
+    @Test
+    public void testFindByNonExistingCode() {
+        final Course course = courseDao.create(COURSE_CODE, COURSE_NAME);
+
+        final Course lookupCourse = courseDao.findByCode("00.00");
+
+        Assert.assertNull(lookupCourse);
+    }
+
+    @Test
+    public void testFindById() {
+        final Course course = courseDao.create(COURSE_CODE, COURSE_NAME);
+        final int id = course.getCourseid();
+
+        final Course lookupCourse = courseDao.findById(id);
+
+        Assert.assertNotNull(lookupCourse);
+
+        Assert.assertEquals(course, lookupCourse);
+    }
+
+    @Test
+    public void testFindByNonExistingId() {
+        final Course course = courseDao.create(COURSE_CODE, COURSE_NAME);
+        final int id = course.getCourseid();
+
+        final Course lookupCourse = courseDao.findById(200);
+
+        Assert.assertNull(lookupCourse);
+    }
+
 }
