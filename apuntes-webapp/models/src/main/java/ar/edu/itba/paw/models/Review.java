@@ -3,8 +3,8 @@ package ar.edu.itba.paw.models;
 public class Review {
 
     private final int reviewid;
-    private final Document file;
-    private final Client user;
+    private  Document file;
+    private  Client user;
     private final double ranking;
     private final String review;
 

@@ -64,7 +64,6 @@ public class ReviewJdbcDao implements ReviewDao {
 
     };
 
-
     @Override
     public Review createReview(final Document file, final Client user, final double ranking, final String review) {
         final Map<String, Object> args = new HashMap<>();
@@ -79,16 +78,13 @@ public class ReviewJdbcDao implements ReviewDao {
 
     @Override
     public List<Review> findByFileId(int fileid) {
-        //TODO Check query
-        List<Review> list = jdbcTemplate.query("SELECT reviews.review_id, reviews.document_id AS document_id, documents.subject, documents.document_name, documents.document_size," +
+        return jdbcTemplate.query("SELECT reviews.review_id, reviews.document_id AS document_id, documents.subject, documents.document_name, documents.document_size," +
                 "reviews.client_id AS client_id, clients.username, reviews.ranking, reviews.review FROM reviews " +
                 "INNER JOIN clients ON clients.client_id=reviews.client_id " +
                 "INNER JOIN documents ON documents.document_id=reviews.document_id " +
                 "WHERE reviews.document_id = ?", ROW_MAPPER, fileid);
-        return list;
     }
 
-    //8809
     @Override
     public double getAverage(int fileid) {
         return jdbcTemplate.queryForObject("SELECT ROUND(coalesce(AVG(" + REVIEW_COLUMN_RANKING + "), 0),2) " +

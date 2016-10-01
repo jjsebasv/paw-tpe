@@ -52,7 +52,6 @@ public class DocumentController {
     }
 
     @RequestMapping("/download/{id:[\\d]+}")
-    //FIXME Preguntar por la exception
     public void downloadFile(HttpServletResponse response, @PathVariable("id") int id) throws IOException {
 
         final Document file = fs.findById(id);

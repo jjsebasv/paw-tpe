@@ -8,7 +8,7 @@ import java.util.List;
 
 public interface DocumentService {
 
-    Document findById(int fileid);
+    Document findById(int documentid);
 
     List<Document> findByCourseId(int courseid);
 

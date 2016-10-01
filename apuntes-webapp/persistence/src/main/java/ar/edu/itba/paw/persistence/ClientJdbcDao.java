@@ -30,7 +30,11 @@ public class ClientJdbcDao implements ClientDao {
 
         @Override
         public Client mapRow(ResultSet rs, int rowNum) throws SQLException {
-            return new Client(rs.getInt(CLIENT_COLUMN_ID), rs.getString(CLIENT_COLUMN_USERNAME), rs.getString(CLIENT_COLUMN_PASSWORD));
+            return new Client(
+                    rs.getInt(CLIENT_COLUMN_ID),
+                    rs.getString(CLIENT_COLUMN_USERNAME),
+                    rs.getString(CLIENT_COLUMN_PASSWORD)
+            );
         }
 
     };

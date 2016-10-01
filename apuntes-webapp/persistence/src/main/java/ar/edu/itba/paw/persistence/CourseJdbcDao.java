@@ -1,7 +1,9 @@
 package ar.edu.itba.paw.persistence;
 
 import ar.edu.itba.paw.interfaces.CourseDao;
+import ar.edu.itba.paw.models.Client;
 import ar.edu.itba.paw.models.Course;
+import ar.edu.itba.paw.models.Program;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.jdbc.core.JdbcTemplate;
 import org.springframework.jdbc.core.RowMapper;
@@ -13,7 +15,9 @@ import java.sql.PreparedStatement;
 import java.sql.ResultSet;
 import java.sql.SQLException;
 import java.util.ArrayList;
+import java.util.HashMap;
 import java.util.List;
+import java.util.Map;
 
 @Repository
 public class CourseJdbcDao implements CourseDao {
@@ -23,8 +27,13 @@ public class CourseJdbcDao implements CourseDao {
     /*package*/ static final String COURSE_COLUMN_CODE = "code";
     /*package*/ static final String COURSE_COLUMN_NAME = "name";
 
+    /*package*/ static final String COURSETOPROGRAM_TABE_NAME = "coursesToPrograms";
+    /*package*/ static final String COURSETOPROGRAM_COLUMN_COURSE_ID = "course_id";
+    /*package*/ static final String COURSETOPROGRAM_COLUMN_PROGRAM_ID = "program_id";
+
     private final JdbcTemplate jdbcTemplate;
     private final SimpleJdbcInsert jdbcInsert;
+    private final SimpleJdbcInsert jdbcRelatedProgramInsert;
 
     @Autowired
     public CourseJdbcDao(final DataSource ds) {
@@ -32,6 +41,9 @@ public class CourseJdbcDao implements CourseDao {
         jdbcInsert = new SimpleJdbcInsert(jdbcTemplate)
                 .withTableName(COURSE_TABLE_NAME)
                 .usingGeneratedKeyColumns(COURSE_COLUMN_ID);
+
+        jdbcRelatedProgramInsert = new SimpleJdbcInsert(jdbcTemplate)
+                .withTableName(COURSETOPROGRAM_TABE_NAME);
     }
 
 
@@ -65,7 +77,8 @@ public class CourseJdbcDao implements CourseDao {
                 .replace("_", "!_")
                 .replace("[", "![");
 
-        final String query = "SELECT * FROM " + COURSE_TABLE_NAME + " WHERE " + COURSE_COLUMN_NAME + " ILIKE ?  ESCAPE '!'";
+        //FIXME Los LOWER() son un workaround para hsqldb que no soporta case insensitive like search
+        final String query = "SELECT * FROM " + COURSE_TABLE_NAME + " WHERE LOWER(" + COURSE_COLUMN_NAME + ") LIKE LOWER(?)  ESCAPE '!'";
 
         //return jdbcTemplate.query(query, ROW_MAPPER, "'%" + name + "%'");
         try {
@@ -124,6 +137,34 @@ public class CourseJdbcDao implements CourseDao {
                 " WHERE programs.program_id = ?";
 
         return jdbcTemplate.query(query, ROW_MAPPER, programid);
+    }
+
+    @Override
+    public Course create(String code, String name) {
+        final Map<String, Object> args = new HashMap<>();
+        args.put(COURSE_COLUMN_CODE, code);
+        args.put(COURSE_COLUMN_NAME, name);
+
+        final Number courseId = jdbcInsert.executeAndReturnKey(args);
+        return new Course(courseId.intValue(), code, name);
+    }
+
+    @Override
+    public void addProgramRelationship(Course course, Program program) {
+        final Map<String, Object> args = new HashMap<>();
+        args.put(COURSETOPROGRAM_COLUMN_PROGRAM_ID, program.getProgramid());
+        args.put(COURSETOPROGRAM_COLUMN_COURSE_ID, course.getCourseid());
+
+        jdbcRelatedProgramInsert.execute(args);
+    }
+
+    @Override
+    public boolean isRelatedTo(Course course, Program program) {
+        final String query = "SELECT COUNT(*) FROM " + COURSETOPROGRAM_TABE_NAME + " WHERE " + COURSETOPROGRAM_COLUMN_COURSE_ID + " = ? AND " + COURSETOPROGRAM_COLUMN_PROGRAM_ID + " = ?";
+
+        Integer result = jdbcTemplate.queryForObject(query, Integer.class, course.getCourseid(), program.getProgramid());
+
+        return result > 0;
     }
 
 }

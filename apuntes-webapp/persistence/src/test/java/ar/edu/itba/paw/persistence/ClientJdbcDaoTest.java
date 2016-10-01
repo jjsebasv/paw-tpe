@@ -55,12 +55,12 @@ public class ClientJdbcDaoTest {
     }
 
     @Test
-    public void textCreate() {
+    public void testCreate() {
         final Client client = clientDao.create(USERNAME, PASSWORD);
 
         Assert.assertNotNull(client);
         Assert.assertEquals(USERNAME, client.getName());
         Assert.assertEquals(PASSWORD, client.getPassword());
-        Assert.assertTrue(client.getClientId() > 0);
+        Assert.assertTrue(client.getClientId() >= 0);
     }
 }

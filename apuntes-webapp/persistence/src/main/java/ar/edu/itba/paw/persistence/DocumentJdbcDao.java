@@ -49,9 +49,18 @@ public class DocumentJdbcDao implements DocumentDao {
         @Override
         public Document mapRow(ResultSet rs, int rowNum) throws SQLException {
 
-            return new Document(rs.getInt(DOCUMENT_COLUMN_DOCUMENT_ID),
-                    new Client(rs.getInt(CLIENT_COLUMN_ID), rs.getString(CLIENT_COLUMN_USERNAME), rs.getString(CLIENT_COLUMN_PASSWORD)),
-                    new Course(rs.getInt(COURSE_COLUMN_ID), rs.getString(COURSE_COLUMN_CODE), rs.getString(COURSE_COLUMN_NAME)),
+            return new Document(
+                    rs.getInt(DOCUMENT_COLUMN_DOCUMENT_ID),
+                    new Client(
+                            rs.getInt(CLIENT_COLUMN_ID),
+                            rs.getString(CLIENT_COLUMN_USERNAME),
+                            rs.getString(CLIENT_COLUMN_PASSWORD)
+                    ),
+                    new Course(
+                            rs.getInt(COURSE_COLUMN_ID),
+                            rs.getString(COURSE_COLUMN_CODE),
+                            rs.getString(COURSE_COLUMN_NAME)
+                    ),
                     rs.getString(DOCUMENT_COLUMN_SUBJECT),
                     rs.getString(DOCUMENT_COLUMN_NAME),
                     rs.getInt(DOCUMENT_COLUMN_SIZE),
@@ -86,9 +95,7 @@ public class DocumentJdbcDao implements DocumentDao {
     }
 
     @Override
-    public Document createDocument(Client user, Course course, String subject, String filename, int filesize,
-                                   byte[] data) {
-        // TODO Auto-generated method stub
+    public Document createDocument(final Client user, final Course course, final String subject, final String filename, final int filesize, final byte[] data) {
         final Map<String, Object> args = new HashMap<>();
         args.put(DOCUMENT_COLUMN_CLIENT_ID, user.getClientId());
         args.put(DOCUMENT_COLUMN_COURSE_ID, course.getCourseid());

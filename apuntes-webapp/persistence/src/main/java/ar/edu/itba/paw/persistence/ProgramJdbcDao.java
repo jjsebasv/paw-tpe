@@ -23,12 +23,15 @@ public class ProgramJdbcDao implements ProgramDao {
 
     private final JdbcTemplate jdbcTemplate;
     private final SimpleJdbcInsert jdbcInsert;
-    
+
     private final static RowMapper<Program> ROW_MAPPER = new RowMapper<Program>() {
 
         @Override
         public Program mapRow(ResultSet rs, int rowNum) throws SQLException {
-            return new Program(rs.getInt(PROGRAM_COLUMN_ID), rs.getString(PROGRAM_COLUMN_NAME));
+            return new Program(
+                    rs.getInt(PROGRAM_COLUMN_ID),
+                    rs.getString(PROGRAM_COLUMN_NAME)
+            );
         }
     };
 

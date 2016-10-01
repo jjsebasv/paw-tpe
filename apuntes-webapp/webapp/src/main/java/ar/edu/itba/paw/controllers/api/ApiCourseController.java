@@ -37,7 +37,7 @@ public class ApiCourseController {
                 map(
                         course -> new HashMap<String, String>() {{
                             put("id", String.valueOf(course.getCourseid()));
-                            put("text", String.format("%s - %s", course.getCode(), course.getName()));
+                            put("text", course.toString());
                         }}
                 )
                 .collect(Collectors.toList());
