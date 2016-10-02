@@ -11,7 +11,7 @@
     <meta charset="utf-8">
     <title>Campus - PAW</title>
     <base href="${fn:substring(url, 0, fn:length(url) - fn:length(pageContext.request.requestURI))}${pageContext.request.contextPath}/"/>
-    <link href="<c:url value="/resources/css/bootstrap/bootstrap.min.css"/>" rel="stylesheet">
+    <link href="resources/css/bootstrap/bootstrap.min.css" rel="stylesheet">
     <link href="https://cdnjs.cloudflare.com/ajax/libs/select2/4.0.3/css/select2.min.css" rel="stylesheet"/>
 
     <script type="text/javascript" src="https://code.jquery.com/jquery-2.2.4.min.js"></script>
@@ -20,8 +20,8 @@
     <%--<script src="<c:url value="/resources/js/bootstrap-filestyle.min.js" />"></script>--%>
 
 
-    <link rel="stylesheet" type="text/css" href="<c:url value="/resources/css/normalize.css"/>">
-    <link rel="stylesheet" type="text/css" href="<c:url value="/resources/css/application.css"/>">
+    <link rel="stylesheet" type="text/css" href="resources/css/normalize.css">
+    <link rel="stylesheet" type="text/css" href="resources/css/application.css">
 
-    <script src="<c:url value="/resources/js/application.js"/>"></script>
+    <script src="resources/js/application.js"></script>
 </head>

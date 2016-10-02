@@ -11,13 +11,14 @@
           <c:forEach items="${documents}" var="document">
             <li class="list-item">
               <div class="border"></div>
-              <a href="${pageContext.request.contextPath}/document/${document.documentId}"
+              <a href="document/${document.documentId}"
                  class="list-group-item">
                  <span>${document.subject}</span>
               </a>
             </li>
           </c:forEach>
         </ul>
+        <%--@elvariable id="coursesSize" type="java.lang.Integer"--%>
         <c:if test="${coursesSize == 0}">
           <h4>No hay apuntes cargados!</h4>
         </c:if>

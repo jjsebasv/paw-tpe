@@ -6,8 +6,7 @@
 <body>
 <%@ include file="navbar.jsp" %>
 <div class="upload-document-form">
-    <form:form method="POST" action="/webapp/uploadDocument/finish" enctype="multipart/form-data"
-               modelAttribute="documentForm">
+    <form:form method="POST" action="uploadDocument/finish" enctype="multipart/form-data" modelAttribute="documentForm">
         <fieldset>
             <div class="form-group">
                 <form:textarea path="subject" htmlEscape="true" class="form-control" placeholder="Subject"/>

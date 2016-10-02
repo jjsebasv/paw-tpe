@@ -14,7 +14,7 @@
     <h4>Lorem ipsum dolor sit amet</h4>
     <div class="programs-wrapper">
       <c:forEach items="${programs}" var="program">
-	      <a class="program-item" href="${pageContext.request.contextPath}/program/${program.programid}">
+	      <a class="program-item" href="program/${program.programid}">
     	      #${program.name}
           </a>
       </c:forEach>
