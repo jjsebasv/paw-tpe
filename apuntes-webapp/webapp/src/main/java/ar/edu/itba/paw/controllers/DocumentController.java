@@ -5,6 +5,7 @@ import ar.edu.itba.paw.interfaces.ReviewService;
 import ar.edu.itba.paw.models.Document;
 import ar.edu.itba.paw.models.Client;
 import forms.ReviewForm;
+import jdk.internal.util.xml.impl.Input;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
@@ -16,8 +17,9 @@ import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestMethod;
 import org.springframework.web.servlet.ModelAndView;
 
+import javax.servlet.ServletOutputStream;
 import javax.servlet.http.HttpServletResponse;
-import java.io.IOException;
+import java.io.*;
 
 @Controller
 public class DocumentController {
@@ -62,10 +64,26 @@ public class DocumentController {
         //TODO Validar el nombre para prevenir header injection
         response.setHeader("Content-Disposition", String.format("attachment; filename=\"%s\";", file.getDocumentName()));
         response.setContentLength(file.getDocumentSize());
-
-        FileCopyUtils.copy(file.getData(), response.getOutputStream());
+        InputStream data = file.getData();
+        FileCopyUtils.copy(data, response.getOutputStream());
 
     }
+
+    @RequestMapping("/open/{id:[\\d]+}")
+    public void openFile(HttpServletResponse response, @PathVariable("id") int id) throws IOException {
+
+        final Document file = fs.findById(id);
+
+        response.setContentLength(file.getDocumentSize());
+        response.setContentType("application/pdf");
+        response.setHeader("Content-Disposition", String.format("inline; filename=\"%s\";", file.getDocumentName()));
+
+        InputStream data = file.getData();
+        FileCopyUtils.copy(data, response.getOutputStream());
+
+    }
+
+
 
     @RequestMapping(value = "/document/{id:[\\d]+}/addReview", method = RequestMethod.POST)
     public ModelAndView submit(@ModelAttribute("reviewForm") ReviewForm reviewForm, BindingResult result, Model model, @PathVariable("id") int fileid) {

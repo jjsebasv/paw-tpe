@@ -17,6 +17,9 @@
           <a class="download-button" href="download/${document.documentId}">
             Descargar
           </a>
+          <a class="download-button" href="open/${document.documentId}">
+            Ver
+          </a>
         </div>
         <h4>Comentarios</h4>
         <ul class="reviews-wrapper">
