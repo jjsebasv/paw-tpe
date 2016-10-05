@@ -53,7 +53,7 @@ public class DocumentController {
         mav.addObject("reviewForm", new ReviewForm());
         mav.addObject("reviews", reviews);
         mav.addObject("average", rs.getAverage(id));
-        mav.addObject("can_review", !reviews.stream().anyMatch(review -> review.getUser().getClientId() == 1));
+        mav.addObject("can_review", reviews.isEmpty() || !reviews.stream().anyMatch(review -> review.getUser().getClientId() == 1));
 
         return mav;
     }
