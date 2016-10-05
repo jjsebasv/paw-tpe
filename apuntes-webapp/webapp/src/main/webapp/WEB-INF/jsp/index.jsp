@@ -11,7 +11,7 @@
   <section class="section-program">
     <h3>Carreras de grado</h3>
     <div class="separator"></div>
-    <h4>Ad Lucem Serenitate Tendo</h4>
+    <h4>Busca tus apuntes por carrera</h4>
     <div class="programs-wrapper">
       <c:forEach items="${programs}" var="program">
 	      <a class="program-item" href="program/${program.programid}">

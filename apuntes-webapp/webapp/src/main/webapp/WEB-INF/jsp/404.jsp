@@ -10,25 +10,12 @@
             <p>&nbsp;</p>
             <p class="perpective-bold">404</p>
         </li>
-        <li class="perspective-line">
-            <p class="perpective-bold">404</p>
-            <p>Ooops!</p>
-        </li>
+
         <li class="perspective-line">
             <p>Ooops!</p>
             <p>the page you're</p>
-        </li>
-        <li class="perspective-line">
-            <p>the page you're</p>
-            <p>looking for</p>
-        </li>
-        <li class="perspective-line">
             <p>looking for</p>
             <p>doesn't exist.</p>
-        </li>
-        <li class="perspective-line">
-            <p>doesn't exist.</p>
-            <p>&nbsp;</p>
         </li>
     </ul>
 </body>
