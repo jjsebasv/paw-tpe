@@ -17,7 +17,7 @@
           <a class="download-button" href="download/${document.documentId}">
             Descargar
           </a>
-          <a class="download-button" href="open/${document.documentId}">
+          <a class="download-button" href="open/${document.documentId}" target="_blank">
             Ver
           </a>
         </div>
