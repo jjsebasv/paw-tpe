@@ -2,10 +2,10 @@ package ar.edu.itba.paw.controllers;
 
 import ar.edu.itba.paw.interfaces.DocumentService;
 import ar.edu.itba.paw.interfaces.ReviewService;
-import ar.edu.itba.paw.models.Document;
 import ar.edu.itba.paw.models.Client;
+import ar.edu.itba.paw.models.Document;
+import ar.edu.itba.paw.models.Review;
 import forms.ReviewForm;
-import jdk.internal.util.xml.impl.Input;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
@@ -17,9 +17,10 @@ import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestMethod;
 import org.springframework.web.servlet.ModelAndView;
 
-import javax.servlet.ServletOutputStream;
 import javax.servlet.http.HttpServletResponse;
-import java.io.*;
+import java.io.IOException;
+import java.io.InputStream;
+import java.util.List;
 
 @Controller
 public class DocumentController {
@@ -41,14 +42,18 @@ public class DocumentController {
 
         final Document file = fs.findById(id);
 
-        if(file==null)
+        if (file == null)
             return new ModelAndView("404");
+
+
+        final List<Review> reviews = rs.findByFileId(id);
 
         mav.addObject("document", fs.findById(id));
         mav.addObject("username", file.getUser().getName());
         mav.addObject("reviewForm", new ReviewForm());
-        mav.addObject("reviews", rs.findByFileId((int) id));
+        mav.addObject("reviews", reviews);
         mav.addObject("average", rs.getAverage(id));
+        mav.addObject("can_review", !reviews.stream().anyMatch(review -> review.getUser().getClientId() == 1));
 
         return mav;
     }
@@ -84,16 +89,18 @@ public class DocumentController {
     }
 
 
-
     @RequestMapping(value = "/document/{id:[\\d]+}/addReview", method = RequestMethod.POST)
     public ModelAndView submit(@ModelAttribute("reviewForm") ReviewForm reviewForm, BindingResult result, Model model, @PathVariable("id") int fileid) {
 
+        //FIXME Verificar que el usuario tenga permitido subir un review
         final Document file = fs.findById(fileid);
         final Client user = new Client(1, "usuario cableado", "1234"); //FIXME Para cuando haya manejo de sesion
 
         rs.createReview(file, user, reviewForm.getRanking(), reviewForm.getReview());
 
         return new ModelAndView("redirect:/document/" + fileid);
-    };
+    }
+
+    ;
 
 }

@@ -35,9 +35,11 @@
             </li>
           </c:forEach>
         </ul>
-        <h4>Deja un comentario!</h4>
-        <form:form method="POST" action="document/${document.documentId}/addReview" modelAttribute="reviewForm">
-          <fieldset  class="review-form">
+
+        <c:if test="${can_review}">
+          <h4>Deja un comentario!</h4>
+          <form:form method="POST" action="document/${document.documentId}/addReview" modelAttribute="reviewForm">
+            <fieldset  class="review-form">
               <div class="form-group">
                 <label>Calificacion:</label>
                 <form:input path="ranking" type='number' value="5" min='1' max='5' step="1" class="form-control ranking-input" placeholder="Ranking"/>
@@ -49,8 +51,10 @@
               <input type="submit" class="submit-button" value="Enviar"/>
               <!-- Change this to a button or input when using this as a form -->
 
-          </fieldset>
-        </form:form>
+            </fieldset>
+          </form:form>
+        </c:if>
+
       </div>
     </div>
   </div>
