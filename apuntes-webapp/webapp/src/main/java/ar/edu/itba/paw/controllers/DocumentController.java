@@ -1,11 +1,13 @@
 package ar.edu.itba.paw.controllers;
 
-import ar.edu.itba.paw.interfaces.DocumentService;
-import ar.edu.itba.paw.interfaces.ReviewService;
+
 import ar.edu.itba.paw.models.Client;
 import ar.edu.itba.paw.models.Document;
 import ar.edu.itba.paw.models.Review;
 import ar.edu.itba.paw.forms.ReviewForm;
+import ar.edu.itba.paw.interfaces.DocumentService;
+import ar.edu.itba.paw.interfaces.ReviewService;
+
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
@@ -31,8 +33,8 @@ public class DocumentController {
 
     @Autowired
     public DocumentController(ReviewService rs, DocumentService fs) {
-        this.fs = fs;
         this.rs = rs;
+        this.fs = fs;
     }
 
 
@@ -41,12 +43,10 @@ public class DocumentController {
         ModelAndView mav = new ModelAndView("documentView");
 
         final Document file = fs.findById(id);
+        final List<Review> reviews = rs.findByFileId((int) id);
 
         if (file == null)
             return new ModelAndView("404");
-
-
-        final List<Review> reviews = rs.findByFileId(id);
 
         mav.addObject("document", fs.findById(id));
         mav.addObject("username", file.getUser().getName());
