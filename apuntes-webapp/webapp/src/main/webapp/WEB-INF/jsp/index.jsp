@@ -4,14 +4,14 @@
   <%@ include file="navbar.jsp" %>
   <section class="main-section">
     <div class='overlay'></div>
-    <h1>Lorem ipsum</h1>
+    <h1>APUNTES PAW</h1>
     <div class="separator"></div>
-    <h2>Lorem ipsum dolor sit amet, consectetur adipiscing elit</h2>
+    <h2>Descarga tus apuntes</h2>
   </section>
   <section class="section-program">
     <h3>Carreras de grado</h3>
     <div class="separator"></div>
-    <h4>Lorem ipsum dolor sit amet</h4>
+    <h4>Ad Lucem Serenitate Tendo</h4>
     <div class="programs-wrapper">
       <c:forEach items="${programs}" var="program">
 	      <a class="program-item" href="program/${program.programid}">
