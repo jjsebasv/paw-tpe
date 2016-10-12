@@ -4,6 +4,9 @@
   <%@ include file="navbar.jsp" %>
   <div class="content-wrapper">
     <div class=white-container>
+      <a href="" class="back-button">
+        <img src="resources/assets/back.svg">
+      </a>
       <h3 class="program-title">#${program.name}</h3>
       <div class="white-container-content">
         <h4 class="course-size">${coursesSize} Materias</h4>

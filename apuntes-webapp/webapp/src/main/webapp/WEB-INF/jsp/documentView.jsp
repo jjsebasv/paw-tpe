@@ -6,7 +6,7 @@
   <%@ include file="navbar.jsp" %>
   <div class="content-wrapper">
     <div class="white-container file-container">
-      <a href="course/${document.course.code}" class="back-button">
+      <a href="" class="back-button">
         <img src="resources/assets/back.svg">
       </a>
       <h3 class="program-title">${document.subject}</h3>
