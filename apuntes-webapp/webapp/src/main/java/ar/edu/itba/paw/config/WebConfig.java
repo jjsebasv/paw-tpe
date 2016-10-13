@@ -30,8 +30,17 @@ public class WebConfig extends WebMvcConfigurerAdapter {
     private static final String RESOURCES = "/resources/";
     private static final String RESOURCES_PATH = "/resources/**";
 
-	@Value("classpath:schema.sql")
+    @Value("classpath:schema.sql")
     private Resource schemaSql;
+
+    @Value("classpath:fixture/programs.sql")
+    private Resource programsSql;
+
+    @Value("classpath:fixture/courses.sql")
+    private Resource coursesSql;
+
+    @Value("classpath:fixture/coursesToPrograms.sql")
+    private Resource coursesToProgramsSql;
 
     @Value("classpath:config.properties")
     private Resource config;
@@ -52,6 +61,9 @@ public class WebConfig extends WebMvcConfigurerAdapter {
     private DatabasePopulator databasePopulator() {
         final ResourceDatabasePopulator dbp = new ResourceDatabasePopulator();
         dbp.addScript(schemaSql);
+        dbp.addScript(programsSql);
+        dbp.addScript(coursesSql);
+        dbp.addScript(coursesToProgramsSql);
         return dbp;
     }
 
@@ -78,12 +90,12 @@ public class WebConfig extends WebMvcConfigurerAdapter {
         ds.setPassword("root");*/
         return ds;
     }
-    
+
     @Bean
     public MultipartResolver multipartResolver() {
-    	CommonsMultipartResolver multipartResolver = new CommonsMultipartResolver();
-    	multipartResolver.setMaxUploadSize(1000000000);
-    	return multipartResolver;
+        CommonsMultipartResolver multipartResolver = new CommonsMultipartResolver();
+        multipartResolver.setMaxUploadSize(1000000000);
+        return multipartResolver;
     }
 
     private String getApplicationProperty(String key) {

@@ -1,7 +1,6 @@
 package ar.edu.itba.paw.persistence;
 
 import ar.edu.itba.paw.interfaces.CourseDao;
-import ar.edu.itba.paw.models.Client;
 import ar.edu.itba.paw.models.Course;
 import ar.edu.itba.paw.models.Program;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -26,6 +25,7 @@ public class CourseJdbcDao implements CourseDao {
     /*package*/ static final String COURSE_COLUMN_ID = "course_id";
     /*package*/ static final String COURSE_COLUMN_CODE = "code";
     /*package*/ static final String COURSE_COLUMN_NAME = "name";
+    /*package*/ static final String COURSE_COLUMN_SEMESTER = "semester";
 
     /*package*/ static final String COURSETOPROGRAM_TABE_NAME = "coursesToPrograms";
     /*package*/ static final String COURSETOPROGRAM_COLUMN_COURSE_ID = "course_id";
@@ -54,8 +54,20 @@ public class CourseJdbcDao implements CourseDao {
             return new Course(
                     rs.getInt(COURSE_COLUMN_ID),
                     rs.getString(COURSE_COLUMN_CODE),
-                    rs.getString(COURSE_COLUMN_NAME)
-            );
+                    rs.getString(COURSE_COLUMN_NAME));
+        }
+
+    };
+
+    private final static RowMapper<Course> ROW_MAPPER_WITH_SEMESTER = new RowMapper<Course>() {
+
+        @Override
+        public Course mapRow(ResultSet rs, int rowNum) throws SQLException {
+            return new Course(
+                    rs.getInt(COURSE_COLUMN_ID),
+                    rs.getString(COURSE_COLUMN_CODE),
+                    rs.getString(COURSE_COLUMN_NAME),
+                    rs.getInt(COURSE_COLUMN_SEMESTER));
         }
 
     };
@@ -134,9 +146,9 @@ public class CourseJdbcDao implements CourseDao {
         final String query = "SELECT * FROM " + COURSE_TABLE_NAME +
                 " INNER JOIN coursesToPrograms ON " + COURSE_TABLE_NAME + "." + COURSE_COLUMN_ID + " = coursesToPrograms.course_id" +
                 " INNER JOIN programs ON coursesToPrograms.program_id = programs.program_id" +
-                " WHERE programs.program_id = ?";
+                " WHERE programs.program_id = ? ORDER BY coursesToPrograms.semester ASC";
 
-        return jdbcTemplate.query(query, ROW_MAPPER, programid);
+        return jdbcTemplate.query(query, ROW_MAPPER_WITH_SEMESTER, programid);
     }
 
     @Override

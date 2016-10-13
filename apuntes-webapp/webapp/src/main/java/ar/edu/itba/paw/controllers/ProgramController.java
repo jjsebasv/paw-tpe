@@ -6,6 +6,10 @@ import ar.edu.itba.paw.models.Course;
 import ar.edu.itba.paw.models.Program;
 
 import java.util.List;
+import java.util.Map;
+import java.util.function.Predicate;
+import java.util.stream.Collector;
+import java.util.stream.Collectors;
 
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
@@ -38,9 +42,12 @@ public class ProgramController {
             return new ModelAndView("404");
         }
 
-        final List<Course> courses= cs.findByProgram(programid);
+        final List<Course> courses = cs.findByProgram(programid);
+
+        final Map<Integer, List<Course>> groupedCourses = courses.stream().collect(Collectors.groupingBy(Course::getSemester));
+
         mav.addObject("program", program);
-        mav.addObject("courses", courses);
+        mav.addObject("courses", groupedCourses);
         mav.addObject("coursesSize", courses.size());
 
         return mav;
