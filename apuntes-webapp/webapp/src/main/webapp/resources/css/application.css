@@ -387,3 +387,12 @@ textarea.form-control.review-input {
 	justify-content: space-around;
 	padding: 50px;
 }
+
+
+/*** Arrow para scrolling***/
+#to-top {
+  display: none;
+  position: fixed;
+  bottom: 5px;
+  right: 5px;
+}

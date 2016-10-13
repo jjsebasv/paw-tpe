@@ -23,5 +23,8 @@
     <link rel="stylesheet" type="text/css" href="resources/css/normalize.css">
     <link rel="stylesheet" type="text/css" href="resources/css/application.css">
 
+    <link href="resources/font-awesome/css/font-awesome.min.css" rel="stylesheet" type="text/css">
+    <link href="https://fonts.googleapis.com/css?family=Source+Sans+Pro:300,400,700,300italic,400italic,700italic" rel="stylesheet" type="text/css">
+
     <script src="resources/js/application.js"></script>
 </head>

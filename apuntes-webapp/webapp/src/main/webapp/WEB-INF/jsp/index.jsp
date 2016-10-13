@@ -7,8 +7,13 @@
     <h1>APUNTES PAW</h1>
     <div class="separator"></div>
     <h2>Descarga tus apuntes</h2>
+    <br>
+        
+    <a href="#about" class="btn btn-dark btn-lg">
+      <i class="fa fa- fa-chevron-down fa-fw fa-1x"></i>
+    </a>
   </section>
-  <section class="section-program">
+  <section id="about" class="section-program">
     <h3>Carreras de grado</h3>
     <div class="separator"></div>
     <h4>Busca tus apuntes por carrera</h4>
@@ -20,5 +25,6 @@
       </c:forEach>
     </div>
   </section>
+  <a id="to-top" href="#top" class="btn btn-dark btn-lg"><i class="fa fa- fa-chevron-up fa-fw fa-1x"></i></a>
   <%@ include file="footer.jsp" %>
 </body>
