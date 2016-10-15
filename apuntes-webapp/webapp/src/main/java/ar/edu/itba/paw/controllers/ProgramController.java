@@ -46,8 +46,11 @@ public class ProgramController {
 
         final Map<Integer, List<Course>> groupedCourses = courses.stream().collect(Collectors.groupingBy(Course::getSemester));
 
+        final List<Course> optativas = groupedCourses.remove(0);
+
         mav.addObject("program", program);
         mav.addObject("courses", groupedCourses);
+        mav.addObject("optativas", optativas);
         mav.addObject("coursesSize", courses.size());
 
         return mav;

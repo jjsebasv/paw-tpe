@@ -12,9 +12,8 @@
             <h4 class="course-size">${coursesSize} Materias</h4>
             <ul class="list-wrapper">
 
-
                 <c:forEach items="${courses}" var="entry">
-                    <p>Semester ${sm:mapSemester(entry.key)}</p>
+                    <p>${sm:mapSemester(entry.key)}</p>
 
                     <c:forEach items="${entry.value}" var="course">
                         <li class="list-item">
@@ -27,6 +26,18 @@
                         </li>
                     </c:forEach>
 
+                </c:forEach>
+
+                <p>Optativas</p>
+                <c:forEach items="${optativas}" var="course">
+                    <li class="list-item">
+                        <div class="border"></div>
+                        <a href="course/${course.code}"
+                           class="list-group-item">
+                            <span>${course.code}</span>
+                            <span>${course.name}</span>
+                        </a>
+                    </li>
                 </c:forEach>
 
             </ul>

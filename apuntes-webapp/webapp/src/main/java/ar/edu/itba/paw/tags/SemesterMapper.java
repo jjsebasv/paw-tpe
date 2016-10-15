@@ -5,7 +5,7 @@ public class SemesterMapper {
 
     public static String mapSemester(final int semester) {
 
-        final int year = (int) (semester / 2) + semester % 2;
+        final int year = (semester / 2) + semester % 2;
 
         final int sem;
 
@@ -15,7 +15,7 @@ public class SemesterMapper {
             sem = 2;
         }
 
-        return String.format("Year %s - Semester %s", year, sem);
+        return String.format("Año %s - Cuatrimestre %s", year, sem);
     }
 
 }
