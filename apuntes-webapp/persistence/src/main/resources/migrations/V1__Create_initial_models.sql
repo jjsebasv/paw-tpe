@@ -8,7 +8,8 @@
 CREATE TABLE IF NOT EXISTS clients (
   client_id SERIAL PRIMARY KEY,
   username  VARCHAR(100),
-  password  VARCHAR(100)
+  password  VARCHAR(100),
+  email     VARCHAR(200) UNIQUE
 );
 
 CREATE TABLE IF NOT EXISTS programs (

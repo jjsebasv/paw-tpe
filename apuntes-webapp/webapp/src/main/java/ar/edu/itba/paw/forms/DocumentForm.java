@@ -1,4 +1,4 @@
-package forms;
+package ar.edu.itba.paw.forms;
 
 import java.io.InputStream;
 

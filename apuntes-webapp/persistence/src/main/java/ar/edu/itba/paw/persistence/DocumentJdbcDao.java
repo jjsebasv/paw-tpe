@@ -54,8 +54,8 @@ public class DocumentJdbcDao implements DocumentDao {
                     new Client(
                             rs.getInt(CLIENT_COLUMN_ID),
                             rs.getString(CLIENT_COLUMN_USERNAME),
-                            rs.getString(CLIENT_COLUMN_PASSWORD)
-                    ),
+                            rs.getString(CLIENT_COLUMN_PASSWORD),
+                            rs.getString(CLIENT_COLUMN_EMAIL)),
                     new Course(
                             rs.getInt(COURSE_COLUMN_ID),
                             rs.getString(COURSE_COLUMN_CODE),

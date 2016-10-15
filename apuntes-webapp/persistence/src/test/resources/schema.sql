@@ -63,7 +63,7 @@ CREATE TABLE reviews (
   FOREIGN KEY (client_id) REFERENCES clients (client_id)
 );
 
--- INSERT INTO clients (client_id, username, password) VALUES
+-- INSERT INTO clients (clientId, username, password) VALUES
 --   (1, 'nlopez', 'password1'),
 --   (2, 'jvera', 'password2'),
 --   (3, 'skulez', 'password3'),
@@ -90,12 +90,12 @@ CREATE TABLE reviews (
 --   (2, 1),
 --   (3, 1);
 --
--- INSERT INTO documents (client_id, course_id, subject, document_name, document_size, uploaded_document) VALUES
+-- INSERT INTO documents (clientId, course_id, subject, document_name, document_size, uploaded_document) VALUES
 --   (1, 1, '01.-Introduccion.pdf', '01.-Introduccion.pdf', 866539, NULL),
 --   (2, 1, '02 HTTP.pdf', '02 HTTP.pdf', 516545, NULL),
 --   (3, 2, 'JSTL.pdf', 'JSTL.pdf', 446520, NULL);
 --
--- INSERT INTO reviews (document_id, client_id, ranking, review) VALUES
+-- INSERT INTO reviews (document_id, clientId, ranking, review) VALUES
 --   (1, 4, 5, 'Parcial resuelto, muy bueno!'),
 --   (1, 3, 1, 'Esta mal resuelto! Banda de gilada'),
 --   (2, 3, 2, 'Lo recomiendo');

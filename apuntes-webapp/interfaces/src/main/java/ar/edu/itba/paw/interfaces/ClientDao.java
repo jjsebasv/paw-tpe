@@ -8,6 +8,6 @@ public interface ClientDao {
 
     Client findByUsername(String username);
 
-    Client create(String username, String password);
+    Client create(String username, String password, String email);
 
 }

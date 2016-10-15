@@ -22,6 +22,7 @@ public class ClientJdbcDao implements ClientDao {
     /*package*/ static final String CLIENT_COLUMN_ID = "client_id";
     /*package*/ static final String CLIENT_COLUMN_USERNAME = "username";
     /*package*/ static final String CLIENT_COLUMN_PASSWORD = "password";
+    /*package*/ static final String CLIENT_COLUMN_EMAIL = "email";
 
     private final JdbcTemplate jdbcTemplate;
     private final SimpleJdbcInsert jdbcInsert;
@@ -33,8 +34,8 @@ public class ClientJdbcDao implements ClientDao {
             return new Client(
                     rs.getInt(CLIENT_COLUMN_ID),
                     rs.getString(CLIENT_COLUMN_USERNAME),
-                    rs.getString(CLIENT_COLUMN_PASSWORD)
-            );
+                    rs.getString(CLIENT_COLUMN_PASSWORD),
+                    rs.getString(CLIENT_COLUMN_EMAIL));
         }
 
     };
@@ -69,13 +70,14 @@ public class ClientJdbcDao implements ClientDao {
     }
 
     @Override
-    public Client create(String username, String password) {
+    public Client create(final String username, final String password, final String email) {
         final Map<String, Object> args = new HashMap<>();
         args.put(CLIENT_COLUMN_USERNAME, username);
         args.put(CLIENT_COLUMN_PASSWORD, password);
+        args.put(CLIENT_COLUMN_EMAIL, email);
 
         final Number userid = jdbcInsert.executeAndReturnKey(args);
-        return new Client(userid.intValue(), username, password);
+        return new Client(userid.intValue(), username, password, email);
     }
 
 }

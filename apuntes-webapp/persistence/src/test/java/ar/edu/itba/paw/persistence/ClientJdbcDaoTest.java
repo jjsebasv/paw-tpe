@@ -19,6 +19,7 @@ public class ClientJdbcDaoTest {
 
     private static final String USERNAME = "PAW USER";
     private static final String PASSWORD = "PAWPASS";
+    private static final String EMAIL = "asd@email.com";
 
     @Autowired
     private DataSource ds;
@@ -37,7 +38,7 @@ public class ClientJdbcDaoTest {
     @Test
     public void testFindByIdExistingUser() {
 
-        final Client newClient = clientDao.create(USERNAME, PASSWORD);
+        final Client newClient = clientDao.create(USERNAME, PASSWORD, EMAIL);
 
         final Client lookupClient = clientDao.findById(newClient.getClientId());
 
@@ -56,7 +57,7 @@ public class ClientJdbcDaoTest {
 
     @Test
     public void testCreate() {
-        final Client client = clientDao.create(USERNAME, PASSWORD);
+        final Client client = clientDao.create(USERNAME, PASSWORD, EMAIL);
 
         Assert.assertNotNull(client);
         Assert.assertEquals(USERNAME, client.getName());

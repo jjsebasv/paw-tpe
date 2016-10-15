@@ -12,11 +12,11 @@ public class ClientServiceImpl implements ClientService {
     private final ClientDao clientDao;
 
     @Autowired
-    public ClientServiceImpl(ClientDao clientDao) {
+    public ClientServiceImpl(final ClientDao clientDao) {
         this.clientDao = clientDao;
     }
 
-    public Client findById(int id) {
+    public Client findById(final int id) {
         return clientDao.findById(id);
     }
 
@@ -25,8 +25,8 @@ public class ClientServiceImpl implements ClientService {
         return clientDao.findByUsername(username);
     }
 
-    public int create(String username, String password) {
-        return clientDao.create(username, password).getClientId();
+    public Client create(final String username, final String password, final String email) {
+        return clientDao.create(username, password, email);
     }
 
 
