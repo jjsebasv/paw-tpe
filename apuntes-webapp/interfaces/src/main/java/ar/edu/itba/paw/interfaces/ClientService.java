@@ -6,5 +6,7 @@ public interface ClientService {
 
     Client findById(int id);
 
+    Client findByUsername(String username);
+
     int create(String username, String password);
 }

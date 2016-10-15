@@ -1,5 +1,6 @@
 package ar.edu.itba.paw.config;
 
+import org.flywaydb.core.Flyway;
 import org.springframework.beans.factory.annotation.Value;
 import org.springframework.context.annotation.Bean;
 import org.springframework.context.annotation.ComponentScan;
@@ -30,18 +31,6 @@ public class WebConfig extends WebMvcConfigurerAdapter {
     private static final String RESOURCES = "/resources/";
     private static final String RESOURCES_PATH = "/resources/**";
 
-    @Value("classpath:schema.sql")
-    private Resource schemaSql;
-
-    @Value("classpath:fixture/programs.sql")
-    private Resource programsSql;
-
-    @Value("classpath:fixture/courses.sql")
-    private Resource coursesSql;
-
-    @Value("classpath:fixture/coursesToPrograms.sql")
-    private Resource coursesToProgramsSql;
-
     @Value("classpath:config.properties")
     private Resource config;
 
@@ -52,20 +41,17 @@ public class WebConfig extends WebMvcConfigurerAdapter {
 
     @Bean
     public DataSourceInitializer dataSourceInitializer(final DataSource ds) {
+        Flyway flyway = new Flyway();
+        flyway.setBaselineOnMigrate(true);
+        flyway.setLocations("classpath:migrations/");
+        flyway.setDataSource(ds);
+        flyway.migrate();
+
         final DataSourceInitializer dsi = new DataSourceInitializer();
         dsi.setDataSource(ds);
-        dsi.setDatabasePopulator(databasePopulator());
         return dsi;
     }
 
-    private DatabasePopulator databasePopulator() {
-        final ResourceDatabasePopulator dbp = new ResourceDatabasePopulator();
-        dbp.addScript(schemaSql);
-        dbp.addScript(programsSql);
-        dbp.addScript(coursesSql);
-        dbp.addScript(coursesToProgramsSql);
-        return dbp;
-    }
 
     @Bean
     public ViewResolver viewResolver() {
@@ -105,7 +91,7 @@ public class WebConfig extends WebMvcConfigurerAdapter {
             prop.load(config.getInputStream());
             value = prop.getProperty(key);
         } catch (IOException e) {
-            System.out.println(e);
+            e.printStackTrace();
         }
         return value;
     }
