@@ -4,39 +4,36 @@
 <body>
 <%@ include file="../navbar.jsp" %>
 <div class="login-form">
-    <c:url value="/login" var="postPath"/>
 
     <div class="row margin-top">
 
         <div class="col-xs-4 col-xs-offset-4">
 
-            <form:form modelAttribute="loginForm" action="${postPath}" method="post">
+            <c:url value="/login" var="loginUrl"/>
+            <form action="${loginUrl}" method="post" enctype="application/x-www-form-urlencoded">
 
-                <c:set var="usernameHasBindError">
-                    <form:errors path="username"/>
-                </c:set>
+                <c:if test="${not empty error}">
+                    <div class="error">${error}</div>
+                </c:if>
+                <c:if test="${not empty msg}">
+                    <div class="msg">${msg}</div>
+                </c:if>
 
-                <c:set var="passwordHasBindError">
-                    <form:errors path="password"/>
-                </c:set>
 
-
-                <div class="form-group ${not empty usernameHasBindError?"has-error":""}">
-                    <form:label path="username">Username: </form:label>
-                    <form:input class="form-control" type="text" path="username"/>
-                    <form:errors path="username" cssClass="help-block" element="p"/>
+                <div class="form-group">
+                    <label class="control-label" for="username">Username: </label>
+                    <input type="text" class="form-control" name="j_username" id="username">
                 </div>
 
-                <div class="form-group ${not empty passwordHasBindError?"has-error":""}">
-                    <form:label path="password">Password: </form:label>
-                    <form:input class="form-control" type="password" path="password"/>
-                    <form:errors path="password" cssClass="help-block" element="p"/>
+                <div class="form-group">
+                    <label class="control-label" for="password">Password: </label>
+                    <input type="password" class="form-control" name="j_password" id="password">
                 </div>
 
                 <div class="form-group">
                     <input class="btn btn-default" type="submit" value="Login!"/>
                 </div>
-            </form:form>
+            </form>
         </div>
     </div>
 

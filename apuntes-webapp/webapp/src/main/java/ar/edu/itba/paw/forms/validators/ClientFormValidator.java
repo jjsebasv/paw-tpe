@@ -15,7 +15,7 @@ public class ClientFormValidator implements Validator {
 
     private final Logger LOGGER = LoggerFactory.getLogger(ClientController.class);
 
-    final ClientService clientService;
+    private final ClientService clientService;
 
     @Autowired
     public ClientFormValidator(ClientService clientService) {
@@ -39,6 +39,8 @@ public class ClientFormValidator implements Validator {
         if (!clientForm.getPassword().equals(clientForm.getRepeatPassword())) {
             errors.rejectValue("repeatPassword", "does.not.match");
         }
+
+        //TODO Validar email unique
 
     }
 }

@@ -23,13 +23,14 @@ public class PawUserDetailsService implements UserDetailsService {
         this.cs = cs;
     }
 
-
     @Override
     public UserDetails loadUserByUsername(final String username) throws UsernameNotFoundException {
         final Client user = cs.findByUsername(username);
         if (user == null) {
             throw new UsernameNotFoundException("No	user by	the	name " + username);
         }
+
+        //FIXME
         final Collection<? extends GrantedAuthority> authorities = Arrays.asList(
                 new SimpleGrantedAuthority("ROLE_USER"),
                 new SimpleGrantedAuthority("ROLE_ADMIN")
