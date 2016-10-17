@@ -1,7 +1,7 @@
 <!DOCTYPE web-app PUBLIC
         "-//Sun Microsystems, Inc.//DTD Web Application 2.3//EN"
         "http://java.sun.com/dtd/web-app_2_4.xsd" >
-        
+
 <web-app id="PAW" version="2.4"
          xmlns="http://java.sun.com/xml/ns/j2ee"
          xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
@@ -30,14 +30,37 @@
         <param-name>contextConfigLocation</param-name>
         <param-value>
             ar.edu.itba.paw.config.WebConfig,
+            ar.edu.itba.paw.config.WebAuthConfig,
         </param-value>
     </context-param>
     <context-param>
-	    <param-name>defaultHtmlEscape</param-name>
-	    <param-value>true</param-value>
-	</context-param>
+        <param-name>defaultHtmlEscape</param-name>
+        <param-value>true</param-value>
+    </context-param>
     <listener>
         <listener-class>org.springframework.web.context.ContextLoaderListener</listener-class>
     </listener>
+
+    <jsp-config>
+        <taglib>
+            <taglib-uri>
+                http://ar.edu.itba.paw/semesterMapper
+            </taglib-uri>
+            <taglib-location>
+                /WEB-INF/tags/semesterMapper.tld
+            </taglib-location>
+        </taglib>
+    </jsp-config>
+
+    <filter>
+        <filter-name>springSecurityFilterChain</filter-name>
+        <filter-class>org.springframework.web.filter.DelegatingFilterProxy</filter-class>
+    </filter>
+
+    <filter-mapping>
+        <filter-name>springSecurityFilterChain</filter-name>
+        <url-pattern>/*</url-pattern>
+    </filter-mapping>
+
 
 </web-app>

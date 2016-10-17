@@ -8,10 +8,17 @@ public class Course {
 
     private final String name;
 
-    public Course(final int courseid, final String code, final String name) {
+    private final int semester;
+
+    public Course(final int courseid, final String code, final String name, int semester) {
         this.courseid = courseid;
         this.code = code;
         this.name = name;
+        this.semester = semester;
+    }
+
+    public Course(final int courseid, final String code, final String name) {
+        this(courseid, code, name, -1);
     }
 
     public int getCourseid() {
@@ -48,5 +55,9 @@ public class Course {
     @Override
     public String toString() {
         return String.format("%s - %s", code, name);
+    }
+
+    public int getSemester() {
+        return semester;
     }
 }

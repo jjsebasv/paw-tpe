@@ -6,6 +6,8 @@ public interface ClientDao {
 
     Client findById(int id);
 
-    Client create(String username, String password);
+    Client findByUsername(String username);
+
+    Client create(String username, String password, String email);
 
 }

@@ -5,7 +5,7 @@ import ar.edu.itba.paw.interfaces.ReviewService;
 import ar.edu.itba.paw.models.Client;
 import ar.edu.itba.paw.models.Document;
 import ar.edu.itba.paw.models.Review;
-import forms.ReviewForm;
+import ar.edu.itba.paw.forms.ReviewForm;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
@@ -94,7 +94,7 @@ public class DocumentController {
 
         //FIXME Verificar que el usuario tenga permitido subir un review
         final Document file = fs.findById(fileid);
-        final Client user = new Client(1, "usuario cableado", "1234"); //FIXME Para cuando haya manejo de sesion
+        final Client user = new Client(1, "usuario cableado", "1234", "asd@asd.com"); //FIXME Para cuando haya manejo de sesion
 
         rs.createReview(file, user, reviewForm.getRanking(), reviewForm.getReview());
 

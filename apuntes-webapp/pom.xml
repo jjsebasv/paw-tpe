@@ -26,6 +26,15 @@
         <org.postgresql.version>9.3-1102-jdbc41</org.postgresql.version>
         <org.hsqldb.version>2.3.1</org.hsqldb.version>
         <com.fasterxml.jackson.version>2.3.1</com.fasterxml.jackson.version>
+        <org.slf4j.version>1.7.5</org.slf4j.version>
+        <logback.version>1.1.2</logback.version>
+        <logback-ext-spring.version>0.1.1</logback-ext-spring.version>
+        <spring-security.version>4.0.4.RELEASE</spring-security.version>
+
+        <javax.validation-api.version>1.0.0.GA</javax.validation-api.version>
+        <org.hibernate.validator>4.3.1.Final</org.hibernate.validator>
+
+        <flyway.version>4.0.3</flyway.version>
     </properties>
     <build>
 
@@ -137,6 +146,74 @@
                 <artifactId>jackson-databind</artifactId>
                 <version>${com.fasterxml.jackson.version}</version>
             </dependency>
+
+            <dependency>
+                <groupId>org.slf4j</groupId>
+                <artifactId>slf4j-api</artifactId>
+                <version>${org.slf4j.version}</version>
+            </dependency>
+
+            <dependency>
+                <groupId>ch.qos.logback</groupId>
+                <artifactId>logback-classic</artifactId>
+                <version>${logback.version}</version>
+            </dependency>
+
+            <dependency>
+                <groupId>ch.qos.logback</groupId>
+                <artifactId>logback-core</artifactId>
+                <version>${logback.version}</version>
+            </dependency>
+
+            <dependency>
+                <groupId>org.slf4j</groupId>
+                <artifactId>jcl-over-slf4j</artifactId>
+                <version>${org.slf4j.version}</version>
+            </dependency>
+
+            <dependency>
+                <groupId>org.logback-extensions</groupId>
+                <artifactId>logback-ext-spring</artifactId>
+                <version>${logback-ext-spring.version}</version>
+                <scope>runtime</scope>
+            </dependency>
+
+            <dependency>
+                <groupId>org.springframework.security</groupId>
+                <artifactId>spring-security-core</artifactId>
+                <version>${spring-security.version}</version>
+            </dependency>
+
+            <dependency>
+                <groupId>org.springframework.security</groupId>
+                <artifactId>spring-security-web</artifactId>
+                <version>${spring-security.version}</version>
+            </dependency>
+
+            <dependency>
+                <groupId>org.springframework.security</groupId>
+                <artifactId>spring-security-config</artifactId>
+                <version>${spring-security.version}</version>
+            </dependency>
+
+            <dependency>
+                <groupId>javax.validation</groupId>
+                <artifactId>validation-api</artifactId>
+                <version>${javax.validation-api.version}</version>
+            </dependency>
+
+            <dependency>
+                <groupId>org.hibernate</groupId>
+                <artifactId>hibernate-validator</artifactId>
+                <version>${org.hibernate.validator}</version>
+            </dependency>
+
+            <dependency>
+                <groupId>org.flywaydb</groupId>
+                <artifactId>flyway-core</artifactId>
+                <version>${flyway.version}</version>
+            </dependency>
+
 
         </dependencies>
 

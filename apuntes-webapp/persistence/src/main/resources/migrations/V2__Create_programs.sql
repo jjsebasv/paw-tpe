@@ -1,0 +1,11 @@
+INSERT INTO programs (program_id, name, short_name, "group") VALUES (1, 'Bioingeniería', 'bioingenieria', 'g');
+INSERT INTO programs (program_id, name, short_name, "group") VALUES (2, 'Ingeniería Eléctrica', 'electrica', 'g');
+INSERT INTO programs (program_id, name, short_name, "group") VALUES (3, 'Ingeniería Electrónica', 'electronica', 'g');
+INSERT INTO programs (program_id, name, short_name, "group") VALUES (4, 'Ingeniería en Informática', 'informatica', 'g');
+INSERT INTO programs (program_id, name, short_name, "group") VALUES (5, 'Ingeniería en Petróleo', 'petroleo', 'g');
+INSERT INTO programs (program_id, name, short_name, "group") VALUES (6, 'Ingeniería Industrial', 'industrial', 'g');
+INSERT INTO programs (program_id, name, short_name, "group") VALUES (7, 'Ingeniería Mecánica', 'mecanica', 'g');
+INSERT INTO programs (program_id, name, short_name, "group") VALUES (8, 'Ingeniería Naval', 'naval', 'g');
+INSERT INTO programs (program_id, name, short_name, "group") VALUES (9, 'Ingeniería Química', 'quimica', 'g');
+INSERT INTO programs (program_id, name, short_name, "group") VALUES (10, 'Lic. en Administración y Sistemas', 'licenciatura', 'g');
+INSERT INTO programs (program_id, name, short_name, "group") VALUES (11, 'Ingreso', 'ingreso', 'i');

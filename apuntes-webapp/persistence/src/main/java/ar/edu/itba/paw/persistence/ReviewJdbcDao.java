@@ -17,6 +17,7 @@ import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
 
+import static ar.edu.itba.paw.persistence.ClientJdbcDao.CLIENT_COLUMN_EMAIL;
 import static ar.edu.itba.paw.persistence.ClientJdbcDao.CLIENT_COLUMN_ID;
 import static ar.edu.itba.paw.persistence.ClientJdbcDao.CLIENT_COLUMN_USERNAME;
 import static ar.edu.itba.paw.persistence.DocumentJdbcDao.*;
@@ -57,7 +58,9 @@ public class ReviewJdbcDao implements ReviewDao {
                             null),//FIXME
                     new Client(rs.getInt(CLIENT_COLUMN_ID),
                             rs.getString(CLIENT_COLUMN_USERNAME),
-                            null), //FIXME
+                            null,
+                            rs.getString(CLIENT_COLUMN_EMAIL)
+                    ), //FIXME
                     rs.getDouble(REVIEW_COLUMN_RANKING),
                     rs.getString(REVIEW_COLUMN_REVIEW));
         }

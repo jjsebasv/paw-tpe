@@ -9,19 +9,24 @@ import org.springframework.stereotype.Service;
 @Service
 public class ClientServiceImpl implements ClientService {
 
-    private final ClientDao userDao;
+    private final ClientDao clientDao;
 
     @Autowired
-    public ClientServiceImpl(ClientDao userDao) {
-        this.userDao = userDao;
+    public ClientServiceImpl(final ClientDao clientDao) {
+        this.clientDao = clientDao;
     }
 
-    public Client findById(int id) {
-        return userDao.findById(id);
+    public Client findById(final int id) {
+        return clientDao.findById(id);
     }
 
-    public int create(String username, String password) {
-        return userDao.create(username, password).getClientId();
+    @Override
+    public Client findByUsername(final String username) {
+        return clientDao.findByUsername(username);
+    }
+
+    public Client create(final String username, final String password, final String email) {
+        return clientDao.create(username, password, email);
     }
 
 

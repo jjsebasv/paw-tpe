@@ -2,18 +2,16 @@ package ar.edu.itba.paw.models;
 
 public class Client {
 
-    //	@Size(min = 6, max = 100)
-//	@Pattern(regexp = "[a-zA-Z0-9]+")
     private final String name;
-    private final int client_id;
-
-    //	@Size(min = 6, max = 10)
+    private final int clientId;
     private final String password;
+    private final String email;
 
-    public Client(final int client_id, final String name, final String password) {
+    public Client(final int clientId, final String name, final String password, String email) {
         this.name = name;
-        this.client_id = client_id;
+        this.clientId = clientId;
         this.password = password;
+        this.email = email;
     }
 
     public String getName() {
@@ -21,7 +19,7 @@ public class Client {
     }
 
     public int getClientId() {
-        return client_id;
+        return clientId;
     }
 
     public String getPassword() {
@@ -30,7 +28,7 @@ public class Client {
 
     @Override
     public String toString() {
-        return String.format("(%d) %s", this.client_id, this.name);
+        return String.format("(%d) %s", this.clientId, this.name);
     }
 
     @Override
@@ -40,12 +38,16 @@ public class Client {
 
         Client client = (Client) o;
 
-        return client_id == client.client_id;
+        return clientId == client.clientId;
 
     }
 
     @Override
     public int hashCode() {
-        return client_id;
+        return clientId;
+    }
+
+    public String getEmail() {
+        return email;
     }
 }

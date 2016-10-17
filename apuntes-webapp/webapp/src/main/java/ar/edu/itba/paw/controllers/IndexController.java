@@ -1,17 +1,12 @@
 package ar.edu.itba.paw.controllers;
 
-import ar.edu.itba.paw.interfaces.CourseService;
 import ar.edu.itba.paw.interfaces.ProgramService;
-import forms.DocumentForm;
-import forms.ReviewForm;
+import ar.edu.itba.paw.forms.DocumentForm;
 
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
 import org.springframework.web.bind.annotation.RequestMapping;
-import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.servlet.ModelAndView;
-
-import ar.edu.itba.paw.interfaces.ClientService;
 
 @Controller
 public class IndexController {
