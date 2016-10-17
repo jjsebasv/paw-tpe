@@ -1,6 +1,8 @@
 package ar.edu.itba.paw.config;
 
 import org.flywaydb.core.Flyway;
+import org.slf4j.Logger;
+import org.slf4j.LoggerFactory;
 import org.springframework.beans.factory.annotation.Value;
 import org.springframework.context.annotation.Bean;
 import org.springframework.context.annotation.ComponentScan;
@@ -29,11 +31,16 @@ import java.util.Properties;
 @Configuration
 public class WebConfig extends WebMvcConfigurerAdapter {
 
+    private final Logger LOGGER = LoggerFactory.getLogger(WebConfig.class);
+
     private static final String RESOURCES = "/resources/";
     private static final String RESOURCES_PATH = "/resources/**";
 
     @Value("classpath:config.properties")
     private Resource config;
+
+    @Value("classpath:productionConfig.properties")
+    private Resource productionConfig;
 
     @Override
     public void addResourceHandlers(ResourceHandlerRegistry registry) {
@@ -90,6 +97,12 @@ public class WebConfig extends WebMvcConfigurerAdapter {
         try {
             Properties prop = new Properties();
             prop.load(config.getInputStream());
+
+            if (productionConfig.exists()) {
+                LOGGER.info("Production configuration file found. Loading over default properties...");
+                prop.load(productionConfig.getInputStream());
+            }
+
             value = prop.getProperty(key);
         } catch (IOException e) {
             e.printStackTrace();
