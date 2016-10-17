@@ -47,7 +47,7 @@
                 http://ar.edu.itba.paw/semesterMapper
             </taglib-uri>
             <taglib-location>
-                /WEB-INF/tags/semesterMapper.tld
+                /WEB-INF/tlds/semesterMapper.tld
             </taglib-location>
         </taglib>
     </jsp-config>
