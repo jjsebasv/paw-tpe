@@ -3,25 +3,30 @@
 <%@ taglib prefix="fn" uri="http://java.sun.com/jsp/jstl/functions" %>
 
 <c:set var="url">${pageContext.request.requestURL}</c:set>
-<html>
-    <head>
-        <meta charset="utf-8">
-        <base href="${fn:substring(url, 0, fn:length(url) - fn:length(pageContext.request.requestURI))}${pageContext.request.contextPath}/"/>
-        <title>Campus - PAW</title>
-        <link rel="stylesheet" type="text/css" href="resources/css/404.css">
-    </head>
-    <body><ul class="perspective">
-        <li class="perspective-line">
-            <p>&nbsp;</p>
-            <p class="perpective-bold">404</p>
-        </li>
 
-        <li class="perspective-line">
-            <p>Ooops!</p>
-            <p>the page you're</p>
-            <p>looking for</p>
-            <p>doesn't exist.</p>
-        </li>
-    </ul>
+<%@ include file="header.jsp" %>
+<body >
+<section id="error-page" >
+    <div class="error-page-inner">
+        <div class="container-fluid" >
+            <div class="row">
+                <div class="col-sm-12">
+                    <div class="text-center">
+                        <div class="bg-404">
+                            <div class="error-image">
+                                <img class="img-responsive" src="resources/images/404.png" alt="">
+                            </div>
+                        </div>
+                        <h2>No encontramos tu pagina!</h2>
+                        <p>La pagina que buscas ha sido removida, o renombrada.</p>
+                        <a href="" class="btn btn-error">Volver a la pagina principal</a>
+
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+</section>
+
+
 </body>
-</html>

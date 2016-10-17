@@ -8,7 +8,7 @@
     <div class="separator"></div>
     <h2>Descarga tus apuntes</h2>
     <br>
-        
+
     <a href="#about" class="btn btn-dark btn-lg">
       <i class="fa fa- fa-chevron-down fa-fw fa-1x"></i>
     </a>

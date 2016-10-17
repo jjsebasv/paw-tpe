@@ -11,8 +11,15 @@
     <meta charset="utf-8">
     <title>Campus - PAW</title>
     <base href="${fn:substring(url, 0, fn:length(url) - fn:length(pageContext.request.requestURI))}${pageContext.request.contextPath}/"/>
+
+
     <link href="resources/css/bootstrap/bootstrap.min.css" rel="stylesheet">
+
+
     <link href="https://cdnjs.cloudflare.com/ajax/libs/select2/4.0.3/css/select2.min.css" rel="stylesheet"/>
+
+
+
 
     <script type="text/javascript" src="https://code.jquery.com/jquery-2.2.4.min.js"></script>
     <script src="https://cdnjs.cloudflare.com/ajax/libs/select2/4.0.3/js/select2.min.js"></script>
@@ -25,6 +32,9 @@
 
     <link href="resources/font-awesome/css/font-awesome.min.css" rel="stylesheet" type="text/css">
     <link href="https://fonts.googleapis.com/css?family=Source+Sans+Pro:300,400,700,300italic,400italic,700italic" rel="stylesheet" type="text/css">
+
+    <link href="resources/css/triangular/css/responsive.css" rel="stylesheet">
+    <link href="resources/css/triangular/css/main.css" rel="stylesheet">
 
     <script src="resources/js/application.js"></script>
 </head>
