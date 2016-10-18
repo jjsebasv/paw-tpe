@@ -5,28 +5,48 @@
 <spring:htmlEscape defaultHtmlEscape="true"/>
 <body>
 <%@ include file="navbar.jsp" %>
-<div class="upload-document-form">
-    <form:form method="POST" action="uploadDocument/finish" enctype="multipart/form-data" modelAttribute="documentForm">
-        <fieldset>
-            <div class="form-group">
-                <form:textarea path="subject" htmlEscape="true" class="form-control" placeholder="Subject"/>
+<div class="register-form">
+    <c:url value="/uploadDocument/finish" var="postPath"/>
 
-                <form:select path="courseid" class="form-control course-select" data-placeholder="Buscar una materia">
-                    <%--<c:forEach var="course" items="${courses}">--%>
-                    <%--<form:option value="${course.courseid}">--%>
-                    <%--${course.code} - ${course.name}--%>
-                    <%--</form:option>--%>
-                    <%--</c:forEach>--%>
-                </form:select>
-                <div class="form-group">
-                    <input type='file' class="form-control <%--filestyle--%>" name="document" placeholder="Document"/>
+    <div class="row margin-top">
+
+        <div class="col-xs-4 col-xs-offset-4">
+            <form:form method="POST" action="${postPath}" enctype="multipart/form-data" modelAttribute="documentForm">
+
+                <c:set var="subjectHasBindError">
+                    <form:errors path="subject"/>
+                </c:set>
+                <c:set var="courseidHasBindError">
+                    <form:errors path="courseid"/>
+                </c:set>
+
+                <div class="form-group ${not empty subjectHasBindError?"has-error":""}">
+                    <form:label path="subject"><spring:message code="uploadview.subject"/>: </form:label>
+                    <form:textarea path="subject" htmlEscape="true" class="form-control" placeholder="Subject"/>
+                    <form:errors path="subject" cssClass="help-block" element="p"/>
                 </div>
-                <input class="btn btn-lg btn-primary btn-block" type="submit" value="Submit"/>
-                <!-- Change this to a button or input when using this as a form -->
 
-            </div>
-        </fieldset>
-    </form:form>
+                <div class="form-group ${not empty courseidHasBindError?"has-error":""}">
+                    <form:label path="courseid"><spring:message code="uploadview.course"/>: </form:label>
+                    <form:select path="courseid" class="form-control course-select"
+                                 data-placeholder="Buscar una materia"/>
+                    <form:errors path="courseid" cssClass="help-block" element="p"/>
+                </div>
+
+                <div class="form-group">
+                    <label for="file"><spring:message code="uploadview.file"/>: </label>
+                    <input type='file' class="form-control" name="document" placeholder="Document" id="file"/>
+                </div>
+
+
+                <div class="form-group">
+                    <input class="btn btn-default" type="submit" value="Upload!"/>
+                </div>
+
+            </form:form>
+        </div>
+    </div>
+
 </div>
 
 <%@ include file="footer.jsp" %>
