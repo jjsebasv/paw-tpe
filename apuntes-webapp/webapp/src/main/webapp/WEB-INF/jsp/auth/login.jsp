@@ -5,10 +5,13 @@
 <%@ include file="../navbar.jsp" %>
 <div class="login-form">
 
-    <div class="row margin-top">
-
-        <div class="col-xs-4 col-xs-offset-4">
-
+    <div class="content-wrapper">
+        <div class="white-container">
+          <a href="" class="back-button">
+            <img src="resources/assets/back.svg">
+          </a>
+          <h3 class="program-title">Inicia sesion</h3>
+          <div class="white-container-content">
             <c:url value="/login" var="loginUrl"/>
             <form action="${loginUrl}" method="post" enctype="application/x-www-form-urlencoded">
 
@@ -21,21 +24,23 @@
 
 
                 <div class="form-group">
-                    <label class="control-label" for="username">Username: </label>
+                    <label class="control-label" for="username">Usuario</label>
                     <input type="text" class="form-control" name="j_username" id="username">
                 </div>
 
                 <div class="form-group">
-                    <label class="control-label" for="password">Password: </label>
+                    <label class="control-label" for="password">Password</label>
                     <input type="password" class="form-control" name="j_password" id="password">
                 </div>
 
                 <div class="form-group">
-                    <input class="btn btn-default" type="submit" value="Login!"/>
+                    <input class="submit-button" type="submit" value="Ingresar"/>
                 </div>
             </form>
-        </div>
+          </div>
+        </div> 
     </div>
+
 
 </div>
 

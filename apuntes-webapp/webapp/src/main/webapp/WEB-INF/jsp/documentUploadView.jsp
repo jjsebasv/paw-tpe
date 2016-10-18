@@ -39,15 +39,11 @@
                 </div>
 
 
-                <div class="form-group">
-                    <input class="btn btn-default" type="submit" value="Upload!"/>
-                </div>
+                <input class="submit-button" type="submit" value="Subir"/>
 
             </form:form>
         </div>
     </div>
-
-</div>
-
+  </div>
 <%@ include file="footer.jsp" %>
 </body>
