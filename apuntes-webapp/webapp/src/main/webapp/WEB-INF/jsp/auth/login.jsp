@@ -25,12 +25,12 @@
 
                 <div class="form-group">
                     <label class="control-label" for="username">Usuario</label>
-                    <input type="text" class="form-control" name="j_username" id="username">
+                    <input type="text" class="form-control input-base" name="j_username" id="username">
                 </div>
 
                 <div class="form-group">
                     <label class="control-label" for="password">Password</label>
-                    <input type="password" class="form-control" name="j_password" id="password">
+                    <input type="password" class="form-control input-base" name="j_password" id="password">
                 </div>
 
                 <div class="form-group">
