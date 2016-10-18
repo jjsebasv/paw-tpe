@@ -48,6 +48,18 @@ a:hover {
     flex-direction: column;
 }
 
+.column.left {
+  align-items: flex-start;
+}
+
+.column.center{
+  align-items: center;
+}
+
+.input-base-wrapper {
+  width: 100%;
+}
+
 .back-button {
     position: absolute;
     top: 10px;
@@ -464,4 +476,8 @@ textarea.form-control.review-input {
   height: 50px;
   padding: 5px 10px;
   border: none;
+}
+
+.item-center {
+  align-self: center;
 }
