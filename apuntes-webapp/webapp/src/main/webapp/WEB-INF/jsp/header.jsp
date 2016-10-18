@@ -21,10 +21,7 @@
 
 
 
-    <script type="text/javascript" src="https://code.jquery.com/jquery-2.2.4.min.js"></script>
-    <script src="https://cdnjs.cloudflare.com/ajax/libs/select2/4.0.3/js/select2.min.js"></script>
-    <script src="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/js/bootstrap.min.js"></script>
-    <%--<script src="<c:url value="/resources/js/bootstrap-filestyle.min.js" />"></script>--%>
+
 
 
     <link rel="stylesheet" type="text/css" href="resources/css/normalize.css">
@@ -36,5 +33,11 @@
     <link href="resources/css/triangular/css/responsive.css" rel="stylesheet">
     <link href="resources/css/triangular/css/main.css" rel="stylesheet">
 
+
+    <script type="text/javascript" src="https://code.jquery.com/jquery-2.2.4.min.js"></script>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/select2/4.0.3/js/select2.min.js"></script>
+    <script src="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/js/bootstrap.min.js"></script>
+    <%--<script src="<c:url value="/resources/js/bootstrap-filestyle.min.js" />"></script>--%>
     <script src="resources/js/application.js"></script>
+
 </head>
