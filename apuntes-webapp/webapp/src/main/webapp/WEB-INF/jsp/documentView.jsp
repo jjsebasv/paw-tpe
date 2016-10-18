@@ -55,12 +55,7 @@
           </div>
         </div>
       </div>
-<<<<<<< c63a11e9679c189870a211fc479454c66830bdf6
-      <%@ include file="footer.jsp" %>
-    </body>
-=======
     </div>
   </div>
-<%@ include file="footer.jsp" %>
+  <%@ include file="footer.jsp" %>
 </body>
->>>>>>> program selector
