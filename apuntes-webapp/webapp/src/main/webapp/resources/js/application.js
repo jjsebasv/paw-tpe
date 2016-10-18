@@ -10,7 +10,27 @@ $(document).ready(function ($, html) {
             }
         }
     });
-
+    
+    $(".course-inprogram-select").select2();
+    
+    function checkVisible(index, value) {
+    	if($(value).find('li').size() === $(value).find('.hidden').size()){
+    		$(value).hide();
+    	} else {
+    		$(value).show()
+    	}
+    }
+    
+    var courses = $('.course-item');
+    $('#filter').keyup(function() {
+        var re = new RegExp($(this).val(), "i"); // "i" means it's case-insensitive
+        courses.removeClass('hidden').show().filter(function() {
+            return !re.test($(this).text());
+        }).addClass('hidden').hide();
+        var semesters = $('.semester-wrapper');
+        $.each(semesters, checkVisible);
+    });
+    
     $("a.back-button").click(function(){
         parent.history.back();
         return false;

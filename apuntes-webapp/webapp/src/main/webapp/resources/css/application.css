@@ -14,6 +14,11 @@ h2 {
   margin: 0;
 }
 
+input:focus,
+select:focus {
+  outline: none;
+}
+
 h3 {
   font-size: 30px;
   text-transform: uppercase;
@@ -31,6 +36,13 @@ h4 {
 
 .has-error .form-control {
   border: 1px solid #F35B25;
+}
+
+.filter-input {
+  width: 100%;
+  height: 30px;
+  padding: 0 10px;
+  text-align: center;
 }
 
 .has-error .checkbox,
