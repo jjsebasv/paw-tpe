@@ -25,13 +25,13 @@
 
 
     <link rel="stylesheet" type="text/css" href="resources/css/normalize.css">
-    <link rel="stylesheet" type="text/css" href="resources/css/application.css">
 
     <link href="resources/font-awesome/css/font-awesome.min.css" rel="stylesheet" type="text/css">
     <link href="https://fonts.googleapis.com/css?family=Source+Sans+Pro:300,400,700,300italic,400italic,700italic" rel="stylesheet" type="text/css">
 
     <link href="resources/css/triangular/css/responsive.css" rel="stylesheet">
     <link href="resources/css/triangular/css/main.css" rel="stylesheet">
+    <link rel="stylesheet" type="text/css" href="resources/css/application.css">
 
 
     <script type="text/javascript" src="https://code.jquery.com/jquery-2.2.4.min.js"></script>

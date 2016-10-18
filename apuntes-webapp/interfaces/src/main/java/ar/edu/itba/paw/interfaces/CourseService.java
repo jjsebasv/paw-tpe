@@ -19,7 +19,7 @@ public interface CourseService {
 
     Course create(String code, String name);
 
-    void addProgramRelationship(Course course, Program program);
+    void addProgramRelationship(Course course, Program program, int semester);
 
     boolean isRelatedTo(Course course, Program program);
 }
