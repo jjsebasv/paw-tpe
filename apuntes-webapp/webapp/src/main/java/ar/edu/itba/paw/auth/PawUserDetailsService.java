@@ -25,8 +25,8 @@ public class PawUserDetailsService implements UserDetailsService {
 
     @Override
     public UserDetails loadUserByUsername(final String username) throws UsernameNotFoundException {
-        final Client user = cs.findByUsername(username);
-        if (user == null) {
+        final Client client = cs.findByUsername(username);
+        if (client == null) {
             throw new UsernameNotFoundException("No	user by	the	name " + username);
         }
 
@@ -35,6 +35,6 @@ public class PawUserDetailsService implements UserDetailsService {
                 new SimpleGrantedAuthority("ROLE_USER"),
                 new SimpleGrantedAuthority("ROLE_ADMIN")
         );
-        return new org.springframework.security.core.userdetails.User(username, user.getPassword(), authorities);
+        return new UserPrincipal(client, authorities);
     }
 }
