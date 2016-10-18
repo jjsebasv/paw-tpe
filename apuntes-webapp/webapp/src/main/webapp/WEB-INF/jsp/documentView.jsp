@@ -44,7 +44,7 @@
                 <label>Calificacion:</label>
                 <form:input path="ranking" type='number' value="5" min='1' max='5' step="1" class="form-control ranking-input" placeholder="Ranking"/>
               </div>
-              <div class="form-group">
+              <div class="row row-left">
                 <label>Comentario:</label>
                 <form:textarea path="review" htmlEscape="true" class="form-control review-input"/>
               </div>

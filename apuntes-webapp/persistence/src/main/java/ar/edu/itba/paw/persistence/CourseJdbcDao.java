@@ -30,6 +30,7 @@ public class CourseJdbcDao implements CourseDao {
     /*package*/ static final String COURSETOPROGRAM_TABE_NAME = "coursesToPrograms";
     /*package*/ static final String COURSETOPROGRAM_COLUMN_COURSE_ID = "course_id";
     /*package*/ static final String COURSETOPROGRAM_COLUMN_PROGRAM_ID = "program_id";
+    /*package*/ static final String COURSETOPROGRAM_COLUMN_SEMESTER = "semester";
 
     private final JdbcTemplate jdbcTemplate;
     private final SimpleJdbcInsert jdbcInsert;
@@ -162,10 +163,11 @@ public class CourseJdbcDao implements CourseDao {
     }
 
     @Override
-    public void addProgramRelationship(Course course, Program program) {
+    public void addProgramRelationship(final Course course, final Program program, final int semester) {
         final Map<String, Object> args = new HashMap<>();
         args.put(COURSETOPROGRAM_COLUMN_PROGRAM_ID, program.getProgramid());
         args.put(COURSETOPROGRAM_COLUMN_COURSE_ID, course.getCourseid());
+        args.put(COURSETOPROGRAM_COLUMN_SEMESTER, semester);
 
         jdbcRelatedProgramInsert.execute(args);
     }

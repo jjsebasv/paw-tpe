@@ -12,4 +12,6 @@ public interface ProgramDao {
 
     List<Program> findByName(String name);
 
+    Program create(String name, String shortName, char group);
+
 }

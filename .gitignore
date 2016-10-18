@@ -7,3 +7,6 @@ target/
 bin/
 *.DS_Store
 config.propierties
+.metadata/
+.metadata
+metadata/

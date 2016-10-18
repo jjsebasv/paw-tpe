@@ -32,4 +32,9 @@ public class ProgramServiceImpl implements ProgramService {
     public List<Program> findByName(final String name) {
         return programDao.findByName(name);
     }
+
+    @Override
+    public Program create(final String name, final String shortName, final char group) {
+        return programDao.create(name, shortName, group);
+    }
 }

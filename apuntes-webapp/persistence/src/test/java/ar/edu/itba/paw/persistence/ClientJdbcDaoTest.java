@@ -51,8 +51,7 @@ public class ClientJdbcDaoTest {
 
         final Client user = clientDao.findById(13);
 
-        // Postcondiciones
-        Assert.assertNull("User with id 42 is null!", user);
+        Assert.assertNull(user);
     }
 
     @Test
@@ -63,5 +62,24 @@ public class ClientJdbcDaoTest {
         Assert.assertEquals(USERNAME, client.getName());
         Assert.assertEquals(PASSWORD, client.getPassword());
         Assert.assertTrue(client.getClientId() >= 0);
+    }
+
+    @Test
+    public void testFindByUsernameExistingUser() {
+
+        final Client newClient = clientDao.create(USERNAME, PASSWORD, EMAIL);
+
+        final Client lookupClient = clientDao.findByUsername(newClient.getName());
+
+        Assert.assertNotNull(lookupClient);
+        Assert.assertEquals(newClient, lookupClient);
+    }
+
+    @Test
+    public void testFindByUsernameNonExistingUser() {
+
+        final Client user = clientDao.findByUsername(USERNAME);
+
+        Assert.assertNull(user);
     }
 }

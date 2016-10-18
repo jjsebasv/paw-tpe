@@ -113,4 +113,18 @@ public class CourseJdbcDaoTest {
         Assert.assertNull(lookupCourse);
     }
 
+    @Test
+    public void getAll() {
+
+        final Course course = courseDao.create(COURSE_CODE, COURSE_NAME);
+
+        final List<Course> list = courseDao.getAll();
+
+        Assert.assertNotNull(list);
+        Assert.assertFalse(list.isEmpty());
+
+        final Course lookupCourse = list.get(0);
+
+        Assert.assertEquals(course, lookupCourse);
+    }
 }
