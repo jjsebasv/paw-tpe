@@ -27,6 +27,7 @@ public class WebAuthConfig extends WebSecurityConfigurerAdapter {
                 .antMatchers("/login", "/register").anonymous()
                 .antMatchers("/admin/**").hasRole("ADMIN")
                 .antMatchers("/profile/**").authenticated()
+                .antMatchers("/uploadDocument").authenticated()
                 .antMatchers("/program/**", "/course/**", "/document").permitAll()
                 .antMatchers("/**").permitAll()
                 .and().formLogin()
