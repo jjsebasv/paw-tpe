@@ -10,7 +10,17 @@ $(document).ready(function ($, html) {
             }
         }
     });
-
+    
+    $(".course-inprogram-select").select2();
+    
+    var courses = $('.course-item');
+    $('#filter').keyup(function() {
+        var re = new RegExp($(this).val(), "i"); // "i" means it's case-insensitive
+        courses.show().filter(function() {
+            return !re.test($(this).text());
+        }).hide();
+    });
+    
     $("a.back-button").click(function(){
         parent.history.back();
         return false;

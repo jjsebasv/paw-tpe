@@ -11,10 +11,13 @@
             <div class="white-container-content">
                 <h4 class="course-size">${coursesSize} Materias</h4>
                 <ul class="list-wrapper">
+                    <div class="input-base-wrapper">
+                        <input class="input-base m-bottom-5 filter-input" placeholder="Busca tu materia!" id="filter"/>    
+                    </div>
                     <c:forEach items="${courses}" var="entry">
                     <p>${sm:mapSemester(entry.key)}</p>
                     <c:forEach items="${entry.value}" var="course">
-                    <li class="list-item">
+                    <li class="list-item course-item">
                         <div class="border"></div>
                         <a href="course/${course.code}"
                             class="list-group-item">
@@ -26,7 +29,7 @@
                     </c:forEach>
                     <p>Optativas</p>
                     <c:forEach items="${optativas}" var="course">
-                    <li class="list-item">
+                    <li class="list-item course-item">
                         <div class="border"></div>
                         <a href="course/${course.code}"
                             class="list-group-item">
