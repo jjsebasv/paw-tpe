@@ -3,7 +3,7 @@ package ar.edu.itba.paw.models;
 import java.io.InputStream;
 
 public class Document {
-	
+
     private final int documentId;
     private final Client user;
     private final Course course;
@@ -22,33 +22,47 @@ public class Document {
         this.data = data;
     }
 
-	public int getDocumentId() {
-		return documentId;
-	}
+    public int getDocumentId() {
+        return documentId;
+    }
 
-	public Client getUser() {
-		return user;
-	}
+    public Client getUser() {
+        return user;
+    }
 
-	public Course getCourse() {
-		return course;
-	}
+    public Course getCourse() {
+        return course;
+    }
 
-	public String getSubject() {
-		return subject;
-	}
+    public String getSubject() {
+        return subject;
+    }
 
-	public String getDocumentName() {
-		return documentName;
-	}
+    public String getDocumentName() {
+        return documentName;
+    }
 
-	public int getDocumentSize() {
-		return documentSize;
-	}
+    public int getDocumentSize() {
+        return documentSize;
+    }
 
-	public InputStream getData() {
-		return data;
-	}
+    public InputStream getData() {
+        return data;
+    }
 
+    @Override
+    public boolean equals(Object o) {
+        if (this == o) return true;
+        if (o == null || getClass() != o.getClass()) return false;
 
+        Document document = (Document) o;
+
+        return documentId == document.documentId;
+
+    }
+
+    @Override
+    public int hashCode() {
+        return documentId;
+    }
 }

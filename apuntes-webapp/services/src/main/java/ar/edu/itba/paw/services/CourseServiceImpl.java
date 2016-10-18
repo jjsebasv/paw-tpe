@@ -50,9 +50,9 @@ public class CourseServiceImpl implements CourseService {
     }
 
     @Override
-    public void addProgramRelationship(Course course, Program program) {
+    public void addProgramRelationship(final Course course, final Program program, final int semester) {
         if (!isRelatedTo(course, program)) {
-            courseDao.addProgramRelationship(course, program);
+            courseDao.addProgramRelationship(course, program, semester);
         }
     }
 

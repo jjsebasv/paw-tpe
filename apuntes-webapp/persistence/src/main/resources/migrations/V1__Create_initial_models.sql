@@ -1,10 +1,3 @@
--- DROP TABLE IF EXISTS clients CASCADE;
--- DROP TABLE IF EXISTS programs CASCADE;
--- DROP TABLE IF EXISTS courses CASCADE;
--- DROP TABLE IF EXISTS coursesToPrograms CASCADE;
--- DROP TABLE IF EXISTS documents CASCADE;
--- DROP TABLE IF EXISTS reviews CASCADE;
-
 CREATE TABLE IF NOT EXISTS clients (
   client_id SERIAL PRIMARY KEY,
   username  VARCHAR(100),
@@ -13,10 +6,10 @@ CREATE TABLE IF NOT EXISTS clients (
 );
 
 CREATE TABLE IF NOT EXISTS programs (
-  program_id SERIAL PRIMARY KEY,
-  name       VARCHAR(100),
-  short_name VARCHAR(50),
-  "group"    CHAR(1)
+  program_id    SERIAL PRIMARY KEY,
+  name          VARCHAR(100),
+  short_name    VARCHAR(50),
+  program_group CHAR(1)
 );
 
 CREATE TABLE IF NOT EXISTS courses (
@@ -53,10 +46,4 @@ CREATE TABLE IF NOT EXISTS reviews (
 
   CONSTRAINT reviews_onePerclient UNIQUE (document_id, client_id)
 );
-
--- INSERT INTO clients (username, password) VALUES
---   ('nlopez', 'password1'),
---   ('jvera', 'password2'),
---   ('skulez', 'password3'),
---   ('aarlanti', 'password4');
 
