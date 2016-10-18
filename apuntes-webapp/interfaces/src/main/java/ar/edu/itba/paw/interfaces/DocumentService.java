@@ -12,6 +12,8 @@ public interface DocumentService {
 
     List<Document> findByCourseId(int courseid);
 
+    List<Document> findByClient(Client uploader);
+
     List<Document> getAll();
 
     Document createDocument(Client user, Course course, String subject, String filename, int filesize, byte[] bs);

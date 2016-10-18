@@ -6,6 +6,7 @@ import ar.edu.itba.paw.forms.DocumentForm;
 import ar.edu.itba.paw.interfaces.ClientService;
 import ar.edu.itba.paw.interfaces.CourseService;
 import ar.edu.itba.paw.interfaces.DocumentService;
+import ar.edu.itba.paw.models.Document;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -40,12 +41,7 @@ public class DocumentUploadController {
     public ModelAndView uploadDocument(Authentication authentication) {
         final ModelAndView mav = new ModelAndView("documentUploadView");
 
-        UserPrincipal client = (UserPrincipal) authentication.getPrincipal();
-
-        LOGGER.warn("About to upload a document as {}", client);
-
         mav.addObject("documentForm", new DocumentForm());
-//        mav.addObject("courses", courseS.getAll());
 
         return mav;
     }
@@ -53,8 +49,26 @@ public class DocumentUploadController {
     @RequestMapping(value = "/uploadDocument/finish", method = RequestMethod.POST)
     public
     @ResponseBody
-    ModelAndView submit(@ModelAttribute("documentForm") DocumentForm documentForm, BindingResult result, Model model, @RequestParam CommonsMultipartFile document, HttpServletRequest request) {
-        ds.createDocument(clientS.findById(1), courseS.findById(documentForm.getCourseid()), documentForm.getSubject(), document.getOriginalFilename(), (int) document.getSize(), document.getBytes());
+    ModelAndView submit(@ModelAttribute("documentForm") DocumentForm documentForm,
+                        BindingResult result,
+                        Model model,
+                        @RequestParam CommonsMultipartFile document,
+                        HttpServletRequest request,
+                        Authentication authentication) {
+
+        UserPrincipal client = (UserPrincipal) authentication.getPrincipal();
+
+        Document uploadedDocument = ds.createDocument(
+                client.getClient(),
+                courseS.findById(documentForm.getCourseid()),
+                documentForm.getSubject(),
+                document.getOriginalFilename(),
+                (int) document.getSize(),
+                document.getBytes()
+        );
+
+        LOGGER.info("Uploaded document {}", uploadedDocument);
+
         return new ModelAndView("redirect:/uploadDocument");
     }
 

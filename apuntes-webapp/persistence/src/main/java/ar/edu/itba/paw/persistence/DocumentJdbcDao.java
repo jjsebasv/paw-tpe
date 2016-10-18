@@ -78,6 +78,14 @@ public class DocumentJdbcDao implements DocumentDao {
     }
 
     @Override
+    public List<Document> findByClient(Client uploader) {
+        String query = "SELECT * FROM " + DOCUMENT_TABLE_NAME + " NATURAL JOIN " + COURSE_TABLE_NAME +
+                " NATURAL JOIN " + CLIENT_TABLE_NAME + " WHERE " + DOCUMENT_COLUMN_CLIENT_ID +
+                "= ?";
+        return jdbcTemplate.query(query, ROW_MAPPER, uploader.getClientId());
+    }
+
+    @Override
     public Document findById(final int fileid) {
         List<Document> list = jdbcTemplate.query("SELECT * FROM " + DOCUMENT_TABLE_NAME + " NATURAL JOIN " + COURSE_TABLE_NAME +
                 " NATURAL JOIN " + CLIENT_TABLE_NAME + " WHERE " + DOCUMENT_COLUMN_DOCUMENT_ID + "= ?", ROW_MAPPER, fileid);

@@ -33,6 +33,11 @@ public class DocumentServiceImpl implements DocumentService {
     }
 
     @Override
+    public List<Document> findByClient(final Client uploader) {
+        return documentDao.findByClient(uploader);
+    }
+
+    @Override
     public List<Document> getAll() {
         return documentDao.getAll();
     }

@@ -12,6 +12,8 @@ public interface DocumentDao {
 
     List<Document> findByCourseId(int id);
 
+    List<Document> findByClient(Client uploader);
+
     List<Document> getAll();
 
     Document createDocument(Client user, Course course, String subject, String filename, int filesize, byte[] data);
