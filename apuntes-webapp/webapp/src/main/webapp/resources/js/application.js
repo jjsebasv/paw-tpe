@@ -16,6 +16,14 @@ $(document).ready(function ($, html) {
         return false;
     });
 
+    $('.scroll-indicator-item').click( function() { 
+        var page = $(this).attr('href'); 
+        var speed = 1200; 
+        $("#navbar").removeClass("in")
+        $('html, body').animate( { scrollTop: $(page).offset().top - 50}, speed );
+        return false;
+    });
+
     //#to-top button appears after scrolling
     var fixed = false;
     $(document).scroll(function() {
