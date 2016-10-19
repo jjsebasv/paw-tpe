@@ -46,17 +46,23 @@ public class DocumentController {
         ModelAndView mav = new ModelAndView("documentView");
 
         final Document file = fs.findById(id);
-        final List<Review> reviews = rs.findByFileId((int) id);
-        Client client = ((UserPrincipal)authentication.getPrincipal()).getClient();
-        if (file == null)
+        final List<Review> reviews = rs.findByFileId(id);
+        if (file == null) {
             return new ModelAndView("404");
+        }
 
         mav.addObject("document", fs.findById(id));
         mav.addObject("username", file.getUser().getName());
         mav.addObject("reviewForm", new ReviewForm());
         mav.addObject("reviews", reviews);
         mav.addObject("average", rs.getAverage(id));
-        mav.addObject("can_review", reviews.isEmpty() || !reviews.stream().anyMatch(review -> review.getUser().getClientId() == client.getClientId()));
+
+        if (authentication == null) {
+            mav.addObject("can_review", false);
+        } else {
+            final Client client = ((UserPrincipal) authentication.getPrincipal()).getClient();
+            mav.addObject("can_review", reviews.isEmpty() || !reviews.stream().anyMatch(review -> review.getUser().getClientId() == client.getClientId()));
+        }
 
         return mav;
     }
