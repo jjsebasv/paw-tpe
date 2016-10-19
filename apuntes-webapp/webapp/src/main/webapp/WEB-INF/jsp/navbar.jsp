@@ -7,8 +7,8 @@
     <div class="row row-center">
 <security:authorize access="!isAuthenticated()">
       <a class="link m-right-1" href="login">Login</a>
-    </security:authorize>
       <a class="link m-right-1" href="register">Register</a>
+  </security:authorize>
         <security:authorize access="isAuthenticated()">
         <div class="btn-group show-on-hover">
         <button type="button" class="btn btn-default dropdown-toggle dropdown-custom" data-toggle="dropdown">
