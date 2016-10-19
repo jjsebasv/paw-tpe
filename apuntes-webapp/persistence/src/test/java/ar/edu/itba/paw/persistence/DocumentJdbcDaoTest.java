@@ -56,6 +56,7 @@ public class DocumentJdbcDaoTest {
 
         JdbcTemplate jdbcTemplate = new JdbcTemplate(ds);
 
+        JdbcTestUtils.deleteFromTables(jdbcTemplate, CourseJdbcDao.COURSETOPROGRAM_TABE_NAME);
         JdbcTestUtils.deleteFromTables(jdbcTemplate, DocumentJdbcDao.DOCUMENT_TABLE_NAME);
         JdbcTestUtils.deleteFromTables(jdbcTemplate, ClientJdbcDao.CLIENT_TABLE_NAME);
         JdbcTestUtils.deleteFromTables(jdbcTemplate, CourseJdbcDao.COURSE_TABLE_NAME);

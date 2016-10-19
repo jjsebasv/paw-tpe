@@ -32,6 +32,7 @@ public class CourseJdbcDaoTest {
 
         JdbcTemplate jdbcTemplate = new JdbcTemplate(ds);
 
+        JdbcTestUtils.deleteFromTables(jdbcTemplate, CourseJdbcDao.COURSETOPROGRAM_TABE_NAME);
         JdbcTestUtils.deleteFromTables(jdbcTemplate, CourseJdbcDao.COURSE_TABLE_NAME);
     }
 
