@@ -304,6 +304,8 @@ a:hover {
   display: block;
   width: 10px;
   background-color: #E8E2E2;
+  padding: 10px 3px;
+  font-weight: 800;
 }
 
 .list-item {
@@ -322,6 +324,7 @@ a:hover {
 
 .list-item:hover .border {
   background-color: #2A3356;
+  color: #FFF;
 }
 
 .link {

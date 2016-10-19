@@ -22,8 +22,23 @@
         </ul>
         <%--@elvariable id="coursesSize" type="java.lang.Integer"--%>
         <c:if test="${documentsSize == 0}">
-        <h4>No hay apuntes subidos!</h4>
+          <h4>No hay apuntes subidos!</h4>
         </c:if>
+        <!-- FIXME: DELETE THIS br -->
+        <br>
+        <h4 class="client-size">${reviewsSize} Reviews</h4>
+        <ul class="list-wrapper">
+          <c:forEach items="${reviews}" var="review">
+          <li class="list-item">
+            <div class="border">${review.ranking}</div>
+            <a href="document/${review.file.documentId}"
+              class="list-group-item">
+              <span><b>"${review.review}"</b> to </span>
+              <span><i>${review.file.subject}</i></span>
+            </a>
+          </li>
+          </c:forEach>
+        </ul>
       </div>
     </div>
   </div>

@@ -13,4 +13,6 @@ public interface ReviewService {
     List<Review> findByFileId(int fileid);
     
     double getAverage(int fileid);
+
+	List<Review> findByUser(int clientId);
 }

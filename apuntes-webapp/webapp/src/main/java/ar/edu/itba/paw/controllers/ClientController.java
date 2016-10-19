@@ -90,11 +90,10 @@ public class ClientController {
         mav.addObject("documentsSize", documents.size());
 
         //TODO Estamos teniendo problemas para subir review
-        /*final List<Review> reviews = rs.findByFileId(documents.get(0).getDocumentId());
-
+        final List<Review> reviews = rs.findByUser(client.getClient().getClientId());
         mav.addObject("reviews", reviews);
-        */
-
+        mav.addObject("reviewsSize", reviews.size());
+        
         return mav;
     }
 

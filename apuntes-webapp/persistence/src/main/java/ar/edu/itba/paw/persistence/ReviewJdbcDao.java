@@ -89,6 +89,15 @@ public class ReviewJdbcDao implements ReviewDao {
     }
 
     @Override
+    public List<Review> findByUser(int userid) {
+    	return jdbcTemplate.query("SELECT reviews.review_id, reviews.document_id AS document_id, documents.subject, documents.document_name, documents.document_size," +
+                "reviews.client_id AS client_id, clients.username, clients.email, reviews.ranking, reviews.review FROM reviews " +
+                "INNER JOIN clients ON clients.client_id=reviews.client_id " +
+                "INNER JOIN documents ON documents.document_id=reviews.document_id " +
+                "WHERE reviews.client_id = ?", ROW_MAPPER, userid);
+    }
+    
+    @Override
     public double getAverage(int fileid) {
         return jdbcTemplate.queryForObject("SELECT ROUND(coalesce(AVG(" + REVIEW_COLUMN_RANKING + "), 0),2) " +
                 "FROM " + REVIEW_TABLE_NAME + " WHERE " + REVIEW_COLUMN_DOCUMENT_ID + "= ?", Double.class, fileid);
