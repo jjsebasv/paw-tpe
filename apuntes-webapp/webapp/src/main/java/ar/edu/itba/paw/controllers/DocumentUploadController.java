@@ -71,7 +71,7 @@ public class DocumentUploadController {
 
         LOGGER.info("Uploaded document {}", uploadedDocument);
         return new ModelAndView("redirect:/document/" + uploadedDocument.getDocumentId());
-        
+
     }
 
 
