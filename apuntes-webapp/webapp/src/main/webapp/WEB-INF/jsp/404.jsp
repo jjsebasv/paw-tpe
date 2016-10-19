@@ -3,34 +3,25 @@
 <%@ taglib prefix="fn" uri="http://java.sun.com/jsp/jstl/functions" %>
 <c:set var="url">${pageContext.request.requestURL}</c:set>
 <%@ include file="header.jsp" %>
-<body class="perspective-body">
-  <a href="" class="back-button">
-    <img src="resources/assets/back.svg">
-  </a>
-  <ul class="perspective">
-    <li class="perspective-line">
-      <p>&nbsp;</p>
-      <p class="perpective-bold">404</p>
-    </li>
-    <li class="perspective-line">
-      <p class="perpective-bold">404</p>
-      <p>Ooops!</p>
-    </li>
-    <li class="perspective-line">
-      <p>Ooops!</p>
-      <p>La pagina que</p>
-    </li>
-    <li class="perspective-line">
-      <p>La pagina que</p>
-      <p>buscas ha sido</p>
-    </li>
-    <li class="perspective-line">
-      <p>buscas ha sido</p>
-      <p>removida o remombrada</p>
-    </li>
-    <li class="perspective-line">
-      <p>removida o remombrada</p>
-      <p>&nbsp;</p>
-    </li>
-  </ul>
+<body >
+<section id="error-page" >
+  <div class="error-page-inner">
+    <div class="container-fluid" >
+      <div class="row">
+        <div class="col-sm-12">
+          <div class="text-center">
+            <div class="bg-404">
+              <div class="error-image">
+                <img class="img-responsive" src="resources/images/404.png" alt="">
+              </div>
+            </div>
+            <h2>No encontramos tu pagina!</h2>
+            <p>La pagina que buscas ha sido removida, o renombrada.</p>
+            <a href="" class="btn btn-error">Volver a la pagina principal</a>
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
+</section>
 </body>
