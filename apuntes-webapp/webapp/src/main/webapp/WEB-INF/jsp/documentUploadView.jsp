@@ -11,7 +11,7 @@
         <a href="" class="back-button">
           <img src="resources/assets/back.svg">
         </a>
-        <h3 class="program-title">Subir apunte</h3>
+        <h3 class="program-title"><spring:message code="uploadview.upload"/> </h3>
         <div class="white-container-content">
           <form:form class="column left" method="POST" action="${postPath}" enctype="multipart/form-data" modelAttribute="documentForm">
             <c:set var="subjectHasBindError">
@@ -35,7 +35,7 @@
                       <label for="file">
                         <spring:message code="uploadview.file"/>:
                       </label>
-                      <input type='file' class="form-control input-base" name="document" placeholder="Document" id="file"/>
+                      <input type='file' class="form-control input-base" name="document" placeholder="<spring:message code="uploadview.document"/>" id="file"/>
                     </div>
                     <input class="submit-button item-center" type="submit" value="Subir"/>
                   </form:form>

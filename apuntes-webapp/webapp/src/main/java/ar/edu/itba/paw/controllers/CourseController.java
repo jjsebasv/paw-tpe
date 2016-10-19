@@ -38,8 +38,7 @@ public class CourseController {
 
         Course course = cs.findByCode(code);
         if (course == null) {
-            //FIXME Add 404 http resp code
-            return new ModelAndView(DEFAULT_ERROR_VIEW);
+            return new ModelAndView("404");
         }
 
         final List<Document> documents = fs.findByCourseId(course.getCourseid());

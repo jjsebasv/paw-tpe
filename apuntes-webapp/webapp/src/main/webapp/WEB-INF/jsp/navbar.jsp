@@ -6,8 +6,8 @@
     </a>
     <div class="row row-center">
 <security:authorize access="!isAuthenticated()">
-      <a class="link m-right-1" href="login">Login</a>
-      <a class="link m-right-1" href="register">Register</a>
+      <a class="link m-right-1" href="login"><spring:message code="navbar.login"/> </a>
+      <a class="link m-right-1" href="register"><spring:message code="navbar.register"/> </a>
   </security:authorize>
         <security:authorize access="isAuthenticated()">
         <div class="btn-group show-on-hover">
@@ -18,13 +18,13 @@
         </button>
         <ul class="dropdown-menu" role="menu">
           <li>
-            <a href="profile">Mi perfil</a>
+            <a href="profile"><spring:message code="navbar.profile"/> </a>
           </li>
           <li>
-            <a href="${pageContext.request.contextPath}/uploadDocument">Subir apunte</a>
+            <a href="${pageContext.request.contextPath}/uploadDocument"><spring:message code="navbar.upload"/> </a>
           </li>
           <li>
-            <a href="logout">Logout</a>
+            <a href="logout"><spring:message code="navbar.logout"/> </a>
           </li>
         </ul>
       </div>

@@ -8,7 +8,7 @@
 <html>
   <head>
     <meta charset="utf-8">
-    <title>Apuntes - PAW</title>
+    <title><spring:message code="webapp.title"/></title>
     <base href="${fn:substring(url, 0, fn:length(url) - fn:length(pageContext.request.requestURI))}${pageContext.request.contextPath}/"/>
     <link href="resources/css/bootstrap/bootstrap.min.css" rel="stylesheet">
     <link href="https://cdnjs.cloudflare.com/ajax/libs/select2/4.0.3/css/select2.min.css" rel="stylesheet"/>

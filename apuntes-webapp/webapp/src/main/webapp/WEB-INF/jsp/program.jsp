@@ -9,10 +9,10 @@
       </a>
       <h3 class="program-title">#${program.name}</h3>
       <div class="white-container-content">
-        <h4 class="course-size">${coursesSize} Materias</h4>
+        <h4 class="course-size">${coursesSize} <spring:message code="program.course.size"/></h4>
         <ul class="list-wrapper">
           <div class="input-base-wrapper">
-            <input class="input-base m-bottom-5 filter-input" placeholder="Busca tu materia!" id="filter"/>
+            <input class="input-base m-bottom-5 filter-input" placeholder="<spring:message code="program.search.course"/>" id="filter"/>
           </div>
           <c:forEach items="${courses}" var="entry">
           <div class="semester-wrapper">
@@ -29,7 +29,7 @@
             </c:forEach>
           </div>
           </c:forEach>
-          <p>Optativas</p>
+          <p><spring:message code="program.optional.courses"/></p>
           <c:forEach items="${optativas}" var="course">
           <div class="semester-wrapper">
             <li class="list-item course-item">
@@ -44,7 +44,7 @@
           </div>
         </ul>
         <c:if test="${coursesSize == 0}">
-        <h4>No hay apuntes cargados!</h4>
+        <h4><spring:message code="profile.no.documents"/></h4>
         </c:if>
       </div>
     </div>
