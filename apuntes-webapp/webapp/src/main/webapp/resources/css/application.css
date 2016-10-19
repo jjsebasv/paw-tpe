@@ -19,6 +19,49 @@ select:focus {
   outline: none;
 }
 
+.avatar {
+  height: 40px;
+  margin-right: 10px;
+}
+
+.dropdown-custom {
+  border: none;
+  padding: 0;
+  background: #FFF;
+}
+
+.dropdown-custom:focus,
+.dropdown-custom:hover {
+  background-color: #FFF;
+  border: none;
+}
+
+.open>.dropdown-toggle.btn-default.focus,
+.open>.dropdown-toggle.btn-default:focus,
+.open>.dropdown-toggle.btn-default:hover {
+  background-color: #FFF;
+  box-shadow: none;
+}
+
+.show-on-hover:hover > ul.dropdown-menu {
+  display: block;
+}
+
+.dropdown-menu {
+  padding: 0;
+}
+
+.dropdown-menu>li>a {
+  height: 30px;
+  line-height: 30px;
+  padding: 0 20px;
+}
+
+.dropdown-menu>li>a:hover {
+  background-color: #F35B25;
+  color: white;
+}
+
 h3 {
   font-size: 30px;
   text-transform: uppercase;
@@ -73,6 +116,10 @@ h4 {
   margin-bottom: 50px;
 }
 
+.m-right-1 {
+  margin-right: 10px;
+}
+
 a,
 a:hover {
   text-decoration: none;
@@ -82,6 +129,10 @@ a:hover {
   margin: 0;
   display: flex;
   flex-direction: row;
+}
+
+.row-center {
+  align-items: center;
 }
 
 .row::before,
@@ -242,7 +293,7 @@ a:hover {
 .list-wrapper {
   max-width: 800px;
   list-style-type: none;
-  margin-top: 50px;
+  margin-top: 30px;
   padding-left: 0;
 }
 
@@ -274,8 +325,9 @@ a:hover {
 }
 
 .link {
-  color: #F35B25;
-  font-weight: 300;
+  color: #CFCDCD;
+  font-weight: 600;
+  font-size: 14px;
 }
 
 .list-item:hover a {
@@ -301,15 +353,15 @@ a:hover {
   border-radius: 0;
   height: 50px;
   padding-left: 10px;
-  line-height: 46px;
   color: #F35B25;
 }
 
 .course-size {
   margin-top: 10px;
 }
+
 .client-size {
-    margin-top: 10px;
+  margin-top: 10px;
 }
 
 .content-wrapper {
@@ -347,22 +399,25 @@ a:hover {
   padding: 10px;
   border-top-left-radius: 5px;
   border-top-right-radius: 5px;
+  width: 100%;
+  white-space: nowrap;
+  overflow: hidden;
+  text-overflow: ellipsis;
+  padding: 10px 50px;
 }
 
 .client-title {
-    text-align: center;
-    font-weight: 300;
-    text-decoration: none;
-    text-transform: none;
-    margin-bottom: 10px;
-    background-color: #004A55;
-    color: #FFF;
-    padding: 5px 10px;
-    border-top-left-radius: 5px;
-    border-top-right-radius: 5px;
+  text-align: center;
+  font-weight: 300;
+  text-decoration: none;
+  text-transform: none;
+  margin-bottom: 10px;
+  background-color: #004A55;
+  color: #FFF;
+  padding: 5px 10px;
+  border-top-left-radius: 5px;
+  border-top-right-radius: 5px;
 }
-
-
 
 a.list-group-item:hover {
   background-color: #FFF;
@@ -372,11 +427,6 @@ a.list-group-item:hover {
 .file-container h4,
 .reviews-wrapper {
   text-align: left;
-}
-
-.file-container h4 {
-  margin-top: 50px;
-  margin-bottom: 20px;
 }
 
 .file-container label {
@@ -606,4 +656,87 @@ textarea.form-control.review-input {
     top: -0.8em;
   }
 
+}
+
+/*** 404 STYLE ***/
+.perspective-body {
+  background-color: #2A3356;
+}
+
+.perpective-bold {
+  font-weight: 700;
+}
+
+.perspective {
+  margin: 0;
+  padding-left: 0;
+  padding-right: 100px;
+  height: 500px;
+  font-size: 40px;
+  text-transform: uppercase;
+  -webkit-transform: translate3d(0, 0, 0);
+  transform: translate3d(0, 0, 0);
+  -webkit-font-smoothing: antialiased;
+  -webkit-font-kerning: normal;
+  -webkit-text-size-adjust: 100%;
+}
+
+.perspective-line {
+  height: 50px;
+  line-height: 50px;
+  overflow: hidden;
+  position: relative;
+}
+
+.perspective-line:nth-child(odd) {
+  -webkit-transform: skew(60deg, -30deg) scaleY(0.66667);
+  transform: skew(60deg, -30deg) scaleY(0.66667);
+}
+
+.perspective-line:nth-child(even) {
+  -webkit-transform: skew(0deg, -30deg) scaleY(1.33333);
+  transform: skew(0deg, -30deg) scaleY(1.33333);
+}
+
+.perspective-line:nth-child(1) {
+  left: 29px;
+}
+
+.perspective-line:nth-child(2) {
+  left: 58px;
+}
+
+.perspective-line:nth-child(3) {
+  left: 87px;
+}
+
+.perspective-line:nth-child(4) {
+  left: 116px;
+}
+
+.perspective-line:nth-child(5) {
+  left: 145px;
+}
+
+.perspective-line:nth-child(6) {
+  left: 174px;
+}
+
+.perspective p {
+  color: #E8E2E2;
+  height: 50px;
+  line-height: 50px;
+  padding: 0 10px;
+  -webkit-transition: all .4s ease-in-out;
+  transition: all .4s ease-in-out;
+  -webkit-transform: translate3d(0, 0, 0);
+  transform: translate3d(0, 0, 0);
+  vertical-align: top;
+  white-space: nowrap;
+  margin: 0;
+}
+
+.perspective:hover p {
+  -webkit-transform: translate3d(0, -50px, 0);
+  transform: translate3d(0, -50px, 0);
 }
