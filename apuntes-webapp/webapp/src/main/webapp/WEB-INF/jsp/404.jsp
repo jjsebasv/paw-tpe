@@ -15,9 +15,9 @@
                 <img class="img-responsive" src="resources/images/404.png" alt="">
               </div>
             </div>
-            <h2>No encontramos tu pagina!</h2>
-            <p>La pagina que buscas ha sido removida, o renombrada.</p>
-            <a href="" class="btn btn-error">Volver a la pagina principal</a>
+            <h2><spring:message code="errorPage.title"/> </h2>
+            <p><spring:message code="errorPage.description"/></p>
+            <a href="" class="btn btn-error"><spring:message code="errorPage.button"/></a>
           </div>
         </div>
       </div>

@@ -9,7 +9,17 @@
       </a>
       <h3 class="program-title">${course.code} #${course.name}</h3>
       <div class="white-container-content">
-        <h4 class="course-size">${documentsSize} Archivos</h4>
+        <h4 class="course-size">${documentsSize}
+
+          <c:choose>
+            <c:when test="${coursesSize=='1'}">
+              <spring:message code="course.document"/> </h4>
+              </c:when>
+            <c:otherwise>
+              <spring:message code="course.documents"/> </h4>
+            </c:otherwise>
+          </c:choose>
+
         <ul class="list-wrapper">
           <c:forEach items="${documents}" var="document">
             <li class="list-item">
@@ -23,7 +33,7 @@
         </ul>
         <%--@elvariable id="coursesSize" type="java.lang.Integer"--%>
         <c:if test="${coursesSize == 0}">
-          <h4>No hay apuntes cargados!</h4>
+          <h4><spring:message code="course.no.documents"/> </h4>
         </c:if>
       </div>
     </div>
