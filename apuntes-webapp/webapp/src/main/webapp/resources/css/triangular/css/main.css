@@ -38,7 +38,7 @@
 }
 
 .bg-404 {
-  background-image: url("/resources/images/404-bg.png");
+  background-image: url("../../../images/404-bg.png");
   background-repeat: repeat-x;
   background-position: center top;
 }
@@ -129,15 +129,13 @@
 }
 
 .bg-404 {
-  background-image: url("/resources/images/404-bg.png");
+  background-image: url("../../../images/404-bg.png");
   background-repeat: repeat-x;
   background-position: center top;
 }
 
 .error-image {
-  display: inline-block;
-  padding-top: 50px;
-  padding-bottom: 50px;
+   padding-bottom: 50px;
 }
 
 .error-image img {

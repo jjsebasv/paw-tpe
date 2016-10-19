@@ -67,6 +67,8 @@ public class DocumentUploadController {
                 document.getBytes()
         );
 
+
+
         LOGGER.info("Uploaded document {}", uploadedDocument);
 
         return new ModelAndView("redirect:/uploadDocument");

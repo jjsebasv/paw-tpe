@@ -1,6 +1,10 @@
 package ar.edu.itba.paw.controllers;
 
 
+import ar.edu.itba.paw.auth.UserPrincipal;
+import ar.edu.itba.paw.interfaces.DocumentService;
+import ar.edu.itba.paw.interfaces.ReviewService;
+
 import ar.edu.itba.paw.models.Client;
 import ar.edu.itba.paw.models.Document;
 import ar.edu.itba.paw.models.Review;
@@ -9,6 +13,7 @@ import ar.edu.itba.paw.interfaces.DocumentService;
 import ar.edu.itba.paw.interfaces.ReviewService;
 
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.security.core.Authentication;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.util.FileCopyUtils;
@@ -90,13 +95,19 @@ public class DocumentController {
 
 
     @RequestMapping(value = "/document/{id:[\\d]+}/addReview", method = RequestMethod.POST)
-    public ModelAndView submit(@ModelAttribute("reviewForm") ReviewForm reviewForm, BindingResult result, Model model, @PathVariable("id") int fileid) {
+    public ModelAndView submit(@ModelAttribute("reviewForm") ReviewForm reviewForm,
+                               BindingResult result,
+                               Model model,
+                               @PathVariable("id") int fileid,
+                               Authentication authentication) {
+
+        Client client = ((UserPrincipal) authentication.getPrincipal()).getClient();
 
         //FIXME Verificar que el usuario tenga permitido subir un review
         final Document file = fs.findById(fileid);
-        final Client user = new Client(1, "usuario cableado", "1234", "asd@asd.com"); //FIXME Para cuando haya manejo de sesion
 
-        rs.createReview(file, user, reviewForm.getRanking(), reviewForm.getReview());
+
+        rs.createReview(file, client, reviewForm.getRanking(), reviewForm.getReview());
 
         return new ModelAndView("redirect:/document/" + fileid);
     }

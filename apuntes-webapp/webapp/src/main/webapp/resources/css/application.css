@@ -308,6 +308,9 @@ a:hover {
 .course-size {
   margin-top: 10px;
 }
+.client-size {
+    margin-top: 10px;
+}
 
 .content-wrapper {
   padding: 0 40px;
@@ -345,6 +348,21 @@ a:hover {
   border-top-left-radius: 5px;
   border-top-right-radius: 5px;
 }
+
+.client-title {
+    text-align: center;
+    font-weight: 300;
+    text-decoration: none;
+    text-transform: none;
+    margin-bottom: 10px;
+    background-color: #004A55;
+    color: #FFF;
+    padding: 5px 10px;
+    border-top-left-radius: 5px;
+    border-top-right-radius: 5px;
+}
+
+
 
 a.list-group-item:hover {
   background-color: #FFF;
