@@ -35,4 +35,9 @@ public class ReviewServiceImpl implements ReviewService {
         return reviewDao.getAverage(fileid);
     }
 
+	@Override
+	public List<Review> findByUser(int clientId) {
+		return reviewDao.findByUser(clientId);
+	}
+
 }

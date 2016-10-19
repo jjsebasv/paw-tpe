@@ -42,12 +42,12 @@ public class DocumentController {
 
 
     @RequestMapping("/document/{id:[\\d]+}")
-    public ModelAndView courseView(@PathVariable("id") int id) {
+    public ModelAndView courseView(@PathVariable("id") int id, Authentication authentication) {
         ModelAndView mav = new ModelAndView("documentView");
 
         final Document file = fs.findById(id);
         final List<Review> reviews = rs.findByFileId((int) id);
-
+        Client client = ((UserPrincipal)authentication.getPrincipal()).getClient();
         if (file == null)
             return new ModelAndView("404");
 
@@ -56,7 +56,7 @@ public class DocumentController {
         mav.addObject("reviewForm", new ReviewForm());
         mav.addObject("reviews", reviews);
         mav.addObject("average", rs.getAverage(id));
-        mav.addObject("can_review", reviews.isEmpty() || !reviews.stream().anyMatch(review -> review.getUser().getClientId() == 1));
+        mav.addObject("can_review", reviews.isEmpty() || !reviews.stream().anyMatch(review -> review.getUser().getClientId() == client.getClientId()));
 
         return mav;
     }
@@ -98,7 +98,6 @@ public class DocumentController {
                                Model model,
                                @PathVariable("id") int fileid,
                                Authentication authentication) {
-
         Client client = ((UserPrincipal) authentication.getPrincipal()).getClient();
 
         //FIXME Verificar que el usuario tenga permitido subir un review
