@@ -36,6 +36,8 @@ public class ClientFormValidator implements Validator {
             errors.rejectValue("username", "already.exists");
         }
 
+        //TODO validar unique email
+
         if (!clientForm.getPassword().equals(clientForm.getRepeatPassword())) {
             errors.rejectValue("repeatPassword", "does.not.match");
         }
