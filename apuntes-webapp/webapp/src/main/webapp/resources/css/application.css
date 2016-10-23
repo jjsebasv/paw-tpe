@@ -103,6 +103,20 @@ h4 {
   text-align: left;
 }
 
+.default-btn {
+  background-color: #F35B25;
+  border: 1px solid #F35B25;
+  color: #FFFFFF;
+  display: block;
+  margin: 10px auto;
+}
+
+.default-btn:hover {
+  background-color: #FFFFFF;
+  border: 1px solid #F35B25;
+  color: #F35B25;
+}
+
 /* Margins */
 .m-bottom-1 {
   margin-bottom: 10px;
@@ -287,6 +301,10 @@ a:hover {
   max-width: 1140px;
   padding: 0 40px;
   align-items: center;
+}
+
+.course-on-nav {
+  width: 400px;
 }
 
 /****** Programs ******/

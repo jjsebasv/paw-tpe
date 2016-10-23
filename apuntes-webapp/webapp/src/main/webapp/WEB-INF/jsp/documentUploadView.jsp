@@ -26,8 +26,7 @@
                   </div>
                   <div class="form-group column left input-base-wrapper ${not empty courseidHasBindError?"has-error":""}">
                   <form:label path="courseid"><spring:message code="uploadview.course"/>: </form:label>
-                  <form:select path="courseid" class="form-control course-select input-base"
-                    data-placeholder="Buscar una materia"/>
+                  <form:select path="courseid" class="form-control course-select input-base" data-placeholder="Buscar una materia"/>
                     <form:errors path="courseid" cssClass="help-block" element="p"/>
                     </div>
                     <div class="form-group column left input-base-wrapper">

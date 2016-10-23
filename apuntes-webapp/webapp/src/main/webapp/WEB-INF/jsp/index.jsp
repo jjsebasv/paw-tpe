@@ -3,6 +3,7 @@
   <%@ include file="navbar.jsp" %>
   <section class="main-section">
     <div class='overlay'></div>
+    
     <h1><spring:message code="index.title"/></h1>
     <div class="separator"></div>
     <h2 class="m-bottom-5"><spring:message code="index.bottom.subtitle"/></h2>
