@@ -1,19 +1,41 @@
 package ar.edu.itba.paw.models;
 
+import javax.persistence.*;
 import java.io.InputStream;
 
+@Entity
+@Table(name = "Document")
 public class Document {
 
-    private final int documentId;
-    private final Client user;
-    private final Course course;
-    private final String subject;
-    private final String documentName;
-    private final int documentSize;
-    private final InputStream data;
+    @Id
+    @GeneratedValue(strategy = GenerationType.SEQUENCE, generator = "document_document_id_seq")
+    @SequenceGenerator(sequenceName = "document_document_id_seq", name = "document_document_id_seq", allocationSize = 1)
+    @Column(name = "document_id")
+    private Integer documentId;
 
-    public Document(final int documentId, final Client user, final Course course, final String subject, final String documentName, final int documentSize, final InputStream data) {
-        this.documentId = documentId;
+    @ManyToOne(fetch = FetchType.EAGER, optional = false)
+    private Client user;
+
+    @ManyToOne(fetch = FetchType.EAGER, optional = false)
+    private Course course;
+
+    @Column(length = 100, nullable = false, unique = true)
+    private String subject;
+
+    @Column(length = 300, nullable = false, unique = true)
+    private String documentName;
+
+    @Column
+    private int documentSize;
+
+    @Column(nullable = false)
+    private byte[] data;
+
+    /* package */ Document() {
+        // Just for Hibernate, we love you!
+    }
+
+    public Document(final Client user, final Course course, final String subject, final String documentName, final int documentSize, final byte[] data) {
         this.user = user;
         this.course = course;
         this.subject = subject;
@@ -46,7 +68,7 @@ public class Document {
         return documentSize;
     }
 
-    public InputStream getData() {
+    public byte[] getData() {
         return data;
     }
 

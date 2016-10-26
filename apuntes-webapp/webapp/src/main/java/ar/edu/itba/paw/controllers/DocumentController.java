@@ -23,6 +23,7 @@ import org.springframework.web.bind.annotation.RequestMethod;
 import org.springframework.web.servlet.ModelAndView;
 
 import javax.servlet.http.HttpServletResponse;
+import java.io.ByteArrayInputStream;
 import java.io.IOException;
 import java.io.InputStream;
 import java.util.List;
@@ -78,7 +79,7 @@ public class DocumentController {
         //TODO Validar el nombre para prevenir header injection
         response.setHeader("Content-Disposition", String.format("attachment; filename=\"%s\";", file.getDocumentName()));
         response.setContentLength(file.getDocumentSize());
-        InputStream data = file.getData();
+        InputStream data = new ByteArrayInputStream(file.getData());
         FileCopyUtils.copy(data, response.getOutputStream());
 
     }
@@ -92,7 +93,7 @@ public class DocumentController {
         response.setContentType("application/pdf");
         response.setHeader("Content-Disposition", String.format("inline; filename=\"%s\";", file.getDocumentName()));
 
-        InputStream data = file.getData();
+        InputStream data = new ByteArrayInputStream(file.getData());
         FileCopyUtils.copy(data, response.getOutputStream());
 
     }

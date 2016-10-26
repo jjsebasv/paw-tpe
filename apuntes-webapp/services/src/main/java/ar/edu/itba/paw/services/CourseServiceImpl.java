@@ -4,11 +4,13 @@ package ar.edu.itba.paw.services;
 import ar.edu.itba.paw.interfaces.CourseDao;
 import ar.edu.itba.paw.interfaces.CourseService;
 import ar.edu.itba.paw.models.Course;
+import ar.edu.itba.paw.models.CourseProgramRelation;
 import ar.edu.itba.paw.models.Program;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
-import java.util.List;
+import java.util.*;
+import java.util.stream.Collectors;
 
 @Service
 public class CourseServiceImpl implements CourseService {
@@ -40,8 +42,21 @@ public class CourseServiceImpl implements CourseService {
     }
 
     @Override
-    public List<Course> findByProgram(final int programid) {
-        return courseDao.findByProgram(programid);
+    public Map<Integer, List<Course>> findByProgram(final int programid) {
+
+        final List<CourseProgramRelation> courses = courseDao.findByProgram(programid);
+
+        Map<Integer, List<Course>> coursesMap = new HashMap<>(11);
+
+        for (int i = 0; i < 11; i++) {
+            coursesMap.put(i, new LinkedList<>());
+        }
+
+        for (CourseProgramRelation programRelation : courses) {
+            coursesMap.get(programRelation.getSemester()).add(programRelation.getCourse());
+        }
+
+        return coursesMap;
     }
 
     @Override

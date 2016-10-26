@@ -1,16 +1,34 @@
 package ar.edu.itba.paw.models;
 
+import javax.persistence.*;
+
+@Entity
+@Table(name = "reviews")
 public class Review {
 
-    private final int reviewid;
-    private  Document file;
-    private  Client user;
-    private final double ranking;
-    private final String review;
+    @Id
+    @GeneratedValue(strategy = GenerationType.SEQUENCE, generator = "reviews_review_id_seq")
+    @SequenceGenerator(sequenceName = "reviews_review_id_seq", name = "reviews_review_id_seq", allocationSize = 1)
+    @Column(name = "review_id")
+    private int reviewid;
 
-    public Review(final int reviewid, final Document file, final Client user, final double ranking, final String review) {
+    @ManyToOne(fetch = FetchType.LAZY, optional = false)
+    private Document file;
 
-        this.reviewid = reviewid;
+    @ManyToOne(fetch = FetchType.EAGER, optional = false)
+    private Client user;
+
+    @Column
+    private double ranking;
+
+    @Column(length = 500, nullable = false)
+    private String review;
+
+    /* package */ Review() {
+        // Just for Hibernate, we love you!
+    }
+
+    public Review(final Document file, final Client user, final double ranking, final String review) {
         this.file = file;
         this.user = user;
         this.ranking = ranking;

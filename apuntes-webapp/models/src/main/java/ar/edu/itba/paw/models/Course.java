@@ -1,24 +1,34 @@
 package ar.edu.itba.paw.models;
 
+import javax.persistence.*;
+import java.util.List;
+
+@Entity
+@Table(name = "courses")
 public class Course {
 
-    private final int courseid;
+    @Id
+    @GeneratedValue(strategy = GenerationType.SEQUENCE, generator = "courses_course_id_seq")
+    @SequenceGenerator(sequenceName = "courses_course_id_seq", name = "courses_course_id_seq", allocationSize = 1)
+    @Column(name = "course_id")
+    private Integer courseid;
 
-    private final String code;
+    @Column(length = 4, nullable = false, unique = true)
+    private String code;
 
-    private final String name;
+    @Column(length = 200, nullable = false)
+    private String name;
 
-    private final int semester;
+    @OneToMany(mappedBy = "course")
+    private List<CourseProgramRelation> programs;
 
-    public Course(final int courseid, final String code, final String name, int semester) {
-        this.courseid = courseid;
-        this.code = code;
-        this.name = name;
-        this.semester = semester;
+    /* package */ Course() {
+        // Just for Hibernate, we love you!
     }
 
-    public Course(final int courseid, final String code, final String name) {
-        this(courseid, code, name, -1);
+    public Course(final String code, final String name) {
+        this.code = code;
+        this.name = name;
     }
 
     public int getCourseid() {
@@ -57,7 +67,7 @@ public class Course {
         return String.format("%s - %s", code, name);
     }
 
-    public int getSemester() {
-        return semester;
+    public List<CourseProgramRelation> getRelatedPrograms() {
+        return programs;
     }
 }

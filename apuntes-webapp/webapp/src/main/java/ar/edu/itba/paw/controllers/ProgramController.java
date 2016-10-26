@@ -17,6 +17,8 @@ import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.servlet.ModelAndView;
 
+import javax.persistence.Column;
+
 @Controller
 public class ProgramController {
 
@@ -42,16 +44,22 @@ public class ProgramController {
             return new ModelAndView("404");
         }
 
-        final List<Course> courses = cs.findByProgram(programid);
+        final Map<Integer, List<Course>> groupedCourses = cs.findByProgram(programid);
 
-        final Map<Integer, List<Course>> groupedCourses = courses.stream().collect(Collectors.groupingBy(Course::getSemester));
+        int coursesCount = 0;
+
+        for (List<Course> courseList : groupedCourses.values()) {
+            coursesCount += courseList.size();
+        }
+
+//        final Map<Integer, List<Course>> groupedCourses = courses.stream().collect(Collectors.groupingBy(Course::getSemester));
 
         final List<Course> optativas = groupedCourses.remove(0);
 
         mav.addObject("program", program);
         mav.addObject("courses", groupedCourses);
         mav.addObject("optativas", optativas);
-        mav.addObject("coursesSize", courses.size());
+        mav.addObject("coursesSize", coursesCount);
 
         return mav;
 

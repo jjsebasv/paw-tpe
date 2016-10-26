@@ -4,6 +4,7 @@ import ar.edu.itba.paw.models.Course;
 import ar.edu.itba.paw.models.Program;
 
 import java.util.List;
+import java.util.Map;
 
 public interface CourseService {
 
@@ -15,7 +16,7 @@ public interface CourseService {
 
     Course findByCode(String code);
 
-    List<Course> findByProgram(int programid);
+    Map<Integer, List<Course>> findByProgram(int programid);
 
     Course create(String code, String name);
 

@@ -1,6 +1,7 @@
 package ar.edu.itba.paw.interfaces;
 
 import ar.edu.itba.paw.models.Course;
+import ar.edu.itba.paw.models.CourseProgramRelation;
 import ar.edu.itba.paw.models.Program;
 
 import java.util.List;
@@ -15,7 +16,7 @@ public interface CourseDao {
 
     Course findByCode(String code);
 
-    List<Course> findByProgram(int programid);
+    List<CourseProgramRelation> findByProgram(int programid);
 
     Course create(String code, String name);
 
