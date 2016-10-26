@@ -1,22 +1,21 @@
 package ar.edu.itba.paw.persistence;
 
-import ar.edu.itba.paw.models.Course;
 import ar.edu.itba.paw.models.Program;
 import org.junit.Assert;
-import org.junit.Before;
 import org.junit.Test;
 import org.junit.runner.RunWith;
 import org.springframework.beans.factory.annotation.Autowired;
-import org.springframework.jdbc.core.JdbcTemplate;
+import org.springframework.test.annotation.Rollback;
 import org.springframework.test.context.ContextConfiguration;
 import org.springframework.test.context.junit4.SpringJUnit4ClassRunner;
-import org.springframework.test.jdbc.JdbcTestUtils;
+import org.springframework.transaction.annotation.Transactional;
 
-import javax.sql.DataSource;
 import java.util.List;
 
 @RunWith(SpringJUnit4ClassRunner.class)
 @ContextConfiguration(classes = TestConfig.class)
+@Transactional
+@Rollback
 public class ProgramJdbcDaoTest {
 
     private static final String PROGRAM_NAME = "Carrera de ejemplo";
@@ -24,18 +23,8 @@ public class ProgramJdbcDaoTest {
     private static final char PROGRAM_GROUP = 'g';
 
     @Autowired
-    private DataSource ds;
+    private ProgramHibernateDao programDao;
 
-    @Autowired
-    private ProgramJdbcDao programDao;
-
-    @Before
-    public void setUp() throws Exception {
-
-        JdbcTemplate jdbcTemplate = new JdbcTemplate(ds);
-
-        JdbcTestUtils.deleteFromTables(jdbcTemplate, ProgramJdbcDao.PROGRAM_TABLE_NAME);
-    }
 
     @Test
     public void testCreate() {
@@ -65,8 +54,7 @@ public class ProgramJdbcDaoTest {
     public void testFindByNonExistingName() {
         final List<Program> list = programDao.findByName("abc");
 
-        Assert.assertNotNull(list);
-        Assert.assertTrue(list.isEmpty());
+        Assert.assertNull(list);
     }
 
     @Test

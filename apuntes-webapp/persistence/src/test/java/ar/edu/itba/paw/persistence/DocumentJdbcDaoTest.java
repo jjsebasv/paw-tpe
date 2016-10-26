@@ -3,26 +3,22 @@ package ar.edu.itba.paw.persistence;
 import ar.edu.itba.paw.models.Client;
 import ar.edu.itba.paw.models.Course;
 import ar.edu.itba.paw.models.Document;
-import ar.edu.itba.paw.models.Program;
-import org.junit.After;
 import org.junit.Assert;
-import org.junit.Before;
 import org.junit.Test;
 import org.junit.runner.RunWith;
 import org.springframework.beans.factory.annotation.Autowired;
-import org.springframework.jdbc.core.JdbcTemplate;
+import org.springframework.test.annotation.Rollback;
 import org.springframework.test.context.ContextConfiguration;
 import org.springframework.test.context.junit4.SpringJUnit4ClassRunner;
-import org.springframework.test.jdbc.JdbcTestUtils;
-//import sun.misc.IOUtils;
+import org.springframework.transaction.annotation.Transactional;
 
-import javax.sql.DataSource;
-import java.io.DataInputStream;
 import java.io.IOException;
 import java.util.List;
 
 @RunWith(SpringJUnit4ClassRunner.class)
 @ContextConfiguration(classes = TestConfig.class)
+@Transactional
+@Rollback
 public class DocumentJdbcDaoTest {
 
     private static final String COURSE_CODE = "93.71";
@@ -38,37 +34,15 @@ public class DocumentJdbcDaoTest {
     private static final byte[] CONTENTS = "holaaaaaaaaaaaaaaa".getBytes();
     private static final int FILESIZE = CONTENTS.length;
 
+    @Autowired
+    private DocumentHibernateDao documentDao;
 
     @Autowired
-    private DataSource ds;
+    private CourseHibernateDao courseDao;
 
     @Autowired
-    private DocumentJdbcDao documentDao;
+    private ClientHibernateDao clientDao;
 
-    @Autowired
-    private CourseJdbcDao courseDao;
-
-    @Autowired
-    private ClientJdbcDao clientDao;
-
-    @Before
-    public void setUp() throws Exception {
-
-        JdbcTemplate jdbcTemplate = new JdbcTemplate(ds);
-
-        JdbcTestUtils.deleteFromTables(jdbcTemplate, CourseJdbcDao.COURSETOPROGRAM_TABE_NAME);
-        JdbcTestUtils.deleteFromTables(jdbcTemplate, DocumentJdbcDao.DOCUMENT_TABLE_NAME);
-        JdbcTestUtils.deleteFromTables(jdbcTemplate, ClientJdbcDao.CLIENT_TABLE_NAME);
-        JdbcTestUtils.deleteFromTables(jdbcTemplate, CourseJdbcDao.COURSE_TABLE_NAME);
-    }
-
-    @After
-    public void tearDown() throws Exception {
-
-        JdbcTemplate jdbcTemplate = new JdbcTemplate(ds);
-        JdbcTestUtils.deleteFromTables(jdbcTemplate, DocumentJdbcDao.DOCUMENT_TABLE_NAME);
-
-    }
 
     @Test
     public void testCreate() throws IOException {
@@ -85,10 +59,8 @@ public class DocumentJdbcDaoTest {
         Assert.assertEquals(FILESIZE, document.getDocumentSize());
 
         byte[] rawContents = new byte[(int) document.getDocumentSize()];
-        DataInputStream dataIs = new DataInputStream(document.getData());
-        dataIs.readFully(rawContents);
 
-        Assert.assertArrayEquals(CONTENTS, rawContents);
+        Assert.assertArrayEquals(CONTENTS, document.getData());
     }
 
     @Test

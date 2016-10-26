@@ -1,15 +1,35 @@
 package ar.edu.itba.paw.models;
 
+import javax.persistence.*;
+import java.util.List;
+
+@Entity
+@Table(name = "programs")
 public class Program {
 
-    private final int programid;
+    @Id
+    @GeneratedValue(strategy = GenerationType.SEQUENCE, generator = "programs_program_id_seq")
+    @SequenceGenerator(sequenceName = "programs_program_id_seq", name = "programs_program_id_seq", allocationSize = 1)
+    @Column(name = "program_id")
+    private int programid;
 
-    private final String name;
-    private final String shortName;
-    private final char group;
+    @Column(length = 100, nullable = false, unique = true)
+    private String name;
 
-    public Program(final int programid, final String name, String shortName, char group) {
-        this.programid = programid;
+    @Column(name = "short_name", length = 50, nullable = false, unique = true)
+    private String shortName;
+
+    @Column(name = "program_group", length = 1, nullable = false)
+    private char group;
+
+    @OneToMany(mappedBy = "program", fetch = FetchType.EAGER)
+    private List<CourseProgramRelation> courses;
+
+    /* package */ Program() {
+        // Just for Hibernate, we love you!
+    }
+
+    public Program(final String name, String shortName, char group) {
         this.name = name;
         this.shortName = shortName;
         this.group = group;
@@ -39,11 +59,14 @@ public class Program {
         Program program = (Program) o;
 
         return programid == program.programid;
-
     }
 
     @Override
     public int hashCode() {
         return programid;
+    }
+
+    public List<CourseProgramRelation> getRelatedCourses() {
+        return courses;
     }
 }

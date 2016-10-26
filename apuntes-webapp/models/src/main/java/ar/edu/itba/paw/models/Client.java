@@ -1,15 +1,32 @@
 package ar.edu.itba.paw.models;
 
+import javax.persistence.*;
+
+@Entity
+@Table(name = "clients")
 public class Client {
 
-    private final String name;
-    private final int clientId;
-    private final String password;
-    private final String email;
+    @Id
+    @GeneratedValue(strategy = GenerationType.SEQUENCE, generator = "clients_client_id_seq")
+    @SequenceGenerator(sequenceName = "clients_client_id_seq", name = "clients_client_id_seq", allocationSize = 1)
+    @Column(name = "client_id")
+    private Integer clientId;
 
-    public Client(final int clientId, final String name, final String password, String email) {
+    @Column(name = "username", length = 100, nullable = false)
+    private String name;
+
+    @Column(length = 100, nullable = false)
+    private String password;
+
+    @Column(length = 100, nullable = false, unique = true)
+    private String email;
+
+    /* package */ Client() {
+        // Just for Hibernate, we love you!
+    }
+
+    public Client(String name, String password, String email) {
         this.name = name;
-        this.clientId = clientId;
         this.password = password;
         this.email = email;
     }

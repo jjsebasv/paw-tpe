@@ -5,10 +5,12 @@ import ar.edu.itba.paw.interfaces.ProgramService;
 import ar.edu.itba.paw.models.Program;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
+import org.springframework.transaction.annotation.Transactional;
 
 import java.util.List;
 
 @Service
+@Transactional
 public class ProgramServiceImpl implements ProgramService {
 
     private final ProgramDao programDao;

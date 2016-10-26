@@ -2,39 +2,27 @@ package ar.edu.itba.paw.persistence;
 
 import ar.edu.itba.paw.models.Course;
 import org.junit.Assert;
-import org.junit.Before;
 import org.junit.Test;
 import org.junit.runner.RunWith;
 import org.springframework.beans.factory.annotation.Autowired;
-import org.springframework.jdbc.core.JdbcTemplate;
+import org.springframework.test.annotation.Rollback;
 import org.springframework.test.context.ContextConfiguration;
 import org.springframework.test.context.junit4.SpringJUnit4ClassRunner;
-import org.springframework.test.jdbc.JdbcTestUtils;
+import org.springframework.transaction.annotation.Transactional;
 
-import javax.sql.DataSource;
 import java.util.List;
 
 @RunWith(SpringJUnit4ClassRunner.class)
 @ContextConfiguration(classes = TestConfig.class)
+@Rollback
+@Transactional
 public class CourseJdbcDaoTest {
 
     private static final String COURSE_CODE = "93.71";
     private static final String COURSE_NAME = "Curso de Ejemplo";
 
     @Autowired
-    private DataSource ds;
-
-    @Autowired
-    private CourseJdbcDao courseDao;
-
-    @Before
-    public void setUp() throws Exception {
-
-        JdbcTemplate jdbcTemplate = new JdbcTemplate(ds);
-
-        JdbcTestUtils.deleteFromTables(jdbcTemplate, CourseJdbcDao.COURSETOPROGRAM_TABE_NAME);
-        JdbcTestUtils.deleteFromTables(jdbcTemplate, CourseJdbcDao.COURSE_TABLE_NAME);
-    }
+    private CourseHibernateDao courseDao;
 
     @Test
     public void testCreate() {
@@ -67,9 +55,7 @@ public class CourseJdbcDaoTest {
 
         final List<Course> list = courseDao.findByName("abc");
 
-        Assert.assertNotNull(list);
-
-        Assert.assertTrue(list.isEmpty());
+        Assert.assertNull(list);
     }
 
     @Test

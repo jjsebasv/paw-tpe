@@ -2,15 +2,17 @@ package ar.edu.itba.paw.services;
 
 import ar.edu.itba.paw.interfaces.ReviewDao;
 import ar.edu.itba.paw.interfaces.ReviewService;
+import ar.edu.itba.paw.models.Client;
 import ar.edu.itba.paw.models.Document;
 import ar.edu.itba.paw.models.Review;
-import ar.edu.itba.paw.models.Client;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
+import org.springframework.transaction.annotation.Transactional;
 
 import java.util.List;
 
 @Service
+@Transactional
 public class ReviewServiceImpl implements ReviewService {
 
     private final ReviewDao reviewDao;
@@ -35,9 +37,9 @@ public class ReviewServiceImpl implements ReviewService {
         return reviewDao.getAverage(fileid);
     }
 
-	@Override
-	public List<Review> findByUser(int clientId) {
-		return reviewDao.findByUser(clientId);
-	}
+    @Override
+    public List<Review> findByUser(int clientId) {
+        return reviewDao.findByUser(clientId);
+    }
 
 }

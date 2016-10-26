@@ -2,19 +2,18 @@ package ar.edu.itba.paw.persistence;
 
 import ar.edu.itba.paw.models.Client;
 import org.junit.Assert;
-import org.junit.Before;
 import org.junit.Test;
 import org.junit.runner.RunWith;
 import org.springframework.beans.factory.annotation.Autowired;
-import org.springframework.jdbc.core.JdbcTemplate;
+import org.springframework.test.annotation.Rollback;
 import org.springframework.test.context.ContextConfiguration;
 import org.springframework.test.context.junit4.SpringJUnit4ClassRunner;
-import org.springframework.test.jdbc.JdbcTestUtils;
-
-import javax.sql.DataSource;
+import org.springframework.transaction.annotation.Transactional;
 
 @RunWith(SpringJUnit4ClassRunner.class)
 @ContextConfiguration(classes = TestConfig.class)
+@Transactional
+@Rollback
 public class ClientJdbcDaoTest {
 
     private static final String USERNAME = "PAW USER";
@@ -22,18 +21,8 @@ public class ClientJdbcDaoTest {
     private static final String EMAIL = "asd@email.com";
 
     @Autowired
-    private DataSource ds;
+    private ClientHibernateDao clientDao;
 
-    @Autowired
-    private ClientJdbcDao clientDao;
-
-    @Before
-    public void setUp() throws Exception {
-
-        JdbcTemplate jdbcTemplate = new JdbcTemplate(ds);
-
-        JdbcTestUtils.deleteFromTables(jdbcTemplate, ClientJdbcDao.CLIENT_TABLE_NAME);
-    }
 
     @Test
     public void testFindByIdExistingUser() {

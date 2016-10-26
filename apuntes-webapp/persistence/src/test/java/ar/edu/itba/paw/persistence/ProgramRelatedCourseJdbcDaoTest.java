@@ -1,22 +1,23 @@
 package ar.edu.itba.paw.persistence;
 
 import ar.edu.itba.paw.models.Course;
+import ar.edu.itba.paw.models.CourseProgramRelation;
 import ar.edu.itba.paw.models.Program;
 import org.junit.Assert;
-import org.junit.Before;
 import org.junit.Test;
 import org.junit.runner.RunWith;
 import org.springframework.beans.factory.annotation.Autowired;
-import org.springframework.jdbc.core.JdbcTemplate;
+import org.springframework.test.annotation.Rollback;
 import org.springframework.test.context.ContextConfiguration;
 import org.springframework.test.context.junit4.SpringJUnit4ClassRunner;
-import org.springframework.test.jdbc.JdbcTestUtils;
+import org.springframework.transaction.annotation.Transactional;
 
-import javax.sql.DataSource;
 import java.util.List;
 
 @RunWith(SpringJUnit4ClassRunner.class)
 @ContextConfiguration(classes = TestConfig.class)
+@Transactional
+@Rollback
 public class ProgramRelatedCourseJdbcDaoTest {
 
     private static final String COURSE_CODE = "93.71";
@@ -28,23 +29,10 @@ public class ProgramRelatedCourseJdbcDaoTest {
     private static int COURSETOPROGRAM_SEMESTER = 3;
 
     @Autowired
-    private DataSource ds;
+    private CourseHibernateDao courseDao;
 
     @Autowired
-    private CourseJdbcDao courseDao;
-
-    @Autowired
-    private ProgramJdbcDao programDao;
-
-    @Before
-    public void setUp() throws Exception {
-
-        JdbcTemplate jdbcTemplate = new JdbcTemplate(ds);
-
-        JdbcTestUtils.deleteFromTables(jdbcTemplate, CourseJdbcDao.COURSE_TABLE_NAME);
-        JdbcTestUtils.deleteFromTables(jdbcTemplate, CourseJdbcDao.COURSETOPROGRAM_TABE_NAME);
-        JdbcTestUtils.deleteFromTables(jdbcTemplate, ProgramJdbcDao.PROGRAM_TABLE_NAME);
-    }
+    private ProgramHibernateDao programDao;
 
     @Test
     public void testAddProgramToCourseRelationship() {
@@ -53,13 +41,13 @@ public class ProgramRelatedCourseJdbcDaoTest {
 
         courseDao.addProgramRelationship(course, program, COURSETOPROGRAM_SEMESTER);
 
-        List<Course> courseList = courseDao.findByProgram(program.getProgramid());
+        List<CourseProgramRelation> courseList = courseDao.findByProgram(program.getProgramid());
 
         Assert.assertNotNull(courseList);
         Assert.assertFalse(courseList.isEmpty());
         Assert.assertEquals(1, courseList.size());
 
-        Course relatedCourse = courseList.get(0);
+        Course relatedCourse = courseList.get(0).getCourse();
 
         Assert.assertEquals(course, relatedCourse);
 
