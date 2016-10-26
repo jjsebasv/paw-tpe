@@ -8,11 +8,11 @@
       <a href="" class="back-button">
         <img src="resources/assets/back.svg">
       </a>
-      <h3 class="program-title">${document.subject}</h3>
+      <h3 class="program-title"><c:out value="${document.subject}"/></h3>
       <div class="white-container-content">
         <div class="document-info">
-          <p class="subtitle"><spring:message code="documentview.uploaded.by"/>: ${username}</p>
-          <p class="subtitle"><spring:message code="documentview.average"/> : ${average}</p>
+          <p class="subtitle"><spring:message code="documentview.uploaded.by"/><c:out value=": ${username}"/></p>
+          <p class="subtitle"><spring:message code="documentview.average"/><c:out value=": ${average}"/></p>
           <a class="download-button" href="download/${document.documentId}">
             <spring:message code="documentview.download"/>
           </a>
@@ -24,12 +24,12 @@
         <ul class="reviews-wrapper">
           <c:forEach items="${reviews}" var="review">
           <li class="review-item column">
-            <span class="light-text review-time">Hace 3hr</span>
+            <span class="light-text review-time"><c:out value="Hace 3hr"/></span>
             <img class="avatar" src="https://cdn1.iconfinder.com/data/icons/user-pictures/101/malecostume-512.png">
             <div class="column review-info-wrapper">
-              <span class="ranking">${review.ranking}</span>
-              <p>${review.review}</p>
-              <span class="light-text">${review.user.name}</span>
+              <span class="ranking"><c:out value="${review.ranking}"/></span>
+              <p><c:out value="${review.review}"/></p>
+              <span class="light-text"><c:out value="${review.user.name}"/></span>
             </div>
           </li>
           </c:forEach>
