@@ -68,12 +68,21 @@ public class CourseHibernateDao implements CourseDao {
 
     @Override
     public void addProgramRelationship(Course course, Program program, int semester) {
-        //FIXME
+
+        final CourseProgramRelation courseProgramRelation = new CourseProgramRelation(program, course, semester);
+
+        em.persist(courseProgramRelation);
     }
 
     @Override
     public boolean isRelatedTo(Course course, Program program) {
-        //FIXME
-        return false;
+
+        final TypedQuery<CourseProgramRelation> query = em.createQuery("SELECT r FROM CourseProgramRelation as r " +
+                "WHERE r.program.programid=:programid and r.course.courseid=:courseid", CourseProgramRelation.class);
+        query.setParameter("programid", program.getProgramid());
+        query.setParameter("courseid", course.getCourseid());
+        final List<CourseProgramRelation> list = query.getResultList();
+
+        return !list.isEmpty();
     }
 }

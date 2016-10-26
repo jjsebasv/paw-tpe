@@ -5,13 +5,21 @@ import javax.persistence.Embeddable;
 import java.io.Serializable;
 
 @Embeddable
-public class CourseProgramRelationId implements Serializable {
+class CourseProgramRelationId implements Serializable {
 
     @Column
     private int course_id;
 
     @Column
     private int program_id;
+
+    public CourseProgramRelationId(int course_id, int program_id) {
+        this.course_id = course_id;
+        this.program_id = program_id;
+    }
+
+    public CourseProgramRelationId() {
+    }
 
     @Override
     public boolean equals(Object o) {

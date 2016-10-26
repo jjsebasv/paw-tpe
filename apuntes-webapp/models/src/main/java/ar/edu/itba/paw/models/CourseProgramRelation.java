@@ -22,6 +22,9 @@ public class CourseProgramRelation {
     @Column(name = "semester")
     private int semester;
 
+    public CourseProgramRelation() {
+    }
+
     public Program getProgram() {
         return program;
     }
@@ -32,5 +35,13 @@ public class CourseProgramRelation {
 
     public int getSemester() {
         return semester;
+    }
+
+    public CourseProgramRelation(Program program, Course course, int semester) {
+        this.program = program;
+        this.course = course;
+        this.semester = semester;
+
+        this.id = new CourseProgramRelationId(course.getCourseid(), program.getProgramid());
     }
 }
