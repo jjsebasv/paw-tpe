@@ -14,9 +14,11 @@ public class Document {
     private Integer documentId;
 
     @ManyToOne(fetch = FetchType.EAGER, optional = false)
+    @JoinColumn(name = "client_id")
     private Client user;
 
     @ManyToOne(fetch = FetchType.EAGER, optional = false)
+    @JoinColumn(name = "course_id")
     private Course course;
 
     @Column(length = 100, nullable = false, unique = true)

@@ -12,7 +12,7 @@ public class Client {
     @Column(name = "client_id")
     private Integer clientId;
 
-    @Column(length = 100, nullable = false)
+    @Column(name = "username", length = 100, nullable = false)
     private String name;
 
     @Column(length = 100, nullable = false)
