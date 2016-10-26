@@ -85,4 +85,9 @@ public class CourseHibernateDao implements CourseDao {
 
         return !list.isEmpty();
     }
+
+    @Override
+    public List<Program> getPrograms(int courseid) {
+        return null;
+    }
 }
