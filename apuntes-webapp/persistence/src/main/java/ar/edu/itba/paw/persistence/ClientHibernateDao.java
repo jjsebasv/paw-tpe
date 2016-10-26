@@ -18,7 +18,7 @@ public class ClientHibernateDao implements ClientDao {
 
     @Override
     public Client findByUsername(final String username) {
-        final TypedQuery<Client> query = em.createQuery("from Client as u where u.username = :username", Client.class);
+        final TypedQuery<Client> query = em.createQuery("from Client as u where u.name = :username", Client.class);
         query.setParameter("username", username);
         final List<Client> list = query.getResultList();
         return list.isEmpty() ? null : list.get(0);

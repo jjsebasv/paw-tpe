@@ -4,20 +4,14 @@ import ar.edu.itba.paw.interfaces.CourseService;
 import ar.edu.itba.paw.interfaces.ProgramService;
 import ar.edu.itba.paw.models.Course;
 import ar.edu.itba.paw.models.Program;
-
-import java.util.List;
-import java.util.Map;
-import java.util.function.Predicate;
-import java.util.stream.Collector;
-import java.util.stream.Collectors;
-
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
 import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.servlet.ModelAndView;
 
-import javax.persistence.Column;
+import java.util.List;
+import java.util.Map;
 
 @Controller
 public class ProgramController {
@@ -51,8 +45,6 @@ public class ProgramController {
         for (List<Course> courseList : groupedCourses.values()) {
             coursesCount += courseList.size();
         }
-
-//        final Map<Integer, List<Course>> groupedCourses = courses.stream().collect(Collectors.groupingBy(Course::getSemester));
 
         final List<Course> optativas = groupedCourses.remove(0);
 

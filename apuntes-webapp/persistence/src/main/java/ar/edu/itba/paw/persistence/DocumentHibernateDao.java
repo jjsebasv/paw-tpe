@@ -25,26 +25,23 @@ public class DocumentHibernateDao implements DocumentDao {
 
     @Override
     public List<Document> findByCourseId(int id) {
-        final TypedQuery<Document> query = em.createQuery("FROM documents NATURAL JOIN courses NATURAL JOIN clients WHERE course_id= :courseid", Document.class);
+        final TypedQuery<Document> query = em.createQuery("FROM Document as d WHERE d.course.courseid = :courseid", Document.class);
         query.setParameter("courseid", id);
-        final List<Document> list = query.getResultList();
-        return list.isEmpty() ? null : list;
+        return query.getResultList();
     }
 
     @Override
     public List<Document> findByClient(Client uploader) {
 
-        final TypedQuery<Document> query = em.createQuery("FROM documents NATURAL JOIN courses NATURAL JOIN clients WHERE documents.client_id= :clientid", Document.class);
+        final TypedQuery<Document> query = em.createQuery("FROM Document as d WHERE d.user.clientId = :clientid", Document.class);
         query.setParameter("clientid", uploader.getClientId());
-        final List<Document> list = query.getResultList();
-        return list.isEmpty() ? null : list;
+        return query.getResultList();
     }
 
     @Override
     public List<Document> getAll() {
-        final TypedQuery<Document> query = em.createQuery("from documents", Document.class);
-        final List<Document> list = query.getResultList();
-        return list.isEmpty() ? null : list;
+        final TypedQuery<Document> query = em.createQuery("from Document", Document.class);
+        return query.getResultList();
     }
 
     @Override

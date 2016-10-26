@@ -1,7 +1,6 @@
 package ar.edu.itba.paw.persistence;
 
 import ar.edu.itba.paw.interfaces.ProgramDao;
-import ar.edu.itba.paw.models.Course;
 import ar.edu.itba.paw.models.Program;
 import org.springframework.stereotype.Repository;
 

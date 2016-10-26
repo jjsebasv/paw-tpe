@@ -3,7 +3,6 @@ package ar.edu.itba.paw.persistence;
 import ar.edu.itba.paw.interfaces.ReviewDao;
 import ar.edu.itba.paw.models.Client;
 import ar.edu.itba.paw.models.Document;
-import ar.edu.itba.paw.models.Program;
 import ar.edu.itba.paw.models.Review;
 import org.springframework.stereotype.Repository;
 
@@ -30,13 +29,9 @@ public class ReviewHibernateDao implements ReviewDao {
 
     @Override
     public List<Review> findByFileId(final int fileid) {
-        final TypedQuery<Review> query = em.createQuery("FROM reviews " +
-                "INNER JOIN clients ON clients.client_id=reviews.client_id " +
-                "INNER JOIN documents ON documents.document_id=reviews.document_id " +
-                "WHERE reviews.document_id = :fileid", Review.class);
+        final TypedQuery<Review> query = em.createQuery("FROM Review as r WHERE r.file.documentId = :fileid", Review.class);
         query.setParameter("fileid", fileid);
-        final List<Review> list = query.getResultList();
-        return list.isEmpty() ? null : list;
+        return query.getResultList();
     }
 
     @Override
@@ -46,12 +41,8 @@ public class ReviewHibernateDao implements ReviewDao {
 
     @Override
     public List<Review> findByUser(final int userid) {
-        final TypedQuery<Review> query = em.createQuery("FROM reviews " +
-                "INNER JOIN clients ON clients.client_id=reviews.client_id " +
-                "INNER JOIN documents ON documents.document_id=reviews.document_id " +
-                "WHERE reviews.client_id = :userid", Review.class);
+        final TypedQuery<Review> query = em.createQuery("FROM Review as r WHERE r.user.clientId = :userid", Review.class);
         query.setParameter("userid", userid);
-        final List<Review> list = query.getResultList();
-        return list.isEmpty() ? null : list;
+        return query.getResultList();
     }
 }
