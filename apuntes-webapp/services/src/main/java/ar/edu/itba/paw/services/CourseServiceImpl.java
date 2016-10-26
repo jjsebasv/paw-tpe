@@ -60,4 +60,10 @@ public class CourseServiceImpl implements CourseService {
     public boolean isRelatedTo(final Course course, final Program program) {
         return courseDao.isRelatedTo(course, program);
     }
+
+	@Override
+	public List<Program> getPrograms(int courseid) {
+		// TODO Auto-generated method stub
+		return courseDao.getPrograms(courseid);
+	}
 }

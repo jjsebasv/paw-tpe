@@ -14,7 +14,7 @@ import org.springframework.jdbc.core.JdbcTemplate;
 import org.springframework.test.context.ContextConfiguration;
 import org.springframework.test.context.junit4.SpringJUnit4ClassRunner;
 import org.springframework.test.jdbc.JdbcTestUtils;
-import sun.misc.IOUtils;
+//import sun.misc.IOUtils;
 
 import javax.sql.DataSource;
 import java.io.DataInputStream;

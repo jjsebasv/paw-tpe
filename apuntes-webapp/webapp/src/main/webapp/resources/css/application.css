@@ -103,6 +103,20 @@ h4 {
   text-align: left;
 }
 
+.default-btn {
+  background-color: #F35B25;
+  border: 1px solid #F35B25;
+  color: #FFFFFF;
+  display: block;
+  margin: 10px auto;
+}
+
+.default-btn:hover {
+  background-color: #FFFFFF;
+  border: 1px solid #F35B25;
+  color: #F35B25;
+}
+
 /* Margins */
 .m-bottom-1 {
   margin-bottom: 10px;
@@ -266,7 +280,7 @@ a:hover {
 }
 
 /****** Navbar ******/
-.navbar {
+.navbar-container {
   border: none;
   margin-bottom: 0;
   position: fixed;
@@ -282,11 +296,24 @@ a:hover {
   box-shadow: 0 2px 4px 0 rgba(0, 0, 0, 0.5);
 }
 
-.navbar-header {
-  width: 100%;
-  max-width: 1140px;
-  padding: 0 40px;
+.navbar-wrapper {
   align-items: center;
+  display: flex;
+  justify-content: space-between;
+  padding: 0 40px;
+  width: 100%;
+}
+
+.course-on-nav {
+  width: 400px;
+}
+
+.link.nav-link {
+  color: #666;
+}
+
+.link.nav-link:hover {
+  color: #F35B25;
 }
 
 /****** Programs ******/

@@ -1,5 +1,4 @@
 <%@ include file="../header.jsp" %>
-<%@ taglib prefix="c" uri="http://java.sun.com/jstl/core_rt" %>
 <%@ taglib prefix="form" uri="http://www.springframework.org/tags/form" %>
 <body>
   <%@ include file="../navbar.jsp" %>
@@ -14,10 +13,10 @@
           <c:url value="/login" var="loginUrl"/>
           <form action="${loginUrl}" method="post" enctype="application/x-www-form-urlencoded">
             <c:if test="${not empty error}">
-            <div class="error">${error}</div>
+            <div class="error"><c:out value="${error}"/></div>
             </c:if>
             <c:if test="${not empty msg}">
-            <div class="msg">${msg}</div>
+            <div class="msg"><c:out value="${msg}"/></div>
             </c:if>
             <div class="form-group column left">
               <label class="control-label" for="username"><spring:message code="login.username"/></label>

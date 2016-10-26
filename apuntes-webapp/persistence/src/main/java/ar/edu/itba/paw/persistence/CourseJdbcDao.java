@@ -181,4 +181,11 @@ public class CourseJdbcDao implements CourseDao {
         return result > 0;
     }
 
+	@Override
+	public List<Program> getPrograms(int courseid) {
+		final String query = "SELECT * FROM " + COURSETOPROGRAM_TABE_NAME + " WHERE " + COURSETOPROGRAM_COLUMN_COURSE_ID + " = ? ";
+		//TODO: go on with this
+		return null;
+	}
+
 }
