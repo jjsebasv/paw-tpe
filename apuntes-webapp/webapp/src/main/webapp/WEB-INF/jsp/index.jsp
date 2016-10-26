@@ -6,7 +6,7 @@
 
     <h1><spring:message code="index.title"/></h1>
     <div class="separator"></div>
-    <h2 class="m-bottom-5"><spring:message code="index.bottom.subtitle"/></h2>
+    <h2 class="m-bottom-5"><spring:message code="index.subtitle"/></h2>
     <a class="scroll-indicator-item" href="#about">
       <div class="scroll-indicator">
       </div>

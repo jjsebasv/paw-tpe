@@ -3,6 +3,7 @@
 <spring:htmlEscape defaultHtmlEscape="true"/>
 <body>
   <%@ include file="navbar.jsp" %>
+  <spring:message code="documentview.average" var="message_average" htmlEscape="true"/>
   <div class="content-wrapper">
     <div class="white-container file-container">
       <a href="" class="back-button">
@@ -40,7 +41,7 @@
           <fieldset  class="review-form">
             <div class="form-group column left">
               <label><spring:message code="documentview.average"/> :</label>
-              <form:input path="ranking" type='number' value="5" min='1' max='5' step="1" class="form-control ranking-input" placeholder="Calificacion"/>
+              <form:input path="ranking" type='number' value="5" min='1' max='5' step="1" class="form-control ranking-input" placeholder="${message_average}"/>
               </div>
               <div class="column left m-bottom-5">
                 <label><spring:message code="documentview.review"/>:</label>

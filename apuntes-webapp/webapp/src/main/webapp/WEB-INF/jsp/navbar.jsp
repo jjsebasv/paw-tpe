@@ -7,7 +7,8 @@
       </a>
     </div>
     <div class="navbar-element">
-      <select class="form-control course-select input-base course-on-nav" data-placeholder="Buscar una materia"></select>
+      <spring:message code="navbar.search.course" var="message_search_course" htmlEscape="true"/>
+      <select class="form-control course-select input-base course-on-nav" data-placeholder="${message_search_course}"></select>
     </div>
     <div class="navbar-element">
       <div class="row row-center">

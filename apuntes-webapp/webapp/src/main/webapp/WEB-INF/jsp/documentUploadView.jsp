@@ -5,6 +5,8 @@
   <%@ include file="navbar.jsp" %>
   <div class="register-form">
     <c:url value="/uploadDocument/finish" var="postPath"/>
+    <spring:message code="uploadview.search.course" var="message_searchCourse" htmlEscape="true"/>
+
     <div class="content-wrapper">
       <div class="white-container">
         <a href="" class="back-button">
@@ -26,7 +28,7 @@
                   </div>
                   <div class="form-group column left input-base-wrapper ${not empty courseidHasBindError?"has-error":""}">
                   <form:label path="courseid"><spring:message code="uploadview.course"/>: </form:label>
-                  <form:select path="courseid" class="form-control course-select input-base" data-placeholder="Buscar una materia"/>
+                  <form:select path="courseid" class="form-control course-select input-base" data-placeholder="${message_searchCourse}"/>
                     <form:errors path="courseid" cssClass="help-block" element="p"/>
                     </div>
                     <div class="form-group column left input-base-wrapper">
