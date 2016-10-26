@@ -5,8 +5,10 @@ import ar.edu.itba.paw.interfaces.ClientService;
 import ar.edu.itba.paw.models.Client;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
+import org.springframework.transaction.annotation.Transactional;
 
 @Service
+@Transactional
 public class ClientServiceImpl implements ClientService {
 
     private final ClientDao clientDao;
@@ -28,6 +30,4 @@ public class ClientServiceImpl implements ClientService {
     public Client create(final String username, final String password, final String email) {
         return clientDao.create(username, password, email);
     }
-
-
 }

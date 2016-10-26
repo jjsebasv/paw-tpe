@@ -1,7 +1,6 @@
 package ar.edu.itba.paw.models;
 
 import javax.persistence.*;
-import java.io.InputStream;
 
 @Entity
 @Table(name = "Document")
@@ -21,21 +20,18 @@ public class Document {
     @JoinColumn(name = "course_id")
     private Course course;
 
-    @Column(length = 100, nullable = false, unique = true)
+    @Column(length = 100, nullable = false)
     private String subject;
 
-    @Column(length = 300, nullable = false, unique = true)
+    @Column(name = "document_name", length = 300, nullable = false)
     private String documentName;
 
-    @Column
+    @Column(name = "document_size")
     private int documentSize;
 
     @Column(nullable = false)
     private byte[] data;
 
-    /* package */ Document() {
-        // Just for Hibernate, we love you!
-    }
 
     public Document(final Client user, final Course course, final String subject, final String documentName, final int documentSize, final byte[] data) {
         this.user = user;
@@ -44,6 +40,9 @@ public class Document {
         this.documentName = documentName;
         this.documentSize = documentSize;
         this.data = data;
+    }
+
+    public Document() {
     }
 
     public int getDocumentId() {

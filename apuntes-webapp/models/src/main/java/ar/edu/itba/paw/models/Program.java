@@ -22,7 +22,7 @@ public class Program {
     @Column(name = "program_group", length = 1, nullable = false)
     private char group;
 
-    @OneToMany(mappedBy = "program")
+    @OneToMany(mappedBy = "program", fetch = FetchType.EAGER)
     private List<CourseProgramRelation> courses;
 
     /* package */ Program() {

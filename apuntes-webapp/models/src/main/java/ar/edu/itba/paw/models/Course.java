@@ -13,13 +13,13 @@ public class Course {
     @Column(name = "course_id")
     private Integer courseid;
 
-    @Column(length = 4, nullable = false, unique = true)
+    @Column(length = 5, nullable = false, unique = true)
     private String code;
 
     @Column(length = 200, nullable = false)
     private String name;
 
-    @OneToMany(mappedBy = "course")
+    @OneToMany(mappedBy = "course", fetch = FetchType.LAZY)
     private List<CourseProgramRelation> programs;
 
     /* package */ Course() {
