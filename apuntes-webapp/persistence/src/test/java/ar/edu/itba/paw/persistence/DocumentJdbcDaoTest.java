@@ -57,6 +57,7 @@ public class DocumentJdbcDaoTest {
         Assert.assertEquals(SUBJECT, document.getSubject());
         Assert.assertEquals(FILENAME, document.getDocumentName());
         Assert.assertEquals(FILESIZE, document.getDocumentSize());
+        Assert.assertNotNull(document.getDateUploaded());
 
         byte[] rawContents = new byte[(int) document.getDocumentSize()];
 

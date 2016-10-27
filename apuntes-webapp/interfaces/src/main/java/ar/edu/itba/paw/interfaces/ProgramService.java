@@ -14,4 +14,5 @@ public interface ProgramService {
 
     Program create(String name, String shortName, char group);
 
+    List<Program> getPrograms(int courseid);
 }

@@ -1,6 +1,7 @@
 package ar.edu.itba.paw.models;
 
 import javax.persistence.*;
+import java.util.Date;
 
 @Entity
 @Table(name = "reviews")
@@ -23,6 +24,10 @@ public class Review {
 
     @Column(length = 500, nullable = false)
     private String review;
+
+    @Column(name = "date_uploaded", updatable = false)
+    @Temporal(TemporalType.TIMESTAMP)
+    private Date dateUploaded;
 
     /* package */ Review() {
         // Just for Hibernate, we love you!
@@ -53,5 +58,14 @@ public class Review {
 
     public String getReview() {
         return review;
+    }
+
+    public Date getDateUploaded() {
+        return dateUploaded;
+    }
+
+    @PrePersist
+    protected void onCreate() {
+        this.dateUploaded = new Date();
     }
 }

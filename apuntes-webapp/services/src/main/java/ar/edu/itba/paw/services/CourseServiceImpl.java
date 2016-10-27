@@ -36,6 +36,11 @@ public class CourseServiceImpl implements CourseService {
     }
 
     @Override
+    public List<Course> findByTerm(final String term) {
+        return courseDao.findByTerm(term);
+    }
+
+    @Override
     public Course findById(final int courseid) {
         return courseDao.findById(courseid);
     }
@@ -79,10 +84,4 @@ public class CourseServiceImpl implements CourseService {
     public boolean isRelatedTo(final Course course, final Program program) {
         return courseDao.isRelatedTo(course, program);
     }
-
-	@Override
-	public List<Program> getPrograms(int courseid) {
-		// TODO Auto-generated method stub
-		return courseDao.getPrograms(courseid);
-	}
 }

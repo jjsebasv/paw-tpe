@@ -26,8 +26,16 @@ public class CourseHibernateDao implements CourseDao {
 
     @Override
     public List<Course> findByName(final String name) {
-        final TypedQuery<Course> query = em.createQuery("from Course as c where c.name = :name", Course.class);
-        query.setParameter("name", name);
+        final TypedQuery<Course> query = em.createQuery("from Course as c where c.name like :name", Course.class);
+        query.setParameter("name", "%" + name + "%");
+        final List<Course> list = query.getResultList();
+        return list.isEmpty() ? null : list;
+    }
+
+    @Override
+    public List<Course> findByTerm(String term) {
+        final TypedQuery<Course> query = em.createQuery("from Course as c where LOWER(c.name) like lower(:term) or c.code like :term", Course.class);
+        query.setParameter("term", "%" + term + "%");
         final List<Course> list = query.getResultList();
         return list.isEmpty() ? null : list;
     }
@@ -48,9 +56,7 @@ public class CourseHibernateDao implements CourseDao {
     @Override
     public List<CourseProgramRelation> findByProgram(int programid) {
         final TypedQuery<CourseProgramRelation> query = em.createQuery("SELECT r FROM CourseProgramRelation as r " +
-                "INNER JOIN r.program AS p inner join r.course as c " +
-                "WHERE r.program.programid=p.programid and r.course.courseid=c.courseid " +
-                "and r.program.programid = :programid", CourseProgramRelation.class);
+                "WHERE r.program.programid=:programid", CourseProgramRelation.class);
         query.setParameter("programid", programid);
         final List<CourseProgramRelation> list = query.getResultList();
 
@@ -84,10 +90,5 @@ public class CourseHibernateDao implements CourseDao {
         final List<CourseProgramRelation> list = query.getResultList();
 
         return !list.isEmpty();
-    }
-
-    @Override
-    public List<Program> getPrograms(int courseid) {
-        return null;
     }
 }

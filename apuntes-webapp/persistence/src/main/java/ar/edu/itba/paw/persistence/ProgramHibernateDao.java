@@ -1,6 +1,7 @@
 package ar.edu.itba.paw.persistence;
 
 import ar.edu.itba.paw.interfaces.ProgramDao;
+import ar.edu.itba.paw.models.CourseProgramRelation;
 import ar.edu.itba.paw.models.Program;
 import org.springframework.stereotype.Repository;
 
@@ -43,5 +44,15 @@ public class ProgramHibernateDao implements ProgramDao {
         em.persist(program);
 
         return program;
+    }
+
+    @Override
+    public List<Program> getPrograms(int courseid) {
+        final TypedQuery<Program> query = em.createQuery("SELECT r.program FROM CourseProgramRelation as r " +
+                "WHERE r.course.courseid=:courseid", Program.class);
+        query.setParameter("courseid", courseid);
+        final List<Program> list = query.getResultList();
+
+        return list.isEmpty() ? null : list;
     }
 }
