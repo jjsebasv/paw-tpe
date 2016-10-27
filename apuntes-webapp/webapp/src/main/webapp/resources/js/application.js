@@ -78,4 +78,8 @@ $(document).ready(function ($, html) {
         }
     });
 
+    // Time ago
+    jQuery.timeago.settings.allowFuture = true;
+    $('time.timeago').timeago();
+
 });

@@ -33,7 +33,8 @@ CREATE TABLE IF NOT EXISTS documents (
   subject           VARCHAR(100),
   document_name     VARCHAR(300),
   document_size     INTEGER,
-  uploaded_document BYTEA
+  uploaded_document BYTEA,
+  date_uploaded TIMESTAMP WITHOUT TIME ZONE DEFAULT (now() AT TIME ZONE 'utc')
 
 );
 

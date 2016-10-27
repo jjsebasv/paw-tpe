@@ -7,7 +7,7 @@
         <a href="" class="back-button">
             <img src="resources/assets/back.svg">
         </a>
-        <h3 class="program-title"><c:out value="${course.code} # ${course.name}"/></h3>
+        <h3 class="program-title"><c:out value="${course.code} \#${course.name}"/></h3>
         <div class="white-container-content">
           <h4 class="course-size">
                 <c:if test="${coursesSize == 1}">
@@ -35,6 +35,7 @@
                         <a href="document/${document.documentId}"
                            class="list-group-item">
                             <span><c:out value="${document.subject}"/></span>
+                            <span class="light-text review-time"><time class="timeago" datetime="${document.dateUploaded}"/></span>
                         </a>
                     </li>
                 </c:forEach>

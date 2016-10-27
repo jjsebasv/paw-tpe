@@ -19,7 +19,7 @@
     <div class="programs-wrapper">
       <c:forEach items="${programs}" var="program">
       <a class="program-item" href="program/${program.programid}">
-        <c:out value="#${program.name}"/>
+        <c:out value="\#${program.name}"/>
       </a>
       </c:forEach>
     </div>

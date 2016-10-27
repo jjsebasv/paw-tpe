@@ -575,6 +575,11 @@ label {
   right: 10px;
 }
 
+.document-time {
+  position: absolute;
+  right: 10px;
+}
+
 textarea {
   resize: none;
 }

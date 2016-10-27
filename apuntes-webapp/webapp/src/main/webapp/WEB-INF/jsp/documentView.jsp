@@ -25,7 +25,7 @@
         <ul class="reviews-wrapper">
           <c:forEach items="${reviews}" var="review">
           <li class="review-item column">
-            <span class="light-text review-time"><c:out value="Hace 3hr"/></span>
+            <span class="light-text review-time"><time class="timeago" datetime="${review.dateUploaded}"/></span>
             <img class="avatar" src="https://cdn1.iconfinder.com/data/icons/user-pictures/101/malecostume-512.png">
             <div class="column review-info-wrapper">
               <span class="ranking"><c:out value="${review.ranking}"/></span>
@@ -36,20 +36,20 @@
           </c:forEach>
         </ul>
         <c:if test="${can_review}">
-        <h4><spring:message code="documentview.write.review"/> </h4>
-        <form:form method="POST" action="document/${document.documentId}/addReview" modelAttribute="reviewForm">
-          <fieldset  class="review-form">
-            <div class="form-group column left">
-              <label><spring:message code="documentview.average"/> :</label>
-              <form:input path="ranking" type='number' value="5" min='1' max='5' step="1" class="form-control ranking-input" placeholder="${message_average}"/>
-              </div>
-              <div class="column left m-bottom-5">
-                <label><spring:message code="documentview.review"/>:</label>
-                <form:textarea path="review" htmlEscape="true" class="form-control review-input"/>
+          <h4><spring:message code="documentview.write.review"/> </h4>
+          <form:form method="POST" action="document/${document.documentId}/addReview" modelAttribute="reviewForm">
+            <fieldset  class="review-form">
+              <div class="form-group column left">
+                <label><spring:message code="documentview.average"/> :</label>
+                <form:input path="ranking" type='number' value="5" min='1' max='5' step="1" class="form-control ranking-input" placeholder="${message_average}"/>
                 </div>
-                <input type="submit" class="submit-button" value="<spring:message code="documentview.submit"/>"/>
-                <!-- Change this to a button or input when using this as a form -->
-              </fieldset>
+                <div class="column left m-bottom-5">
+                  <label><spring:message code="documentview.review"/>:</label>
+                  <form:textarea path="review" htmlEscape="true" class="form-control review-input"/>
+                  </div>
+                  <input type="submit" class="submit-button" value="<spring:message code="documentview.submit"/>"/>
+                  <!-- Change this to a button or input when using this as a form -->
+                </fieldset>
             </form:form>
             </c:if>
           </div>
