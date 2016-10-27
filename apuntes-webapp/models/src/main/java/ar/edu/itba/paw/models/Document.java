@@ -1,6 +1,7 @@
 package ar.edu.itba.paw.models;
 
 import javax.persistence.*;
+import java.util.Date;
 
 @Entity
 @Table(name = "Document")
@@ -32,6 +33,9 @@ public class Document {
     @Column(nullable = false)
     private byte[] data;
 
+    @Column(name = "date_uploaded", updatable = false, insertable = false)
+    @Temporal(TemporalType.TIMESTAMP)
+    private Date dateUploaded;
 
     public Document(final Client user, final Course course, final String subject, final String documentName, final int documentSize, final byte[] data) {
         this.user = user;
@@ -80,12 +84,16 @@ public class Document {
 
         Document document = (Document) o;
 
-        return documentId == document.documentId;
+        return documentId.equals(document.documentId);
 
     }
 
     @Override
     public int hashCode() {
-        return documentId;
+        return documentId.hashCode();
+    }
+
+    public Date getDateUploaded() {
+        return dateUploaded;
     }
 }

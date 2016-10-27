@@ -52,7 +52,9 @@ public class DocumentController {
             return new ModelAndView("404");
         }
 
-        mav.addObject("document", fs.findById(id));
+        final Document doc = fs.findById(id);
+
+        mav.addObject("document", doc);
         mav.addObject("username", file.getUser().getName());
         mav.addObject("reviewForm", new ReviewForm());
         mav.addObject("reviews", reviews);
