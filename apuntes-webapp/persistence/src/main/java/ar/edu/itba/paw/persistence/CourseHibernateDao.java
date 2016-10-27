@@ -48,9 +48,7 @@ public class CourseHibernateDao implements CourseDao {
     @Override
     public List<CourseProgramRelation> findByProgram(int programid) {
         final TypedQuery<CourseProgramRelation> query = em.createQuery("SELECT r FROM CourseProgramRelation as r " +
-                "INNER JOIN r.program AS p inner join r.course as c " +
-                "WHERE r.program.programid=p.programid and r.course.courseid=c.courseid " +
-                "and r.program.programid = :programid", CourseProgramRelation.class);
+                "WHERE r.program.programid=:programid", CourseProgramRelation.class);
         query.setParameter("programid", programid);
         final List<CourseProgramRelation> list = query.getResultList();
 
@@ -84,10 +82,5 @@ public class CourseHibernateDao implements CourseDao {
         final List<CourseProgramRelation> list = query.getResultList();
 
         return !list.isEmpty();
-    }
-
-    @Override
-    public List<Program> getPrograms(int courseid) {
-        return null;
     }
 }

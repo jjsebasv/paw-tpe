@@ -23,6 +23,4 @@ public interface CourseService {
     void addProgramRelationship(Course course, Program program, int semester);
 
     boolean isRelatedTo(Course course, Program program);
-
-    List <Program> getPrograms(int courseid);
 }
