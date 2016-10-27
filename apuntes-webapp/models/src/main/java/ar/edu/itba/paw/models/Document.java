@@ -33,7 +33,7 @@ public class Document {
     @Column(nullable = false)
     private byte[] data;
 
-    @Column(name = "date_uploaded", updatable = false, insertable = false)
+    @Column(name = "date_uploaded", updatable = false)
     @Temporal(TemporalType.TIMESTAMP)
     private Date dateUploaded;
 
@@ -95,5 +95,10 @@ public class Document {
 
     public Date getDateUploaded() {
         return dateUploaded;
+    }
+
+    @PrePersist
+    protected void onCreate() {
+        this.dateUploaded = new Date();
     }
 }

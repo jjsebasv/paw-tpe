@@ -25,7 +25,7 @@ public class Review {
     @Column(length = 500, nullable = false)
     private String review;
 
-    @Column(name = "date_uploaded", updatable = false, insertable = false)
+    @Column(name = "date_uploaded", updatable = false)
     @Temporal(TemporalType.TIMESTAMP)
     private Date dateUploaded;
 
@@ -62,5 +62,10 @@ public class Review {
 
     public Date getDateUploaded() {
         return dateUploaded;
+    }
+
+    @PrePersist
+    protected void onCreate() {
+        this.dateUploaded = new Date();
     }
 }

@@ -8,10 +8,10 @@ CREATE TABLE clients (
 );
 
 CREATE TABLE programs (
-  program_id INTEGER IDENTITY PRIMARY KEY,
-  name       VARCHAR(100),
-  short_name VARCHAR(50),
-  program_group    CHAR(1)
+  program_id    INTEGER IDENTITY PRIMARY KEY,
+  name          VARCHAR(100),
+  short_name    VARCHAR(50),
+  program_group CHAR(1)
 );
 
 CREATE TABLE courses (
@@ -42,6 +42,7 @@ CREATE TABLE documents (
   document_name     VARCHAR(300),
   document_size     INTEGER,
   uploaded_document BLOB,
+  date_uploaded     TIMESTAMP WITHOUT TIME ZONE DEFAULT (now() AT TIME ZONE 'utc'),
 
 
   FOREIGN KEY (client_id) REFERENCES clients (client_id),
@@ -50,11 +51,12 @@ CREATE TABLE documents (
 );
 
 CREATE TABLE reviews (
-  review_id   INTEGER IDENTITY PRIMARY KEY,
-  document_id INTEGER NOT NULL,
-  client_id   INTEGER NOT NULL,
-  ranking     INTEGER NOT NULL CHECK (ranking >= 1 AND ranking <= 5),
-  review      VARCHAR(500),
+  review_id     INTEGER IDENTITY PRIMARY KEY,
+  document_id   INTEGER NOT NULL,
+  client_id     INTEGER NOT NULL,
+  ranking       INTEGER NOT NULL CHECK (ranking >= 1 AND ranking <= 5),
+  review        VARCHAR(500),
+  date_uploaded TIMESTAMP WITHOUT TIME ZONE,
 
   CONSTRAINT reviews_onePerclient UNIQUE (document_id, client_id),
 
