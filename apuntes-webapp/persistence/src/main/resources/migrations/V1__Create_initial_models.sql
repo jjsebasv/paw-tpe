@@ -34,12 +34,7 @@ CREATE TABLE IF NOT EXISTS documents (
   document_name     VARCHAR(300),
   document_size     INTEGER,
   uploaded_document BYTEA,
-<<<<<<< HEAD
-  date_uploaded TIMESTAMP WITHOUT TIME ZONE DEFAULT (now() AT TIME ZONE 'utc')
-=======
   date_uploaded     TIMESTAMP WITHOUT TIME ZONE
->>>>>>> 098cd41984402fe2a25a275ac45700696b59cbf9
-
 );
 
 CREATE TABLE IF NOT EXISTS reviews (
@@ -52,4 +47,3 @@ CREATE TABLE IF NOT EXISTS reviews (
 
   CONSTRAINT reviews_onePerclient UNIQUE (document_id, client_id)
 );
-
