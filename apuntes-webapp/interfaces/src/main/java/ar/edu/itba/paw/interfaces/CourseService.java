@@ -12,6 +12,8 @@ public interface CourseService {
 
     List<Course> findByName(String name);
 
+    List<Course> findByTerm(String term);
+
     Course findById(int courseid);
 
     Course findByCode(String code);

@@ -24,13 +24,13 @@ public class ApiCourseController {
     }
 
     @RequestMapping(value = "/api/course/search", produces = MediaType.APPLICATION_JSON_VALUE)
-    public List<Map<String, String>> courseView(@RequestParam(value = "term", defaultValue = "", required = false) String name) {
+    public List<Map<String, String>> courseView(@RequestParam(value = "term", defaultValue = "", required = false) String term) {
 
         List<Course> courses;
-        if (name.isEmpty()) {
+        if (term.isEmpty()) {
             courses = cs.getAll();
         } else {
-            courses = cs.findByName(name);
+            courses = cs.findByTerm(term);
         }
 
         return courses.parallelStream().

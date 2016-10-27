@@ -33,16 +33,18 @@ CREATE TABLE IF NOT EXISTS documents (
   subject           VARCHAR(100),
   document_name     VARCHAR(300),
   document_size     INTEGER,
-  uploaded_document BYTEA
+  uploaded_document BYTEA,
+  date_uploaded     TIMESTAMP WITHOUT TIME ZONE DEFAULT (now() AT TIME ZONE 'utc')
 
 );
 
 CREATE TABLE IF NOT EXISTS reviews (
-  review_id   SERIAL PRIMARY KEY,
-  document_id INTEGER REFERENCES documents (document_id) NOT NULL,
-  client_id   INTEGER REFERENCES clients (client_id)     NOT NULL,
-  ranking     INTEGER                                    NOT NULL CHECK (ranking >= 1 AND ranking <= 5),
-  review      VARCHAR(500),
+  review_id     SERIAL PRIMARY KEY,
+  document_id   INTEGER REFERENCES documents (document_id) NOT NULL,
+  client_id     INTEGER REFERENCES clients (client_id)     NOT NULL,
+  ranking       INTEGER                                    NOT NULL CHECK (ranking >= 1 AND ranking <= 5),
+  review        VARCHAR(500),
+  date_uploaded TIMESTAMP WITHOUT TIME ZONE DEFAULT (now() AT TIME ZONE 'utc'),
 
   CONSTRAINT reviews_onePerclient UNIQUE (document_id, client_id)
 );

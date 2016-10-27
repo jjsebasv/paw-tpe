@@ -26,8 +26,16 @@ public class CourseHibernateDao implements CourseDao {
 
     @Override
     public List<Course> findByName(final String name) {
-        final TypedQuery<Course> query = em.createQuery("from Course as c where c.name = :name", Course.class);
-        query.setParameter("name", name);
+        final TypedQuery<Course> query = em.createQuery("from Course as c where c.name like :name", Course.class);
+        query.setParameter("name", "%" + name + "%");
+        final List<Course> list = query.getResultList();
+        return list.isEmpty() ? null : list;
+    }
+
+    @Override
+    public List<Course> findByTerm(String term) {
+        final TypedQuery<Course> query = em.createQuery("from Course as c where LOWER(c.name) like lower(:term) or c.code like :term", Course.class);
+        query.setParameter("term", "%" + term + "%");
         final List<Course> list = query.getResultList();
         return list.isEmpty() ? null : list;
     }

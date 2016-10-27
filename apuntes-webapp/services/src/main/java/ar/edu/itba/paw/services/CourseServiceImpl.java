@@ -36,6 +36,11 @@ public class CourseServiceImpl implements CourseService {
     }
 
     @Override
+    public List<Course> findByTerm(final String term) {
+        return courseDao.findByTerm(term);
+    }
+
+    @Override
     public Course findById(final int courseid) {
         return courseDao.findById(courseid);
     }
