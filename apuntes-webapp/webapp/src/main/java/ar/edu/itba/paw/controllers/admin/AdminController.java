@@ -1,5 +1,6 @@
 package ar.edu.itba.paw.controllers.admin;
 
+import ar.edu.itba.paw.interfaces.CourseService;
 import ar.edu.itba.paw.interfaces.ProgramService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
@@ -14,10 +15,12 @@ import java.util.Map;
 public class AdminController {
 
     private final ProgramService ps;
+    private final CourseService cs;
 
     @Autowired
-    public AdminController(ProgramService ps) {
+    public AdminController(ProgramService ps, CourseService cs) {
         this.ps = ps;
+        this.cs = cs;
     }
 
     @RequestMapping(value = "/admin")
@@ -28,6 +31,7 @@ public class AdminController {
 
         //FIXME Pasar a message.properties
         models.put("Programs", "programs");
+        models.put("Courses", "courses");
 
         mav.addObject("models", models);
 
@@ -36,14 +40,17 @@ public class AdminController {
 
     @RequestMapping(value = "/admin/{model:[a-z]+}/list")
     public ModelAndView listView(@PathVariable("model") String model) {
-        final ModelAndView mav;
+        final ModelAndView mav = new ModelAndView("admin/list/" + model);
 
-
-        //TODO START,LIMIT
+        //TODO START,LIMIT para paginacion
         switch (model) {
             case "programs":
-                mav = new ModelAndView("admin/list/programs");
+
                 mav.addObject("entries", ps.getAll());
+                break;
+
+            case "courses":
+                mav.addObject("entries", cs.getAll());
                 break;
 
             default:

@@ -91,4 +91,9 @@ public class CourseHibernateDao implements CourseDao {
 
         return !list.isEmpty();
     }
+
+    @Override
+    public void delete(Course course) {
+        em.remove(course);
+    }
 }

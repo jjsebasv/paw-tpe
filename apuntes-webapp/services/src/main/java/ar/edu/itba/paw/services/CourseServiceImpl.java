@@ -84,4 +84,9 @@ public class CourseServiceImpl implements CourseService {
     public boolean isRelatedTo(final Course course, final Program program) {
         return courseDao.isRelatedTo(course, program);
     }
+
+    @Override
+    public void delete(Course course) {
+        courseDao.delete(course);
+    }
 }
