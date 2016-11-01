@@ -15,4 +15,6 @@ public interface ProgramDao {
     Program create(String name, String shortName, char group);
 
     List<Program> getPrograms(int courseid);
+
+    void delete(Program program);
 }

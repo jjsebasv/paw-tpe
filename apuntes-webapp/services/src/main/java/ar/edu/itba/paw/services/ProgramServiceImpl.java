@@ -45,4 +45,10 @@ public class ProgramServiceImpl implements ProgramService {
         return programDao.getPrograms(courseid);
     }
 
+    @Override
+    public void delete(final Program program) {
+        programDao.delete(program);
+    }
+
+
 }

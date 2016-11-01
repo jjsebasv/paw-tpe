@@ -1,7 +1,6 @@
 package ar.edu.itba.paw.persistence;
 
 import ar.edu.itba.paw.interfaces.ProgramDao;
-import ar.edu.itba.paw.models.CourseProgramRelation;
 import ar.edu.itba.paw.models.Program;
 import org.springframework.stereotype.Repository;
 
@@ -54,5 +53,11 @@ public class ProgramHibernateDao implements ProgramDao {
         final List<Program> list = query.getResultList();
 
         return list.isEmpty() ? null : list;
+    }
+
+    @Override
+    public void delete(final Program program) {
+
+        em.remove(program);
     }
 }

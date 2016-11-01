@@ -47,6 +47,18 @@ public class Program {
         return shortName;
     }
 
+    public void setName(String name) {
+        this.name = name;
+    }
+
+    public void setShortName(String shortName) {
+        this.shortName = shortName;
+    }
+
+    public void setGroup(char group) {
+        this.group = group;
+    }
+
     public char getGroup() {
         return group;
     }
