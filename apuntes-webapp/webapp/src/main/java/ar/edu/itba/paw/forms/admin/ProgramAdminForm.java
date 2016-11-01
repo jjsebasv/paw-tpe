@@ -1,10 +1,13 @@
 package ar.edu.itba.paw.forms.admin;
 
 
+import ar.edu.itba.paw.interfaces.admin.IAdminForm;
+import ar.edu.itba.paw.models.Program;
+
 import javax.validation.constraints.Pattern;
 import javax.validation.constraints.Size;
 
-public class ProgramAdminForm {
+public class ProgramAdminForm implements IAdminForm<Program> {
 
     @Size(min = 6, max = 100)
     @Pattern(regexp = "[a-zA-Z0-9\\s]+")
@@ -40,5 +43,15 @@ public class ProgramAdminForm {
 
     public void setGroup(String group) {
         this.group = group;
+    }
+
+    public Program buildObjectFromForm() {
+        return new Program(name, shortName, group == null ? 'g' : group.charAt(0));
+    }
+
+    public void loadValuesFromInstance(final Program program) {
+        name = program.getName();
+        shortName = program.getShortName();
+        group = String.valueOf(program.getGroup());
     }
 }

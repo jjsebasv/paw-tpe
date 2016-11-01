@@ -6,10 +6,7 @@ import ar.edu.itba.paw.models.Program;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
 import org.springframework.validation.BindingResult;
-import org.springframework.web.bind.annotation.ModelAttribute;
-import org.springframework.web.bind.annotation.PathVariable;
-import org.springframework.web.bind.annotation.RequestMapping;
-import org.springframework.web.bind.annotation.RequestMethod;
+import org.springframework.web.bind.annotation.*;
 import org.springframework.web.servlet.ModelAndView;
 
 import javax.validation.Valid;
@@ -51,9 +48,7 @@ public class ProgramCRUDController {
             return new ModelAndView("404");
         }
 
-        form.setName(program.getName());
-        form.setShortName(program.getShortName());
-        form.setGroup(String.valueOf(program.getGroup()));
+        form.loadValuesFromInstance(program);
 
         mav.addObject("programid", programid);
         return mav;
@@ -61,7 +56,14 @@ public class ProgramCRUDController {
 
 
     @RequestMapping(value = "/admin/programs/{pk:[0-9]+}/edit", method = {RequestMethod.POST})
-    public ModelAndView update(@PathVariable("pk") int programid, @Valid @ModelAttribute("programForm") final ProgramAdminForm form, final BindingResult errors) {
+    public ModelAndView update(@PathVariable("pk") int programid,
+                               @Valid @ModelAttribute("programForm") final ProgramAdminForm form,
+                               @RequestParam("action") String action,
+                               final BindingResult errors) {
+
+        if (action.equals("delete")) {
+            return delete(programid);
+        }
 
         if (errors.hasErrors()) {
             return read(programid, form);
@@ -73,22 +75,14 @@ public class ProgramCRUDController {
             return new ModelAndView("404");
         }
 
-        program.setName(form.getName());
-        program.setShortName(form.getShortName());
-        program.setGroup(form.getGroup().charAt(0));
+        ps.update(programid, form.buildObjectFromForm());
 
         return new ModelAndView("redirect:/admin/programs/" + program.getProgramid() + "/edit");
     }
 
-    @RequestMapping(value = "/admin/programs/{pk:[0-9]+}/delete", method = {RequestMethod.POST})
+    //@RequestMapping(value = "/admin/programs/{pk:[0-9]+}/delete", method = {RequestMethod.POST})
     public ModelAndView delete(@PathVariable("pk") int programid) {
-        final Program program = ps.findById(programid);
-
-        if (program == null) {
-            return new ModelAndView("404");
-        }
-
-        ps.delete(program);
+        ps.delete(programid);
 
         return new ModelAndView("redirect:/admin/programs/list");
     }

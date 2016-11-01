@@ -93,7 +93,12 @@ public class CourseHibernateDao implements CourseDao {
     }
 
     @Override
-    public void delete(Course course) {
-        em.remove(course);
+    public void delete(final int courseid) {
+
+        final Course course = findById(courseid);
+
+        if (course != null) {
+            em.remove(course);
+        }
     }
 }

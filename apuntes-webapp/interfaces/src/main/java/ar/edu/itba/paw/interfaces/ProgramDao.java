@@ -16,5 +16,5 @@ public interface ProgramDao {
 
     List<Program> getPrograms(int courseid);
 
-    void delete(Program program);
+    void delete(int programid);
 }

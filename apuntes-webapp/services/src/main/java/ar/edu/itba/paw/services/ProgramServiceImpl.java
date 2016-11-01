@@ -46,8 +46,18 @@ public class ProgramServiceImpl implements ProgramService {
     }
 
     @Override
-    public void delete(final Program program) {
-        programDao.delete(program);
+    public void delete(final int programid) {
+        programDao.delete(programid);
+    }
+
+    @Override
+    public void update(final int programid, Program from) {
+
+        final Program instance = findById(programid);
+
+        instance.setName(from.getName());
+        instance.setShortName(from.getShortName());
+        instance.setGroup(from.getGroup());
     }
 
 

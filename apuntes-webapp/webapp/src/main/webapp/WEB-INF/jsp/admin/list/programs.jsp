@@ -4,12 +4,15 @@
 <%@ include file="../../navbar.jsp" %>
 <div class="content-wrapper">
     <div class=white-container>
-        <a href="" class="back-button">
+        <a href="admin" class="back-button">
             <img src="resources/assets/back.svg">
         </a>
         <h3 class="program-title"><spring:message code="models.programs"/></h3>
         <div class="white-container-content">
-            <h4 class="course-size"><c:out value="${entries.size()}"/> <spring:message code="program.course.size"/></h4>
+            <h4 class="course-size">
+                <%--TODO Internacionalizacion. El numero deberia estar dentro del string--%>
+                <c:out value="${entries.size()}"/> <spring:message code="program.course.size"/> <a href="admin/programs/create">+</a>
+            </h4>
             <ul class="list-wrapper">
 
 

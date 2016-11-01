@@ -9,7 +9,9 @@
         </a>
         <h3 class="program-title"><spring:message code="models.programs"/></h3>
         <div class="white-container-content">
-            <h4 class="course-size"><c:out value="${entries.size()}"/> <spring:message code="program.course.size"/></h4>
+            <h4 class="course-size">
+                <c:out value="${entries.size()}"/> <spring:message code="program.course.size"/> <a href="admin/courses/create">+</a>
+            </h4>
             <ul class="list-wrapper">
 
 
@@ -17,7 +19,7 @@
 
                     <li class="list-item course-item">
                         <div class="border"></div>
-                        <a href="admin/programs/${entry.courseid}/edit"
+                        <a href="admin/courses/${entry.courseid}/edit"
                            class="list-group-item">
                             <span><c:out value="${entry.courseid}"/></span>
                             <span><c:out value="${entry.name}"/></span>

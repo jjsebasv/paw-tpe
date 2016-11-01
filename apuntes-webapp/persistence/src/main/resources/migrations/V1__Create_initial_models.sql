@@ -8,7 +8,7 @@ CREATE TABLE IF NOT EXISTS clients (
 CREATE TABLE IF NOT EXISTS programs (
   program_id    SERIAL PRIMARY KEY,
   name          VARCHAR(100),
-  short_name    VARCHAR(50),
+  short_name    VARCHAR(50) UNIQUE NOT NULL ,
   program_group CHAR(1)
 );
 

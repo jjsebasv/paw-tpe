@@ -1,15 +1,13 @@
 package ar.edu.itba.paw.controllers.admin.models;
 
 import ar.edu.itba.paw.forms.admin.CourseAdminForm;
+import ar.edu.itba.paw.forms.admin.validators.CourseAdminFormValidator;
 import ar.edu.itba.paw.interfaces.CourseService;
 import ar.edu.itba.paw.models.Course;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
 import org.springframework.validation.BindingResult;
-import org.springframework.web.bind.annotation.ModelAttribute;
-import org.springframework.web.bind.annotation.PathVariable;
-import org.springframework.web.bind.annotation.RequestMapping;
-import org.springframework.web.bind.annotation.RequestMethod;
+import org.springframework.web.bind.annotation.*;
 import org.springframework.web.servlet.ModelAndView;
 
 import javax.validation.Valid;
@@ -19,9 +17,12 @@ public class CourseCRUDController {
 
     private final CourseService cs;
 
+    private final CourseAdminFormValidator courseAdminFormValidator;
+
     @Autowired
-    public CourseCRUDController(CourseService cs) {
+    public CourseCRUDController(CourseService cs, CourseAdminFormValidator courseAdminFormValidator) {
         this.cs = cs;
+        this.courseAdminFormValidator = courseAdminFormValidator;
     }
 
     @RequestMapping(value = "/admin/courses/create", method = {RequestMethod.GET})
@@ -32,6 +33,7 @@ public class CourseCRUDController {
     @RequestMapping(value = "/admin/courses/create", method = {RequestMethod.POST})
     public ModelAndView create(@Valid @ModelAttribute("courseForm") final CourseAdminForm form, final BindingResult errors) {
 
+        courseAdminFormValidator.validate(form, errors);
         if (errors.hasErrors()) {
             return create(form);
         }
@@ -52,8 +54,7 @@ public class CourseCRUDController {
             return new ModelAndView("404");
         }
 
-        form.setName(course.getName());
-        form.setCode(course.getCode());
+        form.loadValuesFromInstance(course);
 
         mav.addObject("courseid", courseid);
         return mav;
@@ -61,8 +62,16 @@ public class CourseCRUDController {
 
 
     @RequestMapping(value = "/admin/courses/{pk:[0-9]+}/edit", method = {RequestMethod.POST})
-    public ModelAndView update(@PathVariable("pk") int courseid, @Valid @ModelAttribute("courseForm") final CourseAdminForm form, final BindingResult errors) {
+    public ModelAndView update(@PathVariable("pk") int courseid,
+                               @Valid @ModelAttribute("courseForm") final CourseAdminForm form,
+                               @RequestParam("action") String action,
+                               final BindingResult errors) {
 
+        if (action.equals("delete")) {
+            return delete(courseid);
+        }
+
+        courseAdminFormValidator.validate(form, errors);
         if (errors.hasErrors()) {
             return read(courseid, form);
         }
@@ -73,21 +82,14 @@ public class CourseCRUDController {
             return new ModelAndView("404");
         }
 
-        course.setCode(form.getCode());
-        course.setName(form.getName());
+        cs.update(courseid, form.buildObjectFromForm());
 
         return new ModelAndView("redirect:/admin/courses/" + course.getCourseid() + "/edit");
     }
 
-    @RequestMapping(value = "/admin/courses/{pk:[0-9]+}/delete", method = {RequestMethod.POST})
+    //@RequestMapping(value = "/admin/courses/{pk:[0-9]+}/delete", method = {RequestMethod.POST})
     public ModelAndView delete(@PathVariable("pk") int courseid) {
-        final Course course = cs.findById(courseid);
-
-        if (course == null) {
-            return new ModelAndView("404");
-        }
-
-        cs.delete(course);
+        cs.delete(courseid);
 
         return new ModelAndView("redirect:/admin/courses/list");
     }

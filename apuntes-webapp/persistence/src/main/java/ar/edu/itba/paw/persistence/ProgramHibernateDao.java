@@ -56,8 +56,12 @@ public class ProgramHibernateDao implements ProgramDao {
     }
 
     @Override
-    public void delete(final Program program) {
+    public void delete(final int programid) {
 
-        em.remove(program);
+        final Program program = findById(programid);
+
+        if (program != null) {
+            em.remove(program);
+        }
     }
 }

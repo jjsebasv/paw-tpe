@@ -46,7 +46,12 @@
                     </div>
 
                     <div class="form-group item-center">
-                        <input class="submit-button" type="submit" value="<spring:message code="admin.model.save"/>"/>
+                        <button class="submit-button" type="submit" name="action" value="save">
+                            <spring:message code="admin.model.save"/>
+                        </button>
+                        <button class="submit-button" type="submit" name="action" value="delete">
+                            <spring:message code="admin.model.delete"/>
+                        </button>
                     </div>
                 </form:form>
             </div>

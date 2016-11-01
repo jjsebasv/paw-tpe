@@ -86,7 +86,15 @@ public class CourseServiceImpl implements CourseService {
     }
 
     @Override
-    public void delete(Course course) {
-        courseDao.delete(course);
+    public void delete(final int courseid) {
+        courseDao.delete(courseid);
+    }
+
+    @Override
+    public void update(int courseid, Course from) {
+        final Course instance = findById(courseid);
+
+        instance.setCode(from.getCode());
+        instance.setName(from.getName());
     }
 }

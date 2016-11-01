@@ -26,6 +26,7 @@ public interface CourseService {
 
     boolean isRelatedTo(Course course, Program program);
 
-    void delete(Course course);
+    void delete(int courseid);
 
+    void update(int courseid, Course from);
 }

@@ -26,5 +26,5 @@ public interface CourseDao {
 
     boolean isRelatedTo(Course course, Program program);
 
-    void delete(Course course);
+    void delete(int courseid);
 }
