@@ -21,6 +21,10 @@ public class Client {
     @Column(length = 100, nullable = false, unique = true)
     private String email;
 
+    @Column
+    @Enumerated(EnumType.STRING)
+    private ClientRole role;
+
     /* package */ Client() {
         // Just for Hibernate, we love you!
     }
@@ -57,6 +61,14 @@ public class Client {
 
     public void setEmail(String email) {
         this.email = email;
+    }
+
+    public void setRole(ClientRole role) {
+        this.role = role;
+    }
+
+    public ClientRole getRole() {
+        return role;
     }
 
     @Override

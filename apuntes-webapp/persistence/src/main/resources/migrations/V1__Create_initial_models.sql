@@ -8,7 +8,7 @@ CREATE TABLE IF NOT EXISTS clients (
 CREATE TABLE IF NOT EXISTS programs (
   program_id    SERIAL PRIMARY KEY,
   name          VARCHAR(100),
-  short_name    VARCHAR(50) UNIQUE NOT NULL ,
+  short_name    VARCHAR(50) UNIQUE NOT NULL,
   program_group CHAR(1)
 );
 
@@ -33,17 +33,17 @@ CREATE TABLE IF NOT EXISTS documents (
   subject           VARCHAR(100),
   document_name     VARCHAR(300),
   document_size     INTEGER,
-  uploaded_document BYTEA,
-  date_uploaded     TIMESTAMP WITHOUT TIME ZONE
+  uploaded_document BYTEA
+  --   date_uploaded     TIMESTAMP WITHOUT TIME ZONE
 );
 
 CREATE TABLE IF NOT EXISTS reviews (
-  review_id     SERIAL PRIMARY KEY,
-  document_id   INTEGER REFERENCES documents (document_id) NOT NULL,
-  client_id     INTEGER REFERENCES clients (client_id)     NOT NULL,
-  ranking       INTEGER                                    NOT NULL CHECK (ranking >= 1 AND ranking <= 5),
-  review        VARCHAR(500),
-  date_uploaded TIMESTAMP WITHOUT TIME ZONE DEFAULT (now() AT TIME ZONE 'utc'),
+  review_id   SERIAL PRIMARY KEY,
+  document_id INTEGER REFERENCES documents (document_id) NOT NULL,
+  client_id   INTEGER REFERENCES clients (client_id)     NOT NULL,
+  ranking     INTEGER                                    NOT NULL CHECK (ranking >= 1 AND ranking <= 5),
+  review      VARCHAR(500),
+  --   date_uploaded TIMESTAMP WITHOUT TIME ZONE DEFAULT (now() AT TIME ZONE 'utc'),
 
   CONSTRAINT reviews_onePerclient UNIQUE (document_id, client_id)
 );

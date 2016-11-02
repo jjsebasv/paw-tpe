@@ -36,7 +36,7 @@ public class AdminController {
         //FIXME Pasar a message.properties
         models.put("Programs", "programs");
         models.put("Courses", "courses");
-        models.put("Clients", "clients");
+//        models.put("Clients", "clients");
 
         mav.addObject("models", models);
 
