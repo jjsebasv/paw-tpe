@@ -23,6 +23,8 @@
     <link href="https://fonts.googleapis.com/css?family=Source+Sans+Pro:300,400,700,300italic,400italic,700italic" rel="stylesheet" type="text/css">
     <link href="resources/css/triangular/css/responsive.css" rel="stylesheet">
     <link href="resources/css/triangular/css/main.css" rel="stylesheet">
+    <link rel="stylesheet" type="text/css" href="resources/css/overrides.css">
+    <link rel="stylesheet" type="text/css" href="resources/css/components.css">
     <link rel="stylesheet" type="text/css" href="resources/css/application.css">
     <script src="resources/js/application.js"></script>
   </head>
