@@ -110,7 +110,8 @@ select:focus {
   background-color: #0C9CEE;
 }
 
-.nav>li.search-mobile {
+.nav>li.search-mobile,
+.search-mobile {
   display: none;
 }
 
@@ -746,7 +747,8 @@ textarea.form-control.review-input {
     text-align: left;
   }
 
-  .nav>li.search-mobile {
+  .nav>li.search-mobile,
+  .search-mobile {
     display: block;
     width: 100%;
   }

@@ -71,3 +71,7 @@ form {
 .btn-default:visited {
   background-color: transparent;
 }
+
+.dropdown-menu {
+  padding: 0 10px;
+}

@@ -32,11 +32,12 @@
   </li>
   </security:authorize>
   <security:authorize access="isAuthenticated()">
-  <li class="dropdown search-desktop">
-    <a href="#" class="dropdown-toggle" data-toggle="dropdown">
-      <span class="line-h-5">
-        <security:authentication property="principal.username"/>
-      </span><img class="arrow-down" src="resources/assets/arrow_down.svg"></a>
+    <li class="dropdown search-desktop">
+      <a href="#" class="dropdown-toggle" data-toggle="dropdown">
+        <span class="line-h-5">
+          <security:authentication property="principal.username"/>
+        </span><img class="arrow-down" src="resources/assets/arrow_down.svg">
+      </a>
       <ul class="dropdown-menu">
         <li><a href="profile"><spring:message code="navbar.profile"/> </a></li>
         <li><a href="${pageContext.request.contextPath}/uploadDocument"><spring:message code="navbar.upload"/> </a></li>
@@ -44,7 +45,7 @@
         <li class="nav-header"><a href="logout"><spring:message code="navbar.logout"/> </a></li>
       </ul>
     </li>
-    </security:authorize>
+  </security:authorize>
   <security:authorize access="isAuthenticated()">
     <div class="search-mobile">
       <li><a href="profile"><spring:message code="navbar.profile"/> </a></li>
