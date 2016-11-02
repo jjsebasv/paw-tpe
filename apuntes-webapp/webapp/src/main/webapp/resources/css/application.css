@@ -48,7 +48,7 @@ select:focus {
   align-items: center;
   min-height: 100%;
   background-color: #FAFAFA;
-  margin-top: 50px;r
+  margin-top: 50px;
 }
 
 .content-title {
@@ -770,5 +770,10 @@ textarea.form-control.review-input {
   .navbar-nav>li>a {
     padding: 0;
     margin-bottom: 10px;
+  }
+
+  .content-wrapper {
+    padding: 0 10px;
+    margin-top: 70px;
   }
 }
