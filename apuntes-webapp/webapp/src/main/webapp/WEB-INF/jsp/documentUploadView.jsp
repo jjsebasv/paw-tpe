@@ -37,7 +37,7 @@
               </label>
               <input required="required" type='file' class="form-control input-base" name="document" placeholder="<spring:message code="uploadview.document"/>" id="file"/>
             </div>
-            <input class="submit-button item-center" type="submit" value="Subir"/>
+            <input class="base-button item-center" type="submit" value="Subir"/>
           </form:form>
         </div>
       </div>

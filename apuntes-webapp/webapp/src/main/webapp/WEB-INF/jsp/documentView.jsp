@@ -28,7 +28,6 @@
           <c:forEach items="${reviews}" var="review">
           <li class="review-item column">
             <span class="light-text review-time"><time class="timeago" datetime="${review.dateUploaded}"/></span>
-            <img class="avatar" src="https://cdn1.iconfinder.com/data/icons/user-pictures/101/malecostume-512.png">
             <div class="column review-info-wrapper">
               <span class="ranking"><c:out value="${review.ranking}"/></span>
               <p><c:out value="${review.review}"/></p>
