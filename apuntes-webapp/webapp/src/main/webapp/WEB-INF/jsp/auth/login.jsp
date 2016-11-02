@@ -26,8 +26,8 @@
               <label class="control-label" for="password"><spring:message code="login.password"/></label>
               <input type="password" class="form-control input-base" name="j_password" id="password">
             </div>
-            <div class="form-group item-center">
-              <input class="submit-button" type="submit" value="<spring:message code="login.submit"/>"/>
+            <div class="item-center">
+              <input class="base-button" type="submit" value="<spring:message code="login.submit"/>"/>
             </div>
           </form>
         </div>
