@@ -33,6 +33,13 @@ public class ClientHibernateDao implements ClientDao {
     }
 
     @Override
+    public List<Client> getAll() {
+        final TypedQuery<Client> query = em.createQuery("from Client ", Client.class);
+        final List<Client> list = query.getResultList();
+        return list.isEmpty() ? null : list;
+    }
+
+    @Override
     public Client findById(int id) {
         return em.find(Client.class, id);
     }
@@ -45,5 +52,15 @@ public class ClientHibernateDao implements ClientDao {
         em.persist(client);
 
         return client;
+    }
+
+    @Override
+    public void delete(final int clientid) {
+
+        final Client client = findById(clientid);
+
+        if (client != null) {
+            em.remove(client);
+        }
     }
 }

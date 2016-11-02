@@ -88,7 +88,7 @@ public class CourseCRUDController {
     }
 
     //@RequestMapping(value = "/admin/courses/{pk:[0-9]+}/delete", method = {RequestMethod.POST})
-    public ModelAndView delete(@PathVariable("pk") int courseid) {
+    private ModelAndView delete(@PathVariable("pk") int courseid) {
         cs.delete(courseid);
 
         return new ModelAndView("redirect:/admin/courses/list");

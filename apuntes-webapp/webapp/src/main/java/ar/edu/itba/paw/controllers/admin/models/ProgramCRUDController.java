@@ -81,7 +81,7 @@ public class ProgramCRUDController {
     }
 
     //@RequestMapping(value = "/admin/programs/{pk:[0-9]+}/delete", method = {RequestMethod.POST})
-    public ModelAndView delete(@PathVariable("pk") int programid) {
+    private ModelAndView delete(@PathVariable("pk") int programid) {
         ps.delete(programid);
 
         return new ModelAndView("redirect:/admin/programs/list");

@@ -7,6 +7,8 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
 
+import java.util.List;
+
 @Service
 @Transactional
 public class ClientServiceImpl implements ClientService {
@@ -32,7 +34,27 @@ public class ClientServiceImpl implements ClientService {
         return clientDao.findByEmail(email);
     }
 
+    @Override
+    public List<Client> getAll() {
+        return clientDao.getAll();
+    }
+
+    @Override
     public Client create(final String username, final String password, final String email) {
         return clientDao.create(username, password, email);
+    }
+
+    @Override
+    public void update(final int clientid, final Client from) {
+        final Client instance = findById(clientid);
+
+        instance.setName(from.getName());
+        instance.setEmail(from.getEmail());
+        instance.setPassword(from.getPassword());
+    }
+
+    @Override
+    public void delete(final int clientid) {
+        clientDao.delete(clientid);
     }
 }
