@@ -9,14 +9,14 @@
       </a>
       <h3 class="content-title"><c:out value="\#${program.name}"/></h3>
       <div class="white-container-content">
-        <h4 class="course-size"><c:out value="${coursesSize}"/> <spring:message code="program.course.size"/></h4>
+        <h2 class="course-size"><c:out value="${coursesSize}"/> <spring:message code="program.course.size"/></h2>
         <ul class="list-wrapper">
           <div class="input-base-wrapper">
             <input class="input-base m-bottom-5 filter-input" placeholder="<spring:message code="program.search.course"/>" id="filter"/>
           </div>
           <c:forEach items="${courses}" var="entry">
-          <div class="semester-wrapper">
-            <p>${sm:mapSemester(entry.key)}</p>
+          <div class="semester-wrapper m-bottom-3">
+            <h3 class="m-bottom-1">${sm:mapSemester(entry.key)}</h3>
             <c:forEach items="${entry.value}" var="course">
             <li class="list-item course-item">
               <div class="border"></div>

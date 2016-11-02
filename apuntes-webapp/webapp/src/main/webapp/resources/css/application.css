@@ -30,6 +30,11 @@ h4 {
   font-size: 16px;
 }
 
+a {
+  color: #4A4A4A;
+  text-decoration: none;
+}
+
 input:focus,
 select:focus {
   outline: none;
@@ -219,7 +224,7 @@ a:hover {
   height: 2px;
   width: 240px;
   z-index: 1;
-  background-color: #E8E2E2;
+  background-color: #4A4A4A;
 }
 
 .separator.orange {
@@ -294,7 +299,7 @@ a:hover {
   font-size: 12px;
   display: block;
   width: 10px;
-  background-color: #E8E2E2;
+  background-color: #4A4A4A;
   padding: 10px 3px;
   font-weight: 800;
 }
@@ -314,7 +319,7 @@ a:hover {
 }
 
 .list-item:hover .border {
-  background-color: #2A3356;
+  background-color: #0C9CEE;
   color: #FFF;
 }
 
@@ -325,8 +330,8 @@ a:hover {
 }
 
 .list-item:hover a {
-  color: #2A3356;
-  border: 2px solid #2A3356;
+  color: #0C9CEE;
+  border: 2px solid #0C9CEE;
   border-radius: 0;
 }
 
@@ -335,7 +340,7 @@ a:hover {
   width: calc(100% - 10px);
   border-radius: 0;
   font-weight: 600;
-  border: 2px solid #E8E2E2;
+  border: 2px solid #4A4A4A;
   border-radius: 0;
 }
 
@@ -462,8 +467,8 @@ fieldset {
 .submit-button {
   font-size: 16px;
   border-radius: 5px;
-  border: 2px solid #2A3356;
-  color: #2A3356;
+  border: 2px solid #0C9CEE;
+  color: #0C9CEE;
   background-color: #FFF;
   min-width: 100px;
   height: 30px;
@@ -527,7 +532,7 @@ textarea.form-control.review-input {
 }
 
 .select2-container--default .select2-selection--single {
-  border: 1px solid #E8E2E2;
+  border: 1px solid #4A4A4A;
   height: 30px;
   border-radius: 5px;
 }
@@ -632,7 +637,7 @@ textarea.form-control.review-input {
 
 /*** 404 STYLE ***/
 .perspective-body {
-  background-color: #2A3356;
+  background-color: #0C9CEE;
 }
 
 .perpective-bold {
@@ -695,7 +700,7 @@ textarea.form-control.review-input {
 }
 
 .perspective p {
-  color: #E8E2E2;
+  color: #4A4A4A;
   height: 50px;
   line-height: 50px;
   padding: 0 10px;
