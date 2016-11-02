@@ -78,8 +78,11 @@ $(document).ready(function ($, html) {
         }
     });
 
-    // Time ago
-    jQuery.timeago.settings.allowFuture = true;
-    $('time.timeago').timeago();
+    // Moment
+    moment.locale("es");
+    $('.moment-ago').each(function(i, e) {
+        var time = moment($(e).attr('datetime'));
+        $(e).html(time.fromNow());
+    });
 
 });

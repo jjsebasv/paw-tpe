@@ -27,7 +27,7 @@
         <ul class="reviews-wrapper">
           <c:forEach items="${reviews}" var="review">
           <li class="review-item column">
-            <span class="light-text review-time"><time class="timeago" datetime="${review.dateUploaded}"/></span>
+            <span class="light-text review-time"><time class="moment-ago" datetime="${review.dateUploaded}"/></span>
             <div class="column review-info-wrapper">
               <span class="ranking"><c:out value="${review.ranking}"/></span>
               <p><c:out value="${review.review}"/></p>

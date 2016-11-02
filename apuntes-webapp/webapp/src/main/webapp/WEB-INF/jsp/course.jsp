@@ -33,7 +33,7 @@
                         <a href="document/${document.documentId}"
                             class="list-group-item">
                             <span><c:out value="${document.subject}"/></span>
-                            <span class="light-text review-time"><time class="timeago" datetime="${document.dateUploaded}"/></span>
+                            <span class="light-text review-time"><time class="moment-ago" datetime="${document.dateUploaded}"/></span>
                         </a>
                     </li>
                     </c:forEach>
