@@ -35,6 +35,11 @@ select:focus {
   outline: none;
 }
 
+.arrow-down {
+  margin-left: 10px;
+  height: 10px;
+}
+
 .content-wrapper {
   padding: 0 40px;
   padding-top: 50px;
@@ -109,7 +114,8 @@ select:focus {
   display: none;
 }
 
-.search-desktop {
+.search-desktop,
+.nav> li.search-desktop {
   display: inline-block;
 }
 
@@ -353,6 +359,7 @@ a:hover {
 
 .white-container {
   width: 600px;
+  max-width: 100%;
   background-color: #FFF;
   border-radius: 5px;
   box-shadow: 0 0 50px 0 #D7D7D7;
@@ -730,7 +737,8 @@ textarea.form-control.review-input {
     font-size: 14px;
   }
 
-  .search-desktop {
+  .search-desktop,
+  .nav> li.search-desktop {
     display: none;
   }
 

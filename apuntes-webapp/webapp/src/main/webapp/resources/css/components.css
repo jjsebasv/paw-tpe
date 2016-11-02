@@ -68,3 +68,7 @@
   height: 40px;
   border-radius: 25px;
 }
+
+.line-h-5 {
+  line-height: 50px;
+}

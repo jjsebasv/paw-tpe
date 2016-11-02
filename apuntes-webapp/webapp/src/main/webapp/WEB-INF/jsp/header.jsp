@@ -8,6 +8,7 @@
 <html>
   <head>
     <meta charset="utf-8">
+    <meta name='viewport' content='width=device-width, initial-scale=1'/>
     <title><spring:message code="webapp.title"/></title>
     <base href="${fn:substring(url, 0, fn:length(url) - fn:length(pageContext.request.requestURI))}${pageContext.request.contextPath}/"/>
     <link href="resources/css/bootstrap/bootstrap.min.css" rel="stylesheet">
