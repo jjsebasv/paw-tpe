@@ -9,7 +9,7 @@
       <a href="" class="back-button">
         <img src="resources/assets/back.svg">
       </a>
-      <h3 class="program-title"><c:out value="${document.subject}"/></h3>
+      <h3 class="content-title"><c:out value="${document.subject}"/></h3>
       <div class="white-container-content">
         <div class="document-info">
           <p class="subtitle"><spring:message code="documentview.uploaded.by"/><c:out value=": ${username}"/></p>

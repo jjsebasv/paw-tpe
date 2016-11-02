@@ -5,7 +5,7 @@
       <a href="" class="back-button">
         <img src="resources/assets/back.svg">
       </a>
-      <h3 class="program-title"><c:out value="${client.name}"/></h3>
+      <h3 class="content-title"><c:out value="${client.name}"/></h3>
       <div class="white-container-content">
       <div class="white-container-content">
         <h4 class="client-size"><c:out value="${documentsSize}"/> <spring:message code="profile.document.size"/></h4>

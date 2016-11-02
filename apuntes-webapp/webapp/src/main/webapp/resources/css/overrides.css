@@ -45,6 +45,7 @@
 }
 
 .navbar {
+  top: 0;
   margin: 0;
   padding: 0 20px;
   position: fixed;
@@ -88,4 +89,14 @@
   width: 100% !important;
   min-width: 350px;
   margin-top: 10px;
+}
+
+/* Bootstrap */
+
+.form-control {
+  border-color: #4A4A4A;
+}
+
+form {
+  margin: 0;
 }

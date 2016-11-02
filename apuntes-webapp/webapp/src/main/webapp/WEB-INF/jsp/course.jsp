@@ -7,7 +7,7 @@
         <a href="" class="back-button">
             <img src="resources/assets/back.svg">
         </a>
-        <h3 class="program-title"><c:out value="${course.code} \#${course.name}"/></h3>
+        <h3 class="content-title"><c:out value="${course.code} \#${course.name}"/></h3>
         <div class="white-container-content">
           <h4 class="course-size">
                 <c:if test="${coursesSize == 1}">

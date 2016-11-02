@@ -59,3 +59,12 @@
 .m-right-1 {
   margin-right: 10px;
 }
+
+.base-button {
+  background-color: #0C9CEE;
+  border: 0;
+  color: white;
+  padding: 0 25px;
+  height: 40px;
+  border-radius: 25px;
+}

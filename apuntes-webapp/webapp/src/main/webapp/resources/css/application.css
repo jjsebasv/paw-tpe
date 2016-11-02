@@ -35,6 +35,47 @@ select:focus {
   outline: none;
 }
 
+.content-wrapper {
+  padding: 0 40px;
+  padding-top: 50px;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  min-height: 100%;
+  background-color: #FAFAFA;
+  margin-top: 50px;r
+}
+
+.content-title {
+  text-align: center;
+  font-weight: 300;
+  text-decoration: none;
+  text-transform: none;
+  margin-bottom: 10px;
+  background-color: #4A4A4A;
+  color: #FFF;
+  padding: 10px;
+  border-top-left-radius: 5px;
+  border-top-right-radius: 5px;
+  width: 100%;
+  white-space: nowrap;
+  overflow: hidden;
+  text-overflow: ellipsis;
+  padding: 10px 50px;
+}
+
+.back-button {
+  position: absolute;
+  top: 10px;
+  left: 10px;
+  background-color: transparent;
+  border: 0;
+}
+
+.back-button img {
+  height: 25px;
+}
+
 /* INDEX */
 
 .programs-wrapper {
@@ -59,9 +100,9 @@ select:focus {
 }
 
 .program-item:hover {
-  color: #4A4A4A;
+  color: #FFF;
   text-decoration: none;
-  background-color: #F6B69A;
+  background-color: #0C9CEE;
 }
 
 .nav>li.search-mobile {
@@ -71,6 +112,10 @@ select:focus {
 .search-desktop {
   display: inline-block;
 }
+
+/* Register */
+
+
 
 /**************** LALLA ******************/
 
@@ -89,7 +134,7 @@ select:focus {
 }
 
 .has-error .form-control {
-  border: 1px solid #F6B69A;
+  border: 1px solid #0C9CEE;
 }
 
 .filter-input {
@@ -109,14 +154,14 @@ select:focus {
 .has-error.checkbox-inline label,
 .has-error.radio label,
 .has-error.radio-inline label {
-  color: #F6B69A;
+  color: #0C9CEE;
   width: 100%;
   text-align: left;
 }
 
 .default-btn {
-  background-color: #F6B69A;
-  border: 1px solid #F6B69A;
+  background-color: #0C9CEE;
+  border: 1px solid #0C9CEE;
   color: #FFFFFF;
   display: block;
   margin: 10px auto;
@@ -124,25 +169,13 @@ select:focus {
 
 .default-btn:hover {
   background-color: #FFFFFF;
-  border: 1px solid #F6B69A;
-  color: #F6B69A;
+  border: 1px solid #0C9CEE;
+  color: #0C9CEE;
 }
 
 a,
 a:hover {
   text-decoration: none;
-}
-
-.back-button {
-  position: absolute;
-  top: 15px;
-  left: 10px;
-  background-color: transparent;
-  border: 0;
-}
-
-.back-button img {
-  height: 25px;
 }
 
 .light-text {
@@ -183,7 +216,7 @@ a:hover {
 }
 
 .separator.orange {
-  background-color: #F6B69A;
+  background-color: #0C9CEE;
 }
 
 .overlay {
@@ -237,7 +270,7 @@ a:hover {
 }
 
 .link.nav-link:hover {
-  color: #F6B69A;
+  color: #0C9CEE;
 }
 
 /****** Programs ******/
@@ -307,7 +340,7 @@ a:hover {
   border-radius: 0;
   height: 50px;
   padding-left: 10px;
-  color: #F6B69A;
+  color: #0C9CEE;
 }
 
 .course-size {
@@ -316,16 +349,6 @@ a:hover {
 
 .client-size {
   margin-top: 10px;
-}
-
-.content-wrapper {
-  padding: 0 40px;
-  padding-top: 50px;
-  display: flex;
-  flex-direction: column;
-  align-items: center;
-  min-height: 100%;
-  background-color: #FAFAFA;
 }
 
 .white-container {
@@ -340,24 +363,6 @@ a:hover {
 .white-container-content {
   padding: 20px;
   text-align: center;
-}
-
-.program-title {
-  text-align: center;
-  font-weight: 300;
-  text-decoration: none;
-  text-transform: none;
-  margin-bottom: 10px;
-  background-color: #F6B69A;
-  color: #FFF;
-  padding: 10px;
-  border-top-left-radius: 5px;
-  border-top-right-radius: 5px;
-  width: 100%;
-  white-space: nowrap;
-  overflow: hidden;
-  text-overflow: ellipsis;
-  padding: 10px 50px;
 }
 
 .client-title {
@@ -397,7 +402,7 @@ a.list-group-item:hover {
 }
 
 .download-button {
-  background-color: #F6B69A;
+  background-color: #0C9CEE;
   padding: 5px 10px;
   font-size: 18px;
   border-radius: 5px;
@@ -472,7 +477,7 @@ fieldset {
 }
 
 .error {
-  color: #F6B69A;
+  color: #0C9CEE;
   margin-bottom: 10px;
   font-size: 14px;
   text-align: left;
@@ -521,7 +526,7 @@ textarea.form-control.review-input {
 
 .ranking {
   font-weight: 600;
-  color: #F6B69A;
+  color: #0C9CEE;
   font-size: 14px;
 }
 
@@ -554,7 +559,7 @@ textarea.form-control.review-input {
   height: 30px;
   border: none;
   border-radius: 0;
-  border-bottom: 2px solid #F6B69A;
+  border-bottom: 2px solid #0C9CEE;
   padding: 5px 10px;
 }
 
