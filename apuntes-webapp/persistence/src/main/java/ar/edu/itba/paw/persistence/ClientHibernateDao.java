@@ -25,6 +25,14 @@ public class ClientHibernateDao implements ClientDao {
     }
 
     @Override
+    public Client findByEmail(String email) {
+        final TypedQuery<Client> query = em.createQuery("from Client as u where u.email = :email", Client.class);
+        query.setParameter("email", email);
+        final List<Client> list = query.getResultList();
+        return list.isEmpty() ? null : list.get(0);
+    }
+
+    @Override
     public Client findById(int id) {
         return em.find(Client.class, id);
     }

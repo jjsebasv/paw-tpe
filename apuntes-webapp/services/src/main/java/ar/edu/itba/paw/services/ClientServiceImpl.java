@@ -27,6 +27,11 @@ public class ClientServiceImpl implements ClientService {
         return clientDao.findByUsername(username);
     }
 
+    @Override
+    public Client findByEmail(final String email) {
+        return clientDao.findByEmail(email);
+    }
+
     public Client create(final String username, final String password, final String email) {
         return clientDao.create(username, password, email);
     }

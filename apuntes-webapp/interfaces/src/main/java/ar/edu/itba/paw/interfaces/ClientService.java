@@ -8,5 +8,7 @@ public interface ClientService {
 
     Client findByUsername(String username);
 
+    Client findByEmail(String email);
+
     Client create(String username, String password, String email);
 }
