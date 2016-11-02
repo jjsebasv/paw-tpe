@@ -11,6 +11,7 @@
 
 .row-center {
   align-items: center;
+  justify-content: center;
 }
 
 .row::before,
@@ -67,6 +68,8 @@
   padding: 0 25px;
   height: 40px;
   border-radius: 25px;
+  line-height: 40px;
+  width: auto;
 }
 
 .line-h-5 {

@@ -14,12 +14,14 @@
         <div class="document-info">
           <p class="subtitle"><spring:message code="documentview.uploaded.by"/><c:out value=": ${username}"/></p>
           <p class="subtitle"><spring:message code="documentview.average"/><c:out value=": ${average}"/></p>
-          <a class="download-button" href="download/${document.documentId}">
-            <spring:message code="documentview.download"/>
-          </a>
-          <a class="download-button" href="open/${document.documentId}" target="_blank">
-            <spring:message code="documentview.open"/>
-          </a>
+          <div class="row row-center">
+            <a class="base-button m-right-1" href="download/${document.documentId}">
+              <spring:message code="documentview.download"/>
+            </a>
+            <a class="base-button" href="open/${document.documentId}" target="_blank">
+              <spring:message code="documentview.open"/>
+            </a>
+          </div>
         </div>
         <h4><spring:message code="documentview.reviews"/> </h4>
         <ul class="reviews-wrapper">
@@ -47,7 +49,7 @@
                   <label><spring:message code="documentview.review"/>:</label>
                   <form:textarea path="review" htmlEscape="true" class="form-control review-input"/>
                   </div>
-                  <input type="submit" class="submit-button" value="<spring:message code="documentview.submit"/>"/>
+                  <input type="submit" class="base-button" value="<spring:message code="documentview.submit"/>"/>
                   <!-- Change this to a button or input when using this as a form -->
                 </fieldset>
             </form:form>
