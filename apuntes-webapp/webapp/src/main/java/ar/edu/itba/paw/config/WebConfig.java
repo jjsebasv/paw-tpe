@@ -59,6 +59,7 @@ public class WebConfig extends WebMvcConfigurerAdapter {
         flyway.setBaselineOnMigrate(true);
         flyway.setLocations("classpath:migrations/");
         flyway.setDataSource(ds);
+        flyway.repair();
         flyway.migrate();
 
         final DataSourceInitializer dsi = new DataSourceInitializer();
@@ -78,7 +79,6 @@ public class WebConfig extends WebMvcConfigurerAdapter {
 
         final Properties properties = new Properties();
 
-//        properties.setProperty("hibernate.hbm2ddl.auto", "validate");
         properties.setProperty("hibernate.dialect", "org.hibernate.dialect.PostgreSQL92Dialect");
 
         // Si ponen esto en prod, hay tabla!!!

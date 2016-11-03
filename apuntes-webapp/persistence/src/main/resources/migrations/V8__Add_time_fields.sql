@@ -1,4 +1,4 @@
-ALTER TABLE document
+ALTER TABLE documents
   ADD date_uploaded TIMESTAMP WITHOUT TIME ZONE;
 
 ALTER TABLE reviews

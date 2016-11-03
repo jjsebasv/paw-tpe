@@ -1,5 +1,6 @@
 package ar.edu.itba.paw.interfaces;
 
+// TODO Abstraer en un builder
 public interface GenericCRUDService<T> {
 
     T create(T e);
