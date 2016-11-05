@@ -17,17 +17,14 @@ import java.util.Map;
 
 @Service
 @Transactional
-public class CourseServiceImpl implements CourseService {
+public class CourseServiceImpl extends AbstractCRUDService<Course> implements CourseService {
 
     private final CourseDao courseDao;
 
     @Autowired
     public CourseServiceImpl(final CourseDao courseDao) {
+        super(courseDao);
         this.courseDao = courseDao;
-    }
-
-    public List<Course> getAll() {
-        return courseDao.getAll();
     }
 
     @Override
@@ -41,19 +38,14 @@ public class CourseServiceImpl implements CourseService {
     }
 
     @Override
-    public Course findById(final int courseid) {
-        return courseDao.findById(courseid);
-    }
-
-    @Override
     public Course findByCode(final String code) {
         return courseDao.findByCode(code);
     }
 
     @Override
-    public Map<Integer, List<Course>> findByProgram(final int programid) {
+    public Map<Integer, List<Course>> findByProgramId(final long pk) {
 
-        final List<CourseProgramRelation> courses = courseDao.findByProgram(programid);
+        final List<CourseProgramRelation> courses = courseDao.findByProgramId(pk);
 
         Map<Integer, List<Course>> coursesMap = new HashMap<>(11);
 
@@ -69,11 +61,6 @@ public class CourseServiceImpl implements CourseService {
     }
 
     @Override
-    public Course create(final String code, final String name) {
-        return courseDao.create(code, name);
-    }
-
-    @Override
     public void addProgramRelationship(final Course course, final Program program, final int semester) {
         if (!isRelatedTo(course, program)) {
             courseDao.addProgramRelationship(course, program, semester);
@@ -83,5 +70,13 @@ public class CourseServiceImpl implements CourseService {
     @Override
     public boolean isRelatedTo(final Course course, final Program program) {
         return courseDao.isRelatedTo(course, program);
+    }
+
+    @Override
+    public void update(final long pk, final Course from) {
+        final Course instance = findById(pk);
+
+        instance.setCode(from.getCode());
+        instance.setName(from.getName());
     }
 }

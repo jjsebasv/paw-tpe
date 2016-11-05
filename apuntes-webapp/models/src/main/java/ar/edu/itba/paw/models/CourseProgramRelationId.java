@@ -8,12 +8,12 @@ import java.io.Serializable;
 class CourseProgramRelationId implements Serializable {
 
     @Column
-    private int course_id;
+    private long course_id;
 
     @Column
-    private int program_id;
+    private long program_id;
 
-    public CourseProgramRelationId(int course_id, int program_id) {
+    public CourseProgramRelationId(final long course_id, final long program_id) {
         this.course_id = course_id;
         this.program_id = program_id;
     }
@@ -35,17 +35,17 @@ class CourseProgramRelationId implements Serializable {
 
     @Override
     public int hashCode() {
-        int result = course_id;
-        result = 31 * result + program_id;
+        int result = (int) (course_id ^ (course_id >>> 32));
+        result = 31 * result + (int) (program_id ^ (program_id >>> 32));
         return result;
     }
 
-    public int getCourse_id() {
+    public long getCourse_id() {
 
         return course_id;
     }
 
-    public int getProgram_id() {
+    public long getProgram_id() {
         return program_id;
     }
 }

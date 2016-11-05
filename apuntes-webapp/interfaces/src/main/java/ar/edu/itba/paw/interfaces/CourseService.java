@@ -6,7 +6,7 @@ import ar.edu.itba.paw.models.Program;
 import java.util.List;
 import java.util.Map;
 
-public interface CourseService {
+public interface CourseService extends GenericCRUDService<Course> {
 
     List<Course> getAll();
 
@@ -14,13 +14,9 @@ public interface CourseService {
 
     List<Course> findByTerm(String term);
 
-    Course findById(int courseid);
-
     Course findByCode(String code);
 
-    Map<Integer, List<Course>> findByProgram(int programid);
-
-    Course create(String code, String name);
+    Map<Integer, List<Course>> findByProgramId(long pk);
 
     void addProgramRelationship(Course course, Program program, int semester);
 

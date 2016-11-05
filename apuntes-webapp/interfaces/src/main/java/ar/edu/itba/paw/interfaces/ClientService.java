@@ -2,11 +2,13 @@ package ar.edu.itba.paw.interfaces;
 
 import ar.edu.itba.paw.models.Client;
 
-public interface ClientService {
+import java.util.List;
 
-    Client findById(int id);
+public interface ClientService extends GenericCRUDService<Client> {
 
     Client findByUsername(String username);
 
-    Client create(String username, String password, String email);
+    Client findByEmail(String email);
+
+    List<Client> getAll();
 }

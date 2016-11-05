@@ -27,18 +27,18 @@ public class ProgramController {
     }
 
 
-    @RequestMapping("/program/{id:[\\d]+}")
-    public ModelAndView programView(@PathVariable("id") int programid) {
+    @RequestMapping("/program/{pk:[\\d]+}")
+    public ModelAndView programView(@PathVariable("pk") int pk) {
 
         final ModelAndView mav = new ModelAndView("program");
 
-        Program program = ps.findById(programid);
+        Program program = ps.findById(pk);
         if (program == null) {
             //FIXME Add 404 http resp code
             return new ModelAndView("404");
         }
 
-        final Map<Integer, List<Course>> groupedCourses = cs.findByProgram(programid);
+        final Map<Integer, List<Course>> groupedCourses = cs.findByProgramId(pk);
 
         int coursesCount = 0;
 

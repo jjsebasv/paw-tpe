@@ -11,7 +11,7 @@ public class Program {
     @GeneratedValue(strategy = GenerationType.SEQUENCE, generator = "programs_program_id_seq")
     @SequenceGenerator(sequenceName = "programs_program_id_seq", name = "programs_program_id_seq", allocationSize = 1)
     @Column(name = "program_id")
-    private int programid;
+    private Long programid;
 
     @Column(length = 100, nullable = false, unique = true)
     private String name;
@@ -35,7 +35,7 @@ public class Program {
         this.group = group;
     }
 
-    public int getProgramid() {
+    public long getProgramid() {
         return programid;
     }
 
@@ -45,6 +45,18 @@ public class Program {
 
     public String getShortName() {
         return shortName;
+    }
+
+    public void setName(String name) {
+        this.name = name;
+    }
+
+    public void setShortName(String shortName) {
+        this.shortName = shortName;
+    }
+
+    public void setGroup(char group) {
+        this.group = group;
     }
 
     public char getGroup() {
@@ -58,12 +70,13 @@ public class Program {
 
         Program program = (Program) o;
 
-        return programid == program.programid;
+        return programid.equals(program.programid);
+
     }
 
     @Override
     public int hashCode() {
-        return programid;
+        return programid.hashCode();
     }
 
     public List<CourseProgramRelation> getRelatedCourses() {

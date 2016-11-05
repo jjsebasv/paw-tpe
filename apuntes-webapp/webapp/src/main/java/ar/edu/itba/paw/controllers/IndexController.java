@@ -1,8 +1,7 @@
 package ar.edu.itba.paw.controllers;
 
-import ar.edu.itba.paw.interfaces.ProgramService;
 import ar.edu.itba.paw.forms.DocumentForm;
-
+import ar.edu.itba.paw.interfaces.ProgramService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
 import org.springframework.web.bind.annotation.RequestMapping;
@@ -11,13 +10,10 @@ import org.springframework.web.servlet.ModelAndView;
 @Controller
 public class IndexController {
 
-    //private final UserService us;
-
     private final ProgramService ps;
 
     @Autowired
-    public IndexController(/*UserService us,*/ ProgramService ps) {
-        //this.us = us;
+    public IndexController(final ProgramService ps) {
         this.ps = ps;
     }
 
@@ -28,16 +24,5 @@ public class IndexController {
         mav.addObject("documentForm", new DocumentForm());
         return mav;
     }
-//
-//    @RequestMapping("/create")
-//    public ModelAndView helloWorld(
-//            @RequestParam(value = "name", required = true) final String username,
-//            @RequestParam(value = "password", required = true) final String password,
-//            @RequestParam(value = "repeatPassword", required = true) final String repeatPassword) {
-//        // TODO: validate password and repeatePassword
-//        final long userid = us.create(username, password);
-//        return new ModelAndView("redirect:/bla?userId=" + userid);
-//    }
-
 
 }

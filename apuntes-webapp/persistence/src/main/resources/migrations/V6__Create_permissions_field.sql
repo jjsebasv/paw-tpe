@@ -1,0 +1,2 @@
+ALTER TABLE clients
+  ADD role VARCHAR(50) DEFAULT 'ROLE_USER';

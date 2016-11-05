@@ -9,17 +9,14 @@ import org.springframework.transaction.annotation.Transactional;
 
 @Service
 @Transactional
-public class ClientServiceImpl implements ClientService {
+public class ClientServiceImpl extends AbstractCRUDService<Client> implements ClientService {
 
     private final ClientDao clientDao;
 
     @Autowired
     public ClientServiceImpl(final ClientDao clientDao) {
+        super(clientDao);
         this.clientDao = clientDao;
-    }
-
-    public Client findById(final int id) {
-        return clientDao.findById(id);
     }
 
     @Override
@@ -27,7 +24,19 @@ public class ClientServiceImpl implements ClientService {
         return clientDao.findByUsername(username);
     }
 
-    public Client create(final String username, final String password, final String email) {
-        return clientDao.create(username, password, email);
+    @Override
+    public Client findByEmail(final String email) {
+        return clientDao.findByEmail(email);
     }
+
+
+    @Override
+    public void update(final long pk, final Client from) {
+        final Client instance = findById(pk);
+
+        instance.setName(from.getName());
+        instance.setEmail(from.getEmail());
+        instance.setPassword(from.getPassword());
+    }
+
 }

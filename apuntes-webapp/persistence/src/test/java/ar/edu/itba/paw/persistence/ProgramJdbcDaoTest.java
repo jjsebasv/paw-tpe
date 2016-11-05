@@ -28,7 +28,7 @@ public class ProgramJdbcDaoTest {
 
     @Test
     public void testCreate() {
-        final Program program = programDao.create(PROGRAM_NAME, PROGRAM_SHORTNAME, PROGRAM_GROUP);
+        final Program program = programDao.create(new Program(PROGRAM_NAME, PROGRAM_SHORTNAME, PROGRAM_GROUP));
 
         Assert.assertNotNull(program);
         Assert.assertEquals(PROGRAM_NAME, program.getName());
@@ -38,7 +38,7 @@ public class ProgramJdbcDaoTest {
 
     @Test
     public void testFindByName() {
-        final Program program = programDao.create(PROGRAM_NAME, PROGRAM_SHORTNAME, PROGRAM_GROUP);
+        final Program program = programDao.create(new Program(PROGRAM_NAME, PROGRAM_SHORTNAME, PROGRAM_GROUP));
 
         final List<Program> list = programDao.findByName(PROGRAM_NAME);
 
@@ -59,8 +59,8 @@ public class ProgramJdbcDaoTest {
 
     @Test
     public void testFindById() {
-        final Program program = programDao.create(PROGRAM_NAME, PROGRAM_SHORTNAME, PROGRAM_GROUP);
-        final int id = program.getProgramid();
+        final Program program = programDao.create(new Program(PROGRAM_NAME, PROGRAM_SHORTNAME, PROGRAM_GROUP));
+        final long id = program.getProgramid();
 
         final Program lookupProgram = programDao.findById(id);
 
@@ -71,8 +71,8 @@ public class ProgramJdbcDaoTest {
 
     @Test
     public void testFindByNonExistingId() {
-        final Program program = programDao.create(PROGRAM_NAME, PROGRAM_SHORTNAME, PROGRAM_GROUP);
-        final int id = program.getProgramid();
+        final Program program = programDao.create(new Program(PROGRAM_NAME, PROGRAM_SHORTNAME, PROGRAM_GROUP));
+        final long id = program.getProgramid();
 
         final Program lookupProgram = programDao.findById(200);
 
@@ -81,7 +81,7 @@ public class ProgramJdbcDaoTest {
 
     @Test
     public void getAll() {
-        final Program program = programDao.create(PROGRAM_NAME, PROGRAM_SHORTNAME, PROGRAM_GROUP);
+        final Program program = programDao.create(new Program(PROGRAM_NAME, PROGRAM_SHORTNAME, PROGRAM_GROUP));
 
         final List<Program> list = programDao.getAll();
 

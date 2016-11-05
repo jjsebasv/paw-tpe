@@ -32,7 +32,7 @@ import java.io.IOException;
 import java.util.Properties;
 
 @EnableWebMvc
-@ComponentScan({"ar.edu.itba.paw.controllers", "ar.edu.itba.paw.services", "ar.edu.itba.paw.persistence", "ar.edu.itba.paw.forms.validators"})
+@ComponentScan({"ar.edu.itba.paw.controllers", "ar.edu.itba.paw.services", "ar.edu.itba.paw.persistence", "ar.edu.itba.paw.forms.validators", "ar.edu.itba.paw.forms.admin.validators"})
 @Configuration
 @EnableTransactionManagement
 public class WebConfig extends WebMvcConfigurerAdapter {
@@ -59,6 +59,7 @@ public class WebConfig extends WebMvcConfigurerAdapter {
         flyway.setBaselineOnMigrate(true);
         flyway.setLocations("classpath:migrations/");
         flyway.setDataSource(ds);
+        flyway.repair();
         flyway.migrate();
 
         final DataSourceInitializer dsi = new DataSourceInitializer();
@@ -78,7 +79,6 @@ public class WebConfig extends WebMvcConfigurerAdapter {
 
         final Properties properties = new Properties();
 
-        properties.setProperty("hibernate.hbm2ddl.auto", "update");
         properties.setProperty("hibernate.dialect", "org.hibernate.dialect.PostgreSQL92Dialect");
 
         // Si ponen esto en prod, hay tabla!!!

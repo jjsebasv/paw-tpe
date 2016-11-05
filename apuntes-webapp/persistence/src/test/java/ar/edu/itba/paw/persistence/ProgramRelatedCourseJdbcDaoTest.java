@@ -36,12 +36,12 @@ public class ProgramRelatedCourseJdbcDaoTest {
 
     @Test
     public void testAddProgramToCourseRelationship() {
-        final Course course = courseDao.create(COURSE_CODE, COURSE_NAME);
-        final Program program = programDao.create(PROGRAM_NAME, PROGRAM_SHORTNAME, PROGRAM_GROUP);
+        final Course course = courseDao.create(new Course(COURSE_CODE, COURSE_NAME));
+        final Program program = programDao.create(new Program(PROGRAM_NAME, PROGRAM_SHORTNAME, PROGRAM_GROUP));
 
         courseDao.addProgramRelationship(course, program, COURSETOPROGRAM_SEMESTER);
 
-        List<CourseProgramRelation> courseList = courseDao.findByProgram(program.getProgramid());
+        List<CourseProgramRelation> courseList = courseDao.findByProgramId(program.getProgramid());
 
         Assert.assertNotNull(courseList);
         Assert.assertFalse(courseList.isEmpty());
@@ -54,5 +54,24 @@ public class ProgramRelatedCourseJdbcDaoTest {
         Assert.assertTrue(courseDao.isRelatedTo(course, program));
     }
 
+    @Test
+    public void testFindProgramsFromCourseId() {
 
+        final Course course = courseDao.create(new Course(COURSE_CODE, COURSE_NAME));
+        final Program program = programDao.create(new Program(PROGRAM_NAME, PROGRAM_SHORTNAME, PROGRAM_GROUP));
+
+        courseDao.addProgramRelationship(course, program, COURSETOPROGRAM_SEMESTER);
+
+        List<Program> programList = programDao.getProgramsFromCourseId(course.getCourseid());
+
+        Assert.assertNotNull(programList);
+        Assert.assertFalse(programList.isEmpty());
+        Assert.assertEquals(1, programList.size());
+
+        Program relatedProgram = programList.get(0);
+
+        Assert.assertEquals(program, relatedProgram);
+
+        Assert.assertTrue(courseDao.isRelatedTo(course, program));
+    }
 }

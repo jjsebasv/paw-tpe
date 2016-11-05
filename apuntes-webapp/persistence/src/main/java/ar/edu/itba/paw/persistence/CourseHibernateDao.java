@@ -6,27 +6,19 @@ import ar.edu.itba.paw.models.CourseProgramRelation;
 import ar.edu.itba.paw.models.Program;
 import org.springframework.stereotype.Repository;
 
-import javax.persistence.EntityManager;
-import javax.persistence.PersistenceContext;
 import javax.persistence.TypedQuery;
 import java.util.List;
 
 @Repository
-public class CourseHibernateDao implements CourseDao {
+public class CourseHibernateDao extends AbstractCRUDHibernateDao<Course> implements CourseDao {
 
-    @PersistenceContext
-    private EntityManager em;
-
-    @Override
-    public List<Course> getAll() {
-        final TypedQuery<Course> query = em.createQuery("from Course", Course.class);
-        final List<Course> list = query.getResultList();
-        return list.isEmpty() ? null : list;
+    public CourseHibernateDao() {
+        super(Course.class);
     }
 
     @Override
     public List<Course> findByName(final String name) {
-        final TypedQuery<Course> query = em.createQuery("from Course as c where c.name like :name", Course.class);
+        final TypedQuery<Course> query = em.createQuery("FROM Course AS c WHERE LOWER(c.name) LIKE LOWER(:name)", Course.class);
         query.setParameter("name", "%" + name + "%");
         final List<Course> list = query.getResultList();
         return list.isEmpty() ? null : list;
@@ -34,42 +26,28 @@ public class CourseHibernateDao implements CourseDao {
 
     @Override
     public List<Course> findByTerm(String term) {
-        final TypedQuery<Course> query = em.createQuery("from Course as c where LOWER(c.name) like lower(:term) or c.code like :term", Course.class);
+        final TypedQuery<Course> query = em.createQuery("FROM Course AS c WHERE LOWER(c.name) LIKE LOWER(:term) or c.code LIKE :term", Course.class);
         query.setParameter("term", "%" + term + "%");
         final List<Course> list = query.getResultList();
         return list.isEmpty() ? null : list;
     }
 
     @Override
-    public Course findById(int courseid) {
-        return em.find(Course.class, courseid);
-    }
-
-    @Override
     public Course findByCode(final String code) {
-        final TypedQuery<Course> query = em.createQuery("from Course as c where c.code = :code", Course.class);
+        final TypedQuery<Course> query = em.createQuery("FROM Course AS c WHERE c.code = :code", Course.class);
         query.setParameter("code", code);
         final List<Course> list = query.getResultList();
         return list.isEmpty() ? null : list.get(0);
     }
 
     @Override
-    public List<CourseProgramRelation> findByProgram(int programid) {
-        final TypedQuery<CourseProgramRelation> query = em.createQuery("SELECT r FROM CourseProgramRelation as r " +
+    public List<CourseProgramRelation> findByProgramId(final long pk) {
+        final TypedQuery<CourseProgramRelation> query = em.createQuery("SELECT r FROM CourseProgramRelation AS r " +
                 "WHERE r.program.programid=:programid", CourseProgramRelation.class);
-        query.setParameter("programid", programid);
+        query.setParameter("programid", pk);
         final List<CourseProgramRelation> list = query.getResultList();
 
         return list.isEmpty() ? null : list;
-    }
-
-    @Override
-    public Course create(final String code, final String name) {
-        final Course course = new Course(code, name);
-
-        em.persist(course);
-
-        return course;
     }
 
     @Override
@@ -83,7 +61,7 @@ public class CourseHibernateDao implements CourseDao {
     @Override
     public boolean isRelatedTo(Course course, Program program) {
 
-        final TypedQuery<CourseProgramRelation> query = em.createQuery("SELECT r FROM CourseProgramRelation as r " +
+        final TypedQuery<CourseProgramRelation> query = em.createQuery("SELECT r FROM CourseProgramRelation AS r " +
                 "WHERE r.program.programid=:programid and r.course.courseid=:courseid", CourseProgramRelation.class);
         query.setParameter("programid", program.getProgramid());
         query.setParameter("courseid", course.getCourseid());
@@ -91,4 +69,5 @@ public class CourseHibernateDao implements CourseDao {
 
         return !list.isEmpty();
     }
+
 }

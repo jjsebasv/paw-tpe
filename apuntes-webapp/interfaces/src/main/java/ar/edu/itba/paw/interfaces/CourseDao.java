@@ -6,23 +6,18 @@ import ar.edu.itba.paw.models.Program;
 
 import java.util.List;
 
-public interface CourseDao {
-
-    List<Course> getAll();
+public interface CourseDao extends GenericCRUDDao<Course> {
 
     List<Course> findByName(String name);
 
     List<Course> findByTerm(String term);
 
-    Course findById(int courseid);
-
     Course findByCode(String code);
 
-    List<CourseProgramRelation> findByProgram(int programid);
-
-    Course create(String code, String name);
+    List<CourseProgramRelation> findByProgramId(long pk);
 
     void addProgramRelationship(Course course, Program program, int semester);
 
     boolean isRelatedTo(Course course, Program program);
+
 }

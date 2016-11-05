@@ -1,0 +1,5 @@
+ALTER TABLE documents
+  ADD date_uploaded TIMESTAMP WITHOUT TIME ZONE;
+
+ALTER TABLE reviews
+  ADD date_uploaded TIMESTAMP WITHOUT TIME ZONE DEFAULT (now() AT TIME ZONE 'utc');

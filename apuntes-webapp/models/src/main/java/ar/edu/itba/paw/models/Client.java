@@ -10,7 +10,7 @@ public class Client {
     @GeneratedValue(strategy = GenerationType.SEQUENCE, generator = "clients_client_id_seq")
     @SequenceGenerator(sequenceName = "clients_client_id_seq", name = "clients_client_id_seq", allocationSize = 1)
     @Column(name = "client_id")
-    private Integer clientId;
+    private Long clientId;
 
     @Column(name = "username", length = 100, nullable = false)
     private String name;
@@ -20,6 +20,10 @@ public class Client {
 
     @Column(length = 100, nullable = false, unique = true)
     private String email;
+
+    @Column
+    @Enumerated(EnumType.STRING)
+    private ClientRole role;
 
     /* package */ Client() {
         // Just for Hibernate, we love you!
@@ -35,12 +39,36 @@ public class Client {
         return name;
     }
 
-    public int getClientId() {
+    public long getClientId() {
         return clientId;
     }
 
     public String getPassword() {
         return password;
+    }
+
+    public String getEmail() {
+        return email;
+    }
+
+    public void setName(String name) {
+        this.name = name;
+    }
+
+    public void setPassword(String password) {
+        this.password = password;
+    }
+
+    public void setEmail(String email) {
+        this.email = email;
+    }
+
+    public void setRole(ClientRole role) {
+        this.role = role;
+    }
+
+    public ClientRole getRole() {
+        return role;
     }
 
     @Override
@@ -61,10 +89,6 @@ public class Client {
 
     @Override
     public int hashCode() {
-        return clientId;
-    }
-
-    public String getEmail() {
-        return email;
+        return clientId.hashCode();
     }
 }

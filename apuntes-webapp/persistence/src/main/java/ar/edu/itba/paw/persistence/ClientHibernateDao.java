@@ -4,16 +4,16 @@ import ar.edu.itba.paw.interfaces.ClientDao;
 import ar.edu.itba.paw.models.Client;
 import org.springframework.stereotype.Repository;
 
-import javax.persistence.EntityManager;
-import javax.persistence.PersistenceContext;
 import javax.persistence.TypedQuery;
 import java.util.List;
 
 @Repository
-public class ClientHibernateDao implements ClientDao {
+public class ClientHibernateDao extends AbstractCRUDHibernateDao<Client> implements ClientDao {
 
-    @PersistenceContext
-    private EntityManager em;
+
+    public ClientHibernateDao() {
+        super(Client.class);
+    }
 
 
     @Override
@@ -25,17 +25,10 @@ public class ClientHibernateDao implements ClientDao {
     }
 
     @Override
-    public Client findById(int id) {
-        return em.find(Client.class, id);
-    }
-
-
-    @Override
-    public Client create(String username, String password, String email) {
-        final Client client = new Client(username, password, email);
-
-        em.persist(client);
-
-        return client;
+    public Client findByEmail(String email) {
+        final TypedQuery<Client> query = em.createQuery("from Client as u where u.email = :email", Client.class);
+        query.setParameter("email", email);
+        final List<Client> list = query.getResultList();
+        return list.isEmpty() ? null : list.get(0);
     }
 }

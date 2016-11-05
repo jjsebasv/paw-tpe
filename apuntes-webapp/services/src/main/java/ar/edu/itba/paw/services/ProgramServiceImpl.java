@@ -11,23 +11,14 @@ import java.util.List;
 
 @Service
 @Transactional
-public class ProgramServiceImpl implements ProgramService {
+public class ProgramServiceImpl extends AbstractCRUDService<Program> implements ProgramService {
 
     private final ProgramDao programDao;
 
     @Autowired
     public ProgramServiceImpl(ProgramDao programDao) {
+        super(programDao);
         this.programDao = programDao;
-    }
-
-    @Override
-    public List<Program> getAll() {
-        return programDao.getAll();
-    }
-
-    @Override
-    public Program findById(final int programid) {
-        return programDao.findById(programid);
     }
 
     @Override
@@ -36,13 +27,17 @@ public class ProgramServiceImpl implements ProgramService {
     }
 
     @Override
-    public Program create(final String name, final String shortName, final char group) {
-        return programDao.create(name, shortName, group);
+    public List<Program> getProgramsFromCourseId(final long pk) {
+        return programDao.getProgramsFromCourseId(pk);
     }
 
     @Override
-    public List<Program> getPrograms(final int courseid) {
-        return programDao.getPrograms(courseid);
-    }
+    public void update(final long pk, Program from) {
 
+        final Program instance = findById(pk);
+
+        instance.setName(from.getName());
+        instance.setShortName(from.getShortName());
+        instance.setGroup(from.getGroup());
+    }
 }
