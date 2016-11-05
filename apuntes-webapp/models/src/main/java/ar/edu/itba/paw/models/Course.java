@@ -11,7 +11,7 @@ public class Course {
     @GeneratedValue(strategy = GenerationType.SEQUENCE, generator = "courses_course_id_seq")
     @SequenceGenerator(sequenceName = "courses_course_id_seq", name = "courses_course_id_seq", allocationSize = 1)
     @Column(name = "course_id")
-    private Integer courseid;
+    private Long courseid;
 
     @Column(length = 5, nullable = false, unique = true)
     private String code;
@@ -31,7 +31,7 @@ public class Course {
         this.name = name;
     }
 
-    public int getCourseid() {
+    public long getCourseid() {
         return courseid;
     }
 
@@ -65,9 +65,7 @@ public class Course {
 
     @Override
     public int hashCode() {
-        int result = courseid;
-        result = 31 * result + (code != null ? code.hashCode() : 0);
-        return result;
+        return courseid.hashCode();
     }
 
     @Override

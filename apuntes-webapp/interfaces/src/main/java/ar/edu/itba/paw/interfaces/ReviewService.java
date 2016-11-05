@@ -1,18 +1,14 @@
 package ar.edu.itba.paw.interfaces;
 
+import ar.edu.itba.paw.models.Review;
+
 import java.util.List;
 
-import ar.edu.itba.paw.models.Document;
-import ar.edu.itba.paw.models.Review;
-import ar.edu.itba.paw.models.Client;
+public interface ReviewService extends GenericCRUDService<Review> {
 
-public interface ReviewService {
+    List<Review> findByFileId(long pk);
 
-    Review createReview(Document file, Client user, double ranking, String review);
+    double getAverageFromFileId(long pk);
 
-    List<Review> findByFileId(int fileid);
-    
-    double getAverage(int fileid);
-
-	List<Review> findByUser(int clientId);
+    List<Review> findByUserId(long pk);
 }

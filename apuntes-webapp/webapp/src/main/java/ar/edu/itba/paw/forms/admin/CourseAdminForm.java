@@ -1,6 +1,7 @@
 package ar.edu.itba.paw.forms.admin;
 
 
+import ar.edu.itba.paw.builders.CourseBuilder;
 import ar.edu.itba.paw.interfaces.admin.IAdminForm;
 import ar.edu.itba.paw.models.Course;
 
@@ -35,7 +36,7 @@ public class CourseAdminForm implements IAdminForm<Course> {
 
     @Override
     public Course buildObjectFromForm() {
-        return new Course(code, name);
+        return new CourseBuilder().setCode(code).setName(name).createModel();
     }
 
     @Override

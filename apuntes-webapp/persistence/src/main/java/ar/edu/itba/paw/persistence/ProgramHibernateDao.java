@@ -4,28 +4,14 @@ import ar.edu.itba.paw.interfaces.ProgramDao;
 import ar.edu.itba.paw.models.Program;
 import org.springframework.stereotype.Repository;
 
-import javax.persistence.EntityManager;
-import javax.persistence.PersistenceContext;
 import javax.persistence.TypedQuery;
 import java.util.List;
 
 @Repository
-public class ProgramHibernateDao implements ProgramDao {
+public class ProgramHibernateDao extends AbstractCRUDHibernateDao<Program> implements ProgramDao {
 
-    @PersistenceContext
-    private EntityManager em;
-
-
-    @Override
-    public List<Program> getAll() {
-        final TypedQuery<Program> query = em.createQuery("from Program", Program.class);
-        final List<Program> list = query.getResultList();
-        return list.isEmpty() ? null : list;
-    }
-
-    @Override
-    public Program findById(final int programid) {
-        return em.find(Program.class, programid);
+    ProgramHibernateDao() {
+        super(Program.class);
     }
 
     @Override
@@ -37,31 +23,13 @@ public class ProgramHibernateDao implements ProgramDao {
     }
 
     @Override
-    public Program create(final String name, final String shortName, final char group) {
-        final Program program = new Program(name, shortName, group);
-
-        em.persist(program);
-
-        return program;
-    }
-
-    @Override
-    public List<Program> getPrograms(int courseid) {
+    public List<Program> getProgramsFromCourseId(final long pk) {
         final TypedQuery<Program> query = em.createQuery("SELECT r.program FROM CourseProgramRelation as r " +
                 "WHERE r.course.courseid=:courseid", Program.class);
-        query.setParameter("courseid", courseid);
+        query.setParameter("courseid", pk);
         final List<Program> list = query.getResultList();
 
         return list.isEmpty() ? null : list;
     }
 
-    @Override
-    public void delete(final int programid) {
-
-        final Program program = findById(programid);
-
-        if (program != null) {
-            em.remove(program);
-        }
-    }
 }

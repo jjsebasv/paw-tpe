@@ -1,15 +1,13 @@
 package ar.edu.itba.paw.controllers;
 
 import ar.edu.itba.paw.auth.UserPrincipal;
+import ar.edu.itba.paw.builders.ReviewBuilder;
+import ar.edu.itba.paw.forms.ReviewForm;
 import ar.edu.itba.paw.interfaces.DocumentService;
 import ar.edu.itba.paw.interfaces.ReviewService;
 import ar.edu.itba.paw.models.Client;
 import ar.edu.itba.paw.models.Document;
 import ar.edu.itba.paw.models.Review;
-import ar.edu.itba.paw.forms.ReviewForm;
-import ar.edu.itba.paw.interfaces.DocumentService;
-import ar.edu.itba.paw.interfaces.ReviewService;
-
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.security.core.Authentication;
 import org.springframework.stereotype.Controller;
@@ -42,23 +40,23 @@ public class DocumentController {
     }
 
 
-    @RequestMapping("/document/{id:[\\d]+}")
-    public ModelAndView courseView(@PathVariable("id") int id, Authentication authentication) {
+    @RequestMapping("/document/{pk:[\\d]+}")
+    public ModelAndView courseView(@PathVariable("pk") long pk, Authentication authentication) {
         ModelAndView mav = new ModelAndView("documentView");
 
-        final Document file = fs.findById(id);
-        final List<Review> reviews = rs.findByFileId(id);
+        final Document file = fs.findById(pk);
+        final List<Review> reviews = rs.findByFileId(pk);
         if (file == null) {
             return new ModelAndView("404");
         }
 
-        final Document doc = fs.findById(id);
+        final Document doc = fs.findById(pk);
 
         mav.addObject("document", doc);
         mav.addObject("username", file.getUser().getName());
         mav.addObject("reviewForm", new ReviewForm());
         mav.addObject("reviews", reviews);
-        mav.addObject("average", rs.getAverage(id));
+        mav.addObject("average", rs.getAverageFromFileId(pk));
 
         if (authentication == null) {
             mav.addObject("can_review", false);
@@ -70,28 +68,28 @@ public class DocumentController {
         return mav;
     }
 
-    @RequestMapping("/download/{id:[\\d]+}")
-    public void downloadFile(HttpServletResponse response, @PathVariable("id") int id) throws IOException {
+    @RequestMapping("/download/{pk:[\\d]+}")
+    public void downloadFile(HttpServletResponse response, @PathVariable("pk") long pk) throws IOException {
 
-        final Document file = fs.findById(id);
+        final Document file = fs.findById(pk);
 
         //TODO Guardar mimetype para permitirle al navegador decidir
         response.setContentType("application/octet-stream");
 
         //TODO Validar el nombre para prevenir header injection
         response.setHeader("Content-Disposition", String.format("attachment; filename=\"%s\";", file.getDocumentName()));
-        response.setContentLength(file.getDocumentSize());
+        response.setContentLength((int) file.getDocumentSize());
         InputStream data = new ByteArrayInputStream(file.getData());
         FileCopyUtils.copy(data, response.getOutputStream());
 
     }
 
-    @RequestMapping("/open/{id:[\\d]+}")
-    public void openFile(HttpServletResponse response, @PathVariable("id") int id) throws IOException {
+    @RequestMapping("/open/{pk:[\\d]+}")
+    public void openFile(HttpServletResponse response, @PathVariable("pk") long pk) throws IOException {
 
-        final Document file = fs.findById(id);
+        final Document file = fs.findById(pk);
 
-        response.setContentLength(file.getDocumentSize());
+        response.setContentLength((int) file.getDocumentSize());
         response.setContentType("application/pdf");
         response.setHeader("Content-Disposition", String.format("inline; filename=\"%s\";", file.getDocumentName()));
 
@@ -101,21 +99,27 @@ public class DocumentController {
     }
 
 
-    @RequestMapping(value = "/document/{id:[\\d]+}/addReview", method = RequestMethod.POST)
+    @RequestMapping(value = "/document/{pk:[\\d]+}/addReview", method = RequestMethod.POST)
     public ModelAndView submit(@ModelAttribute("reviewForm") ReviewForm reviewForm,
                                BindingResult result,
                                Model model,
-                               @PathVariable("id") int fileid,
+                               @PathVariable("pk") long pk,
                                Authentication authentication) {
         Client client = ((UserPrincipal) authentication.getPrincipal()).getClient();
 
         //FIXME Verificar que el usuario tenga permitido subir un review
-        final Document file = fs.findById(fileid);
+        final Document file = fs.findById(pk);
 
+        final Review review = new ReviewBuilder()
+                .setFile(file)
+                .setUser(client)
+                .setReview(reviewForm.getReview())
+                .setRanking(reviewForm.getRanking())
+                .createModel();
 
-        rs.createReview(file, client, reviewForm.getRanking(), reviewForm.getReview());
+        rs.create(review);
 
-        return new ModelAndView("redirect:/document/" + fileid);
+        return new ModelAndView("redirect:/document/" + pk);
     }
 
     ;

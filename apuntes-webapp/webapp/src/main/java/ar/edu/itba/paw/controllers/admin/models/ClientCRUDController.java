@@ -1,5 +1,7 @@
 package ar.edu.itba.paw.controllers.admin.models;
 
+import ar.edu.itba.paw.builders.ClientBuilder;
+import ar.edu.itba.paw.controllers.admin.AbstractCRUDController;
 import ar.edu.itba.paw.forms.admin.ClientAdminForm;
 import ar.edu.itba.paw.interfaces.ClientService;
 import ar.edu.itba.paw.models.Client;
@@ -12,17 +14,18 @@ import org.springframework.web.servlet.ModelAndView;
 import javax.validation.Valid;
 
 @Controller
-public class ClientCRUDController {
-    private final ClientService cs;
+public class ClientCRUDController extends AbstractCRUDController<Client> {
+
+    private static final String CLIENT_DETAILS_VIEW = "admin/details/client";
 
     @Autowired
     public ClientCRUDController(final ClientService cs) {
-        this.cs = cs;
+        super(cs);
     }
 
     @RequestMapping(value = "/admin/clients/create", method = {RequestMethod.GET})
     public ModelAndView create(@ModelAttribute("clientForm") final ClientAdminForm form) {
-        return new ModelAndView("admin/details/client");
+        return new ModelAndView(CLIENT_DETAILS_VIEW);
     }
 
     @RequestMapping(value = "/admin/clients/create", method = {RequestMethod.POST})
@@ -32,7 +35,12 @@ public class ClientCRUDController {
             return create(form);
         }
 
-        final Client client = cs.create(form.getUsername(), form.getPassword(), form.getEmail());
+        final Client client = service.create(new ClientBuilder().
+                setName(form.getUsername()).
+                setEmail(form.getEmail()).
+                setPassword(form.getPassword()).
+                createModel());
+
         return new ModelAndView("redirect:/admin/clients/" + client.getClientId() + "/edit");
     }
 
@@ -41,7 +49,7 @@ public class ClientCRUDController {
     public ModelAndView read(@PathVariable("pk") int clientid, @ModelAttribute("clientForm") final ClientAdminForm form) {
         final ModelAndView mav = new ModelAndView("admin/details/client");
 
-        final Client client = cs.findById(clientid);
+        final Client client = service.findById(clientid);
 
         if (client == null) {
             return new ModelAndView("404");
@@ -68,20 +76,19 @@ public class ClientCRUDController {
             return read(clientid, form);
         }
 
-        final Client client = cs.findById(clientid);
+        final Client client = service.findById(clientid);
 
         if (client == null) {
             return new ModelAndView("404");
         }
 
-        cs.update(clientid, form.buildObjectFromForm());
+        service.update(clientid, form.buildObjectFromForm());
 
         return new ModelAndView("redirect:/admin/clients/" + client.getClientId() + "/edit");
     }
 
-    //@RequestMapping(value = "/admin/programs/{pk:[0-9]+}/delete", method = {RequestMethod.POST})
     private ModelAndView delete(@PathVariable("pk") int clientid) {
-        cs.delete(clientid);
+        service.delete(clientid);
 
         return new ModelAndView("redirect:/admin/clients/list");
     }

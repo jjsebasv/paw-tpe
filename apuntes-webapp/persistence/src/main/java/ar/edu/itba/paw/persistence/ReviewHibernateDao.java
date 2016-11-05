@@ -1,48 +1,37 @@
 package ar.edu.itba.paw.persistence;
 
 import ar.edu.itba.paw.interfaces.ReviewDao;
-import ar.edu.itba.paw.models.Client;
-import ar.edu.itba.paw.models.Document;
 import ar.edu.itba.paw.models.Review;
 import org.springframework.stereotype.Repository;
 
-import javax.persistence.EntityManager;
-import javax.persistence.PersistenceContext;
 import javax.persistence.TypedQuery;
 import java.util.List;
 
 @Repository
-public class ReviewHibernateDao implements ReviewDao {
+public class ReviewHibernateDao extends AbstractCRUDHibernateDao<Review> implements ReviewDao {
 
-    @PersistenceContext
-    private EntityManager em;
-
-
-    @Override
-    public Review createReview(Document file, Client user, double ranking, String review) {
-        final Review rev = new Review(file, user, ranking, review);
-
-        em.persist(rev);
-
-        return rev;
+    ReviewHibernateDao() {
+        super(Review.class);
     }
 
     @Override
-    public List<Review> findByFileId(final int fileid) {
+    public List<Review> findByFileId(final long pk) {
         final TypedQuery<Review> query = em.createQuery("FROM Review as r WHERE r.file.documentId = :fileid", Review.class);
-        query.setParameter("fileid", fileid);
+        query.setParameter("fileid", pk);
         return query.getResultList();
     }
 
     @Override
-    public double getAverage(int fileid) {
-        return 2;
+    public double getAverageFromFileId(final long pk) {
+        final TypedQuery<Double> query = em.createQuery("select ROUND(coalesce(AVG(r.ranking), 0),2) FROM Review as r WHERE r.file.documentId = :fileid", Double.class);
+        query.setParameter("fileid", pk);
+        return query.getSingleResult();
     }
 
     @Override
-    public List<Review> findByUser(final int userid) {
+    public List<Review> findByUserId(final long pk) {
         final TypedQuery<Review> query = em.createQuery("FROM Review as r WHERE r.user.clientId = :userid", Review.class);
-        query.setParameter("userid", userid);
+        query.setParameter("userid", pk);
         return query.getResultList();
     }
 }

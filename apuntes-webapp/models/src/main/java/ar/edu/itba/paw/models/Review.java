@@ -11,12 +11,14 @@ public class Review {
     @GeneratedValue(strategy = GenerationType.SEQUENCE, generator = "reviews_review_id_seq")
     @SequenceGenerator(sequenceName = "reviews_review_id_seq", name = "reviews_review_id_seq", allocationSize = 1)
     @Column(name = "review_id")
-    private int reviewid;
+    private Long reviewid;
 
     @ManyToOne(fetch = FetchType.LAZY, optional = false)
+    @JoinColumn(name = "document_id")
     private Document file;
 
     @ManyToOne(fetch = FetchType.EAGER, optional = false)
+    @JoinColumn(name = "client_id")
     private Client user;
 
     @Column
@@ -40,7 +42,23 @@ public class Review {
         this.review = review;
     }
 
-    public int getReviewid() {
+    @Override
+    public boolean equals(Object o) {
+        if (this == o) return true;
+        if (o == null || getClass() != o.getClass()) return false;
+
+        Review review = (Review) o;
+
+        return reviewid.equals(review.reviewid);
+
+    }
+
+    @Override
+    public int hashCode() {
+        return reviewid.hashCode();
+    }
+
+    public long getReviewid() {
         return reviewid;
     }
 

@@ -2,6 +2,7 @@ package ar.edu.itba.paw.controllers;
 
 
 import ar.edu.itba.paw.auth.UserPrincipal;
+import ar.edu.itba.paw.builders.DocumentBuilder;
 import ar.edu.itba.paw.forms.ClientForm;
 import ar.edu.itba.paw.forms.DocumentForm;
 import ar.edu.itba.paw.interfaces.ClientService;
@@ -41,7 +42,7 @@ public class DocumentUploadController {
     }
 
     @RequestMapping(value = "/uploadDocument")
-    public ModelAndView uploadDocument(@ModelAttribute("documentForm") DocumentForm documentForm, Authentication authentication) {
+    public ModelAndView uploadDocument(@ModelAttribute("documentForm") DocumentForm documentForm) {
         return new ModelAndView("documentUploadView");
     }
 
@@ -51,29 +52,29 @@ public class DocumentUploadController {
     ModelAndView submit(@Valid @ModelAttribute("documentForm") DocumentForm documentForm,
                         BindingResult result,
                         Model model,
-                        @RequestParam CommonsMultipartFile document,
+                        @RequestParam CommonsMultipartFile multipartFile,
                         HttpServletRequest request,
                         Authentication authentication,
                         final BindingResult errors) {
 
 
         if (errors.hasErrors()) {
-            return uploadDocument(documentForm, authentication);
+            return uploadDocument(documentForm);
         }
 
         UserPrincipal client = (UserPrincipal) authentication.getPrincipal();
 
-        Document uploadedDocument = ds.createDocument(
-                client.getClient(),
-                courseS.findById(documentForm.getCourseid()),
-                documentForm.getSubject(),
-                document.getOriginalFilename(),
-                (int) document.getSize(),
-                document.getBytes()
-        );
+        final Document document = new DocumentBuilder()
+                .setUser(client.getClient())
+                .setCourse(courseS.findById(documentForm.getCourseid()))
+                .setSubject(documentForm.getSubject())
+                .setDocumentName(multipartFile.getOriginalFilename())
+                .setDocumentSize(multipartFile.getSize())
+                .setData(multipartFile.getBytes())
+                .createModel();
 
-        LOGGER.info("Uploaded document {}", uploadedDocument);
-        return new ModelAndView("redirect:/document/" + uploadedDocument.getDocumentId());
+        LOGGER.info("Uploaded document {}", document);
+        return new ModelAndView("redirect:/document/" + document.getDocumentId());
 
     }
 

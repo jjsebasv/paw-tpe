@@ -1,5 +1,7 @@
 package ar.edu.itba.paw.controllers.admin.models;
 
+import ar.edu.itba.paw.builders.CourseBuilder;
+import ar.edu.itba.paw.controllers.admin.AbstractCRUDController;
 import ar.edu.itba.paw.forms.admin.CourseAdminForm;
 import ar.edu.itba.paw.forms.admin.validators.CourseAdminFormValidator;
 import ar.edu.itba.paw.interfaces.CourseService;
@@ -13,15 +15,13 @@ import org.springframework.web.servlet.ModelAndView;
 import javax.validation.Valid;
 
 @Controller
-public class CourseCRUDController {
-
-    private final CourseService cs;
+public class CourseCRUDController extends AbstractCRUDController<Course> {
 
     private final CourseAdminFormValidator courseAdminFormValidator;
 
     @Autowired
     public CourseCRUDController(CourseService cs, CourseAdminFormValidator courseAdminFormValidator) {
-        this.cs = cs;
+        super(cs);
         this.courseAdminFormValidator = courseAdminFormValidator;
     }
 
@@ -38,7 +38,10 @@ public class CourseCRUDController {
             return create(form);
         }
 
-        final Course course = cs.create(form.getCode(), form.getName());
+        final Course course = service.create(new CourseBuilder()
+                .setCode(form.getCode())
+                .setName(form.getName())
+                .createModel());
 
         return new ModelAndView("redirect:/admin/courses/" + course.getCourseid() + "/edit");
     }
@@ -48,7 +51,7 @@ public class CourseCRUDController {
     public ModelAndView read(@PathVariable("pk") int courseid, @ModelAttribute("courseForm") final CourseAdminForm form) {
         final ModelAndView mav = new ModelAndView("admin/details/course");
 
-        final Course course = cs.findById(courseid);
+        final Course course = service.findById(courseid);
 
         if (course == null) {
             return new ModelAndView("404");
@@ -71,25 +74,25 @@ public class CourseCRUDController {
             return delete(courseid);
         }
 
-        courseAdminFormValidator.validate(form, errors);
+        //courseAdminFormValidator.validate(form, errors);
         if (errors.hasErrors()) {
             return read(courseid, form);
         }
 
-        final Course course = cs.findById(courseid);
+        final Course course = service.findById(courseid);
 
         if (course == null) {
             return new ModelAndView("404");
         }
 
-        cs.update(courseid, form.buildObjectFromForm());
+        service.update(courseid, form.buildObjectFromForm());
 
         return new ModelAndView("redirect:/admin/courses/" + course.getCourseid() + "/edit");
     }
 
     //@RequestMapping(value = "/admin/courses/{pk:[0-9]+}/delete", method = {RequestMethod.POST})
     private ModelAndView delete(@PathVariable("pk") int courseid) {
-        cs.delete(courseid);
+        service.delete(courseid);
 
         return new ModelAndView("redirect:/admin/courses/list");
     }

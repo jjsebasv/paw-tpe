@@ -1,6 +1,8 @@
 package ar.edu.itba.paw.controllers;
 
+import ar.edu.itba.paw.auth.PawUserDetailsService;
 import ar.edu.itba.paw.auth.UserPrincipal;
+import ar.edu.itba.paw.builders.ClientBuilder;
 import ar.edu.itba.paw.forms.ClientForm;
 import ar.edu.itba.paw.forms.validators.ClientFormValidator;
 import ar.edu.itba.paw.interfaces.ClientService;
@@ -12,7 +14,12 @@ import ar.edu.itba.paw.models.Review;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.beans.factory.annotation.Qualifier;
+import org.springframework.security.authentication.AuthenticationManager;
+import org.springframework.security.authentication.UsernamePasswordAuthenticationToken;
 import org.springframework.security.core.Authentication;
+import org.springframework.security.core.context.SecurityContextHolder;
+import org.springframework.security.core.userdetails.UserDetails;
 import org.springframework.stereotype.Controller;
 import org.springframework.validation.BindingResult;
 import org.springframework.web.bind.annotation.ModelAttribute;
@@ -30,19 +37,24 @@ public class ClientController {
     private final Logger LOGGER = LoggerFactory.getLogger(ClientController.class);
 
     private final ClientService cs;
-
     private final DocumentService ds;
-
     private final ReviewService rs;
+
+    private final PawUserDetailsService userDetailsService;
+
+    @Qualifier("authenticationManager")
+    private final AuthenticationManager authenticationManager;
 
     private final ClientFormValidator clientFormValidator;
 
     @Autowired
-    public ClientController(final ClientService cs, final DocumentService ds, final ReviewService rs, final ClientFormValidator clientFormValidator) {
+    public ClientController(final ClientService cs, final DocumentService ds, final ReviewService rs, final ClientFormValidator clientFormValidator, AuthenticationManager authenticationManager, PawUserDetailsService userDetailsService) {
         this.cs = cs;
         this.ds = ds;
         this.rs = rs;
         this.clientFormValidator = clientFormValidator;
+        this.authenticationManager = authenticationManager;
+        this.userDetailsService = userDetailsService;
     }
 
     @RequestMapping(value = "/login", method = {RequestMethod.GET})
@@ -73,26 +85,42 @@ public class ClientController {
             return register(form);
         }
 
-        final Client client = cs.create(form.getUsername(), form.getPassword(), form.getEmail());
+        final Client client = cs.create(new ClientBuilder()
+                .setName(form.getUsername())
+                .setPassword(form.getPassword())
+                .setEmail(form.getEmail())
+                .createModel());
+
+
+        UserDetails userDetails = userDetailsService.loadUserByUsername(client.getName());
+        UsernamePasswordAuthenticationToken auth = new UsernamePasswordAuthenticationToken(userDetails, client.getPassword(), userDetails.getAuthorities());
+        authenticationManager.authenticate(auth);
+
+        // redirect into secured main page if authentication successful
+        if (auth.isAuthenticated()) {
+            SecurityContextHolder.getContext().setAuthentication(auth);
+            return new ModelAndView("redirect:/profile");
+        }
+
         return new ModelAndView("redirect:/login");
     }
 
-    @RequestMapping(value= "/profile", method = {RequestMethod.GET})
-    public ModelAndView profile(Authentication authentication){
+    @RequestMapping(value = "/profile", method = {RequestMethod.GET})
+    public ModelAndView profile(Authentication authentication) {
         final ModelAndView mav = new ModelAndView("profile");
 
         UserPrincipal client = (UserPrincipal) authentication.getPrincipal();
 
         mav.addObject("client", client.getClient());
-        final List<Document> documents = ds.findByClient(client.getClient());
+        final List<Document> documents = ds.findByClientId(client.getClient().getClientId());
         mav.addObject("documents", documents);
         mav.addObject("documentsSize", documents.size());
 
         //TODO Estamos teniendo problemas para subir review
-        final List<Review> reviews = rs.findByUser(client.getClient().getClientId());
+        final List<Review> reviews = rs.findByUserId(client.getClient().getClientId());
         mav.addObject("reviews", reviews);
         mav.addObject("reviewsSize", reviews.size());
-        
+
         return mav;
     }
 

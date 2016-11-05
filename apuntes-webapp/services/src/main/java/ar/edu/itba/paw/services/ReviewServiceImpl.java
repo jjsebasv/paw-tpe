@@ -2,44 +2,45 @@ package ar.edu.itba.paw.services;
 
 import ar.edu.itba.paw.interfaces.ReviewDao;
 import ar.edu.itba.paw.interfaces.ReviewService;
-import ar.edu.itba.paw.models.Client;
-import ar.edu.itba.paw.models.Document;
 import ar.edu.itba.paw.models.Review;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
+import sun.reflect.generics.reflectiveObjects.NotImplementedException;
 
 import java.util.List;
 
 @Service
 @Transactional
-public class ReviewServiceImpl implements ReviewService {
+public class ReviewServiceImpl extends AbstractCRUDService<Review> implements ReviewService {
 
     private final ReviewDao reviewDao;
 
     @Autowired
     public ReviewServiceImpl(ReviewDao reviewDao) {
+        super(reviewDao);
         this.reviewDao = reviewDao;
     }
 
     @Override
-    public Review createReview(final Document file, final Client user, double ranking, String review) {
-        return reviewDao.createReview(file, user, ranking, review);
+    public void update(long pk, Review from) {
+        //TODO
+        throw new NotImplementedException();
     }
 
     @Override
-    public List<Review> findByFileId(int fileid) {
-        return reviewDao.findByFileId(fileid);
+    public List<Review> findByFileId(final long pk) {
+        return reviewDao.findByFileId(pk);
     }
 
     @Override
-    public double getAverage(int fileid) {
-        return reviewDao.getAverage(fileid);
+    public double getAverageFromFileId(final long pk) {
+        return reviewDao.getAverageFromFileId(pk);
     }
 
     @Override
-    public List<Review> findByUser(int clientId) {
-        return reviewDao.findByUser(clientId);
+    public List<Review> findByUserId(final long pk) {
+        return reviewDao.findByUserId(pk);
     }
 
 }

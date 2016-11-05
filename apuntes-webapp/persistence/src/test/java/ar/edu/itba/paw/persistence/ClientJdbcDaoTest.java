@@ -10,6 +10,8 @@ import org.springframework.test.context.ContextConfiguration;
 import org.springframework.test.context.junit4.SpringJUnit4ClassRunner;
 import org.springframework.transaction.annotation.Transactional;
 
+import java.util.List;
+
 @RunWith(SpringJUnit4ClassRunner.class)
 @ContextConfiguration(classes = TestConfig.class)
 @Transactional
@@ -27,7 +29,7 @@ public class ClientJdbcDaoTest {
     @Test
     public void testFindByIdExistingUser() {
 
-        final Client newClient = clientDao.create(USERNAME, PASSWORD, EMAIL);
+        final Client newClient = clientDao.create(new Client(USERNAME, PASSWORD, EMAIL));
 
         final Client lookupClient = clientDao.findById(newClient.getClientId());
 
@@ -45,7 +47,7 @@ public class ClientJdbcDaoTest {
 
     @Test
     public void testCreate() {
-        final Client client = clientDao.create(USERNAME, PASSWORD, EMAIL);
+        final Client client = clientDao.create(new Client(USERNAME, PASSWORD, EMAIL));
 
         Assert.assertNotNull(client);
         Assert.assertEquals(USERNAME, client.getName());
@@ -56,7 +58,7 @@ public class ClientJdbcDaoTest {
     @Test
     public void testFindByUsernameExistingUser() {
 
-        final Client newClient = clientDao.create(USERNAME, PASSWORD, EMAIL);
+        final Client newClient = clientDao.create(new Client(USERNAME, PASSWORD, EMAIL));
 
         final Client lookupClient = clientDao.findByUsername(newClient.getName());
 
@@ -70,5 +72,40 @@ public class ClientJdbcDaoTest {
         final Client user = clientDao.findByUsername(USERNAME);
 
         Assert.assertNull(user);
+    }
+
+    @Test
+    public void testFindByEmailExistingUser() {
+
+        final Client newClient = clientDao.create(new Client(USERNAME, PASSWORD, EMAIL));
+
+        final Client lookupClient = clientDao.findByEmail(newClient.getEmail());
+
+        Assert.assertNotNull(lookupClient);
+        Assert.assertEquals(newClient, lookupClient);
+        Assert.assertEquals(newClient.getEmail(), lookupClient.getEmail());
+    }
+
+    @Test
+    public void testFindByEmailNonExistingUser() {
+
+        final Client user = clientDao.findByEmail(EMAIL);
+
+        Assert.assertNull(user);
+    }
+
+    @Test
+    public void testGetAll() {
+
+        final Client client = clientDao.create(new Client(USERNAME, PASSWORD, EMAIL));
+
+        final List<Client> list = clientDao.getAll();
+
+        Assert.assertNotNull(list);
+        Assert.assertFalse(list.isEmpty());
+
+        final Client lookupClient = list.get(0);
+
+        Assert.assertEquals(client, lookupClient);
     }
 }

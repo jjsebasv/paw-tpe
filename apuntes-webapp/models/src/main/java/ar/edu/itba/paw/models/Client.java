@@ -10,7 +10,7 @@ public class Client {
     @GeneratedValue(strategy = GenerationType.SEQUENCE, generator = "clients_client_id_seq")
     @SequenceGenerator(sequenceName = "clients_client_id_seq", name = "clients_client_id_seq", allocationSize = 1)
     @Column(name = "client_id")
-    private Integer clientId;
+    private Long clientId;
 
     @Column(name = "username", length = 100, nullable = false)
     private String name;
@@ -39,7 +39,7 @@ public class Client {
         return name;
     }
 
-    public int getClientId() {
+    public long getClientId() {
         return clientId;
     }
 
@@ -89,6 +89,6 @@ public class Client {
 
     @Override
     public int hashCode() {
-        return clientId;
+        return clientId.hashCode();
     }
 }

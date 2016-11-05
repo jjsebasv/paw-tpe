@@ -46,10 +46,10 @@ public class DocumentJdbcDaoTest {
 
     @Test
     public void testCreate() throws IOException {
-        final Course course = courseDao.create(COURSE_CODE, COURSE_NAME);
-        final Client client = clientDao.create(USERNAME, PASSWORD, EMAIL);
+        final Course course = courseDao.create(new Course(COURSE_CODE, COURSE_NAME));
+        final Client client = clientDao.create(new Client(USERNAME, PASSWORD, EMAIL));
 
-        final Document document = documentDao.createDocument(client, course, SUBJECT, FILENAME, FILESIZE, CONTENTS);
+        final Document document = documentDao.create(new Document(client, course, SUBJECT, FILENAME, FILESIZE, CONTENTS));
 
         Assert.assertNotNull(document);
         Assert.assertEquals(course, document.getCourse());
@@ -66,12 +66,12 @@ public class DocumentJdbcDaoTest {
 
     @Test
     public void testFindById() {
-        final Course course = courseDao.create(COURSE_CODE, COURSE_NAME);
-        final Client client = clientDao.create(USERNAME, PASSWORD, EMAIL);
+        final Course course = courseDao.create(new Course(COURSE_CODE, COURSE_NAME));
+        final Client client = clientDao.create(new Client(USERNAME, PASSWORD, EMAIL));
 
-        final Document document = documentDao.createDocument(client, course, SUBJECT, FILENAME, FILESIZE, CONTENTS);
+        final Document document = documentDao.create(new Document(client, course, SUBJECT, FILENAME, FILESIZE, CONTENTS));
 
-        final int id = document.getDocumentId();
+        final long id = document.getDocumentId();
 
         final Document lookupDocument = documentDao.findById(id);
 
@@ -82,12 +82,12 @@ public class DocumentJdbcDaoTest {
 
     @Test
     public void testFindByNonExistingId() {
-        final Course course = courseDao.create(COURSE_CODE, COURSE_NAME);
-        final Client client = clientDao.create(USERNAME, PASSWORD, EMAIL);
+        final Course course = courseDao.create(new Course(COURSE_CODE, COURSE_NAME));
+        final Client client = clientDao.create(new Client(USERNAME, PASSWORD, EMAIL));
 
-        final Document document = documentDao.createDocument(client, course, SUBJECT, FILENAME, FILESIZE, CONTENTS);
+        final Document document = documentDao.create(new Document(client, course, SUBJECT, FILENAME, FILESIZE, CONTENTS));
 
-        final int id = document.getDocumentId();
+        final long id = document.getDocumentId();
 
         final Document lookupDocument = documentDao.findById(200);
 
@@ -97,10 +97,10 @@ public class DocumentJdbcDaoTest {
 
     @Test
     public void testFindByCourse() {
-        final Course course = courseDao.create(COURSE_CODE, COURSE_NAME);
-        final Client client = clientDao.create(USERNAME, PASSWORD, EMAIL);
+        final Course course = courseDao.create(new Course(COURSE_CODE, COURSE_NAME));
+        final Client client = clientDao.create(new Client(USERNAME, PASSWORD, EMAIL));
 
-        final Document document = documentDao.createDocument(client, course, SUBJECT, FILENAME, FILESIZE, CONTENTS);
+        final Document document = documentDao.create(new Document(client, course, SUBJECT, FILENAME, FILESIZE, CONTENTS));
 
         final List<Document> list = documentDao.findByCourseId(course.getCourseid());
 
@@ -114,12 +114,12 @@ public class DocumentJdbcDaoTest {
 
     @Test
     public void testFindByClient() {
-        final Course course = courseDao.create(COURSE_CODE, COURSE_NAME);
-        final Client client = clientDao.create(USERNAME, PASSWORD, EMAIL);
+        final Course course = courseDao.create(new Course(COURSE_CODE, COURSE_NAME));
+        final Client client = clientDao.create(new Client(USERNAME, PASSWORD, EMAIL));
 
-        final Document document = documentDao.createDocument(client, course, SUBJECT, FILENAME, FILESIZE, CONTENTS);
+        final Document document = documentDao.create(new Document(client, course, SUBJECT, FILENAME, FILESIZE, CONTENTS));
 
-        final List<Document> list = documentDao.findByClient(client);
+        final List<Document> list = documentDao.findByClientId(client.getClientId());
 
         Assert.assertNotNull(list);
         Assert.assertFalse(list.isEmpty());
@@ -132,10 +132,10 @@ public class DocumentJdbcDaoTest {
 
     @Test
     public void getAll() {
-        final Course course = courseDao.create(COURSE_CODE, COURSE_NAME);
-        final Client client = clientDao.create(USERNAME, PASSWORD, EMAIL);
+        final Course course = courseDao.create(new Course(COURSE_CODE, COURSE_NAME));
+        final Client client = clientDao.create(new Client(USERNAME, PASSWORD, EMAIL));
 
-        final Document document = documentDao.createDocument(client, course, SUBJECT, FILENAME, FILESIZE, CONTENTS);
+        final Document document = documentDao.create(new Document(client, course, SUBJECT, FILENAME, FILESIZE, CONTENTS));
 
         final List<Document> list = documentDao.getAll();
 

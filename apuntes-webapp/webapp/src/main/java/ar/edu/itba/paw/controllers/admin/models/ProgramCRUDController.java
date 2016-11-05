@@ -1,5 +1,7 @@
 package ar.edu.itba.paw.controllers.admin.models;
 
+import ar.edu.itba.paw.builders.ProgramBuilder;
+import ar.edu.itba.paw.controllers.admin.AbstractCRUDController;
 import ar.edu.itba.paw.forms.admin.ProgramAdminForm;
 import ar.edu.itba.paw.interfaces.ProgramService;
 import ar.edu.itba.paw.models.Program;
@@ -12,13 +14,11 @@ import org.springframework.web.servlet.ModelAndView;
 import javax.validation.Valid;
 
 @Controller
-public class ProgramCRUDController {
-
-    private final ProgramService ps;
+public class ProgramCRUDController extends AbstractCRUDController<Program> {
 
     @Autowired
     public ProgramCRUDController(ProgramService ps) {
-        this.ps = ps;
+        super(ps);
     }
 
     @RequestMapping(value = "/admin/programs/create", method = {RequestMethod.GET})
@@ -33,7 +33,12 @@ public class ProgramCRUDController {
             return create(form);
         }
 
-        final Program program = ps.create(form.getName(), form.getShortName(), form.getGroup().charAt(0));
+        final Program program = service.create(new ProgramBuilder().
+                setName(form.getName())
+                .setShortName(form.getShortName())
+                .setGroup(form.getGroup().charAt(0))
+                .createModel());
+
         return new ModelAndView("redirect:/admin/programs/" + program.getProgramid() + "/edit");
     }
 
@@ -42,7 +47,7 @@ public class ProgramCRUDController {
     public ModelAndView read(@PathVariable("pk") int programid, @ModelAttribute("programForm") final ProgramAdminForm form) {
         final ModelAndView mav = new ModelAndView("admin/details/program");
 
-        final Program program = ps.findById(programid);
+        final Program program = service.findById(programid);
 
         if (program == null) {
             return new ModelAndView("404");
@@ -69,20 +74,20 @@ public class ProgramCRUDController {
             return read(programid, form);
         }
 
-        final Program program = ps.findById(programid);
+        final Program program = service.findById(programid);
 
         if (program == null) {
             return new ModelAndView("404");
         }
 
-        ps.update(programid, form.buildObjectFromForm());
+        service.update(programid, form.buildObjectFromForm());
 
         return new ModelAndView("redirect:/admin/programs/" + program.getProgramid() + "/edit");
     }
 
     //@RequestMapping(value = "/admin/programs/{pk:[0-9]+}/delete", method = {RequestMethod.POST})
     private ModelAndView delete(@PathVariable("pk") int programid) {
-        ps.delete(programid);
+        service.delete(programid);
 
         return new ModelAndView("redirect:/admin/programs/list");
     }

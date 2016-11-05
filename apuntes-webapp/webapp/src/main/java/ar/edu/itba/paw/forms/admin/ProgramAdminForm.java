@@ -1,6 +1,7 @@
 package ar.edu.itba.paw.forms.admin;
 
 
+import ar.edu.itba.paw.builders.ProgramBuilder;
 import ar.edu.itba.paw.interfaces.admin.IAdminForm;
 import ar.edu.itba.paw.models.Program;
 
@@ -46,7 +47,7 @@ public class ProgramAdminForm implements IAdminForm<Program> {
     }
 
     public Program buildObjectFromForm() {
-        return new Program(name, shortName, group == null ? 'g' : group.charAt(0));
+        return new ProgramBuilder().setName(name).setShortName(shortName).setGroup(group == null ? 'g' : group.charAt(0)).createModel();
     }
 
     public void loadValuesFromInstance(final Program program) {

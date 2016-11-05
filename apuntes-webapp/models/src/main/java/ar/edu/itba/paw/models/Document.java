@@ -2,16 +2,17 @@ package ar.edu.itba.paw.models;
 
 import javax.persistence.*;
 import java.util.Date;
+import java.util.List;
 
 @Entity
-@Table(name = "Documents")
+@Table(name = "documents")
 public class Document {
 
     @Id
     @GeneratedValue(strategy = GenerationType.SEQUENCE, generator = "document_document_id_seq")
     @SequenceGenerator(sequenceName = "document_document_id_seq", name = "document_document_id_seq", allocationSize = 1)
     @Column(name = "document_id")
-    private Integer documentId;
+    private Long documentId;
 
     @ManyToOne(fetch = FetchType.EAGER, optional = false)
     @JoinColumn(name = "client_id")
@@ -28,16 +29,20 @@ public class Document {
     private String documentName;
 
     @Column(name = "document_size")
-    private int documentSize;
+    private long documentSize;
 
-    @Column(nullable = false)
+    @Column(name = "uploaded_document", nullable = false)
     private byte[] data;
 
     @Column(name = "date_uploaded", updatable = false)
     @Temporal(TemporalType.TIMESTAMP)
     private Date dateUploaded;
 
-    public Document(final Client user, final Course course, final String subject, final String documentName, final int documentSize, final byte[] data) {
+    @OneToMany(fetch = FetchType.EAGER)
+    @JoinColumn(name = "course_id")
+    private List<Review> courses;
+
+    public Document(final Client user, final Course course, final String subject, final String documentName, final long documentSize, final byte[] data) {
         this.user = user;
         this.course = course;
         this.subject = subject;
@@ -46,10 +51,11 @@ public class Document {
         this.data = data;
     }
 
-    public Document() {
+    /* package */ Document() {
+        // Just for Hibernate, we love you!
     }
 
-    public int getDocumentId() {
+    public long getDocumentId() {
         return documentId;
     }
 
@@ -69,7 +75,7 @@ public class Document {
         return documentName;
     }
 
-    public int getDocumentSize() {
+    public long getDocumentSize() {
         return documentSize;
     }
 

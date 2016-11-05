@@ -26,7 +26,7 @@ public class CourseJdbcDaoTest {
 
     @Test
     public void testCreate() {
-        final Course course = courseDao.create(COURSE_CODE, COURSE_NAME);
+        final Course course = courseDao.create(new Course(COURSE_CODE, COURSE_NAME));
 
         Assert.assertNotNull(course);
         Assert.assertEquals(COURSE_CODE, course.getCode());
@@ -36,7 +36,7 @@ public class CourseJdbcDaoTest {
 
     @Test
     public void testFindByName() {
-        final Course course = courseDao.create(COURSE_CODE, COURSE_NAME);
+        final Course course = courseDao.create(new Course(COURSE_CODE, COURSE_NAME));
 
         final List<Course> list = courseDao.findByName(COURSE_NAME);
 
@@ -51,7 +51,7 @@ public class CourseJdbcDaoTest {
 
     @Test
     public void testFindByNonExistingName() {
-        final Course course = courseDao.create(COURSE_CODE, COURSE_NAME);
+        final Course course = courseDao.create(new Course(COURSE_CODE, COURSE_NAME));
 
         final List<Course> list = courseDao.findByName("abc");
 
@@ -60,7 +60,7 @@ public class CourseJdbcDaoTest {
 
     @Test
     public void testFindByCode() {
-        final Course course = courseDao.create(COURSE_CODE, COURSE_NAME);
+        final Course course = courseDao.create(new Course(COURSE_CODE, COURSE_NAME));
 
         final Course lookupCourse = courseDao.findByCode(COURSE_CODE);
 
@@ -71,7 +71,7 @@ public class CourseJdbcDaoTest {
 
     @Test
     public void testFindByNonExistingCode() {
-        final Course course = courseDao.create(COURSE_CODE, COURSE_NAME);
+        final Course course = courseDao.create(new Course(COURSE_CODE, COURSE_NAME));
 
         final Course lookupCourse = courseDao.findByCode("00.00");
 
@@ -80,8 +80,8 @@ public class CourseJdbcDaoTest {
 
     @Test
     public void testFindById() {
-        final Course course = courseDao.create(COURSE_CODE, COURSE_NAME);
-        final int id = course.getCourseid();
+        final Course course = courseDao.create(new Course(COURSE_CODE, COURSE_NAME));
+        final long id = course.getCourseid();
 
         final Course lookupCourse = courseDao.findById(id);
 
@@ -92,8 +92,8 @@ public class CourseJdbcDaoTest {
 
     @Test
     public void testFindByNonExistingId() {
-        final Course course = courseDao.create(COURSE_CODE, COURSE_NAME);
-        final int id = course.getCourseid();
+        final Course course = courseDao.create(new Course(COURSE_CODE, COURSE_NAME));
+        final long id = course.getCourseid();
 
         final Course lookupCourse = courseDao.findById(200);
 
@@ -101,9 +101,9 @@ public class CourseJdbcDaoTest {
     }
 
     @Test
-    public void getAll() {
+    public void testGetAll() {
 
-        final Course course = courseDao.create(COURSE_CODE, COURSE_NAME);
+        final Course course = courseDao.create(new Course(COURSE_CODE, COURSE_NAME));
 
         final List<Course> list = courseDao.getAll();
 
@@ -113,5 +113,29 @@ public class CourseJdbcDaoTest {
         final Course lookupCourse = list.get(0);
 
         Assert.assertEquals(course, lookupCourse);
+    }
+
+    @Test
+    public void testFindByTerm() {
+        final Course course = courseDao.create(new Course(COURSE_CODE, COURSE_NAME));
+
+        final List<Course> list = courseDao.findByTerm(COURSE_NAME.split(" ")[0]);
+
+        Assert.assertNotNull(list);
+
+        Assert.assertFalse(list.isEmpty());
+
+        final Course lookupCourse = list.get(0);
+
+        Assert.assertEquals(course, lookupCourse);
+    }
+
+    @Test
+    public void testFindByNonExistingTerm() {
+        final Course course = courseDao.create(new Course(COURSE_CODE, COURSE_NAME));
+
+        final List<Course> list = courseDao.findByTerm("abc");
+
+        Assert.assertNull(list);
     }
 }
