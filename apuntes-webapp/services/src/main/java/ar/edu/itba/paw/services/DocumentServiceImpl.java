@@ -23,9 +23,13 @@ public class DocumentServiceImpl extends AbstractCRUDService<Document> implement
     }
 
     @Override
-    public void update(long pk, Document from) {
-        //TODO
-        throw new NotImplementedException();
+    public void update(final long pk, final Document from) {
+        final Document instance = findById(pk);
+
+        instance.setSubject(from.getSubject());
+        instance.setDocumentName(from.getDocumentName());
+        instance.setDocumentSize(from.getDocumentSize());
+        instance.setData(from.getData());
     }
 
     @Override

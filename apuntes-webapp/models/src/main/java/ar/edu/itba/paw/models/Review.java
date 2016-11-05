@@ -27,6 +27,14 @@ public class Review {
     @Column(length = 500, nullable = false)
     private String review;
 
+    public void setRanking(double ranking) {
+        this.ranking = ranking;
+    }
+
+    public void setReview(String review) {
+        this.review = review;
+    }
+
     @Column(name = "date_uploaded", updatable = false)
     @Temporal(TemporalType.TIMESTAMP)
     private Date dateUploaded;

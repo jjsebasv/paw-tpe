@@ -23,9 +23,11 @@ public class ReviewServiceImpl extends AbstractCRUDService<Review> implements Re
     }
 
     @Override
-    public void update(long pk, Review from) {
-        //TODO
-        throw new NotImplementedException();
+    public void update(final long pk, final Review from) {
+        final Review instance = findById(pk);
+
+        instance.setRanking(from.getRanking());
+        instance.setReview(from.getReview());
     }
 
     @Override

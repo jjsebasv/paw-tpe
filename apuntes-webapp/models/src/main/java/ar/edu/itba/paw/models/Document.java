@@ -107,4 +107,20 @@ public class Document {
     protected void onCreate() {
         this.dateUploaded = new Date();
     }
+
+    public void setSubject(String subject) {
+        this.subject = subject;
+    }
+
+    public void setDocumentName(String documentName) {
+        this.documentName = documentName;
+    }
+
+    public void setDocumentSize(long documentSize) {
+        this.documentSize = documentSize;
+    }
+
+    public void setData(byte[] data) {
+        this.data = data;
+    }
 }
