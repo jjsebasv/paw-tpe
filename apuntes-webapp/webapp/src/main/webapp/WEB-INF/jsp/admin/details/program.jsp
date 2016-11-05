@@ -9,11 +9,11 @@
                 <img src="resources/assets/back.svg">
             </a>
 
-            <c:if test="${empty programid}">
+            <c:if test="${empty pk}">
                 <h3 class="program-title"><spring:message code="admin.programs.create"/></h3>
             </c:if>
-            <c:if test="${not empty programid}">
-                <h3 class="program-title"><spring:message code="admin.programs.edit"/><c:out value="${programid}"/></h3>
+            <c:if test="${not empty pk}">
+                <h3 class="program-title"><spring:message code="admin.programs.edit"/><c:out value="${pk}"/></h3>
             </c:if>
 
             <div class="white-container-content">

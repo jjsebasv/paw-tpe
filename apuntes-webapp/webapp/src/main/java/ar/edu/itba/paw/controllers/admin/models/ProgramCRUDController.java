@@ -44,10 +44,10 @@ public class ProgramCRUDController extends AbstractCRUDController<Program> {
 
 
     @RequestMapping(value = "/admin/programs/{pk:[0-9]+}/edit", method = {RequestMethod.GET})
-    public ModelAndView read(@PathVariable("pk") int programid, @ModelAttribute("programForm") final ProgramAdminForm form) {
+    public ModelAndView read(@PathVariable("pk") int pk, @ModelAttribute("programForm") final ProgramAdminForm form) {
         final ModelAndView mav = new ModelAndView("admin/details/program");
 
-        final Program program = service.findById(programid);
+        final Program program = service.findById(pk);
 
         if (program == null) {
             return new ModelAndView("404");
@@ -55,39 +55,38 @@ public class ProgramCRUDController extends AbstractCRUDController<Program> {
 
         form.loadValuesFromInstance(program);
 
-        mav.addObject("programid", programid);
+        mav.addObject("pk", pk);
         return mav;
     }
 
 
     @RequestMapping(value = "/admin/programs/{pk:[0-9]+}/edit", method = {RequestMethod.POST})
-    public ModelAndView update(@PathVariable("pk") int programid,
+    public ModelAndView update(@PathVariable("pk") int pk,
                                @Valid @ModelAttribute("programForm") final ProgramAdminForm form,
                                @RequestParam("action") String action,
                                final BindingResult errors) {
 
         if (action.equals("delete")) {
-            return delete(programid);
+            return delete(pk);
         }
 
         if (errors.hasErrors()) {
-            return read(programid, form);
+            return read(pk, form);
         }
 
-        final Program program = service.findById(programid);
+        final Program program = service.findById(pk);
 
         if (program == null) {
             return new ModelAndView("404");
         }
 
-        service.update(programid, form.buildObjectFromForm());
+        service.update(pk, form.buildObjectFromForm());
 
         return new ModelAndView("redirect:/admin/programs/" + program.getProgramid() + "/edit");
     }
 
-    //@RequestMapping(value = "/admin/programs/{pk:[0-9]+}/delete", method = {RequestMethod.POST})
-    private ModelAndView delete(@PathVariable("pk") int programid) {
-        service.delete(programid);
+    private ModelAndView delete(long pk) {
+        service.delete(pk);
 
         return new ModelAndView("redirect:/admin/programs/list");
     }

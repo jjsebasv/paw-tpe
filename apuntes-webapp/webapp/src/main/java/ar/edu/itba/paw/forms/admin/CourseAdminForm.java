@@ -15,7 +15,7 @@ public class CourseAdminForm implements IAdminForm<Course> {
     private String code;
 
     @Size(min = 3, max = 200)
-    @Pattern(regexp = "[a-zA-Z0-9\\s]+")
+    @Pattern(regexp = "[a-zA-Z0-9\\sáéíóú]+")
     private String name;
 
     public String getCode() {

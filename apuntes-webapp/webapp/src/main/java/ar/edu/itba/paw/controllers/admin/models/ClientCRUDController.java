@@ -46,10 +46,10 @@ public class ClientCRUDController extends AbstractCRUDController<Client> {
 
 
     @RequestMapping(value = "/admin/clients/{pk:[0-9]+}/edit", method = {RequestMethod.GET})
-    public ModelAndView read(@PathVariable("pk") int clientid, @ModelAttribute("clientForm") final ClientAdminForm form) {
+    public ModelAndView read(@PathVariable("pk") long pk, @ModelAttribute("clientForm") final ClientAdminForm form) {
         final ModelAndView mav = new ModelAndView("admin/details/client");
 
-        final Client client = service.findById(clientid);
+        final Client client = service.findById(pk);
 
         if (client == null) {
             return new ModelAndView("404");
@@ -57,38 +57,38 @@ public class ClientCRUDController extends AbstractCRUDController<Client> {
 
         form.loadValuesFromInstance(client);
 
-        mav.addObject("clientid", clientid);
+        mav.addObject("pk", pk);
         return mav;
     }
 
 
     @RequestMapping(value = "/admin/clients/{pk:[0-9]+}/edit", method = {RequestMethod.POST})
-    public ModelAndView update(@PathVariable("pk") int clientid,
+    public ModelAndView update(@PathVariable("pk") long pk,
                                @Valid @ModelAttribute("clientForm") final ClientAdminForm form,
                                @RequestParam("action") String action,
                                final BindingResult errors) {
 
         if (action.equals("delete")) {
-            return delete(clientid);
+            return delete(pk);
         }
 
         if (errors.hasErrors()) {
-            return read(clientid, form);
+            return read(pk, form);
         }
 
-        final Client client = service.findById(clientid);
+        final Client client = service.findById(pk);
 
         if (client == null) {
             return new ModelAndView("404");
         }
 
-        service.update(clientid, form.buildObjectFromForm());
+        service.update(pk, form.buildObjectFromForm());
 
         return new ModelAndView("redirect:/admin/clients/" + client.getClientId() + "/edit");
     }
 
-    private ModelAndView delete(@PathVariable("pk") int clientid) {
-        service.delete(clientid);
+    private ModelAndView delete(long pk) {
+        service.delete(pk);
 
         return new ModelAndView("redirect:/admin/clients/list");
     }

@@ -11,7 +11,7 @@ import javax.validation.constraints.Size;
 public class ProgramAdminForm implements IAdminForm<Program> {
 
     @Size(min = 6, max = 100)
-    @Pattern(regexp = "[a-zA-Z0-9\\s]+")
+    @Pattern(regexp = "[a-zA-Z0-9\\sáéíóú]+")
     private String name;
 
     @Size(min = 5, max = 50)

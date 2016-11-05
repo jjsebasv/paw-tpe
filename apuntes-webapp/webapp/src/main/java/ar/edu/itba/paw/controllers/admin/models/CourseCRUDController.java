@@ -48,10 +48,10 @@ public class CourseCRUDController extends AbstractCRUDController<Course> {
 
 
     @RequestMapping(value = "/admin/courses/{pk:[0-9]+}/edit", method = {RequestMethod.GET})
-    public ModelAndView read(@PathVariable("pk") int courseid, @ModelAttribute("courseForm") final CourseAdminForm form) {
+    public ModelAndView read(@PathVariable("pk") int pk, @ModelAttribute("courseForm") final CourseAdminForm form) {
         final ModelAndView mav = new ModelAndView("admin/details/course");
 
-        final Course course = service.findById(courseid);
+        final Course course = service.findById(pk);
 
         if (course == null) {
             return new ModelAndView("404");
@@ -59,40 +59,39 @@ public class CourseCRUDController extends AbstractCRUDController<Course> {
 
         form.loadValuesFromInstance(course);
 
-        mav.addObject("courseid", courseid);
+        mav.addObject("pk", pk);
         return mav;
     }
 
 
     @RequestMapping(value = "/admin/courses/{pk:[0-9]+}/edit", method = {RequestMethod.POST})
-    public ModelAndView update(@PathVariable("pk") int courseid,
+    public ModelAndView update(@PathVariable("pk") int pk,
                                @Valid @ModelAttribute("courseForm") final CourseAdminForm form,
                                @RequestParam("action") String action,
                                final BindingResult errors) {
 
         if (action.equals("delete")) {
-            return delete(courseid);
+            return delete(pk);
         }
 
         //courseAdminFormValidator.validate(form, errors);
         if (errors.hasErrors()) {
-            return read(courseid, form);
+            return read(pk, form);
         }
 
-        final Course course = service.findById(courseid);
+        final Course course = service.findById(pk);
 
         if (course == null) {
             return new ModelAndView("404");
         }
 
-        service.update(courseid, form.buildObjectFromForm());
+        service.update(pk, form.buildObjectFromForm());
 
         return new ModelAndView("redirect:/admin/courses/" + course.getCourseid() + "/edit");
     }
 
-    //@RequestMapping(value = "/admin/courses/{pk:[0-9]+}/delete", method = {RequestMethod.POST})
-    private ModelAndView delete(@PathVariable("pk") int courseid) {
-        service.delete(courseid);
+    private ModelAndView delete(int pk) {
+        service.delete(pk);
 
         return new ModelAndView("redirect:/admin/courses/list");
     }
