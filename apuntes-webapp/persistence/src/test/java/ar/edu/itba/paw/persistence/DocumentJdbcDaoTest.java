@@ -1,6 +1,7 @@
 package ar.edu.itba.paw.persistence;
 
 import ar.edu.itba.paw.models.Client;
+import ar.edu.itba.paw.models.ClientRole;
 import ar.edu.itba.paw.models.Course;
 import ar.edu.itba.paw.models.Document;
 import org.junit.Assert;
@@ -27,6 +28,8 @@ public class DocumentJdbcDaoTest {
     private static final String USERNAME = "PAW USER";
     private static final String PASSWORD = "PAWPASS";
     private static final String EMAIL = "asd@email.com";
+    private static final ClientRole ROLE = ClientRole.ROLE_USER;
+
 
     private static final String SUBJECT = "Esto es un subject";
     private static final String FILENAME = "nombre_del_archivo.xyz";
@@ -47,7 +50,7 @@ public class DocumentJdbcDaoTest {
     @Test
     public void testCreate() throws IOException {
         final Course course = courseDao.create(new Course(COURSE_CODE, COURSE_NAME));
-        final Client client = clientDao.create(new Client(USERNAME, PASSWORD, EMAIL));
+        final Client client = clientDao.create(new Client(USERNAME, PASSWORD, EMAIL, ROLE));
 
         final Document document = documentDao.create(new Document(client, course, SUBJECT, FILENAME, FILESIZE, CONTENTS));
 
@@ -67,7 +70,7 @@ public class DocumentJdbcDaoTest {
     @Test
     public void testFindById() {
         final Course course = courseDao.create(new Course(COURSE_CODE, COURSE_NAME));
-        final Client client = clientDao.create(new Client(USERNAME, PASSWORD, EMAIL));
+        final Client client = clientDao.create(new Client(USERNAME, PASSWORD, EMAIL, ROLE));
 
         final Document document = documentDao.create(new Document(client, course, SUBJECT, FILENAME, FILESIZE, CONTENTS));
 
@@ -83,7 +86,7 @@ public class DocumentJdbcDaoTest {
     @Test
     public void testFindByNonExistingId() {
         final Course course = courseDao.create(new Course(COURSE_CODE, COURSE_NAME));
-        final Client client = clientDao.create(new Client(USERNAME, PASSWORD, EMAIL));
+        final Client client = clientDao.create(new Client(USERNAME, PASSWORD, EMAIL, ROLE));
 
         final Document document = documentDao.create(new Document(client, course, SUBJECT, FILENAME, FILESIZE, CONTENTS));
 
@@ -98,7 +101,7 @@ public class DocumentJdbcDaoTest {
     @Test
     public void testFindByCourse() {
         final Course course = courseDao.create(new Course(COURSE_CODE, COURSE_NAME));
-        final Client client = clientDao.create(new Client(USERNAME, PASSWORD, EMAIL));
+        final Client client = clientDao.create(new Client(USERNAME, PASSWORD, EMAIL, ROLE));
 
         final Document document = documentDao.create(new Document(client, course, SUBJECT, FILENAME, FILESIZE, CONTENTS));
 
@@ -115,7 +118,7 @@ public class DocumentJdbcDaoTest {
     @Test
     public void testFindByClient() {
         final Course course = courseDao.create(new Course(COURSE_CODE, COURSE_NAME));
-        final Client client = clientDao.create(new Client(USERNAME, PASSWORD, EMAIL));
+        final Client client = clientDao.create(new Client(USERNAME, PASSWORD, EMAIL, ROLE));
 
         final Document document = documentDao.create(new Document(client, course, SUBJECT, FILENAME, FILESIZE, CONTENTS));
 
@@ -133,7 +136,7 @@ public class DocumentJdbcDaoTest {
     @Test
     public void getAll() {
         final Course course = courseDao.create(new Course(COURSE_CODE, COURSE_NAME));
-        final Client client = clientDao.create(new Client(USERNAME, PASSWORD, EMAIL));
+        final Client client = clientDao.create(new Client(USERNAME, PASSWORD, EMAIL, ROLE));
 
         final Document document = documentDao.create(new Document(client, course, SUBJECT, FILENAME, FILESIZE, CONTENTS));
 

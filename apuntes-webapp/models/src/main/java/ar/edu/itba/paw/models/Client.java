@@ -29,10 +29,11 @@ public class Client {
         // Just for Hibernate, we love you!
     }
 
-    public Client(String name, String password, String email) {
+    public Client(String name, String password, String email, ClientRole role) {
         this.name = name;
         this.password = password;
         this.email = email;
+        this.role = role;
     }
 
     public String getName() {

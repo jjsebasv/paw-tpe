@@ -28,9 +28,11 @@
                     <c:set var="passwordHasBindError">
                         <form:errors path="password"/>
                     </c:set>
-                    <c:set var="repeatPasswordHasBindError">
-                        <form:errors path="repeatPassword"/>
+                    <c:set var="roleHasBindError">
+                        <form:errors path="role"/>
                     </c:set>
+
+
                     <div class="column left form-group input-base-wrapper ${not empty usernameHasBindError?"has-error":""}">
                         <form:label path="username"><spring:message code="models.client.username"/>: </form:label>
                         <form:input class="form-control" type="text" path="username"/>
@@ -46,12 +48,12 @@
                         <form:input class="form-control" type="password" path="password"/>
                         <form:errors path="password" cssClass="help-block" element="p"/>
                     </div>
-                    <div class="column left form-group input-base-wrapper ${not empty repeatPasswordHasBindError?"has-error":""}">
-                        <form:label path="repeatPassword"><spring:message
-                                code="models.client.password.repeat"/>:</form:label>
-                        <form:input class="form-control" type="password" path="repeatPassword"/>
-                        <form:errors path="repeatPassword" cssClass="help-block" element="p"/>
+                    <div class="column left form-group input-base-wrapper ${not empty roleHasBindError?"has-error":""}">
+                        <form:label path="role"><spring:message code="models.client.role"/>:</form:label>
+                        <form:select path="role" items="${roleOptions}"/>
+                        <form:errors path="role" cssClass="help-block" element="p"/>
                     </div>
+
 
                     <div class="form-group item-center">
                         <button class="submit-button" type="submit" name="action" value="save">

@@ -2,11 +2,13 @@ package ar.edu.itba.paw.builders;
 
 import ar.edu.itba.paw.interfaces.ModelBuilder;
 import ar.edu.itba.paw.models.Client;
+import ar.edu.itba.paw.models.ClientRole;
 
 public class ClientBuilder implements ModelBuilder<Client> {
     private String name;
     private String password;
     private String email;
+    private ClientRole role;
 
     public ClientBuilder setName(String name) {
         this.name = name;
@@ -23,7 +25,13 @@ public class ClientBuilder implements ModelBuilder<Client> {
         return this;
     }
 
-    public Client createModel() {
-        return new Client(name, password, email);
+    public ClientBuilder setRole(ClientRole role) {
+        this.role = role;
+        return this;
     }
+
+    public Client createModel() {
+        return new Client(name, password, email, role);
+    }
+
 }

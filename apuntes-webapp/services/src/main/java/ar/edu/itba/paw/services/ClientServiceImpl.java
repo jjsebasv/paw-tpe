@@ -37,6 +37,7 @@ public class ClientServiceImpl extends AbstractCRUDService<Client> implements Cl
         instance.setName(from.getName());
         instance.setEmail(from.getEmail());
         instance.setPassword(from.getPassword());
+        instance.setRole(from.getRole());
     }
 
 }

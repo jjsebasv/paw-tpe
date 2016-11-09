@@ -1,6 +1,7 @@
 package ar.edu.itba.paw.persistence;
 
 import ar.edu.itba.paw.models.Client;
+import ar.edu.itba.paw.models.ClientRole;
 import org.junit.Assert;
 import org.junit.Test;
 import org.junit.runner.RunWith;
@@ -21,6 +22,7 @@ public class ClientJdbcDaoTest {
     private static final String USERNAME = "PAW USER";
     private static final String PASSWORD = "PAWPASS";
     private static final String EMAIL = "asd@email.com";
+    private static final ClientRole ROLE = ClientRole.ROLE_USER;
 
     @Autowired
     private ClientHibernateDao clientDao;
@@ -29,7 +31,7 @@ public class ClientJdbcDaoTest {
     @Test
     public void testFindByIdExistingUser() {
 
-        final Client newClient = clientDao.create(new Client(USERNAME, PASSWORD, EMAIL));
+        final Client newClient = clientDao.create(new Client(USERNAME, PASSWORD, EMAIL, ROLE));
 
         final Client lookupClient = clientDao.findById(newClient.getClientId());
 
@@ -47,7 +49,7 @@ public class ClientJdbcDaoTest {
 
     @Test
     public void testCreate() {
-        final Client client = clientDao.create(new Client(USERNAME, PASSWORD, EMAIL));
+        final Client client = clientDao.create(new Client(USERNAME, PASSWORD, EMAIL, ROLE));
 
         Assert.assertNotNull(client);
         Assert.assertEquals(USERNAME, client.getName());
@@ -58,7 +60,7 @@ public class ClientJdbcDaoTest {
     @Test
     public void testFindByUsernameExistingUser() {
 
-        final Client newClient = clientDao.create(new Client(USERNAME, PASSWORD, EMAIL));
+        final Client newClient = clientDao.create(new Client(USERNAME, PASSWORD, EMAIL, ROLE));
 
         final Client lookupClient = clientDao.findByUsername(newClient.getName());
 
@@ -77,7 +79,7 @@ public class ClientJdbcDaoTest {
     @Test
     public void testFindByEmailExistingUser() {
 
-        final Client newClient = clientDao.create(new Client(USERNAME, PASSWORD, EMAIL));
+        final Client newClient = clientDao.create(new Client(USERNAME, PASSWORD, EMAIL, ROLE));
 
         final Client lookupClient = clientDao.findByEmail(newClient.getEmail());
 
@@ -97,7 +99,7 @@ public class ClientJdbcDaoTest {
     @Test
     public void testGetAll() {
 
-        final Client client = clientDao.create(new Client(USERNAME, PASSWORD, EMAIL));
+        final Client client = clientDao.create(new Client(USERNAME, PASSWORD, EMAIL, ROLE));
 
         final List<Client> list = clientDao.getAll();
 

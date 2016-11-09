@@ -5,6 +5,7 @@ import ar.edu.itba.paw.controllers.admin.AbstractCRUDController;
 import ar.edu.itba.paw.forms.admin.ClientAdminForm;
 import ar.edu.itba.paw.interfaces.ClientService;
 import ar.edu.itba.paw.models.Client;
+import ar.edu.itba.paw.models.ClientRole;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
 import org.springframework.validation.BindingResult;
@@ -25,7 +26,11 @@ public class ClientCRUDController extends AbstractCRUDController<Client> {
 
     @RequestMapping(value = "/admin/clients/create", method = {RequestMethod.GET})
     public ModelAndView create(@ModelAttribute("clientForm") final ClientAdminForm form) {
-        return new ModelAndView(CLIENT_DETAILS_VIEW);
+        final ModelAndView mav = new ModelAndView(CLIENT_DETAILS_VIEW);
+
+        mav.addObject("roleOptions", ClientRole.values());
+
+        return mav;
     }
 
     @RequestMapping(value = "/admin/clients/create", method = {RequestMethod.POST})
@@ -58,6 +63,7 @@ public class ClientCRUDController extends AbstractCRUDController<Client> {
         form.loadValuesFromInstance(client);
 
         mav.addObject("pk", pk);
+        mav.addObject("roleOptions", ClientRole.values());
         return mav;
     }
 
