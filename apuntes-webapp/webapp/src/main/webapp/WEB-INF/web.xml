@@ -69,5 +69,25 @@
         <url-pattern>/*</url-pattern>
     </filter-mapping>
 
+    <error-page>
+        <error-code>404</error-code>
+        <location>/WEB-INF/jsp/404.jsp</location>
+    </error-page>
+
+
+
+    <error-page>
+        <error-code>500</error-code>
+        <location>/WEB-INF/jsp/500.jsp</location>
+    </error-page>
+
+    <error-page>
+        <error-code>400</error-code>
+        <location>/WEB-INF/jsp/400.jsp</location>
+    </error-page>
+
+    <error-page>
+        <location>/WEB-INF/jsp/generalError.jsp</location>
+    </error-page>
 
 </web-app>
