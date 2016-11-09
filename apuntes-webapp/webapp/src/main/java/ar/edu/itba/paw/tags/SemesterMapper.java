@@ -16,5 +16,4 @@ public class SemesterMapper {
 
         return new int[]{year, sem};
     }
-
 }

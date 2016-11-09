@@ -7,10 +7,9 @@
         <a href="" class="back-button">
             <img src="resources/assets/back.svg">
         </a>
-        <h3 class="program-title"><spring:message code="admin.index.title"/></h3>
+        <h3 class="content-title"><spring:message code="admin.index.title"/></h3>
         <div class="white-container-content">
             <ul class="list-wrapper">
-
 
                 <div class="semester-wrapper">
 

@@ -5,44 +5,60 @@
 <div class="register-form">
     <div class="content-wrapper">
         <div class="white-container">
-            <a href="" class="back-button">
+            <a href="/admin/clients/list" class="back-button">
                 <img src="resources/assets/back.svg">
             </a>
 
             <c:if test="${empty pk}">
-                <h3 class="program-title"><spring:message code="admin.clients.create"/></h3>
+                <h3 class="content-title"><spring:message code="models.client.create"/></h3>
             </c:if>
             <c:if test="${not empty pk}">
-                <h3 class="program-title"><spring:message code="admin.clients.edit"/><c:out value="${pk}"/></h3>
+                <h3 class="content-title"><spring:message code="models.client.edit" arguments="${pk}"/></h3>
             </c:if>
 
             <div class="white-container-content">
 
                 <form:form class="column left" modelAttribute="clientForm" action="" method="post">
-                    <c:set var="nameHasBindError">
-                        <form:errors path="code"/>
+                    <c:set var="usernameHasBindError">
+                        <form:errors path="username"/>
                     </c:set>
                     <c:set var="emailHasBindError">
-                        <form:errors path="name"/>
+                        <form:errors path="email"/>
                     </c:set>
-
-                    <div class="column left form-group input-base-wrapper ${not empty codeHasBindError?"has-error":""}">
-                        <form:label path="code"><spring:message code="models.courses.code"/>: </form:label>
-                        <form:input class="form-control" type="text" path="code"/>
-                        <form:errors path="code" cssClass="help-block" element="p"/>
+                    <c:set var="passwordHasBindError">
+                        <form:errors path="password"/>
+                    </c:set>
+                    <c:set var="repeatPasswordHasBindError">
+                        <form:errors path="repeatPassword"/>
+                    </c:set>
+                    <div class="column left form-group input-base-wrapper ${not empty usernameHasBindError?"has-error":""}">
+                        <form:label path="username"><spring:message code="models.client.username"/>: </form:label>
+                        <form:input class="form-control" type="text" path="username"/>
+                        <form:errors path="username" cssClass="help-block" element="p"/>
                     </div>
-                    <div class="column left form-group input-base-wrapper ${not empty nameHasBindError?"has-error":""}">
-                        <form:label path="name"><spring:message code="models.courses.name"/>: </form:label>
-                        <form:input class="form-control" type="text" path="name"/>
-                        <form:errors path="name" cssClass="help-block" element="p"/>
+                    <div class="column left form-group input-base-wrapper ${not empty emailHasBindError?"has-error":""}">
+                        <form:label path="email"><spring:message code="models.client.email"/>: </form:label>
+                        <form:input class="form-control" type="email" path="email"/>
+                        <form:errors path="email" cssClass="help-block" element="p"/>
+                    </div>
+                    <div class="column left form-group input-base-wrapper ${not empty passwordHasBindError?"has-error":""}">
+                        <form:label path="password"><spring:message code="models.client.password"/>: </form:label>
+                        <form:input class="form-control" type="password" path="password"/>
+                        <form:errors path="password" cssClass="help-block" element="p"/>
+                    </div>
+                    <div class="column left form-group input-base-wrapper ${not empty repeatPasswordHasBindError?"has-error":""}">
+                        <form:label path="repeatPassword"><spring:message
+                                code="models.client.password.repeat"/>:</form:label>
+                        <form:input class="form-control" type="password" path="repeatPassword"/>
+                        <form:errors path="repeatPassword" cssClass="help-block" element="p"/>
                     </div>
 
                     <div class="form-group item-center">
                         <button class="submit-button" type="submit" name="action" value="save">
-                            <spring:message code="admin.model.save"/>
+                            <spring:message code="models.save"/>
                         </button>
                         <button class="submit-button" type="submit" name="action" value="delete">
-                            <spring:message code="admin.model.delete"/>
+                            <spring:message code="models.delete"/>
                         </button>
                     </div>
                 </form:form>

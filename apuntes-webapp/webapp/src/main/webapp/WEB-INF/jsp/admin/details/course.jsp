@@ -5,15 +5,15 @@
 <div class="register-form">
     <div class="content-wrapper">
         <div class="white-container">
-            <a href="" class="back-button">
+            <a href="admin/courses/list" class="back-button">
                 <img src="resources/assets/back.svg">
             </a>
 
             <c:if test="${empty pk}">
-                <h3 class="program-title"><spring:message code="admin.courses.create"/></h3>
+                <h3 class="content-title"><spring:message code="models.course.create"/></h3>
             </c:if>
             <c:if test="${not empty pk}">
-                <h3 class="program-title"><spring:message code="admin.courses.edit"/><c:out value="${pk}"/></h3>
+                <h3 class="content-title"><spring:message code="models.course.edit" arguments="${pk}"/></h3>
             </c:if>
 
             <div class="white-container-content">
@@ -27,12 +27,12 @@
                     </c:set>
 
                     <div class="column left form-group input-base-wrapper ${not empty codeHasBindError?"has-error":""}">
-                        <form:label path="code"><spring:message code="models.courses.code"/>: </form:label>
+                        <form:label path="code"><spring:message code="models.course.code"/>: </form:label>
                         <form:input class="form-control" type="text" path="code"/>
                         <form:errors path="code" cssClass="help-block" element="p"/>
                     </div>
                     <div class="column left form-group input-base-wrapper ${not empty nameHasBindError?"has-error":""}">
-                        <form:label path="name"><spring:message code="models.courses.name"/>: </form:label>
+                        <form:label path="name"><spring:message code="models.course.name"/>: </form:label>
                         <form:input class="form-control" type="text" path="name"/>
                         <form:errors path="name" cssClass="help-block" element="p"/>
                     </div>
