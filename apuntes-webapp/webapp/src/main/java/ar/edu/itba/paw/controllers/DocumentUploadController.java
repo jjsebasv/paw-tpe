@@ -57,12 +57,8 @@ public class DocumentUploadController {
     }
 
     @RequestMapping(value = "/uploadDocument/finish", method = RequestMethod.POST)
-    @ResponseBody
     public ModelAndView submit(@Valid @ModelAttribute("documentForm") DocumentForm documentForm,
-                               BindingResult result,
-                               Model model,
                                @RequestParam CommonsMultipartFile multipartFile,
-                               HttpServletRequest request,
                                Authentication authentication,
                                final BindingResult errors) {
 
@@ -84,7 +80,6 @@ public class DocumentUploadController {
 
         LOGGER.info("Uploaded document {}", document);
         return new ModelAndView("redirect:/document/" + document.getDocumentId());
-
     }
 
 
