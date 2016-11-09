@@ -11,10 +11,10 @@
         <div class="white-container-content">
             <h4 class="course-size">
                 <%--TODO Internacionalizacion. El numero deberia estar dentro del string--%>
-                <c:out value="${entries.size()}"/> <spring:message code="admin.programs.size"/> <a href="admin/programs/create">+</a>
+                <c:out value="${entries.size()}"/> <spring:message code="admin.programs.size"/> <a
+                    href="admin/programs/create">+</a>
             </h4>
             <ul class="list-wrapper">
-
 
                 <c:forEach items="${entries}" var="entry">
 
@@ -30,6 +30,9 @@
                 </c:forEach>
 
             </ul>
+
+            <%@ include file="pagination.jsp" %>
+
             <c:if test="${entries.size() == 0}">
                 <h4><spring:message code="profile.no.documents"/></h4>
             </c:if>
