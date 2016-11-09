@@ -5,6 +5,8 @@ import ar.edu.itba.paw.auth.UserPrincipal;
 import ar.edu.itba.paw.builders.DocumentBuilder;
 import ar.edu.itba.paw.forms.DocumentForm;
 import ar.edu.itba.paw.interfaces.CourseService;
+import ar.edu.itba.paw.interfaces.DocumentService;
+import ar.edu.itba.paw.models.Course;
 import ar.edu.itba.paw.models.Document;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
@@ -28,42 +30,57 @@ public class DocumentUploadController {
 
     private final CourseService courseS;
 
+    private final DocumentService ds;
+
     @Autowired
-    public DocumentUploadController(CourseService courseS) {
+    public DocumentUploadController(CourseService courseS, DocumentService ds) {
         this.courseS = courseS;
+        this.ds = ds;
     }
 
     @RequestMapping(value = "/uploadDocument")
-    public ModelAndView uploadDocument(@ModelAttribute("documentForm") DocumentForm documentForm) {
-        return new ModelAndView("documentUploadView");
+    public ModelAndView uploadDocument(@ModelAttribute("documentForm") DocumentForm documentForm,
+                                       @RequestParam(value = "course", defaultValue = "", required = false) String courseCode) {
+
+        ModelAndView mav = new ModelAndView("documentUploadView");
+
+        final Course course = courseS.findByCode(courseCode);
+
+        if (course == null) {
+            return new ModelAndView("404");
+        }
+
+        mav.addObject("course", course);
+
+
+        return mav;
     }
 
     @RequestMapping(value = "/uploadDocument/finish", method = RequestMethod.POST)
-    public
     @ResponseBody
-    ModelAndView submit(@Valid @ModelAttribute("documentForm") DocumentForm documentForm,
-                        BindingResult result,
-                        Model model,
-                        @RequestParam CommonsMultipartFile multipartFile,
-                        HttpServletRequest request,
-                        Authentication authentication,
-                        final BindingResult errors) {
+    public ModelAndView submit(@Valid @ModelAttribute("documentForm") DocumentForm documentForm,
+                               BindingResult result,
+                               Model model,
+                               @RequestParam CommonsMultipartFile multipartFile,
+                               HttpServletRequest request,
+                               Authentication authentication,
+                               final BindingResult errors) {
 
 
         if (errors.hasErrors()) {
-            return uploadDocument(documentForm);
+            return uploadDocument(documentForm, "");
         }
 
         UserPrincipal client = (UserPrincipal) authentication.getPrincipal();
 
-        final Document document = new DocumentBuilder()
+        final Document document = ds.create(new DocumentBuilder()
                 .setUser(client.getClient())
                 .setCourse(courseS.findById(documentForm.getCourseid()))
                 .setSubject(documentForm.getSubject())
                 .setDocumentName(multipartFile.getOriginalFilename())
                 .setDocumentSize(multipartFile.getSize())
                 .setData(multipartFile.getBytes())
-                .createModel();
+                .createModel());
 
         LOGGER.info("Uploaded document {}", document);
         return new ModelAndView("redirect:/document/" + document.getDocumentId());

@@ -2,6 +2,8 @@ package ar.edu.itba.paw.services;
 
 import ar.edu.itba.paw.interfaces.ReviewDao;
 import ar.edu.itba.paw.interfaces.ReviewService;
+import ar.edu.itba.paw.models.Client;
+import ar.edu.itba.paw.models.Document;
 import ar.edu.itba.paw.models.Review;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
@@ -42,6 +44,11 @@ public class ReviewServiceImpl extends AbstractCRUDService<Review> implements Re
     @Override
     public List<Review> findByUserId(final long pk) {
         return reviewDao.findByUserId(pk);
+    }
+
+    @Override
+    public boolean canReview(Document document, Client client) {
+        return document.getReviews().isEmpty() || !document.getReviews().stream().anyMatch(review -> review.getUser().getClientId() == client.getClientId());
     }
 
 }

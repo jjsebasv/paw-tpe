@@ -39,8 +39,8 @@ public class Document {
     private Date dateUploaded;
 
     @OneToMany(fetch = FetchType.EAGER)
-    @JoinColumn(name = "course_id")
-    private List<Review> courses;
+    @JoinColumn(name = "document_id")
+    private List<Review> reviews;
 
     public Document(final Client user, final Course course, final String subject, final String documentName, final long documentSize, final byte[] data) {
         this.user = user;
@@ -122,5 +122,9 @@ public class Document {
 
     public void setData(byte[] data) {
         this.data = data;
+    }
+
+    public List<Review> getReviews() {
+        return reviews;
     }
 }

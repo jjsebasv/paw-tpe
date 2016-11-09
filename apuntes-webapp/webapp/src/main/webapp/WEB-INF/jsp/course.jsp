@@ -19,7 +19,7 @@
                 </c:if>
                 <c:if test="${documentsSize == 0 }">
                     <spring:message code="course.no.documents"/>
-                    <a href="${pageContext.request.contextPath}/uploadDocument">
+                    <a href="${pageContext.request.contextPath}/uploadDocument?course=${course.code}">
                         <button type="button" class="btn btn-default default-btn">
                             <spring:message code="course.first"/>
                         </button>

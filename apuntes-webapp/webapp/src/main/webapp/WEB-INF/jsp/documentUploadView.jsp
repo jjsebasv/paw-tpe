@@ -30,7 +30,9 @@
                     <div class="form-group column left input-base-wrapper ${not empty courseidHasBindError?"has-error":""}">
                         <form:label path="courseid"><spring:message code="uploadview.course"/>: </form:label>
                         <form:select path="courseid" class="form-control course-select input-base"
-                                     data-placeholder="${message_searchCourse}"/>
+                                     data-placeholder="${message_searchCourse}">
+                            <form:option value="${course.courseid}" label="${course.code} - ${course.name}"/>
+                        </form:select>
                         <form:errors path="courseid" cssClass="help-block" element="p"/>
                     </div>
                     <div class="form-group column left input-base-wrapper">

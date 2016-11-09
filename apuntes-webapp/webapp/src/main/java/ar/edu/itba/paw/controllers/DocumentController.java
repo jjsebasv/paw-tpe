@@ -29,14 +29,14 @@ import java.util.List;
 @Controller
 public class DocumentController {
 
-    private final DocumentService fs;
+    private final DocumentService ds;
     private final ReviewService rs;
 
 
     @Autowired
-    public DocumentController(ReviewService rs, DocumentService fs) {
+    public DocumentController(ReviewService rs, DocumentService ds) {
         this.rs = rs;
-        this.fs = fs;
+        this.ds = ds;
     }
 
 
@@ -44,25 +44,25 @@ public class DocumentController {
     public ModelAndView courseView(@PathVariable("pk") long pk, Authentication authentication) {
         ModelAndView mav = new ModelAndView("documentView");
 
-        final Document file = fs.findById(pk);
-        final List<Review> reviews = rs.findByFileId(pk);
+        final Document file = ds.findById(pk);
+//        final List<Review> reviews = rs.findByFileId(pk);
         if (file == null) {
             return new ModelAndView("404");
         }
 
-        final Document doc = fs.findById(pk);
+        final Document document = ds.findById(pk);
 
-        mav.addObject("document", doc);
+        mav.addObject("document", document);
         mav.addObject("username", file.getUser().getName());
         mav.addObject("reviewForm", new ReviewForm());
-        mav.addObject("reviews", reviews);
+//        mav.addObject("reviews", reviews);
         mav.addObject("average", rs.getAverageFromFileId(pk));
 
         if (authentication == null) {
             mav.addObject("can_review", false);
         } else {
             final Client client = ((UserPrincipal) authentication.getPrincipal()).getClient();
-            mav.addObject("can_review", reviews.isEmpty() || !reviews.stream().anyMatch(review -> review.getUser().getClientId() == client.getClientId()));
+            mav.addObject("can_review", rs.canReview(document, client));
         }
 
         return mav;
@@ -71,7 +71,7 @@ public class DocumentController {
     @RequestMapping("/download/{pk:[\\d]+}")
     public void downloadFile(HttpServletResponse response, @PathVariable("pk") long pk) throws IOException {
 
-        final Document file = fs.findById(pk);
+        final Document file = ds.findById(pk);
 
         //TODO Guardar mimetype para permitirle al navegador decidir
         response.setContentType("application/octet-stream");
@@ -87,7 +87,7 @@ public class DocumentController {
     @RequestMapping("/open/{pk:[\\d]+}")
     public void openFile(HttpServletResponse response, @PathVariable("pk") long pk) throws IOException {
 
-        final Document file = fs.findById(pk);
+        final Document file = ds.findById(pk);
 
         response.setContentLength((int) file.getDocumentSize());
         response.setContentType("application/pdf");
@@ -108,7 +108,7 @@ public class DocumentController {
         Client client = ((UserPrincipal) authentication.getPrincipal()).getClient();
 
         //FIXME Verificar que el usuario tenga permitido subir un review
-        final Document file = fs.findById(pk);
+        final Document file = ds.findById(pk);
 
         final Review review = new ReviewBuilder()
                 .setFile(file)
