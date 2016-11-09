@@ -1,9 +1,8 @@
 package ar.edu.itba.paw.tags;
 
-
 public class SemesterMapper {
 
-    public static String mapSemester(final int semester) {
+    public static int[] mapSemester(final int semester) {
 
         final int year = (semester / 2) + semester % 2;
 
@@ -15,7 +14,7 @@ public class SemesterMapper {
             sem = 2;
         }
 
-        return String.format("Año %s - Cuatrimestre %s", year, sem);
+        return new int[]{year, sem};
     }
 
 }

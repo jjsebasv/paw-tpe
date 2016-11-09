@@ -15,7 +15,7 @@
     <function>
         <name>mapSemester</name>
         <function-class>ar.edu.itba.paw.tags.SemesterMapper</function-class>
-        <function-signature>java.lang.String mapSemester(int)</function-signature>
+        <function-signature>int[] mapSemester(int)</function-signature>
     </function>
 
 </taglib>

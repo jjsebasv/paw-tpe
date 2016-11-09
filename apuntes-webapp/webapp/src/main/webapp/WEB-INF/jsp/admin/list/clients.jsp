@@ -15,7 +15,6 @@
             </h4>
             <ul class="list-wrapper">
 
-
                 <c:forEach items="${entries}" var="entry">
 
                     <li class="list-item course-item">
