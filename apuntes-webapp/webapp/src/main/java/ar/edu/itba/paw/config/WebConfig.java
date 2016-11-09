@@ -4,6 +4,7 @@ import org.flywaydb.core.Flyway;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 import org.springframework.beans.factory.annotation.Value;
+import org.springframework.context.MessageSource;
 import org.springframework.context.annotation.Bean;
 import org.springframework.context.annotation.ComponentScan;
 import org.springframework.context.annotation.Configuration;
@@ -29,6 +30,7 @@ import org.springframework.web.servlet.view.JstlView;
 import javax.persistence.EntityManagerFactory;
 import javax.sql.DataSource;
 import java.io.IOException;
+import java.nio.charset.StandardCharsets;
 import java.util.Properties;
 
 @EnableWebMvc
@@ -152,5 +154,14 @@ public class WebConfig extends WebMvcConfigurerAdapter {
 
         return messageSource;
     }
+
+//    @Bean
+//    public MessageSource messageSource() {
+//        final ReloadableResourceBundleMessageSource messageSource = new ReloadableResourceBundleMessageSource();
+//        messageSource.setBasename("classpath:i18n/messages");
+//        messageSource.setDefaultEncoding(StandardCharsets.UTF_8.displayName());
+//        messageSource.setCacheSeconds(5);
+//        return messageSource;
+//    }
 
 }

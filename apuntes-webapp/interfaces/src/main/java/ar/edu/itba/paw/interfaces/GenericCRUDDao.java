@@ -1,5 +1,7 @@
 package ar.edu.itba.paw.interfaces;
 
+import ar.edu.itba.paw.models.PagedResult;
+
 import java.util.List;
 
 public interface GenericCRUDDao<T> {
@@ -11,4 +13,8 @@ public interface GenericCRUDDao<T> {
     void delete(long pk);
 
     List<T> getAll();
+
+    PagedResult<T> getAll(int start, int limit);
+
+    int count();
 }

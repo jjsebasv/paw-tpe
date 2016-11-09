@@ -61,7 +61,6 @@ public class ClientCRUDController extends AbstractCRUDController<Client> {
         return mav;
     }
 
-
     @RequestMapping(value = "/admin/clients/{pk:[0-9]+}/edit", method = {RequestMethod.POST})
     public ModelAndView update(@PathVariable("pk") long pk,
                                @Valid @ModelAttribute("clientForm") final ClientAdminForm form,

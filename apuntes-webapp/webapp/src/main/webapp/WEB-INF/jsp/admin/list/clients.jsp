@@ -30,6 +30,9 @@
                 </c:forEach>
 
             </ul>
+
+            <%@ include file="pagination.jsp" %>
+
             <c:if test="${entries.size() == 0}">
                 <h4><spring:message code="profile.no.documents"/></h4>
             </c:if>

@@ -2,6 +2,7 @@ package ar.edu.itba.paw.persistence;
 
 
 import ar.edu.itba.paw.interfaces.GenericCRUDDao;
+import ar.edu.itba.paw.models.PagedResult;
 
 import javax.persistence.EntityManager;
 import javax.persistence.PersistenceContext;
@@ -53,4 +54,25 @@ abstract class AbstractCRUDHibernateDao<T> implements GenericCRUDDao<T> {
         final List<T> list = query.getResultList();
         return list.isEmpty() ? null : list;
     }
+
+    @Override
+    public PagedResult<T> getAll(final int start, final int limit) {
+        final TypedQuery<T> query = em.createQuery("from " + modelType.getName(), modelType);
+
+        query.setFirstResult(start);
+        query.setMaxResults(limit);
+
+        final List<T> list = query.getResultList();
+
+        return new PagedResult<T>(list.isEmpty() ? null : list, start, limit, count());
+
+    }
+
+    @Override
+    public int count() {
+        final TypedQuery<Long> countQuery = em.createQuery("select count(*) from " + modelType.getName(), Long.class);
+
+        return countQuery.getSingleResult().intValue();
+    }
 }
+

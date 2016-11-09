@@ -1,5 +1,7 @@
 package ar.edu.itba.paw.interfaces;
 
+import ar.edu.itba.paw.models.PagedResult;
+
 import java.util.List;
 
 public interface GenericCRUDService<T> {
@@ -13,4 +15,6 @@ public interface GenericCRUDService<T> {
     void delete(long pk);
 
     List<T> getAll();
+
+    PagedResult<T> getAll(int page);
 }
