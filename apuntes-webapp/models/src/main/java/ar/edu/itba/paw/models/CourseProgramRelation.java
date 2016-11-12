@@ -37,6 +37,18 @@ public class CourseProgramRelation {
         return semester;
     }
 
+    public void setProgram(Program program) {
+        this.program = program;
+    }
+
+    public void setCourse(Course course) {
+        this.course = course;
+    }
+
+    public void setSemester(int semester) {
+        this.semester = semester;
+    }
+
     public CourseProgramRelation(Program program, Course course, int semester) {
         this.program = program;
         this.course = course;

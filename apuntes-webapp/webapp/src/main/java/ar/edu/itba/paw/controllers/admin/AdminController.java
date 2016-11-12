@@ -21,17 +21,19 @@ public class AdminController {
     private final CourseService cs;
     private final ClientService cls;
     private final DocumentService ds;
+    private final CourseProgramRelationService cprs;
 
     private final static int INITIAL_PAGE = 1;
     private final static int NUMBER_OF_PAGES_TO_SHOW = 5;
 
 
     @Autowired
-    public AdminController(ProgramService ps, CourseService cs, ClientService cls, DocumentService ds) {
+    public AdminController(ProgramService ps, CourseService cs, ClientService cls, DocumentService ds, CourseProgramRelationService cprs) {
         this.ps = ps;
         this.cs = cs;
         this.cls = cls;
         this.ds = ds;
+        this.cprs = cprs;
     }
 
     @RequestMapping(value = "/admin")
@@ -45,6 +47,7 @@ public class AdminController {
         models.put("Courses", "courses");
         models.put("Clients", "clients");
         models.put("Documents", "documents");
+        models.put("Course to Program relationships", "courseprogramrelation");
 
         mav.addObject("models", models);
 
@@ -75,6 +78,10 @@ public class AdminController {
                 service = ds;
                 break;
 
+            case "courseprogramrelation":
+                service = cprs;
+                break;
+
             default:
                 return new ModelAndView("404");
         }
@@ -101,6 +108,7 @@ public class AdminController {
         mav.addObject("page", pagedResult.getCurrentPage());
         mav.addObject("pagesToShow", pagesToShow);
         mav.addObject("maxPage", pagedResult.getMaxPage());
+        mav.addObject("totalRows", pagedResult.getTotal());
 
         return mav;
     }

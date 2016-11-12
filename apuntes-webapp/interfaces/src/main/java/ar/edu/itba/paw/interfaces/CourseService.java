@@ -8,8 +8,6 @@ import java.util.Map;
 
 public interface CourseService extends GenericCRUDService<Course> {
 
-    List<Course> getAll();
-
     List<Course> findByName(String name);
 
     List<Course> findByTerm(String term);
@@ -17,8 +15,4 @@ public interface CourseService extends GenericCRUDService<Course> {
     Course findByCode(String code);
 
     Map<Integer, List<Course>> findByProgramId(long pk);
-
-    void addProgramRelationship(Course course, Program program, int semester);
-
-    boolean isRelatedTo(Course course, Program program);
 }

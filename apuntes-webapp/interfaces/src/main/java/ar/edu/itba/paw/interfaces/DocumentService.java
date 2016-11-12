@@ -9,6 +9,4 @@ public interface DocumentService extends GenericCRUDService<Document> {
     List<Document> findByCourseId(long pk);
 
     List<Document> findByClientId(long pk);
-
-    List<Document> getAll();
 }

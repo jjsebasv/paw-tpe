@@ -10,12 +10,12 @@
         <h3 class="content-title"><spring:message code="models.programs"/></h3>
         <div class="white-container-content">
             <h4 class="course-size">
-                <c:if test="${entries.size()==1}">
-                    <spring:message code="models.program.size" arguments="${entries.size()}"/> <a
+                <c:if test="${totalRows()==1}">
+                    <spring:message code="models.program.size" arguments="${totalRows()}"/> <a
                         href="admin/programs/create">+</a>
                 </c:if>
-                <c:if test="${entries.size()>1}">
-                    <spring:message code="models.program.size.plural" arguments="${entries.size()}"/> <a
+                <c:if test="${totalRows()>1}">
+                    <spring:message code="models.program.size.plural" arguments="${totalRows()}"/> <a
                         href="admin/programs/create">+</a>
                 </c:if>
             </h4>
@@ -35,7 +35,7 @@
 
             <%@ include file="pagination.jsp" %>
 
-            <c:if test="${entries.size() == 0}">
+            <c:if test="${totalRows() == 0}">
                 <h4><spring:message code="models.program.empty"/></h4>
             </c:if>
         </div>

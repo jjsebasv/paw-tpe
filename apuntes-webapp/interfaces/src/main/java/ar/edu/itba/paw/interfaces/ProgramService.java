@@ -6,8 +6,6 @@ import java.util.List;
 
 public interface ProgramService extends GenericCRUDService<Program> {
 
-    List<Program> getAll();
-
     List<Program> findByName(String name);
 
     List<Program> getProgramsFromCourseId(long pk);

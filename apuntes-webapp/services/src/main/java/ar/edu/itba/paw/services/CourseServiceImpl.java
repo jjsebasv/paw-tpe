@@ -5,7 +5,6 @@ import ar.edu.itba.paw.interfaces.CourseDao;
 import ar.edu.itba.paw.interfaces.CourseService;
 import ar.edu.itba.paw.models.Course;
 import ar.edu.itba.paw.models.CourseProgramRelation;
-import ar.edu.itba.paw.models.Program;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
@@ -58,18 +57,6 @@ public class CourseServiceImpl extends AbstractCRUDService<Course> implements Co
         }
 
         return coursesMap;
-    }
-
-    @Override
-    public void addProgramRelationship(final Course course, final Program program, final int semester) {
-        if (!isRelatedTo(course, program)) {
-            courseDao.addProgramRelationship(course, program, semester);
-        }
-    }
-
-    @Override
-    public boolean isRelatedTo(final Course course, final Program program) {
-        return courseDao.isRelatedTo(course, program);
     }
 
     @Override

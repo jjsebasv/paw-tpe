@@ -32,6 +32,9 @@ public class ProgramRelatedCourseJdbcDaoTest {
     private CourseHibernateDao courseDao;
 
     @Autowired
+    private CourseProgramRelationDao courseProgramRelationDao;
+
+    @Autowired
     private ProgramHibernateDao programDao;
 
     @Test
@@ -39,7 +42,7 @@ public class ProgramRelatedCourseJdbcDaoTest {
         final Course course = courseDao.create(new Course(COURSE_CODE, COURSE_NAME));
         final Program program = programDao.create(new Program(PROGRAM_NAME, PROGRAM_SHORTNAME, PROGRAM_GROUP));
 
-        courseDao.addProgramRelationship(course, program, COURSETOPROGRAM_SEMESTER);
+        courseProgramRelationDao.addProgramRelationship(course.getCourseid(), program.getProgramid(), COURSETOPROGRAM_SEMESTER);
 
         List<CourseProgramRelation> courseList = courseDao.findByProgramId(program.getProgramid());
 
@@ -51,7 +54,7 @@ public class ProgramRelatedCourseJdbcDaoTest {
 
         Assert.assertEquals(course, relatedCourse);
 
-        Assert.assertTrue(courseDao.isRelatedTo(course, program));
+        Assert.assertTrue(courseProgramRelationDao.isRelatedTo(course.getCourseid(), program.getProgramid()));
     }
 
     @Test
@@ -60,7 +63,7 @@ public class ProgramRelatedCourseJdbcDaoTest {
         final Course course = courseDao.create(new Course(COURSE_CODE, COURSE_NAME));
         final Program program = programDao.create(new Program(PROGRAM_NAME, PROGRAM_SHORTNAME, PROGRAM_GROUP));
 
-        courseDao.addProgramRelationship(course, program, COURSETOPROGRAM_SEMESTER);
+        courseProgramRelationDao.addProgramRelationship(course.getCourseid(), program.getProgramid(), COURSETOPROGRAM_SEMESTER);
 
         List<Program> programList = programDao.getProgramsFromCourseId(course.getCourseid());
 
@@ -72,6 +75,6 @@ public class ProgramRelatedCourseJdbcDaoTest {
 
         Assert.assertEquals(program, relatedProgram);
 
-        Assert.assertTrue(courseDao.isRelatedTo(course, program));
+        Assert.assertTrue(courseProgramRelationDao.isRelatedTo(course.getCourseid(), program.getProgramid()));
     }
 }
