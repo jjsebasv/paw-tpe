@@ -1,7 +1,7 @@
 package ar.edu.itba.paw.forms.admin;
 
 
-import ar.edu.itba.paw.builders.CourseBuilder;
+import ar.edu.itba.paw.models.builders.CourseBuilder;
 import ar.edu.itba.paw.interfaces.admin.IAdminForm;
 import ar.edu.itba.paw.models.Course;
 

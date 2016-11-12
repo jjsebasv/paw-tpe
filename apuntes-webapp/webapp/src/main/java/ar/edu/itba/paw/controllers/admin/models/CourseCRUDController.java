@@ -1,6 +1,6 @@
 package ar.edu.itba.paw.controllers.admin.models;
 
-import ar.edu.itba.paw.builders.CourseBuilder;
+import ar.edu.itba.paw.models.builders.CourseBuilder;
 import ar.edu.itba.paw.controllers.admin.AbstractCRUDController;
 import ar.edu.itba.paw.forms.admin.CourseAdminForm;
 import ar.edu.itba.paw.forms.admin.validators.CourseAdminFormValidator;

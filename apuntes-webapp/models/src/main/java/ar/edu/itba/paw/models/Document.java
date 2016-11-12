@@ -42,13 +42,17 @@ public class Document {
     @JoinColumn(name = "document_id")
     private List<Review> reviews;
 
-    public Document(final Client user, final Course course, final String subject, final String documentName, final long documentSize, final byte[] data) {
+    @Column(length = 1000, nullable = false)
+    private String description;
+
+    public Document(final Client user, final Course course, final String subject, final String documentName, final long documentSize, final byte[] data, final String description) {
         this.user = user;
         this.course = course;
         this.subject = subject;
         this.documentName = documentName;
         this.documentSize = documentSize;
         this.data = data;
+        this.description = description;
     }
 
     /* package */ Document() {
@@ -134,5 +138,13 @@ public class Document {
 
     public void setCourse(Course course) {
         this.course = course;
+    }
+
+    public String getDescription() {
+        return description;
+    }
+
+    public void setDescription(String description) {
+        this.description = description;
     }
 }

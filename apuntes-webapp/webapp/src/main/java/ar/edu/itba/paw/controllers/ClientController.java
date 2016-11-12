@@ -2,7 +2,7 @@ package ar.edu.itba.paw.controllers;
 
 import ar.edu.itba.paw.auth.PawUserDetailsService;
 import ar.edu.itba.paw.auth.UserPrincipal;
-import ar.edu.itba.paw.builders.ClientBuilder;
+import ar.edu.itba.paw.models.builders.ClientBuilder;
 import ar.edu.itba.paw.forms.ClientForm;
 import ar.edu.itba.paw.forms.validators.ClientFormValidator;
 import ar.edu.itba.paw.interfaces.ClientService;

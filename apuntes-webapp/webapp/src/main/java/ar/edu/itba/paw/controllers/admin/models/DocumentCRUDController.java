@@ -2,7 +2,7 @@ package ar.edu.itba.paw.controllers.admin.models;
 
 
 import ar.edu.itba.paw.auth.UserPrincipal;
-import ar.edu.itba.paw.builders.DocumentBuilder;
+import ar.edu.itba.paw.models.builders.DocumentBuilder;
 import ar.edu.itba.paw.controllers.admin.AbstractCRUDController;
 import ar.edu.itba.paw.forms.admin.DocumentAdminForm;
 import ar.edu.itba.paw.interfaces.CourseService;

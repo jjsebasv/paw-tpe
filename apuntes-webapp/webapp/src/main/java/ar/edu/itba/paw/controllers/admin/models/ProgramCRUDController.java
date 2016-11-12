@@ -1,6 +1,6 @@
 package ar.edu.itba.paw.controllers.admin.models;
 
-import ar.edu.itba.paw.builders.ProgramBuilder;
+import ar.edu.itba.paw.models.builders.ProgramBuilder;
 import ar.edu.itba.paw.controllers.admin.AbstractCRUDController;
 import ar.edu.itba.paw.forms.admin.ProgramAdminForm;
 import ar.edu.itba.paw.interfaces.ProgramService;

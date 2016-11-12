@@ -1,6 +1,5 @@
-package ar.edu.itba.paw.builders;
+package ar.edu.itba.paw.models.builders;
 
-import ar.edu.itba.paw.interfaces.ModelBuilder;
 import ar.edu.itba.paw.models.Client;
 import ar.edu.itba.paw.models.Document;
 import ar.edu.itba.paw.models.Review;

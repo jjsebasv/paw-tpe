@@ -37,6 +37,8 @@ public class DocumentJdbcDaoTest {
     private static final byte[] CONTENTS = "holaaaaaaaaaaaaaaa".getBytes();
     private static final int FILESIZE = CONTENTS.length;
 
+    private static final String DESCRIPTION = "estaesladescripcion";
+
     @Autowired
     private DocumentHibernateDao documentDao;
 
@@ -52,7 +54,7 @@ public class DocumentJdbcDaoTest {
         final Course course = courseDao.create(new Course(COURSE_CODE, COURSE_NAME));
         final Client client = clientDao.create(new Client(USERNAME, PASSWORD, EMAIL, ROLE));
 
-        final Document document = documentDao.create(new Document(client, course, SUBJECT, FILENAME, FILESIZE, CONTENTS));
+        final Document document = documentDao.create(new Document(client, course, SUBJECT, FILENAME, FILESIZE, CONTENTS, DESCRIPTION));
 
         Assert.assertNotNull(document);
         Assert.assertEquals(course, document.getCourse());
@@ -61,6 +63,7 @@ public class DocumentJdbcDaoTest {
         Assert.assertEquals(FILENAME, document.getDocumentName());
         Assert.assertEquals(FILESIZE, document.getDocumentSize());
         Assert.assertNotNull(document.getDateUploaded());
+        Assert.assertEquals(DESCRIPTION, document.getDescription());
 
         byte[] rawContents = new byte[(int) document.getDocumentSize()];
 
@@ -72,7 +75,7 @@ public class DocumentJdbcDaoTest {
         final Course course = courseDao.create(new Course(COURSE_CODE, COURSE_NAME));
         final Client client = clientDao.create(new Client(USERNAME, PASSWORD, EMAIL, ROLE));
 
-        final Document document = documentDao.create(new Document(client, course, SUBJECT, FILENAME, FILESIZE, CONTENTS));
+        final Document document = documentDao.create(new Document(client, course, SUBJECT, FILENAME, FILESIZE, CONTENTS, DESCRIPTION));
 
         final long id = document.getDocumentId();
 
@@ -88,7 +91,7 @@ public class DocumentJdbcDaoTest {
         final Course course = courseDao.create(new Course(COURSE_CODE, COURSE_NAME));
         final Client client = clientDao.create(new Client(USERNAME, PASSWORD, EMAIL, ROLE));
 
-        final Document document = documentDao.create(new Document(client, course, SUBJECT, FILENAME, FILESIZE, CONTENTS));
+        final Document document = documentDao.create(new Document(client, course, SUBJECT, FILENAME, FILESIZE, CONTENTS, DESCRIPTION));
 
         final long id = document.getDocumentId();
 
@@ -103,7 +106,7 @@ public class DocumentJdbcDaoTest {
         final Course course = courseDao.create(new Course(COURSE_CODE, COURSE_NAME));
         final Client client = clientDao.create(new Client(USERNAME, PASSWORD, EMAIL, ROLE));
 
-        final Document document = documentDao.create(new Document(client, course, SUBJECT, FILENAME, FILESIZE, CONTENTS));
+        final Document document = documentDao.create(new Document(client, course, SUBJECT, FILENAME, FILESIZE, CONTENTS, DESCRIPTION));
 
         final List<Document> list = documentDao.findByCourseId(course.getCourseid());
 
@@ -120,7 +123,7 @@ public class DocumentJdbcDaoTest {
         final Course course = courseDao.create(new Course(COURSE_CODE, COURSE_NAME));
         final Client client = clientDao.create(new Client(USERNAME, PASSWORD, EMAIL, ROLE));
 
-        final Document document = documentDao.create(new Document(client, course, SUBJECT, FILENAME, FILESIZE, CONTENTS));
+        final Document document = documentDao.create(new Document(client, course, SUBJECT, FILENAME, FILESIZE, CONTENTS, DESCRIPTION));
 
         final List<Document> list = documentDao.findByClientId(client.getClientId());
 
@@ -138,7 +141,7 @@ public class DocumentJdbcDaoTest {
         final Course course = courseDao.create(new Course(COURSE_CODE, COURSE_NAME));
         final Client client = clientDao.create(new Client(USERNAME, PASSWORD, EMAIL, ROLE));
 
-        final Document document = documentDao.create(new Document(client, course, SUBJECT, FILENAME, FILESIZE, CONTENTS));
+        final Document document = documentDao.create(new Document(client, course, SUBJECT, FILENAME, FILESIZE, CONTENTS, DESCRIPTION));
 
         final List<Document> list = documentDao.getAll();
 

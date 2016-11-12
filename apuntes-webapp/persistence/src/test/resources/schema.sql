@@ -43,7 +43,7 @@ CREATE TABLE documents (
   document_size     INTEGER,
   uploaded_document BLOB,
   date_uploaded     TIMESTAMP WITHOUT TIME ZONE DEFAULT (now() AT TIME ZONE 'utc'),
-
+  description       VARCHAR(1000),
 
   FOREIGN KEY (client_id) REFERENCES clients (client_id),
   FOREIGN KEY (course_id) REFERENCES courses (course_id)

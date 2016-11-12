@@ -1,7 +1,7 @@
 package ar.edu.itba.paw.controllers;
 
 import ar.edu.itba.paw.auth.UserPrincipal;
-import ar.edu.itba.paw.builders.ReviewBuilder;
+import ar.edu.itba.paw.models.builders.ReviewBuilder;
 import ar.edu.itba.paw.forms.ReviewForm;
 import ar.edu.itba.paw.interfaces.DocumentService;
 import ar.edu.itba.paw.interfaces.ReviewService;
@@ -24,7 +24,6 @@ import javax.servlet.http.HttpServletResponse;
 import java.io.ByteArrayInputStream;
 import java.io.IOException;
 import java.io.InputStream;
-import java.util.List;
 
 @Controller
 public class DocumentController {
