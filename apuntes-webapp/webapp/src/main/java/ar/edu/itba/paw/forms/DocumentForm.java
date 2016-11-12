@@ -6,8 +6,7 @@ import javax.validation.constraints.Size;
 
 public class DocumentForm {
 
-    @Size(min = 6, max = 100)
-    @Pattern(regexp = "[\\s\\w]+")
+    @Size(max = 100)
     private String subject;
 
     @NotNull

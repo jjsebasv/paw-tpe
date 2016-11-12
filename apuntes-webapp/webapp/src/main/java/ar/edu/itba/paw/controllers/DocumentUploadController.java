@@ -60,7 +60,8 @@ public class DocumentUploadController {
     public ModelAndView submit(@Valid @ModelAttribute("documentForm") DocumentForm documentForm,
                                @RequestParam CommonsMultipartFile multipartFile,
                                Authentication authentication,
-                               final BindingResult errors) {
+                               final BindingResult errors
+                               ) {
 
 
         if (errors.hasErrors()) {
