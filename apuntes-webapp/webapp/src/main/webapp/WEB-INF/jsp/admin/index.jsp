@@ -13,16 +13,46 @@
 
                 <div class="semester-wrapper">
 
-                    <%--<p><c:out value="${model.key}"/></p>--%>
-                    <c:forEach items="${models}" var="model">
                     <li class="list-item course-item">
                         <div class="border"></div>
-                        <a href="admin/${model.value}/list"
+                        <a href="admin/programs/list"
                            class="list-group-item">
-                            <span><c:out value="${model.key}"/></span>
+                            <span><spring:message code="models.program.plural"/></span>
                         </a>
-                        </c:forEach>
                     </li>
+
+                    <li class="list-item course-item">
+                        <div class="border"></div>
+                        <a href="admin/courses/list"
+                           class="list-group-item">
+                            <span><spring:message code="models.course.plural"/></span>
+                        </a>
+                    </li>
+
+                    <li class="list-item course-item">
+                        <div class="border"></div>
+                        <a href="admin/clients/list"
+                           class="list-group-item">
+                            <span><spring:message code="models.client.plural"/></span>
+                        </a>
+                    </li>
+
+                    <li class="list-item course-item">
+                        <div class="border"></div>
+                        <a href="admin/documents/list"
+                           class="list-group-item">
+                            <span><spring:message code="models.document.plural"/></span>
+                        </a>
+                    </li>
+
+                    <li class="list-item course-item">
+                        <div class="border"></div>
+                        <a href="admin/courseprogramrelation/list"
+                           class="list-group-item">
+                            <span><spring:message code="models.coursetoprogramrelation.plural"/></span>
+                        </a>
+                    </li>
+
                 </div>
 
             </ul>

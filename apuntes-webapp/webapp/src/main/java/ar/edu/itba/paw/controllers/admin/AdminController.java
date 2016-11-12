@@ -38,20 +38,7 @@ public class AdminController {
 
     @RequestMapping(value = "/admin")
     public ModelAndView indexView() {
-        final ModelAndView mav = new ModelAndView("admin/index");
-
-        final Map<String, String> models = new HashMap<>();
-
-        //FIXME Pasar a message.properties
-        models.put("Programs", "programs");
-        models.put("Courses", "courses");
-        models.put("Clients", "clients");
-        models.put("Documents", "documents");
-        models.put("Course to Program relationships", "courseprogramrelation");
-
-        mav.addObject("models", models);
-
-        return mav;
+        return new ModelAndView("admin/index");
     }
 
     @RequestMapping(value = "/admin/{model:[a-z]+}/list")
