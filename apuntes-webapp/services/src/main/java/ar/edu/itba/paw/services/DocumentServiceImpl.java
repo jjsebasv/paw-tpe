@@ -6,7 +6,6 @@ import ar.edu.itba.paw.models.Document;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
-import sun.reflect.generics.reflectiveObjects.NotImplementedException;
 
 import java.util.List;
 
@@ -27,9 +26,13 @@ public class DocumentServiceImpl extends AbstractCRUDService<Document> implement
         final Document instance = findById(pk);
 
         instance.setSubject(from.getSubject());
-        instance.setDocumentName(from.getDocumentName());
-        instance.setDocumentSize(from.getDocumentSize());
-        instance.setData(from.getData());
+
+        if (from.getData() != null && from.getData().length > 0) {
+            instance.setDocumentName(from.getDocumentName());
+            instance.setDocumentSize(from.getDocumentSize());
+            instance.setData(from.getData());
+        }
+        instance.setCourse(from.getCourse());
     }
 
     @Override

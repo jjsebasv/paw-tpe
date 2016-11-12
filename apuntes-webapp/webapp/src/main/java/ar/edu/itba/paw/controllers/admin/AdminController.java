@@ -1,9 +1,6 @@
 package ar.edu.itba.paw.controllers.admin;
 
-import ar.edu.itba.paw.interfaces.ClientService;
-import ar.edu.itba.paw.interfaces.CourseService;
-import ar.edu.itba.paw.interfaces.GenericCRUDService;
-import ar.edu.itba.paw.interfaces.ProgramService;
+import ar.edu.itba.paw.interfaces.*;
 import ar.edu.itba.paw.models.PagedResult;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
@@ -22,18 +19,19 @@ public class AdminController {
 
     private final ProgramService ps;
     private final CourseService cs;
-
     private final ClientService cls;
+    private final DocumentService ds;
 
     private final static int INITIAL_PAGE = 1;
     private final static int NUMBER_OF_PAGES_TO_SHOW = 5;
 
 
     @Autowired
-    public AdminController(ProgramService ps, CourseService cs, ClientService cls) {
+    public AdminController(ProgramService ps, CourseService cs, ClientService cls, DocumentService ds) {
         this.ps = ps;
         this.cs = cs;
         this.cls = cls;
+        this.ds = ds;
     }
 
     @RequestMapping(value = "/admin")
@@ -46,6 +44,7 @@ public class AdminController {
         models.put("Programs", "programs");
         models.put("Courses", "courses");
         models.put("Clients", "clients");
+        models.put("Documents", "documents");
 
         mav.addObject("models", models);
 
@@ -70,6 +69,10 @@ public class AdminController {
 
             case "clients":
                 service = cls;
+                break;
+
+            case "documents":
+                service = ds;
                 break;
 
             default:

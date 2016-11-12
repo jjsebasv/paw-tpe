@@ -127,4 +127,12 @@ public class Document {
     public List<Review> getReviews() {
         return reviews;
     }
+
+    public void setUser(Client user) {
+        this.user = user;
+    }
+
+    public void setCourse(Course course) {
+        this.course = course;
+    }
 }
