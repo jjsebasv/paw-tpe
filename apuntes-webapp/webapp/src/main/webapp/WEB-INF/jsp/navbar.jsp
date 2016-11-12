@@ -40,6 +40,9 @@
       </a>
       <ul class="dropdown-menu">
         <li><a href="profile"><spring:message code="navbar.profile"/> </a></li>
+        <security:authorize access="hasAnyRole('ROLE_ADMIN',)">
+          <li><a href="admin"><spring:message code="navbar.settings"/> </a></li>
+        </security:authorize>
         <li><a href="${pageContext.request.contextPath}/uploadDocument"><spring:message code="navbar.upload"/> </a></li>
         <li class="divider"></li>
         <li class="nav-header"><a href="logout"><spring:message code="navbar.logout"/> </a></li>
