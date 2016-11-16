@@ -4,10 +4,10 @@ import ar.edu.itba.paw.models.Client;
 import ar.edu.itba.paw.models.Document;
 import ar.edu.itba.paw.models.Review;
 
-public class ReviewBuilder implements ModelBuilder<Review> {
+public class ReviewBuilder extends ModelBuilder<Review> {
     private Document file;
     private Client user;
-    private double ranking;
+    private int ranking;
     private String review;
 
     public ReviewBuilder setFile(Document file) {
@@ -20,7 +20,7 @@ public class ReviewBuilder implements ModelBuilder<Review> {
         return this;
     }
 
-    public ReviewBuilder setRanking(double ranking) {
+    public ReviewBuilder setRanking(int ranking) {
         this.ranking = ranking;
         return this;
     }

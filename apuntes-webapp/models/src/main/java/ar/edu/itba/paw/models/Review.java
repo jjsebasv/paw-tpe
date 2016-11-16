@@ -13,7 +13,7 @@ public class Review {
     @Column(name = "review_id")
     private Long reviewid;
 
-    @ManyToOne(fetch = FetchType.LAZY, optional = false)
+    @ManyToOne(fetch = FetchType.EAGER, optional = false)
     @JoinColumn(name = "document_id")
     private Document file;
 
@@ -22,12 +22,12 @@ public class Review {
     private Client user;
 
     @Column
-    private double ranking;
+    private int ranking;
 
     @Column(length = 500, nullable = false)
     private String review;
 
-    public void setRanking(double ranking) {
+    public void setRanking(int ranking) {
         this.ranking = ranking;
     }
 
@@ -43,7 +43,7 @@ public class Review {
         // Just for Hibernate, we love you!
     }
 
-    public Review(final Document file, final Client user, final double ranking, final String review) {
+    public Review(final Document file, final Client user, final int ranking, final String review) {
         this.file = file;
         this.user = user;
         this.ranking = ranking;
@@ -78,7 +78,7 @@ public class Review {
         return user;
     }
 
-    public double getRanking() {
+    public int getRanking() {
         return ranking;
     }
 
@@ -93,5 +93,9 @@ public class Review {
     @PrePersist
     protected void onCreate() {
         this.dateUploaded = new Date();
+    }
+
+    public void setUser(Client user) {
+        this.user = user;
     }
 }

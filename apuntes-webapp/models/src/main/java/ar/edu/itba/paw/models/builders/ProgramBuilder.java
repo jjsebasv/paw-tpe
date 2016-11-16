@@ -2,7 +2,7 @@ package ar.edu.itba.paw.models.builders;
 
 import ar.edu.itba.paw.models.Program;
 
-public class ProgramBuilder implements ModelBuilder<Program> {
+public class ProgramBuilder extends ModelBuilder<Program> {
     private String name;
     private String shortName;
     private char group;

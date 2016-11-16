@@ -23,11 +23,22 @@
                     </a>
                 </div>
             </div>
+
+            <h4><spring:message code="documentview.description"/></h4>
+            <ul class="reviews-wrapper">
+                <li class="review-item column">
+                    <div class="column review-info-wrapper">
+                        <p><c:out value="${document.description}"/></p>
+                    </div>
+                </li>
+            </ul>
+
             <h4><spring:message code="documentview.reviews"/></h4>
             <ul class="reviews-wrapper">
                 <c:forEach items="${document.reviews}" var="review">
                     <li class="review-item column">
-                        <span class="light-text review-time"><time class="moment-ago" datetime="${review.dateUploaded}"></time></span>
+                        <span class="light-text review-time"><time class="moment-ago"
+                                                                   datetime="${review.dateUploaded}"></time></span>
                         <div class="column review-info-wrapper">
                             <span class="ranking"><c:out value="${review.ranking}"/></span>
                             <p><c:out value="${review.review}"/></p>

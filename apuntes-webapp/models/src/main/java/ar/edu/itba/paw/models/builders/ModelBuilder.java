@@ -1,7 +1,7 @@
 package ar.edu.itba.paw.models.builders;
 
-public interface ModelBuilder<T> {
+abstract class ModelBuilder<T> {
 
-    public T createModel();
+    public abstract T createModel();
 
 }

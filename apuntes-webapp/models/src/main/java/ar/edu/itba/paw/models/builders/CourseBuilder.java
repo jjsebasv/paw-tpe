@@ -2,7 +2,7 @@ package ar.edu.itba.paw.models.builders;
 
 import ar.edu.itba.paw.models.Course;
 
-public class CourseBuilder implements ModelBuilder<Course> {
+public class CourseBuilder extends ModelBuilder<Course> {
     private String code;
     private String name;
 

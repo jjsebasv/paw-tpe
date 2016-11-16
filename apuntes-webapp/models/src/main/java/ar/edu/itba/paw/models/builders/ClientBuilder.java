@@ -3,7 +3,7 @@ package ar.edu.itba.paw.models.builders;
 import ar.edu.itba.paw.models.Client;
 import ar.edu.itba.paw.models.ClientRole;
 
-public class ClientBuilder implements ModelBuilder<Client> {
+public class ClientBuilder extends ModelBuilder<Client> {
     private String name;
     private String password;
     private String email;

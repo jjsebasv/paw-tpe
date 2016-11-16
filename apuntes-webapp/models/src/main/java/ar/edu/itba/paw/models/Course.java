@@ -22,6 +22,9 @@ public class Course {
     @OneToMany(mappedBy = "course", fetch = FetchType.LAZY)
     private List<CourseProgramRelation> programs;
 
+    @OneToMany(mappedBy = "course", fetch = FetchType.LAZY)
+    private List<Document> documents;
+
     /* package */ Course() {
         // Just for Hibernate, we love you!
     }
@@ -75,5 +78,9 @@ public class Course {
 
     public List<CourseProgramRelation> getRelatedPrograms() {
         return programs;
+    }
+
+    public List<Document> getDocuments() {
+        return documents;
     }
 }

@@ -48,6 +48,7 @@ public class WebAuthConfig extends WebSecurityConfigurerAdapter {
                 .antMatchers("/profile/**").authenticated()
                 .antMatchers("/document/*/addReview").authenticated()
                 .antMatchers("/uploadDocument/**").authenticated()
+                .antMatchers("/uploadDocument").authenticated()
                 .antMatchers("/program/**", "/course/**", "/document/**").permitAll()
                 .antMatchers("/**").permitAll()
                 .and().formLogin()

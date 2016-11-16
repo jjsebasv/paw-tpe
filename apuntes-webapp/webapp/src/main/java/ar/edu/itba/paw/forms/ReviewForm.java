@@ -1,42 +1,24 @@
 package ar.edu.itba.paw.forms;
 
+import javax.validation.constraints.NotNull;
+import javax.validation.constraints.Size;
+
 public class ReviewForm {
 
-    private int reviewid;
-    private int fileid;
-    private int userid;
-    private double ranking;
+    @NotNull
+    private Integer ranking;
+
+    @Size(min = 5)
     private String review;
 
-    public int getReviewid() {
-        return reviewid;
-    }
+    private int documentId;
+    private int clientId;
 
-    public void setReviewid(int reviewid) {
-        this.reviewid = reviewid;
-    }
-
-    public int getFileid() {
-        return fileid;
-    }
-
-    public void setFileid(int fileid) {
-        this.fileid = fileid;
-    }
-
-    public int getUserid() {
-        return userid;
-    }
-
-    public void setUserid(int userid) {
-        this.userid = userid;
-    }
-
-    public double getRanking() {
+    public Integer getRanking() {
         return ranking;
     }
 
-    public void setRanking(double ranking) {
+    public void setRanking(Integer ranking) {
         this.ranking = ranking;
     }
 
@@ -49,4 +31,19 @@ public class ReviewForm {
     }
 
 
+    public int getDocumentId() {
+        return documentId;
+    }
+
+    public void setDocumentId(int documentId) {
+        this.documentId = documentId;
+    }
+
+    public int getClientId() {
+        return clientId;
+    }
+
+    public void setClientId(int clientId) {
+        this.clientId = clientId;
+    }
 }

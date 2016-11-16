@@ -45,14 +45,15 @@ public class DocumentUploadController {
 
         ModelAndView mav = new ModelAndView("documentUploadView");
 
-        final Course course = courseS.findByCode(courseCode);
+        if (courseCode != null && !courseCode.isEmpty()) {
+            final Course course = courseS.findByCode(courseCode);
 
-        if (course == null) {
-            return new ModelAndView("404");
+            if (course == null) {
+                return new ModelAndView("404");
+            }
+
+            mav.addObject("course", course);
         }
-
-        mav.addObject("course", course);
-
 
         return mav;
     }
@@ -62,7 +63,7 @@ public class DocumentUploadController {
                                @RequestParam CommonsMultipartFile multipartFile,
                                Authentication authentication,
                                final BindingResult errors
-                               ) {
+    ) {
 
 
         if (errors.hasErrors()) {
@@ -78,6 +79,7 @@ public class DocumentUploadController {
                 .setDocumentName(multipartFile.getOriginalFilename())
                 .setDocumentSize(multipartFile.getSize())
                 .setData(multipartFile.getBytes())
+                .setDescription(documentForm.getDescription())
                 .createModel());
 
         LOGGER.info("Uploaded document {}", document);

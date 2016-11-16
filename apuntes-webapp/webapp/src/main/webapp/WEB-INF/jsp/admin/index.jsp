@@ -53,6 +53,14 @@
                         </a>
                     </li>
 
+                    <li class="list-item course-item">
+                        <div class="border"></div>
+                        <a href="admin/reviews/list"
+                           class="list-group-item">
+                            <span><spring:message code="models.review.plural"/></span>
+                        </a>
+                    </li>
+
                 </div>
 
             </ul>

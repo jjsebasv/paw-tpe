@@ -4,7 +4,7 @@ import ar.edu.itba.paw.models.Client;
 import ar.edu.itba.paw.models.Course;
 import ar.edu.itba.paw.models.Document;
 
-public class DocumentBuilder implements ModelBuilder<Document> {
+public class DocumentBuilder extends ModelBuilder<Document> {
     private Client user;
     private Course course;
     private String subject;

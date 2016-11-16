@@ -9,11 +9,11 @@
         <h3 class="content-title"><c:out value="${course.code} \#${course.name}"/></h3>
         <div class="white-container-content">
             <h4 class="course-size">
-                <c:if test="${coursesSize == 1}">
+                <c:if test="${documentsSize == 1}">
                     <c:out value="${documentsSize}"/>
                     <spring:message code="course.document"/>
                 </c:if>
-                <c:if test="${coursesSize > 1}">
+                <c:if test="${documentsSize > 1}">
                     <c:out value="${documentsSize}"/>
                     <spring:message code="course.documents"/>
                 </c:if>
@@ -28,13 +28,14 @@
             </h4>
             <ul class="list-wrapper">
                 <c:forEach items="${documents}" var="document">
-                    <li class="list-item">
-                        <div class="border"></div>
+                    <li class="list-item" style="height: 100px">
+                        <div class="border" style="height: 100px"></div>
                         <a href="document/${document.documentId}"
-                           class="list-group-item">
+                           class="list-group-item" style="height:100px">
                             <span><c:out value="${document.subject}"/></span>
                             <span class="light-text review-time"><time class="moment-ago"
-                                                                       datetime="${document.dateUploaded}"/></span>
+                                                                       datetime="${document.dateUploaded}"></time></span>
+                        <span style="display: block;margin-top: 20px;font-weight: 400"><c:out value="${document.description}"/></span>
                         </a>
                     </li>
                 </c:forEach>

@@ -11,6 +11,9 @@ public class DocumentForm {
     @NotNull
     private Integer courseid;
 
+    @Size(max = 1000)
+    private String description;
+
     public String getSubject() {
         return subject;
     }
@@ -25,5 +28,13 @@ public class DocumentForm {
 
     public void setCourseid(Integer courseid) {
         this.courseid = courseid;
+    }
+
+    public String getDescription() {
+        return description;
+    }
+
+    public void setDescription(String description) {
+        this.description = description;
     }
 }

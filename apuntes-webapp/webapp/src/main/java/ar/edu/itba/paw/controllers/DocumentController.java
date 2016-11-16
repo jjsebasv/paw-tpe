@@ -9,6 +9,7 @@ import ar.edu.itba.paw.models.Client;
 import ar.edu.itba.paw.models.Document;
 import ar.edu.itba.paw.models.Review;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.beans.factory.annotation.Value;
 import org.springframework.security.core.Authentication;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
@@ -21,6 +22,7 @@ import org.springframework.web.bind.annotation.RequestMethod;
 import org.springframework.web.servlet.ModelAndView;
 
 import javax.servlet.http.HttpServletResponse;
+import javax.validation.Valid;
 import java.io.ByteArrayInputStream;
 import java.io.IOException;
 import java.io.InputStream;
@@ -40,11 +42,12 @@ public class DocumentController {
 
 
     @RequestMapping("/document/{pk:[\\d]+}")
-    public ModelAndView courseView(@PathVariable("pk") long pk, Authentication authentication) {
+    public ModelAndView documentView(@PathVariable("pk") long pk,
+                                     Authentication authentication,
+                                     @ModelAttribute("reviewForm") ReviewForm reviewForm) {
         ModelAndView mav = new ModelAndView("documentView");
 
         final Document file = ds.findById(pk);
-//        final List<Review> reviews = rs.findByFileId(pk);
         if (file == null) {
             return new ModelAndView("404");
         }
@@ -54,7 +57,6 @@ public class DocumentController {
         mav.addObject("document", document);
         mav.addObject("username", file.getUser().getName());
         mav.addObject("reviewForm", new ReviewForm());
-//        mav.addObject("reviews", reviews);
         mav.addObject("average", rs.getAverageFromFileId(pk));
 
         if (authentication == null) {
@@ -99,14 +101,17 @@ public class DocumentController {
 
 
     @RequestMapping(value = "/document/{pk:[\\d]+}/addReview", method = RequestMethod.POST)
-    public ModelAndView submit(@ModelAttribute("reviewForm") ReviewForm reviewForm,
-                               BindingResult result,
-                               Model model,
+    public ModelAndView submit(@Valid @ModelAttribute("reviewForm") ReviewForm reviewForm,
+                               final BindingResult errors,
                                @PathVariable("pk") long pk,
                                Authentication authentication) {
         Client client = ((UserPrincipal) authentication.getPrincipal()).getClient();
 
-        //FIXME Verificar que el usuario tenga permitido subir un review
+
+        if (errors.hasErrors()) {
+            return documentView(pk, authentication, reviewForm);
+        }
+
         final Document file = ds.findById(pk);
 
         final Review review = new ReviewBuilder()
@@ -120,7 +125,5 @@ public class DocumentController {
 
         return new ModelAndView("redirect:/document/" + pk);
     }
-
-    ;
 
 }

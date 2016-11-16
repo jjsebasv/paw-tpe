@@ -10,9 +10,7 @@ import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.servlet.ModelAndView;
 
 import java.util.ArrayList;
-import java.util.HashMap;
 import java.util.List;
-import java.util.Map;
 
 @Controller
 public class AdminController {
@@ -22,18 +20,20 @@ public class AdminController {
     private final ClientService cls;
     private final DocumentService ds;
     private final CourseProgramRelationService cprs;
+    private final ReviewService rs;
 
     private final static int INITIAL_PAGE = 1;
     private final static int NUMBER_OF_PAGES_TO_SHOW = 5;
 
 
     @Autowired
-    public AdminController(ProgramService ps, CourseService cs, ClientService cls, DocumentService ds, CourseProgramRelationService cprs) {
+    public AdminController(ProgramService ps, CourseService cs, ClientService cls, DocumentService ds, CourseProgramRelationService cprs, ReviewService rs) {
         this.ps = ps;
         this.cs = cs;
         this.cls = cls;
         this.ds = ds;
         this.cprs = cprs;
+        this.rs = rs;
     }
 
     @RequestMapping(value = "/admin")
@@ -67,6 +67,10 @@ public class AdminController {
 
             case "courseprogramrelation":
                 service = cprs;
+                break;
+
+            case "reviews":
+                service = rs;
                 break;
 
             default:
