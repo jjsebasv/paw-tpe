@@ -7,7 +7,7 @@
         <a href="admin" class="back-button">
             <img src="resources/assets/back.svg">
         </a>
-        <h3 class="content-title"><spring:message code="models.clients"/></h3>
+        <h3 class="content-title"><spring:message code="models.client.plural"/></h3>
         <div class="white-container-content">
             <h4 class="course-size">
                 <c:if test="${totalRows==1}">

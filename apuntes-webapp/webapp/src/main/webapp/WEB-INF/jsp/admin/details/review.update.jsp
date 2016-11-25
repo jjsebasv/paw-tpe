@@ -23,17 +23,17 @@
 
                     <div class="form-group column left input-base-wrapper">
                         <label for="document"><spring:message code="models.review.document"/>:</label>
-                        <input type="text" class="form-control" value="${review.file.subject}" id="document" readonly="readonly">
+                        <input type="text" class="form-control" value="<c:out value="${review.file.subject}" />" id="document" readonly="readonly">
                     </div>
 
                     <div class="form-group column left input-base-wrapper">
                         <label for="client"><spring:message code="models.review.client"/>:</label>
-                        <input type="text" class="form-control" value="${review.user.name}" id="client" readonly="readonly">
+                        <input type="text" class="form-control" value="<c:out value="${review.user.name}" />" id="client" readonly="readonly">
                     </div>
 
                     <div class="column left form-group input-base-wrapper ${not empty reviewHasBindError?"has-error":""}">
                         <form:label path="review"><spring:message code="models.review.review"/>:</form:label>
-                        <form:input class="form-control" type="text" path="review"/>
+                        <form:textarea class="form-control" type="text" path="review"/>
                         <form:errors path="review" cssClass="help-block" element="p"/>
                     </div>
                     <div class="column left form-group input-base-wrapper ${not empty rankingHasBindError?"has-error":""}">

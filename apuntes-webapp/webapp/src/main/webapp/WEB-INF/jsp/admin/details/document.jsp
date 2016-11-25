@@ -27,10 +27,18 @@
                     <c:set var="courseidHasBindError">
                         <form:errors path="courseid"/>
                     </c:set>
+                    <c:set var="descriptionHasBindError">
+                        <form:errors path="description"/>
+                    </c:set>
                     <div class="form-group column left input-base-wrapper ${not empty subjectHasBindError?"has-error":""}">
                         <form:label path="subject"><spring:message code="models.document.subject"/>: </form:label>
                         <form:textarea path="subject" htmlEscape="true" class="form-control input-base"/>
                         <form:errors path="subject" cssClass="help-block" element="p"/>
+                    </div>
+                    <div class="form-group column left input-base-wrapper ${not empty descriptionHasBindError?"has-error":""}">
+                        <form:label path="description"><spring:message code="models.document.description"/>: </form:label>
+                        <form:textarea path="description" htmlEscape="true" class="form-control input-base"/>
+                        <form:errors path="description" cssClass="help-block" element="p"/>
                     </div>
                     <div class="form-group column left input-base-wrapper ${not empty courseidHasBindError?"has-error":""}">
                         <form:label path="courseid"><spring:message code="models.document.course"/>: </form:label>

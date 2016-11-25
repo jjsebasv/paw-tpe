@@ -16,7 +16,7 @@
                 </c:if>
                 <c:if test="${totalRows>1}">
                     <spring:message code="models.document.size.plural" arguments="${totalRows}"/> <a
-                        href="admin/document/create">+</a>
+                        href="admin/documents/create">+</a>
                 </c:if>
             </h4>
 

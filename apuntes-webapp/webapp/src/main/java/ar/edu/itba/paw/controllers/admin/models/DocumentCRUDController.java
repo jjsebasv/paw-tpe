@@ -53,8 +53,8 @@ public class DocumentCRUDController extends AbstractCRUDController<Document> {
                 .setDocumentName(multipartFile.getOriginalFilename())
                 .setDocumentSize(multipartFile.getSize())
                 .setData(multipartFile.getBytes())
+                .setDescription(form.getDescription())
                 .createModel());
-
 
         return new ModelAndView("redirect:/admin/documents/" + document.getDocumentId() + "/edit");
     }
@@ -108,6 +108,7 @@ public class DocumentCRUDController extends AbstractCRUDController<Document> {
         }
         newDocumentData.setCourse(cs.findById(form.getCourseid()));
         newDocumentData.setUser(document.getUser());
+        newDocumentData.setDescription(document.getDescription());
 
         service.update(pk, newDocumentData);
 

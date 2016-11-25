@@ -16,6 +16,7 @@ public class DocumentAdminForm extends DocumentForm implements IAdminForm<Docume
     public void loadValuesFromInstance(Document instance) {
         setSubject(instance.getSubject());
         setCourseid((int) instance.getCourse().getCourseid());
+        setDescription(instance.getDescription());
     }
 
 }
