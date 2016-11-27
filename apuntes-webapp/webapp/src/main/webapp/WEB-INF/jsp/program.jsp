@@ -16,24 +16,26 @@
                            placeholder="<spring:message code="program.search.course"/>" id="filter"/>
                 </div>
                 <c:forEach items="${courses}" var="entry">
-                    <div class="semester-wrapper m-bottom-3">
+                    <c:if test="${entry.value.size()>0}">
+                        <div class="semester-wrapper m-bottom-3">
 
-                        <h3 class="m-bottom-1">
-                            <c:set var="mappedSemesters" value="${sm:mapSemester(entry.key)}"/>
-                            <spring:message code="tag.semestermapper"
-                                            arguments="${mappedSemesters[0]},${mappedSemesters[1]}"/>
-                        </h3>
-                        <c:forEach items="${entry.value}" var="course">
-                            <li class="list-item course-item">
-                                <div class="border"></div>
-                                <a href="course/${course.code}"
-                                   class="list-group-item">
-                                    <span><c:out value="${course.code}"/></span>
-                                    <span><c:out value="${course.name}"/></span>
-                                </a>
-                            </li>
-                        </c:forEach>
-                    </div>
+                            <h3 class="m-bottom-1">
+                                <c:set var="mappedSemesters" value="${sm:mapSemester(entry.key)}"/>
+                                <spring:message code="tag.semestermapper"
+                                                arguments="${mappedSemesters[0]},${mappedSemesters[1]}"/>
+                            </h3>
+                            <c:forEach items="${entry.value}" var="course">
+                                <li class="list-item course-item">
+                                    <div class="border"></div>
+                                    <a href="course/${course.code}"
+                                       class="list-group-item">
+                                        <span><c:out value="${course.code}"/></span>
+                                        <span><c:out value="${course.name}"/></span>
+                                    </a>
+                                </li>
+                            </c:forEach>
+                        </div>
+                    </c:if>
                 </c:forEach>
                 <p><spring:message code="program.optional.courses"/></p>
                 <c:forEach items="${optativas}" var="course">
