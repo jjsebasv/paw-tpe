@@ -1,4 +1,5 @@
 <%@ include file="../header.jsp" %>
+<%@ include file="header.admin.jsp" %>
 <%@ taglib prefix="sm" uri="http://ar.edu.itba.paw/semesterMapper" %>
 <body>
 <%@ include file="../navbar.jsp" %>

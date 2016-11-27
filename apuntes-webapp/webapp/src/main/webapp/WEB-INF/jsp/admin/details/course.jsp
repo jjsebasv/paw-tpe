@@ -1,4 +1,5 @@
 <%@ include file="../../header.jsp" %>
+<%@ include file="../header.admin.jsp" %>
 <%@ taglib prefix="form" uri="http://www.springframework.org/tags/form" %>
 <body>
 <%@ include file="../../navbar.jsp" %>
@@ -39,10 +40,10 @@
 
                     <div class="form-group item-center">
                         <button class="submit-button" type="submit" name="action" value="save">
-                            <spring:message code="admin.model.save"/>
+                            <spring:message code="models.save"/>
                         </button>
                         <button class="submit-button" type="submit" name="action" value="delete">
-                            <spring:message code="admin.model.delete"/>
+                            <spring:message code="models.delete"/>
                         </button>
                     </div>
                 </form:form>

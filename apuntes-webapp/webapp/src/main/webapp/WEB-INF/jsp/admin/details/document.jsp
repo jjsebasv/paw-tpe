@@ -1,4 +1,5 @@
 <%@ include file="../../header.jsp" %>
+<%@ include file="../header.admin.jsp" %>
 <%@ taglib prefix="form" uri="http://www.springframework.org/tags/form" %>
 <body>
 <%@ include file="../../navbar.jsp" %>

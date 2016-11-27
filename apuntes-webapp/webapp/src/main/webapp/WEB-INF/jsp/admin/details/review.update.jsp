@@ -1,4 +1,5 @@
 <%@ include file="../../header.jsp" %>
+<%@ include file="../header.admin.jsp" %>
 <%@ taglib prefix="form" uri="http://www.springframework.org/tags/form" %>
 <body>
 <%@ include file="../../navbar.jsp" %>
@@ -25,7 +26,6 @@
                         <label for="document"><spring:message code="models.review.document"/>:</label>
                         <input type="text" class="form-control" value="<c:out value="${review.file.subject}" />" id="document" readonly="readonly">
                     </div>
-
                     <div class="form-group column left input-base-wrapper">
                         <label for="client"><spring:message code="models.review.client"/>:</label>
                         <input type="text" class="form-control" value="<c:out value="${review.user.name}" />" id="client" readonly="readonly">
