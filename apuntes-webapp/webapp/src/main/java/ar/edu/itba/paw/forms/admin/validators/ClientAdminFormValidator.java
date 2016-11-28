@@ -20,8 +20,8 @@ public class ClientAdminFormValidator implements Validator {
 
         ClientAdminForm clientAdminForm = (ClientAdminForm) target;
 
-        if (!Arrays.stream(ClientRole.values()).anyMatch(clientRole -> clientRole.name().equals(clientAdminForm.getRole()))) {
-            errors.rejectValue("role", "models.clients.role.invalid");
+        if (Arrays.stream(ClientRole.values()).noneMatch(clientRole -> clientRole.name().equals(clientAdminForm.getRole()))) {
+            errors.rejectValue("role", "models.client.role.invalid");
         }
 
     }

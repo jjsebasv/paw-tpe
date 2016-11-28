@@ -48,7 +48,7 @@ public class ReviewServiceImpl extends AbstractCRUDService<Review> implements Re
 
     @Override
     public boolean canReview(Document document, Client client) {
-        return document.getReviews().isEmpty() || !document.getReviews().stream().anyMatch(review -> review.getUser().getClientId() == client.getClientId());
+        return document.getReviews().isEmpty() || document.getReviews().stream().noneMatch(review -> review.getUser().getClientId() == client.getClientId());
     }
 
 }

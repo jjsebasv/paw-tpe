@@ -2,8 +2,9 @@ package ar.edu.itba.paw.controllers;
 
 import ar.edu.itba.paw.auth.PawUserDetailsService;
 import ar.edu.itba.paw.auth.UserPrincipal;
-import ar.edu.itba.paw.models.builders.ClientBuilder;
+import ar.edu.itba.paw.forms.ChangePasswordForm;
 import ar.edu.itba.paw.forms.ClientForm;
+import ar.edu.itba.paw.forms.validators.ChangePasswordFormValidator;
 import ar.edu.itba.paw.forms.validators.ClientFormValidator;
 import ar.edu.itba.paw.interfaces.ClientService;
 import ar.edu.itba.paw.interfaces.DocumentService;
@@ -11,8 +12,7 @@ import ar.edu.itba.paw.interfaces.ReviewService;
 import ar.edu.itba.paw.models.Client;
 import ar.edu.itba.paw.models.Document;
 import ar.edu.itba.paw.models.Review;
-import org.slf4j.Logger;
-import org.slf4j.LoggerFactory;
+import ar.edu.itba.paw.models.builders.ClientBuilder;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.beans.factory.annotation.Qualifier;
 import org.springframework.security.authentication.AuthenticationManager;
@@ -22,6 +22,7 @@ import org.springframework.security.core.context.SecurityContextHolder;
 import org.springframework.security.core.userdetails.UserDetails;
 import org.springframework.stereotype.Controller;
 import org.springframework.validation.BindingResult;
+import org.springframework.validation.Validator;
 import org.springframework.web.bind.annotation.ModelAttribute;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestMethod;
@@ -34,8 +35,6 @@ import java.util.List;
 @Controller
 public class ClientController {
 
-    private final Logger LOGGER = LoggerFactory.getLogger(ClientController.class);
-
     private final ClientService cs;
     private final DocumentService ds;
     private final ReviewService rs;
@@ -46,15 +45,20 @@ public class ClientController {
     private final AuthenticationManager authenticationManager;
 
     private final ClientFormValidator clientFormValidator;
+    private final ChangePasswordFormValidator changePasswordFormValidator;
+
+    private final Validator validator;
 
     @Autowired
-    public ClientController(final ClientService cs, final DocumentService ds, final ReviewService rs, final ClientFormValidator clientFormValidator, AuthenticationManager authenticationManager, PawUserDetailsService userDetailsService) {
+    public ClientController(final ClientService cs, final DocumentService ds, final ReviewService rs, final ClientFormValidator clientFormValidator, AuthenticationManager authenticationManager, PawUserDetailsService userDetailsService, ChangePasswordFormValidator changePasswordFormValidator, @Qualifier("mvcValidator") Validator validator) {
         this.cs = cs;
         this.ds = ds;
         this.rs = rs;
         this.clientFormValidator = clientFormValidator;
         this.authenticationManager = authenticationManager;
         this.userDetailsService = userDetailsService;
+        this.changePasswordFormValidator = changePasswordFormValidator;
+        this.validator = validator;
     }
 
     @RequestMapping(value = "/login", method = {RequestMethod.GET})
@@ -122,6 +126,40 @@ public class ClientController {
         mav.addObject("reviewsSize", reviews.size());
 
         return mav;
+    }
+
+    @RequestMapping(value = "/profile/change_password", method = {RequestMethod.GET})
+    public ModelAndView changePassword(@ModelAttribute("changePasswordForm") final ChangePasswordForm form,
+                                       Authentication authentication) {
+        final ModelAndView mav = new ModelAndView("changePassword");
+
+        UserPrincipal client = (UserPrincipal) authentication.getPrincipal();
+
+        mav.addObject("client", client.getClient());
+
+        return mav;
+    }
+
+    @RequestMapping(value = "/profile/change_password", method = {RequestMethod.POST})
+    public ModelAndView changePassword(@ModelAttribute("changePasswordForm") final ChangePasswordForm form,
+                                       Authentication authentication,
+                                       final BindingResult errors) {
+        UserPrincipal clientPrincipal = (UserPrincipal) authentication.getPrincipal();
+        final Client client = clientPrincipal.getClient();
+
+        form.setClient(client);
+
+        validator.validate(form, errors);
+        changePasswordFormValidator.validate(form, errors);
+        if (errors.hasErrors()) {
+            return changePassword(form, authentication);
+        }
+
+        client.setPassword(form.getNewPassword());
+
+        cs.update(client.getClientId(), client);
+
+        return new ModelAndView("redirect:/profile");
     }
 
 }
