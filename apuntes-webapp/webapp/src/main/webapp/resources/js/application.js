@@ -39,6 +39,16 @@ $(document).ready(function ($, html) {
         $.each(semesters, checkVisible);
     });
 
+    var documents = $('.document-item');
+    $('#filter-docs').keyup(function () {
+        var re = new RegExp($(this).val(), "i"); // "i" means it's case-insensitive
+        documents.removeClass('hidden').show().filter(function () {
+            return !re.test($(this).text());
+        }).addClass('hidden').hide();
+        // var documents = $('.list-wrapper');
+        // $.each(documents, checkVisible);
+    });
+
     $("a.back-button").click(function () {
         parent.history.back();
         return false;

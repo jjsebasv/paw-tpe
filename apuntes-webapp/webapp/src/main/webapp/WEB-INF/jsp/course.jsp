@@ -27,15 +27,20 @@
                 </c:if>
             </h4>
             <ul class="list-wrapper">
+                <div class="input-base-wrapper">
+                    <input class="input-base m-bottom-5 filter-input"
+                           placeholder="<spring:message code="course.search.document"/>" id="filter-docs"/>
+                </div>
                 <c:forEach items="${documents}" var="document">
-                    <li class="list-item" style="height: 100px">
+                    <li class="list-item document-item" style="height: 100px">
                         <div class="border" style="height: 100px"></div>
                         <a href="document/${document.documentId}"
                            class="list-group-item" style="height:100px">
                             <span><c:out value="${document.subject}"/></span>
                             <span class="light-text review-time"><time class="moment-ago"
                                                                        datetime="${document.dateUploaded}"></time></span>
-                        <span style="display: block;margin-top: 20px;font-weight: 400"><c:out value="${document.description}"/></span>
+                            <span style="display: block;margin-top: 20px;font-weight: 400"><c:out
+                                    value="${document.description}"/></span>
                         </a>
                     </li>
                 </c:forEach>
