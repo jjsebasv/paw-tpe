@@ -6,7 +6,7 @@
 <div class="register-form">
     <div class="content-wrapper">
         <div class="white-container">
-            <a href="/admin/clients/list" class="back-button">
+            <a href="admin/clients/list" class="back-button">
                 <img src="resources/assets/back.svg">
             </a>
 
