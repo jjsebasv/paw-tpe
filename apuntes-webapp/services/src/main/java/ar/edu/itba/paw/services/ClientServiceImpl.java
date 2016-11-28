@@ -3,6 +3,7 @@ package ar.edu.itba.paw.services;
 import ar.edu.itba.paw.interfaces.ClientDao;
 import ar.edu.itba.paw.interfaces.ClientService;
 import ar.edu.itba.paw.models.Client;
+import ar.edu.itba.paw.models.ClientRole;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
@@ -17,6 +18,16 @@ public class ClientServiceImpl extends AbstractCRUDService<Client> implements Cl
     public ClientServiceImpl(final ClientDao clientDao) {
         super(clientDao);
         this.clientDao = clientDao;
+    }
+
+    @Override
+    public Client create(Client model) {
+
+        if (model.getRole() == null) {
+            model.setRole(ClientRole.ROLE_USER);
+        }
+
+        return super.create(model);
     }
 
     @Override
