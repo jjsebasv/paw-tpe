@@ -26,15 +26,15 @@ public class ClientFormValidator implements Validator {
         ClientForm clientForm = (ClientForm) obj;
 
         if (clientService.findByUsername(clientForm.getUsername()) != null) {
-            errors.rejectValue("username", "already.exists");
+            errors.rejectValue("username", "models.client.username.exists");
         }
 
         if (!clientForm.getPassword().equals(clientForm.getRepeatPassword())) {
-            errors.rejectValue("repeatPassword", "does.not.match");
+            errors.rejectValue("repeatPassword", "models.client.password.notmatch");
         }
 
         if (clientService.findByEmail(clientForm.getEmail()) != null) {
-            errors.rejectValue("email", "email.already.exists");
+            errors.rejectValue("email", "models.client.email.exists");
         }
 
     }

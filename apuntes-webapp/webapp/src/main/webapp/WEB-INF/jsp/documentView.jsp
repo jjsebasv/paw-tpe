@@ -28,7 +28,12 @@
             <ul class="reviews-wrapper">
                 <li class="review-item column">
                     <div class="column review-info-wrapper">
-                        <p><c:out value="${document.description}"/></p>
+                        <c:if test="${document.description ==null || document.description.trim().length()==0}">
+                            <p><spring:message code="models.document.description.empty"/></p>
+                        </c:if>
+                        <c:if test="${document.description.trim().length()>0}">
+                            <p><c:out value="${document.description}"/></p>
+                        </c:if>
                     </div>
                 </li>
             </ul>

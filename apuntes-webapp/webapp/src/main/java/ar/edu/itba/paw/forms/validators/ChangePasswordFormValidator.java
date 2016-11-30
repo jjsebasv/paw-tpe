@@ -34,5 +34,9 @@ public class ChangePasswordFormValidator implements Validator {
             errors.rejectValue("oldPassword", "models.client.password.notmatch.old");
         }
 
+        if (changePasswordForm.getClient().getPassword().equals(changePasswordForm.getNewPassword())) {
+            errors.rejectValue("oldPassword", "models.client.password.match.old");
+        }
+
     }
 }
