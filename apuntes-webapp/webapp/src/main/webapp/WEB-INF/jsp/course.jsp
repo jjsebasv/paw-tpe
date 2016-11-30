@@ -27,10 +27,12 @@
                 </c:if>
             </h4>
             <ul class="list-wrapper">
-                <div class="input-base-wrapper">
-                    <input class="input-base m-bottom-5 filter-input"
-                           placeholder="<spring:message code="course.search.document"/>" id="filter-docs"/>
-                </div>
+                <c:if test="${documentsSize > 1}">
+                    <div class="input-base-wrapper">
+                        <input class="input-base m-bottom-5 filter-input"
+                               placeholder="<spring:message code="course.search.document"/>" id="filter-docs"/>
+                    </div>
+                </c:if>
                 <c:forEach items="${documents}" var="document">
                     <li class="list-item document-item" style="height: 100px">
                         <div class="border" style="height: 100px"></div>
