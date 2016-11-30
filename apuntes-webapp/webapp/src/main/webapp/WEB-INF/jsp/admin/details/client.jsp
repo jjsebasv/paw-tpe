@@ -33,7 +33,6 @@
                         <form:errors path="role"/>
                     </c:set>
 
-
                     <div class="column left form-group input-base-wrapper ${not empty usernameHasBindError?"has-error":""}">
                         <form:label path="username"><spring:message code="models.client.username"/>: </form:label>
                         <form:input class="form-control" type="text" path="username"/>

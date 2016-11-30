@@ -35,16 +35,25 @@
 
             <h4><spring:message code="documentview.reviews"/></h4>
             <ul class="reviews-wrapper">
-                <c:forEach items="${document.reviews}" var="review">
+                <c:if test="${document.reviews.size()==0}">
                     <li class="review-item column">
-                        <span class="light-text review-time"><time class="moment-ago"
-                                                                   datetime="${review.dateUploaded}"></time></span>
                         <div class="column review-info-wrapper">
-                            <span class="ranking"><c:out value="${review.ranking}"/></span>
-                            <p><c:out value="${review.review}"/></p>
-                            <span class="light-text"><c:out value="${review.user.name}"/></span>
+                            <p><spring:message code="models.review.empty"/></p>
                         </div>
                     </li>
+                </c:if>
+                <c:forEach items="${document.reviews}" var="review">
+                    <c:if test="${review.review.length()>0}">
+                        <li class="review-item column">
+                        <span class="light-text review-time"><time class="moment-ago"
+                                                                   datetime="${review.dateUploaded}"></time></span>
+                            <div class="column review-info-wrapper">
+                                <span class="ranking"><c:out value="${review.ranking}"/></span>
+                                <p><c:out value="${review.review}"/></p>
+                                <span class="light-text"><c:out value="${review.user.name}"/></span>
+                            </div>
+                        </li>
+                    </c:if>
                 </c:forEach>
             </ul>
             <c:if test="${can_review}">
