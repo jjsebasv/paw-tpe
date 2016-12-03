@@ -1,10 +1,10 @@
 package ar.edu.itba.paw.controllers;
 
-import ar.edu.itba.paw.dtos.DocumentDTO;
-import ar.edu.itba.paw.dtos.DocumentListDTO;
-import ar.edu.itba.paw.interfaces.DocumentService;
-import ar.edu.itba.paw.models.Document;
-import ar.edu.itba.paw.models.builders.DocumentBuilder;
+import ar.edu.itba.paw.dtos.ReviewDTO;
+import ar.edu.itba.paw.dtos.ReviewListDTO;
+import ar.edu.itba.paw.interfaces.ReviewService;
+import ar.edu.itba.paw.models.Review;
+import ar.edu.itba.paw.models.builders.ReviewBuilder;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Component;
 
@@ -17,34 +17,34 @@ import java.net.URI;
 import java.util.List;
 
 @Component
-@Path("/api/v1/documents")
-public class DocumentController {
+@Path("/api/v1/reviews")
+public class ReviewController {
 
-    private final DocumentService ds;
+    private final ReviewService rs;
 
     @Context
     private UriInfo uriInfo;
 
     @Autowired
-    public DocumentController(DocumentService ds) {
-        this.ds = ds;
+    public ReviewController(ReviewService rs) {
+        this.rs = rs;
     }
 
     @GET
     @Path("/")
     @Produces(value = {MediaType.APPLICATION_JSON,})
-    public Response listCourses() {
-        final List<Document> documents = ds.getAll();
-        return Response.ok(new DocumentListDTO(documents)).build();
+    public Response listReviews() {
+        final List<Review> reviews = rs.getAll();
+        return Response.ok(new ReviewListDTO(reviews)).build();
     }
 
     @GET
     @Path("/{id}")
     @Produces(value = {MediaType.APPLICATION_JSON,})
     public Response getById(@PathParam("id") final long id) {
-        final Document document = ds.findById(id);
-        if (document != null) {
-            return Response.ok(new DocumentDTO(document)).build();
+        final Review review = rs.findById(id);
+        if (review != null) {
+            return Response.ok(new ReviewDTO(review)).build();
         } else {
             return Response.status(Response.Status.NOT_FOUND).build();
         }
@@ -52,18 +52,19 @@ public class DocumentController {
 
     @POST
     @Path("/")
-    //FIXME Ver que mediatype tiene que aceptar
     @Produces(value = {MediaType.APPLICATION_JSON,})
-    public Response create(final DocumentDTO documentDTO) {
+    public Response create(final ReviewDTO reviewDTO) {
 
         //FIXME Obtener los objetos a partir de los ids
         //FIXME Autenticacion y errores
-        final Document document = ds.create(
-                new DocumentBuilder()
+        final Review review = rs.create(
+                new ReviewBuilder()
+                        .setRanking(reviewDTO.getRanking())
+                        .setReview(reviewDTO.getReview())
                         .createModel()
         );
 
-        final URI uri = uriInfo.getAbsolutePathBuilder().path(String.valueOf(document.getDocumentId())).build();
+        final URI uri = uriInfo.getAbsolutePathBuilder().path(String.valueOf(review.getReviewid())).build();
         return Response.created(uri).build();
     }
 
@@ -71,8 +72,7 @@ public class DocumentController {
     @Path("/{id}")
     @Produces(value = {MediaType.APPLICATION_JSON,})
     public Response deleteById(@PathParam("id") final long id) {
-        ds.delete(id);
+        rs.delete(id);
         return Response.noContent().build();
     }
-
 }

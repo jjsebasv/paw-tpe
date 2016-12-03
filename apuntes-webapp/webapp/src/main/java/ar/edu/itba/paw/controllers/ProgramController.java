@@ -1,60 +1,77 @@
 package ar.edu.itba.paw.controllers;
 
-import ar.edu.itba.paw.interfaces.CourseService;
+import ar.edu.itba.paw.dtos.ProgramDTO;
+import ar.edu.itba.paw.dtos.ProgramListDTO;
 import ar.edu.itba.paw.interfaces.ProgramService;
-import ar.edu.itba.paw.models.Course;
 import ar.edu.itba.paw.models.Program;
+import ar.edu.itba.paw.models.builders.ProgramBuilder;
 import org.springframework.beans.factory.annotation.Autowired;
-import org.springframework.stereotype.Controller;
-import org.springframework.web.bind.annotation.PathVariable;
-import org.springframework.web.bind.annotation.RequestMapping;
-import org.springframework.web.servlet.ModelAndView;
+import org.springframework.stereotype.Component;
 
+import javax.ws.rs.*;
+import javax.ws.rs.core.Context;
+import javax.ws.rs.core.MediaType;
+import javax.ws.rs.core.Response;
+import javax.ws.rs.core.UriInfo;
+import java.net.URI;
 import java.util.List;
-import java.util.Map;
 
-@Controller
+@Component
+@Path("/api/v1/programs")
 public class ProgramController {
 
     private final ProgramService ps;
 
-    private final CourseService cs;
+    @Context
+    private UriInfo uriInfo;
 
     @Autowired
-    public ProgramController(ProgramService ps, CourseService cs) {
+    public ProgramController(ProgramService ps) {
         this.ps = ps;
-        this.cs = cs;
     }
 
-
-    @RequestMapping("/program/{pk:[\\d]+}")
-    public ModelAndView programView(@PathVariable("pk") int pk) {
-
-        final ModelAndView mav = new ModelAndView("program");
-
-        Program program = ps.findById(pk);
-        if (program == null) {
-            //FIXME Add 404 http resp code
-            return new ModelAndView("404");
-        }
-
-        final Map<Integer, List<Course>> groupedCourses = cs.findByProgramId(pk);
-
-        int coursesCount = 0;
-
-        for (List<Course> courseList : groupedCourses.values()) {
-            coursesCount += courseList.size();
-        }
-
-        final List<Course> optativas = groupedCourses.remove(0);
-
-        mav.addObject("program", program);
-        mav.addObject("courses", groupedCourses);
-        mav.addObject("optativas", optativas);
-        mav.addObject("coursesSize", coursesCount);
-
-        return mav;
-
+    @GET
+    @Path("/")
+    @Produces(value = {MediaType.APPLICATION_JSON,})
+    public Response listPrograms() {
+        final List<Program> programs = ps.getAll();
+        return Response.ok(new ProgramListDTO(programs)).build();
     }
 
+    @GET
+    @Path("/{id}")
+    @Produces(value = {MediaType.APPLICATION_JSON,})
+    public Response getById(@PathParam("id") final long id) {
+        final Program program = ps.findById(id);
+        if (program != null) {
+            return Response.ok(new ProgramDTO(program)).build();
+        } else {
+            return Response.status(Response.Status.NOT_FOUND).build();
+        }
+    }
+
+    @POST
+    @Path("/")
+    @Produces(value = {MediaType.APPLICATION_JSON,})
+    public Response create(final ProgramDTO programDTO) {
+
+        final Program program = ps.create(
+                new ProgramBuilder()
+                        .setGroup(programDTO.getGroup())
+                        .setName(programDTO.getName())
+                        .setShortName(programDTO.getShortName())
+                        .createModel()
+        );
+
+        final URI uri = uriInfo.getAbsolutePathBuilder().path(String.valueOf(program.getProgramid())).build();
+        return Response.created(uri).build();
+    }
+
+    @DELETE
+    @Path("/{id}")
+    @Produces(value = {MediaType.APPLICATION_JSON,})
+    public Response deleteById(@PathParam("id") final long id) {
+        ps.delete(id);
+        return Response.noContent().build();
+    }
 }

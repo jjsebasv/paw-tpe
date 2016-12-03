@@ -50,6 +50,7 @@ public class WebAuthConfig extends WebSecurityConfigurerAdapter {
                 .antMatchers("/uploadDocument/**").authenticated()
                 .antMatchers("/uploadDocument").authenticated()
                 .antMatchers("/program/**", "/course/**", "/document/**").permitAll()
+                .antMatchers("/api/**").permitAll()
                 .antMatchers("/**").permitAll()
                 .and().formLogin()
                 .usernameParameter("j_username")
