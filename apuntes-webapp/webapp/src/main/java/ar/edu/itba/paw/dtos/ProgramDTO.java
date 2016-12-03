@@ -7,7 +7,9 @@ import javax.xml.bind.annotation.XmlRootElement;
 @XmlRootElement
 public class ProgramDTO {
 
-    private Long programid;
+    private long programid;
+
+    private long universityId;
 
     private String name;
 
@@ -23,6 +25,7 @@ public class ProgramDTO {
         this.name = program.getName();
         this.shortName = program.getShortName();
         this.group = program.getGroup();
+        this.universityId = program.getUniversity().getUniversityId();
     }
 
     public Long getProgramid() {
@@ -55,5 +58,13 @@ public class ProgramDTO {
 
     public void setGroup(char group) {
         this.group = group;
+    }
+
+    public long getUniversityId() {
+        return universityId;
+    }
+
+    public void setUniversityId(long universityId) {
+        this.universityId = universityId;
     }
 }
