@@ -1,6 +1,7 @@
 package ar.edu.itba.paw.controllers;
 
 
+import ar.edu.itba.paw.auth.Secured;
 import ar.edu.itba.paw.dtos.UniversityDTO;
 import ar.edu.itba.paw.dtos.UniversityListDTO;
 import ar.edu.itba.paw.interfaces.UniversityService;
@@ -10,10 +11,7 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Component;
 
 import javax.ws.rs.*;
-import javax.ws.rs.core.Context;
-import javax.ws.rs.core.MediaType;
-import javax.ws.rs.core.Response;
-import javax.ws.rs.core.UriInfo;
+import javax.ws.rs.core.*;
 import java.net.URI;
 import java.util.List;
 
@@ -24,6 +22,9 @@ public class UniversityController {
 
     @Context
     private UriInfo uriInfo;
+
+    @Context
+    SecurityContext securityContext;
 
     @Autowired
     public UniversityController(UniversityService us) {
@@ -52,6 +53,7 @@ public class UniversityController {
 
     @POST
     @Path("/")
+    @Secured
     @Produces(value = {MediaType.APPLICATION_JSON,})
     public Response create(final UniversityDTO universityDTO) {
 
@@ -67,6 +69,7 @@ public class UniversityController {
 
     @DELETE
     @Path("/{id}")
+    @Secured
     @Produces(value = {MediaType.APPLICATION_JSON,})
     public Response deleteById(@PathParam("id") final long id) {
         us.delete(id);

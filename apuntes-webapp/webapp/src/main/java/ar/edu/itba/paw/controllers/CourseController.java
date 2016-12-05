@@ -1,5 +1,6 @@
 package ar.edu.itba.paw.controllers;
 
+import ar.edu.itba.paw.auth.Secured;
 import ar.edu.itba.paw.dtos.CourseDTO;
 import ar.edu.itba.paw.dtos.CourseListDTO;
 import ar.edu.itba.paw.interfaces.CourseService;
@@ -52,6 +53,7 @@ public class CourseController {
 
     @POST
     @Path("/")
+    @Secured
     @Produces(value = {MediaType.APPLICATION_JSON,})
     public Response create(final CourseDTO courseDTO) {
 
@@ -68,6 +70,7 @@ public class CourseController {
 
     @DELETE
     @Path("/{id}")
+    @Secured
     @Produces(value = {MediaType.APPLICATION_JSON,})
     public Response deleteById(@PathParam("id") final long id) {
         cs.delete(id);

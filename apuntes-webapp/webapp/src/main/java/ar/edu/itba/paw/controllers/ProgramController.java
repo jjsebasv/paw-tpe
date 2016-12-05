@@ -1,5 +1,6 @@
 package ar.edu.itba.paw.controllers;
 
+import ar.edu.itba.paw.auth.Secured;
 import ar.edu.itba.paw.dtos.ProgramDTO;
 import ar.edu.itba.paw.dtos.ProgramListDTO;
 import ar.edu.itba.paw.interfaces.ProgramService;
@@ -52,6 +53,7 @@ public class ProgramController {
 
     @POST
     @Path("/")
+    @Secured
     @Produces(value = {MediaType.APPLICATION_JSON,})
     public Response create(final ProgramDTO programDTO) {
 
@@ -69,6 +71,7 @@ public class ProgramController {
 
     @DELETE
     @Path("/{id}")
+    @Secured
     @Produces(value = {MediaType.APPLICATION_JSON,})
     public Response deleteById(@PathParam("id") final long id) {
         ps.delete(id);
