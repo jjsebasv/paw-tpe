@@ -2,18 +2,20 @@ package ar.edu.itba.paw.controllers;
 
 import ar.edu.itba.paw.dtos.ReviewDTO;
 import ar.edu.itba.paw.dtos.ReviewListDTO;
+import ar.edu.itba.paw.interfaces.ClientService;
+import ar.edu.itba.paw.interfaces.DocumentService;
 import ar.edu.itba.paw.interfaces.ReviewService;
+import ar.edu.itba.paw.models.Client;
+import ar.edu.itba.paw.models.Document;
 import ar.edu.itba.paw.models.Review;
 import ar.edu.itba.paw.models.builders.ReviewBuilder;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Component;
 
 import javax.ws.rs.*;
-import javax.ws.rs.core.Context;
-import javax.ws.rs.core.MediaType;
-import javax.ws.rs.core.Response;
-import javax.ws.rs.core.UriInfo;
+import javax.ws.rs.core.*;
 import java.net.URI;
+import java.security.Principal;
 import java.util.List;
 
 @Component
@@ -25,13 +27,20 @@ public class ReviewController {
     @Context
     private UriInfo uriInfo;
 
+    @Context
+    SecurityContext securityContext;
+
+    private final ClientService cs;
+    private final DocumentService ds;
+
     @Autowired
-    public ReviewController(ReviewService rs) {
+    public ReviewController(ReviewService rs, ClientService cs, DocumentService ds) {
         this.rs = rs;
+        this.cs = cs;
+        this.ds = ds;
     }
 
     @GET
-    @Path("/")
     @Produces(value = {MediaType.APPLICATION_JSON,})
     public Response listReviews() {
         final List<Review> reviews = rs.getAll();
@@ -51,16 +60,21 @@ public class ReviewController {
     }
 
     @POST
-    @Path("/")
     @Produces(value = {MediaType.APPLICATION_JSON,})
     public Response create(final ReviewDTO reviewDTO) {
 
-        //FIXME Obtener los objetos a partir de los ids
+        final Principal principal = securityContext.getUserPrincipal();
+        final String username = principal.getName();
+        final Client client = cs.findByUsername(username);
+        final Document document = ds.findById(reviewDTO.getFileid());
+
         //FIXME Autenticacion y errores
         final Review review = rs.create(
                 new ReviewBuilder()
                         .setRanking(reviewDTO.getRanking())
                         .setReview(reviewDTO.getReview())
+                        .setFile(document)
+                        .setUser(client)
                         .createModel()
         );
 

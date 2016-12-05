@@ -2,18 +2,20 @@ package ar.edu.itba.paw.controllers;
 
 import ar.edu.itba.paw.dtos.DocumentDTO;
 import ar.edu.itba.paw.dtos.DocumentListDTO;
+import ar.edu.itba.paw.interfaces.ClientService;
+import ar.edu.itba.paw.interfaces.CourseService;
 import ar.edu.itba.paw.interfaces.DocumentService;
+import ar.edu.itba.paw.models.Client;
+import ar.edu.itba.paw.models.Course;
 import ar.edu.itba.paw.models.Document;
 import ar.edu.itba.paw.models.builders.DocumentBuilder;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Component;
 
 import javax.ws.rs.*;
-import javax.ws.rs.core.Context;
-import javax.ws.rs.core.MediaType;
-import javax.ws.rs.core.Response;
-import javax.ws.rs.core.UriInfo;
+import javax.ws.rs.core.*;
 import java.net.URI;
+import java.security.Principal;
 import java.util.List;
 
 @Component
@@ -22,16 +24,24 @@ public class DocumentController {
 
     private final DocumentService ds;
 
+    private final ClientService cs;
+
+    private final CourseService courseService;
+
     @Context
     private UriInfo uriInfo;
 
+    @Context
+    SecurityContext securityContext;
+
     @Autowired
-    public DocumentController(DocumentService ds) {
+    public DocumentController(DocumentService ds, ClientService cs, CourseService courseService) {
         this.ds = ds;
+        this.cs = cs;
+        this.courseService = courseService;
     }
 
     @GET
-    @Path("/")
     @Produces(value = {MediaType.APPLICATION_JSON,})
     public Response listCourses() {
         final List<Document> documents = ds.getAll();
@@ -51,15 +61,25 @@ public class DocumentController {
     }
 
     @POST
-    @Path("/")
     //FIXME Ver que mediatype tiene que aceptar
     @Produces(value = {MediaType.APPLICATION_JSON,})
     public Response create(final DocumentDTO documentDTO) {
 
-        //FIXME Obtener los objetos a partir de los ids
+        final Principal principal = securityContext.getUserPrincipal();
+        final String username = principal.getName();
+        final Client client = cs.findByUsername(username);
+        final Course course = courseService.findById(documentDTO.getCourseid());
+
         //FIXME Autenticacion y errores
         final Document document = ds.create(
                 new DocumentBuilder()
+                        .setUser(client)
+                        .setCourse(course)
+                        .setSubject(documentDTO.getSubject())
+                        .setDocumentName(documentDTO.getDocumentName())
+                        .setDocumentSize(documentDTO.getDocumentSize())
+                        //.setData()
+                        .setDescription(documentDTO.getDescription())
                         .createModel()
         );
 

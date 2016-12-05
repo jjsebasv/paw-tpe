@@ -4,6 +4,7 @@ import ar.edu.itba.paw.auth.Secured;
 import ar.edu.itba.paw.dtos.ProgramDTO;
 import ar.edu.itba.paw.dtos.ProgramListDTO;
 import ar.edu.itba.paw.interfaces.ProgramService;
+import ar.edu.itba.paw.models.ClientRole;
 import ar.edu.itba.paw.models.Program;
 import ar.edu.itba.paw.models.builders.ProgramBuilder;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -32,7 +33,6 @@ public class ProgramController {
     }
 
     @GET
-    @Path("/")
     @Produces(value = {MediaType.APPLICATION_JSON,})
     public Response listPrograms() {
         final List<Program> programs = ps.getAll();
@@ -52,8 +52,7 @@ public class ProgramController {
     }
 
     @POST
-    @Path("/")
-    @Secured
+    @Secured({ClientRole.ROLE_ADMIN})
     @Produces(value = {MediaType.APPLICATION_JSON,})
     public Response create(final ProgramDTO programDTO) {
 
@@ -71,7 +70,7 @@ public class ProgramController {
 
     @DELETE
     @Path("/{id}")
-    @Secured
+    @Secured({ClientRole.ROLE_ADMIN})
     @Produces(value = {MediaType.APPLICATION_JSON,})
     public Response deleteById(@PathParam("id") final long id) {
         ps.delete(id);

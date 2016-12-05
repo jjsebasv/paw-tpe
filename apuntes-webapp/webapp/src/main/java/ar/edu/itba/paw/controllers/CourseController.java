@@ -4,6 +4,7 @@ import ar.edu.itba.paw.auth.Secured;
 import ar.edu.itba.paw.dtos.CourseDTO;
 import ar.edu.itba.paw.dtos.CourseListDTO;
 import ar.edu.itba.paw.interfaces.CourseService;
+import ar.edu.itba.paw.models.ClientRole;
 import ar.edu.itba.paw.models.Course;
 import ar.edu.itba.paw.models.builders.CourseBuilder;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -32,10 +33,15 @@ public class CourseController {
     }
 
     @GET
-    @Path("/")
     @Produces(value = {MediaType.APPLICATION_JSON,})
-    public Response listCourses() {
-        final List<Course> courses = cs.getAll();
+    public Response listCourses(@DefaultValue("") @QueryParam("term") String term) {
+        List<Course> courses;
+        if (term.isEmpty()) {
+            courses = cs.getAll();
+        } else {
+            courses = cs.findByTerm(term);
+        }
+
         return Response.ok(new CourseListDTO(courses)).build();
     }
 
@@ -52,8 +58,7 @@ public class CourseController {
     }
 
     @POST
-    @Path("/")
-    @Secured
+    @Secured({ClientRole.ROLE_ADMIN})
     @Produces(value = {MediaType.APPLICATION_JSON,})
     public Response create(final CourseDTO courseDTO) {
 
@@ -70,7 +75,7 @@ public class CourseController {
 
     @DELETE
     @Path("/{id}")
-    @Secured
+    @Secured({ClientRole.ROLE_ADMIN})
     @Produces(value = {MediaType.APPLICATION_JSON,})
     public Response deleteById(@PathParam("id") final long id) {
         cs.delete(id);

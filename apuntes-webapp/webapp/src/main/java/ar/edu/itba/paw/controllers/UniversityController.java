@@ -5,6 +5,7 @@ import ar.edu.itba.paw.auth.Secured;
 import ar.edu.itba.paw.dtos.UniversityDTO;
 import ar.edu.itba.paw.dtos.UniversityListDTO;
 import ar.edu.itba.paw.interfaces.UniversityService;
+import ar.edu.itba.paw.models.ClientRole;
 import ar.edu.itba.paw.models.University;
 import ar.edu.itba.paw.models.builders.UniversityBuilder;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -23,16 +24,12 @@ public class UniversityController {
     @Context
     private UriInfo uriInfo;
 
-    @Context
-    SecurityContext securityContext;
-
     @Autowired
     public UniversityController(UniversityService us) {
         this.us = us;
     }
 
     @GET
-    @Path("/")
     @Produces(value = {MediaType.APPLICATION_JSON,})
     public Response listUniversities() {
         final List<University> programs = us.getAll();
@@ -52,8 +49,7 @@ public class UniversityController {
     }
 
     @POST
-    @Path("/")
-    @Secured
+    @Secured({ClientRole.ROLE_ADMIN})
     @Produces(value = {MediaType.APPLICATION_JSON,})
     public Response create(final UniversityDTO universityDTO) {
 
@@ -69,7 +65,7 @@ public class UniversityController {
 
     @DELETE
     @Path("/{id}")
-    @Secured
+    @Secured({ClientRole.ROLE_ADMIN})
     @Produces(value = {MediaType.APPLICATION_JSON,})
     public Response deleteById(@PathParam("id") final long id) {
         us.delete(id);
