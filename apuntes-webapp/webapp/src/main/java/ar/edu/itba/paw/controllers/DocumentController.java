@@ -10,12 +10,17 @@ import ar.edu.itba.paw.models.Client;
 import ar.edu.itba.paw.models.Course;
 import ar.edu.itba.paw.models.Document;
 import ar.edu.itba.paw.models.builders.DocumentBuilder;
+import org.apache.commons.io.IOUtils;
+import org.glassfish.jersey.media.multipart.FormDataContentDisposition;
+import org.glassfish.jersey.media.multipart.FormDataParam;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Component;
+
 
 import javax.validation.Valid;
 import javax.ws.rs.*;
 import javax.ws.rs.core.*;
+import java.io.*;
 import java.net.URI;
 import java.security.Principal;
 import java.util.List;
@@ -63,16 +68,17 @@ public class DocumentController {
     }
 
     @POST
-    //FIXME Ver que mediatype tiene que aceptar
+    @Consumes(MediaType.MULTIPART_FORM_DATA)
     @Produces(value = {MediaType.APPLICATION_JSON,})
-    public Response create(@Valid final DocumentDTO documentDTO) {
+    public Response create(@FormDataParam("file") InputStream fileInputStream,
+                           @FormDataParam("file") FormDataContentDisposition fileMetaData,
+                           @FormDataParam("document") @Valid final DocumentDTO documentDTO) throws IOException {
 
         final Principal principal = securityContext.getUserPrincipal();
         final String username = principal.getName();
         final Client client = cs.findByUsername(username);
         final Course course = courseService.findById(documentDTO.getCourseid());
 
-        //FIXME Autenticacion y errores
         final Document document = ds.create(
                 new DocumentBuilder()
                         .setUser(client)
@@ -80,7 +86,7 @@ public class DocumentController {
                         .setSubject(documentDTO.getSubject())
                         .setDocumentName(documentDTO.getDocumentName())
                         .setDocumentSize(documentDTO.getDocumentSize())
-                        //.setData()
+                        .setData(IOUtils.toByteArray(fileInputStream))
                         .setDescription(documentDTO.getDescription())
                         .createModel()
         );
