@@ -11,12 +11,16 @@ import ar.edu.itba.paw.models.Client;
 import ar.edu.itba.paw.models.Course;
 import ar.edu.itba.paw.models.Document;
 import ar.edu.itba.paw.models.builders.DocumentBuilder;
+import org.apache.commons.io.IOUtils;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Component;
 
 import javax.validation.Valid;
 import javax.ws.rs.*;
 import javax.ws.rs.core.*;
+import java.io.ByteArrayInputStream;
+import java.io.IOException;
+import java.io.InputStream;
 import java.net.URI;
 import java.security.Principal;
 import java.util.Base64;
@@ -109,6 +113,47 @@ public class DocumentController {
     public Response deleteById(@PathParam("id") final long id) {
         ds.delete(id);
         return Response.noContent().build();
+    }
+
+    @GET
+    @Path("{id}/download")
+    @Produces(value = {MediaType.APPLICATION_OCTET_STREAM})
+    public Response downloadFile(@PathParam("id") long id) throws IOException {
+
+        final Document file = ds.findById(id);
+
+        final InputStream inp = new ByteArrayInputStream(file.getData());
+
+        StreamingOutput stream = output -> {
+            try {
+                IOUtils.copy(inp, output);
+            } catch (Exception e) {
+                throw new WebApplicationException(e);
+            }
+        };
+
+        return Response.ok(stream).header("content-disposition", String.format("attachment; filename=\"%s\";", file.getDocumentName())).build();
+    }
+
+    @GET
+    @Path("/{id}/open")
+    public Response openFile(@PathParam("id") long id) throws IOException {
+
+        final Document file = ds.findById(id);
+        final InputStream inp = new ByteArrayInputStream(file.getData());
+
+        StreamingOutput stream = output -> {
+            try {
+                IOUtils.copy(inp, output);
+            } catch (Exception e) {
+                throw new WebApplicationException(e);
+            }
+        };
+
+        return Response.ok(stream)
+                .header("content-disposition", String.format("attachment; filename=\"%s\";", file.getDocumentName()))
+                .header("content-type", "application/pdf")
+                .build();
     }
 
 }
