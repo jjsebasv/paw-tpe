@@ -1,5 +1,6 @@
 package ar.edu.itba.paw.controllers;
 
+import ar.edu.itba.paw.auth.Secured;
 import ar.edu.itba.paw.controllers.exceptions.Http404Exception;
 import ar.edu.itba.paw.dtos.DocumentDTO;
 import ar.edu.itba.paw.dtos.DocumentListDTO;
@@ -10,19 +11,15 @@ import ar.edu.itba.paw.models.Client;
 import ar.edu.itba.paw.models.Course;
 import ar.edu.itba.paw.models.Document;
 import ar.edu.itba.paw.models.builders.DocumentBuilder;
-import org.apache.commons.io.IOUtils;
-import org.glassfish.jersey.media.multipart.FormDataContentDisposition;
-import org.glassfish.jersey.media.multipart.FormDataParam;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Component;
-
 
 import javax.validation.Valid;
 import javax.ws.rs.*;
 import javax.ws.rs.core.*;
-import java.io.*;
 import java.net.URI;
 import java.security.Principal;
+import java.util.Base64;
 import java.util.List;
 
 @Component
@@ -50,7 +47,7 @@ public class DocumentController {
 
     @GET
     @Produces(value = {MediaType.APPLICATION_JSON,})
-    public Response listCourses() {
+    public Response listDocuments() {
         final List<Document> documents = ds.getAll();
         return Response.ok(new DocumentListDTO(documents)).build();
     }
@@ -67,12 +64,22 @@ public class DocumentController {
         }
     }
 
+    /**
+     * Ejemplo de como subir un archivo. POST!
+     * BODY:
+     * {
+     * "courseid":1,
+     * "subject": "asuntoooooo",
+     * "documentName": "nombre del archivo.pdf",
+     * "data": "ZGF0b3MgZGVsIGFyY2hpdm8=",
+     * "description": "descripcoiiooono"
+     * }
+     */
     @POST
-    @Consumes(MediaType.MULTIPART_FORM_DATA)
+    @Consumes(MediaType.APPLICATION_JSON)
+    @Secured
     @Produces(value = {MediaType.APPLICATION_JSON,})
-    public Response create(@FormDataParam("file") InputStream fileInputStream,
-                           @FormDataParam("file") FormDataContentDisposition fileMetaData,
-                           @FormDataParam("document") @Valid final DocumentDTO documentDTO) throws IOException {
+    public Response create(@Valid final DocumentDTO documentDTO) {
 
         final Principal principal = securityContext.getUserPrincipal();
         final String username = principal.getName();
@@ -86,7 +93,7 @@ public class DocumentController {
                         .setSubject(documentDTO.getSubject())
                         .setDocumentName(documentDTO.getDocumentName())
                         .setDocumentSize(documentDTO.getDocumentSize())
-                        .setData(IOUtils.toByteArray(fileInputStream))
+                        .setData(Base64.getDecoder().decode(documentDTO.getData()))
                         .setDescription(documentDTO.getDescription())
                         .createModel()
         );
@@ -97,6 +104,7 @@ public class DocumentController {
 
     @DELETE
     @Path("/{id}")
+    @Secured
     @Produces(value = {MediaType.APPLICATION_JSON,})
     public Response deleteById(@PathParam("id") final long id) {
         ds.delete(id);

@@ -192,12 +192,6 @@
             <artifactId>jersey-bean-validation</artifactId>
         </dependency>
 
-        <dependency>
-            <groupId>org.glassfish.jersey.media</groupId>
-            <artifactId>jersey-media-multipart</artifactId>
-        </dependency>
-
-
     </dependencies>
     <build>
         <finalName>webapp</finalName>

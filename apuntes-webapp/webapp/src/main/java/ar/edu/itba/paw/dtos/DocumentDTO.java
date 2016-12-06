@@ -23,11 +23,8 @@ public class DocumentDTO {
     @NotEmpty
     private String documentName;
 
-    private long documentSize;
-//
-//    private String data;
+    private String data;
 
-    @NotNull
     private Date dateUploaded;
 
     @NotEmpty
@@ -42,8 +39,7 @@ public class DocumentDTO {
         this.courseid = document.getCourse().getCourseid();
         this.subject = document.getSubject();
         this.documentName = document.getDocumentName();
-        this.documentSize = document.getDocumentSize();
-//        this.data = Base64.getEncoder().encodeToString(document.getData());
+        this.data = Base64.getEncoder().encodeToString(document.getData());
         this.dateUploaded = document.getDateUploaded();
         this.description = document.getDescription();
     }
@@ -89,20 +85,21 @@ public class DocumentDTO {
     }
 
     public long getDocumentSize() {
-        return documentSize;
+        if (this.data == null) {
+            return 0;
+        }
+
+        return data.length();
     }
 
-    public void setDocumentSize(long documentSize) {
-        this.documentSize = documentSize;
+
+    public String getData() {
+        return data;
     }
-//
-//    public String getData() {
-//        return data;
-//    }
-//
-//    public void setData(String data) {
-//        this.data = data;
-//    }
+
+    public void setData(String data) {
+        this.data = data;
+    }
 
     public Date getDateUploaded() {
         return dateUploaded;
