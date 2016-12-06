@@ -1,5 +1,6 @@
 package ar.edu.itba.paw.controllers;
 
+import ar.edu.itba.paw.controllers.exceptions.Http404Exception;
 import ar.edu.itba.paw.dtos.DocumentDTO;
 import ar.edu.itba.paw.dtos.DocumentListDTO;
 import ar.edu.itba.paw.interfaces.ClientService;
@@ -12,6 +13,7 @@ import ar.edu.itba.paw.models.builders.DocumentBuilder;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Component;
 
+import javax.validation.Valid;
 import javax.ws.rs.*;
 import javax.ws.rs.core.*;
 import java.net.URI;
@@ -51,19 +53,19 @@ public class DocumentController {
     @GET
     @Path("/{id}")
     @Produces(value = {MediaType.APPLICATION_JSON,})
-    public Response getById(@PathParam("id") final long id) {
+    public Response getById(@PathParam("id") final long id) throws Http404Exception {
         final Document document = ds.findById(id);
         if (document != null) {
             return Response.ok(new DocumentDTO(document)).build();
         } else {
-            return Response.status(Response.Status.NOT_FOUND).build();
+            throw new Http404Exception("Document not found");
         }
     }
 
     @POST
     //FIXME Ver que mediatype tiene que aceptar
     @Produces(value = {MediaType.APPLICATION_JSON,})
-    public Response create(final DocumentDTO documentDTO) {
+    public Response create(@Valid final DocumentDTO documentDTO) {
 
         final Principal principal = securityContext.getUserPrincipal();
         final String username = principal.getName();

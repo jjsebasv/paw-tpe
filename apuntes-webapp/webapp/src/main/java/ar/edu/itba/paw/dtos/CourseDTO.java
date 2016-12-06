@@ -1,6 +1,7 @@
 package ar.edu.itba.paw.dtos;
 
 import ar.edu.itba.paw.models.Course;
+import org.hibernate.validator.constraints.NotEmpty;
 
 import javax.xml.bind.annotation.XmlRootElement;
 
@@ -9,8 +10,10 @@ public class CourseDTO {
 
     private long courseid;
 
+    @NotEmpty
     private String code;
 
+    @NotEmpty
     private String name;
 
     public CourseDTO() {

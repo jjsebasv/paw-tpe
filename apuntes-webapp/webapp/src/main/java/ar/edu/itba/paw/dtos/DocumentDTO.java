@@ -1,7 +1,9 @@
 package ar.edu.itba.paw.dtos;
 
 import ar.edu.itba.paw.models.Document;
+import org.hibernate.validator.constraints.NotEmpty;
 
+import javax.validation.constraints.NotNull;
 import javax.xml.bind.annotation.XmlRootElement;
 import java.util.Base64;
 import java.util.Date;
@@ -15,16 +17,20 @@ public class DocumentDTO {
 
     private long courseid;
 
+    @NotEmpty
     private String subject;
 
+    @NotEmpty
     private String documentName;
 
     private long documentSize;
 //
 //    private String data;
 
+    @NotNull
     private Date dateUploaded;
 
+    @NotEmpty
     private String description;
 
     public DocumentDTO() {

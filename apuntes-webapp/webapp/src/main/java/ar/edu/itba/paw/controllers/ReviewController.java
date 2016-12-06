@@ -1,5 +1,6 @@
 package ar.edu.itba.paw.controllers;
 
+import ar.edu.itba.paw.controllers.exceptions.Http404Exception;
 import ar.edu.itba.paw.dtos.ReviewDTO;
 import ar.edu.itba.paw.dtos.ReviewListDTO;
 import ar.edu.itba.paw.interfaces.ClientService;
@@ -12,6 +13,7 @@ import ar.edu.itba.paw.models.builders.ReviewBuilder;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Component;
 
+import javax.validation.Valid;
 import javax.ws.rs.*;
 import javax.ws.rs.core.*;
 import java.net.URI;
@@ -50,18 +52,18 @@ public class ReviewController {
     @GET
     @Path("/{id}")
     @Produces(value = {MediaType.APPLICATION_JSON,})
-    public Response getById(@PathParam("id") final long id) {
+    public Response getById(@PathParam("id") final long id) throws Http404Exception {
         final Review review = rs.findById(id);
         if (review != null) {
             return Response.ok(new ReviewDTO(review)).build();
         } else {
-            return Response.status(Response.Status.NOT_FOUND).build();
+            throw new Http404Exception("Review not found");
         }
     }
 
     @POST
     @Produces(value = {MediaType.APPLICATION_JSON,})
-    public Response create(final ReviewDTO reviewDTO) {
+    public Response create(@Valid final ReviewDTO reviewDTO) {
 
         final Principal principal = securityContext.getUserPrincipal();
         final String username = principal.getName();

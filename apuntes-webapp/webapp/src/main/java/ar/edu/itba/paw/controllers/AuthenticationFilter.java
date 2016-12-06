@@ -1,6 +1,7 @@
 package ar.edu.itba.paw.controllers;
 
 import ar.edu.itba.paw.auth.Secured;
+import ar.edu.itba.paw.dtos.ErrorMessageDTO;
 import ar.edu.itba.paw.interfaces.ClientService;
 import ar.edu.itba.paw.models.AuthenticationToken;
 import ar.edu.itba.paw.models.Client;
@@ -52,7 +53,9 @@ public class AuthenticationFilter implements ContainerRequestFilter {
 
         if (authenticationToken == null) {
             requestContext.abortWith(
-                    Response.status(Response.Status.UNAUTHORIZED).build());
+                    Response.status(Response.Status.UNAUTHORIZED)
+                            .entity(new ErrorMessageDTO(Response.Status.UNAUTHORIZED))
+                            .build());
         }
 
         requestContext.setSecurityContext(new SecurityContext() {

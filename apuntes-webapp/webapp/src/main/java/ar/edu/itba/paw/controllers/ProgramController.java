@@ -1,6 +1,7 @@
 package ar.edu.itba.paw.controllers;
 
 import ar.edu.itba.paw.auth.Secured;
+import ar.edu.itba.paw.controllers.exceptions.Http404Exception;
 import ar.edu.itba.paw.dtos.ProgramDTO;
 import ar.edu.itba.paw.dtos.ProgramListDTO;
 import ar.edu.itba.paw.interfaces.ProgramService;
@@ -10,6 +11,7 @@ import ar.edu.itba.paw.models.builders.ProgramBuilder;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Component;
 
+import javax.validation.Valid;
 import javax.ws.rs.*;
 import javax.ws.rs.core.Context;
 import javax.ws.rs.core.MediaType;
@@ -42,19 +44,19 @@ public class ProgramController {
     @GET
     @Path("/{id}")
     @Produces(value = {MediaType.APPLICATION_JSON,})
-    public Response getById(@PathParam("id") final long id) {
+    public Response getById(@PathParam("id") final long id) throws Http404Exception {
         final Program program = ps.findById(id);
         if (program != null) {
             return Response.ok(new ProgramDTO(program)).build();
         } else {
-            return Response.status(Response.Status.NOT_FOUND).build();
+            throw new Http404Exception("Program not found");
         }
     }
 
     @POST
     @Secured({ClientRole.ROLE_ADMIN})
     @Produces(value = {MediaType.APPLICATION_JSON,})
-    public Response create(final ProgramDTO programDTO) {
+    public Response create(@Valid final ProgramDTO programDTO) {
 
         final Program program = ps.create(
                 new ProgramBuilder()

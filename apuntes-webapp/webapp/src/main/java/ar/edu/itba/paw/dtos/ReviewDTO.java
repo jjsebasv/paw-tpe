@@ -1,6 +1,7 @@
 package ar.edu.itba.paw.dtos;
 
 import ar.edu.itba.paw.models.Review;
+import org.hibernate.validator.constraints.NotEmpty;
 
 import javax.xml.bind.annotation.XmlRootElement;
 
@@ -15,6 +16,7 @@ public class ReviewDTO {
 
     private int ranking;
 
+    @NotEmpty
     private String review;
 
     public ReviewDTO(final Review review) {

@@ -2,6 +2,7 @@ package ar.edu.itba.paw.dtos;
 
 import ar.edu.itba.paw.controllers.HttpException;
 
+import javax.ws.rs.core.Response;
 import javax.xml.bind.annotation.XmlRootElement;
 
 @XmlRootElement
@@ -20,6 +21,12 @@ public class ErrorMessageDTO {
         this.status = exception.getStatus();
         this.message = exception.getErrorMessage();
     }
+
+    public ErrorMessageDTO(Response.Status status) {
+        this.status = status.getStatusCode();
+        this.message = status.getReasonPhrase();
+    }
+
 
     public ErrorMessageDTO() {
     }

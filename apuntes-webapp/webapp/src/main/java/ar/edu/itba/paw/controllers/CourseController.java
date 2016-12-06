@@ -1,6 +1,7 @@
 package ar.edu.itba.paw.controllers;
 
 import ar.edu.itba.paw.auth.Secured;
+import ar.edu.itba.paw.controllers.exceptions.Http404Exception;
 import ar.edu.itba.paw.dtos.CourseDTO;
 import ar.edu.itba.paw.dtos.CourseListDTO;
 import ar.edu.itba.paw.interfaces.CourseService;
@@ -10,6 +11,7 @@ import ar.edu.itba.paw.models.builders.CourseBuilder;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Component;
 
+import javax.validation.Valid;
 import javax.ws.rs.*;
 import javax.ws.rs.core.Context;
 import javax.ws.rs.core.MediaType;
@@ -48,19 +50,19 @@ public class CourseController {
     @GET
     @Path("/{id}")
     @Produces(value = {MediaType.APPLICATION_JSON,})
-    public Response getById(@PathParam("id") final long id) {
+    public Response getById(@PathParam("id") final long id) throws Http404Exception {
         final Course course = cs.findById(id);
         if (course != null) {
             return Response.ok(new CourseDTO(course)).build();
         } else {
-            return Response.status(Response.Status.NOT_FOUND).build();
+            throw new Http404Exception("Course not found");
         }
     }
 
     @POST
     @Secured({ClientRole.ROLE_ADMIN})
     @Produces(value = {MediaType.APPLICATION_JSON,})
-    public Response create(final CourseDTO courseDTO) {
+    public Response create(@Valid final CourseDTO courseDTO) {
 
         final Course course = cs.create(
                 new CourseBuilder()
