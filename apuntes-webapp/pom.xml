@@ -236,23 +236,23 @@
                 <version>${spring-security.version}</version>
             </dependency>
 
-            <dependency>
-                <groupId>javax.validation</groupId>
-                <artifactId>validation-api</artifactId>
-                <version>${javax.validation-api.version}</version>
-            </dependency>
+            <!--<dependency>-->
+                <!--<groupId>javax.validation</groupId>-->
+                <!--<artifactId>validation-api</artifactId>-->
+                <!--<version>${javax.validation-api.version}</version>-->
+            <!--</dependency>-->
 
-            <dependency>
-                <groupId>org.hibernate</groupId>
-                <artifactId>hibernate-validator</artifactId>
-                <version>${org.hibernate.validator}</version>
-                <exclusions>
-                    <exclusion>
-                        <groupId>org.jboss.logging</groupId>
-                        <artifactId>jboss-logging</artifactId>
-                    </exclusion>
-                </exclusions>
-            </dependency>
+            <!--<dependency>-->
+                <!--<groupId>org.hibernate</groupId>-->
+                <!--<artifactId>hibernate-validator</artifactId>-->
+                <!--<version>${org.hibernate.validator}</version>-->
+                <!--<exclusions>-->
+                    <!--<exclusion>-->
+                        <!--<groupId>org.jboss.logging</groupId>-->
+                        <!--<artifactId>jboss-logging</artifactId>-->
+                    <!--</exclusion>-->
+                <!--</exclusions>-->
+            <!--</dependency>-->
 
             <dependency>
                 <groupId>org.flywaydb</groupId>
@@ -290,7 +290,6 @@
                 <version>${javax.xml.bind.version}</version>
             </dependency>
 
-
             <!-- JERSEY -->
             <dependency>
                 <groupId>org.glassfish.jersey.containers</groupId>
@@ -325,6 +324,11 @@
                 <version>${jersey.version}</version>
             </dependency>
 
+            <dependency>
+                <groupId>org.glassfish.jersey.ext</groupId>
+                <artifactId>jersey-bean-validation</artifactId>
+                <version>${jersey.version}</version>
+            </dependency>
 
         </dependencies>
 

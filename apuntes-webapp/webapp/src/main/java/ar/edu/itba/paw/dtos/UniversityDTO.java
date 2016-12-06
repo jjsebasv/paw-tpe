@@ -1,6 +1,7 @@
 package ar.edu.itba.paw.dtos;
 
 import ar.edu.itba.paw.models.University;
+import org.hibernate.validator.constraints.NotEmpty;
 
 import javax.xml.bind.annotation.XmlRootElement;
 
@@ -9,6 +10,7 @@ public class UniversityDTO {
 
     private Long universityId;
 
+    @NotEmpty
     private String name;
 
     public UniversityDTO() {
