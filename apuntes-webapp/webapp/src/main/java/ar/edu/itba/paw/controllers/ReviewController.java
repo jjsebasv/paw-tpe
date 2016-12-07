@@ -1,6 +1,7 @@
 package ar.edu.itba.paw.controllers;
 
 import ar.edu.itba.paw.auth.Secured;
+import ar.edu.itba.paw.controllers.exceptions.Http403Exception;
 import ar.edu.itba.paw.controllers.exceptions.Http404Exception;
 import ar.edu.itba.paw.dtos.ReviewDTO;
 import ar.edu.itba.paw.dtos.ReviewListDTO;
@@ -87,24 +88,26 @@ public class ReviewController {
     }
 
     @PUT
-    @Secured({ClientRole.ROLE_ADMIN})
+    @Secured()
     @Path("/{id}")
     @Consumes(value = {MediaType.APPLICATION_JSON,})
     @Produces(value = {MediaType.APPLICATION_JSON,})
     public Response update(@PathParam("id") final long id,
-                           @Valid final ReviewDTO reviewDTO) throws Http404Exception {
+                           @Valid final ReviewDTO reviewDTO) throws HttpException {
 
         final Review review = rs.findById(id);
+
+        if (review == null) {
+            throw new Http404Exception("Review not found");
+        }
 
         final Principal principal = securityContext.getUserPrincipal();
         final String username = principal.getName();
         final Client client = cs.findByUsername(username);
         final Document document = ds.findById(reviewDTO.getFileid());
 
-        // TODO Validar mismo usuario
-
-        if (review == null) {
-            throw new Http404Exception("Review not found");
+        if (review.getUser().getClientId() != client.getClientId()) {
+            throw new Http403Exception();
         }
 
         rs.update(

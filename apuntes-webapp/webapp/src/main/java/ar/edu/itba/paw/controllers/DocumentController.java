@@ -1,6 +1,7 @@
 package ar.edu.itba.paw.controllers;
 
 import ar.edu.itba.paw.auth.Secured;
+import ar.edu.itba.paw.controllers.exceptions.Http403Exception;
 import ar.edu.itba.paw.controllers.exceptions.Http404Exception;
 import ar.edu.itba.paw.dtos.DocumentDTO;
 import ar.edu.itba.paw.dtos.DocumentListDTO;
@@ -108,12 +109,12 @@ public class DocumentController {
     }
 
     @PUT
-    @Secured({ClientRole.ROLE_ADMIN})
+    @Secured()
     @Path("/{id}")
     @Consumes(value = {MediaType.APPLICATION_JSON,})
     @Produces(value = {MediaType.APPLICATION_JSON,})
     public Response update(@PathParam("id") final long id,
-                           @Valid final DocumentDTO documentDTO) throws Http404Exception {
+                           @Valid final DocumentDTO documentDTO) throws HttpException {
 
         final Document document = ds.findById(id);
 
@@ -125,6 +126,10 @@ public class DocumentController {
         final String username = principal.getName();
         final Client client = cs.findByUsername(username);
         final Course course = courseService.findById(documentDTO.getCourseid());
+
+        if (document.getUser().getClientId() != client.getClientId()) {
+            throw new Http403Exception();
+        }
 
         ds.update(
                 id,
