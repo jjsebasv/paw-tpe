@@ -75,6 +75,32 @@ public class CourseController {
         return Response.created(uri).build();
     }
 
+    @PUT
+    @Secured({ClientRole.ROLE_ADMIN})
+    @Path("/{id}")
+    @Consumes(value = {MediaType.APPLICATION_JSON,})
+    @Produces(value = {MediaType.APPLICATION_JSON,})
+    public Response update(@PathParam("id") final long id,
+                           @Valid final CourseDTO courseDTO) throws Http404Exception {
+
+        final Course course = cs.findById(id);
+
+        if (course == null) {
+            throw new Http404Exception("Course not found");
+        }
+
+        cs.update(
+                id,
+                new CourseBuilder()
+                        .setName(courseDTO.getName())
+                        .setCode(courseDTO.getCode())
+                        .createModel()
+        );
+
+        return Response.ok(new CourseDTO(cs.findById(id))).build();
+    }
+
+
     @DELETE
     @Path("/{id}")
     @Secured({ClientRole.ROLE_ADMIN})

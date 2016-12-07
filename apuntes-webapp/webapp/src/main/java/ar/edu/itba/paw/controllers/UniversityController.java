@@ -66,6 +66,31 @@ public class UniversityController {
         return Response.created(uri).build();
     }
 
+    @PUT
+    @Secured({ClientRole.ROLE_ADMIN})
+    @Path("/{id}")
+    @Consumes(value = {MediaType.APPLICATION_JSON,})
+    @Produces(value = {MediaType.APPLICATION_JSON,})
+    public Response update(@PathParam("id") final long id,
+                           @Valid final UniversityDTO universityDTO) throws Http404Exception {
+
+        final University university = us.findById(id);
+
+        if (university == null) {
+            throw new Http404Exception("University not found");
+        }
+
+        us.update(
+                id,
+                new UniversityBuilder()
+                        .setName(universityDTO.getName())
+                        .createModel()
+        );
+
+        return Response.ok(new UniversityDTO(us.findById(id))).build();
+    }
+
+
     @DELETE
     @Path("/{id}")
     @Secured({ClientRole.ROLE_ADMIN})

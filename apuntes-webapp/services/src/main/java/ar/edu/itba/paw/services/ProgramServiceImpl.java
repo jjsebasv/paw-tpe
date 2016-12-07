@@ -39,5 +39,6 @@ public class ProgramServiceImpl extends AbstractCRUDService<Program> implements 
         instance.setName(from.getName());
         instance.setShortName(from.getShortName());
         instance.setGroup(from.getGroup());
+        instance.setUniversity(from.getUniversity());
     }
 }

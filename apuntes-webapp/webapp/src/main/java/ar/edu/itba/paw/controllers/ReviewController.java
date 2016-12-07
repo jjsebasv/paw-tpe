@@ -1,5 +1,6 @@
 package ar.edu.itba.paw.controllers;
 
+import ar.edu.itba.paw.auth.Secured;
 import ar.edu.itba.paw.controllers.exceptions.Http404Exception;
 import ar.edu.itba.paw.dtos.ReviewDTO;
 import ar.edu.itba.paw.dtos.ReviewListDTO;
@@ -7,6 +8,7 @@ import ar.edu.itba.paw.interfaces.ClientService;
 import ar.edu.itba.paw.interfaces.DocumentService;
 import ar.edu.itba.paw.interfaces.ReviewService;
 import ar.edu.itba.paw.models.Client;
+import ar.edu.itba.paw.models.ClientRole;
 import ar.edu.itba.paw.models.Document;
 import ar.edu.itba.paw.models.Review;
 import ar.edu.itba.paw.models.builders.ReviewBuilder;
@@ -83,6 +85,41 @@ public class ReviewController {
         final URI uri = uriInfo.getAbsolutePathBuilder().path(String.valueOf(review.getReviewid())).build();
         return Response.created(uri).build();
     }
+
+    @PUT
+    @Secured({ClientRole.ROLE_ADMIN})
+    @Path("/{id}")
+    @Consumes(value = {MediaType.APPLICATION_JSON,})
+    @Produces(value = {MediaType.APPLICATION_JSON,})
+    public Response update(@PathParam("id") final long id,
+                           @Valid final ReviewDTO reviewDTO) throws Http404Exception {
+
+        final Review review = rs.findById(id);
+
+        final Principal principal = securityContext.getUserPrincipal();
+        final String username = principal.getName();
+        final Client client = cs.findByUsername(username);
+        final Document document = ds.findById(reviewDTO.getFileid());
+
+        // TODO Validar mismo usuario
+
+        if (review == null) {
+            throw new Http404Exception("Review not found");
+        }
+
+        rs.update(
+                id,
+                new ReviewBuilder()
+                        .setRanking(reviewDTO.getRanking())
+                        .setReview(reviewDTO.getReview())
+                        .setFile(document)
+                        .setUser(client)
+                        .createModel()
+        );
+
+        return Response.ok(new ReviewDTO(rs.findById(id))).build();
+    }
+
 
     @DELETE
     @Path("/{id}")

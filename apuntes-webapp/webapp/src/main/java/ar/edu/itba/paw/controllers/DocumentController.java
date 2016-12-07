@@ -8,6 +8,7 @@ import ar.edu.itba.paw.interfaces.ClientService;
 import ar.edu.itba.paw.interfaces.CourseService;
 import ar.edu.itba.paw.interfaces.DocumentService;
 import ar.edu.itba.paw.models.Client;
+import ar.edu.itba.paw.models.ClientRole;
 import ar.edu.itba.paw.models.Course;
 import ar.edu.itba.paw.models.Document;
 import ar.edu.itba.paw.models.builders.DocumentBuilder;
@@ -104,6 +105,41 @@ public class DocumentController {
 
         final URI uri = uriInfo.getAbsolutePathBuilder().path(String.valueOf(document.getDocumentId())).build();
         return Response.created(uri).build();
+    }
+
+    @PUT
+    @Secured({ClientRole.ROLE_ADMIN})
+    @Path("/{id}")
+    @Consumes(value = {MediaType.APPLICATION_JSON,})
+    @Produces(value = {MediaType.APPLICATION_JSON,})
+    public Response update(@PathParam("id") final long id,
+                           @Valid final DocumentDTO documentDTO) throws Http404Exception {
+
+        final Document document = ds.findById(id);
+
+        if (document == null) {
+            throw new Http404Exception("Document not found");
+        }
+
+        final Principal principal = securityContext.getUserPrincipal();
+        final String username = principal.getName();
+        final Client client = cs.findByUsername(username);
+        final Course course = courseService.findById(documentDTO.getCourseid());
+
+        ds.update(
+                id,
+                new DocumentBuilder()
+                        .setUser(client)
+                        .setCourse(course)
+                        .setSubject(documentDTO.getSubject())
+                        .setDocumentName(documentDTO.getDocumentName())
+                        .setDocumentSize(documentDTO.getDocumentSize())
+                        .setData(Base64.getDecoder().decode(documentDTO.getData()))
+                        .setDescription(documentDTO.getDescription())
+                        .createModel()
+        );
+
+        return Response.ok(new DocumentDTO(ds.findById(id))).build();
     }
 
     @DELETE

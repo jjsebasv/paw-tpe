@@ -70,6 +70,32 @@ public class ProgramController {
         return Response.created(uri).build();
     }
 
+    @PUT
+    @Secured({ClientRole.ROLE_ADMIN})
+    @Path("/{id}")
+    @Consumes(value = {MediaType.APPLICATION_JSON,})
+    @Produces(value = {MediaType.APPLICATION_JSON,})
+    public Response update(@PathParam("id") final long id,
+                           @Valid final ProgramDTO programDTO) throws Http404Exception {
+
+        final Program program = ps.findById(id);
+
+        if (program == null) {
+            throw new Http404Exception("Program not found");
+        }
+
+        ps.update(
+                id,
+                new ProgramBuilder()
+                        .setGroup(programDTO.getGroup())
+                        .setName(programDTO.getName())
+                        .setShortName(programDTO.getShortName())
+                        .createModel()
+        );
+
+        return Response.ok(new ProgramDTO(ps.findById(id))).build();
+    }
+
     @DELETE
     @Path("/{id}")
     @Secured({ClientRole.ROLE_ADMIN})
