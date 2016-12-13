@@ -9,4 +9,6 @@ public interface ProgramService extends GenericCRUDService<Program> {
     List<Program> findByName(String name);
 
     List<Program> getProgramsFromCourseId(long pk);
+
+    List<Program> getByUniversityId(long pk);
 }

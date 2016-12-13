@@ -32,6 +32,11 @@ public class ProgramServiceImpl extends AbstractCRUDService<Program> implements 
     }
 
     @Override
+    public List<Program> getByUniversityId(long pk) {
+        return programDao.getByUniversityId(pk);
+    }
+
+    @Override
     public void update(final long pk, Program from) {
 
         final Program instance = findById(pk);

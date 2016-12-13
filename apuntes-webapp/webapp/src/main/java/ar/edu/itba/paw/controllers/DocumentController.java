@@ -1,17 +1,18 @@
 package ar.edu.itba.paw.controllers;
 
-import ar.edu.itba.paw.auth.Secured;
 import ar.edu.itba.paw.controllers.exceptions.Http403Exception;
 import ar.edu.itba.paw.controllers.exceptions.Http404Exception;
 import ar.edu.itba.paw.dtos.DocumentDTO;
 import ar.edu.itba.paw.dtos.DocumentListDTO;
+import ar.edu.itba.paw.dtos.ReviewListDTO;
 import ar.edu.itba.paw.interfaces.ClientService;
 import ar.edu.itba.paw.interfaces.CourseService;
 import ar.edu.itba.paw.interfaces.DocumentService;
+import ar.edu.itba.paw.interfaces.ReviewService;
 import ar.edu.itba.paw.models.Client;
-import ar.edu.itba.paw.models.ClientRole;
 import ar.edu.itba.paw.models.Course;
 import ar.edu.itba.paw.models.Document;
+import ar.edu.itba.paw.models.Review;
 import ar.edu.itba.paw.models.builders.DocumentBuilder;
 import org.apache.commons.io.IOUtils;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -38,6 +39,8 @@ public class DocumentController {
 
     private final CourseService courseService;
 
+    private final ReviewService rs;
+
     @Context
     private UriInfo uriInfo;
 
@@ -45,10 +48,11 @@ public class DocumentController {
     SecurityContext securityContext;
 
     @Autowired
-    public DocumentController(DocumentService ds, ClientService cs, CourseService courseService) {
+    public DocumentController(DocumentService ds, ClientService cs, CourseService courseService, ReviewService rs) {
         this.ds = ds;
         this.cs = cs;
         this.courseService = courseService;
+        this.rs = rs;
     }
 
     @GET
@@ -83,7 +87,6 @@ public class DocumentController {
      */
     @POST
     @Consumes(MediaType.APPLICATION_JSON)
-    @Secured
     @Produces(value = {MediaType.APPLICATION_JSON,})
     public Response create(@Valid final DocumentDTO documentDTO) {
 
@@ -108,8 +111,19 @@ public class DocumentController {
         return Response.created(uri).build();
     }
 
+    @GET
+    @Path("/{id}/reviews")
+    @Produces(value = {MediaType.APPLICATION_JSON,})
+    public Response listReviews(@PathParam("id") final long id) throws Http404Exception {
+        final List<Review> reviews = rs.findByFileId(id);
+        if (reviews != null) {
+            return Response.ok(new ReviewListDTO(reviews)).build();
+        } else {
+            throw new Http404Exception("University not found");
+        }
+    }
+
     @PUT
-    @Secured()
     @Path("/{id}")
     @Consumes(value = {MediaType.APPLICATION_JSON,})
     @Produces(value = {MediaType.APPLICATION_JSON,})
@@ -149,7 +163,6 @@ public class DocumentController {
 
     @DELETE
     @Path("/{id}")
-    @Secured
     @Produces(value = {MediaType.APPLICATION_JSON,})
     public Response deleteById(@PathParam("id") final long id) {
         ds.delete(id);

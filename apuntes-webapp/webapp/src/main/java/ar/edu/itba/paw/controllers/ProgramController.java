@@ -1,11 +1,12 @@
 package ar.edu.itba.paw.controllers;
 
-import ar.edu.itba.paw.auth.Secured;
 import ar.edu.itba.paw.controllers.exceptions.Http404Exception;
+import ar.edu.itba.paw.dtos.CourseListDTO;
 import ar.edu.itba.paw.dtos.ProgramDTO;
 import ar.edu.itba.paw.dtos.ProgramListDTO;
+import ar.edu.itba.paw.interfaces.CourseService;
 import ar.edu.itba.paw.interfaces.ProgramService;
-import ar.edu.itba.paw.models.ClientRole;
+import ar.edu.itba.paw.models.Course;
 import ar.edu.itba.paw.models.Program;
 import ar.edu.itba.paw.models.builders.ProgramBuilder;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -18,7 +19,9 @@ import javax.ws.rs.core.MediaType;
 import javax.ws.rs.core.Response;
 import javax.ws.rs.core.UriInfo;
 import java.net.URI;
+import java.util.Collection;
 import java.util.List;
+import java.util.stream.Collectors;
 
 @Component
 @Path("/api/v1/programs")
@@ -26,12 +29,15 @@ public class ProgramController {
 
     private final ProgramService ps;
 
+    private final CourseService cs;
+
     @Context
     private UriInfo uriInfo;
 
     @Autowired
-    public ProgramController(ProgramService ps) {
+    public ProgramController(ProgramService ps, CourseService cs) {
         this.ps = ps;
+        this.cs = cs;
     }
 
     @GET
@@ -53,8 +59,23 @@ public class ProgramController {
         }
     }
 
+    @GET
+    @Path("/{id}/courses")
+    @Produces(value = {MediaType.APPLICATION_JSON,})
+    public Response listCourses(@PathParam("id") final long id) throws Http404Exception {
+        final List<Course> courses = cs.findByProgramId(id).values()
+                .stream()
+                .flatMap(Collection::stream)
+                .collect(Collectors.toList());
+
+        if (courses != null) {
+            return Response.ok(new CourseListDTO(courses)).build();
+        } else {
+            throw new Http404Exception("Program not found");
+        }
+    }
+
     @POST
-    @Secured({ClientRole.ROLE_ADMIN})
     @Produces(value = {MediaType.APPLICATION_JSON,})
     public Response create(@Valid final ProgramDTO programDTO) {
 
@@ -71,7 +92,6 @@ public class ProgramController {
     }
 
     @PUT
-    @Secured({ClientRole.ROLE_ADMIN})
     @Path("/{id}")
     @Consumes(value = {MediaType.APPLICATION_JSON,})
     @Produces(value = {MediaType.APPLICATION_JSON,})
@@ -98,7 +118,6 @@ public class ProgramController {
 
     @DELETE
     @Path("/{id}")
-    @Secured({ClientRole.ROLE_ADMIN})
     @Produces(value = {MediaType.APPLICATION_JSON,})
     public Response deleteById(@PathParam("id") final long id) {
         ps.delete(id);

@@ -3,10 +3,9 @@ package ar.edu.itba.paw.controllers;
 
 public abstract class HttpException extends Exception {
 
-    private int status;
+    private final int status;
 
-    private String errorMessage;
-
+    private final String errorMessage;
 
     public HttpException(int statusCode, String errorMessage) {
         this.status = statusCode;

@@ -1,12 +1,13 @@
 package ar.edu.itba.paw.controllers;
 
-import ar.edu.itba.paw.auth.Secured;
 import ar.edu.itba.paw.controllers.exceptions.Http404Exception;
 import ar.edu.itba.paw.dtos.CourseDTO;
 import ar.edu.itba.paw.dtos.CourseListDTO;
+import ar.edu.itba.paw.dtos.DocumentListDTO;
 import ar.edu.itba.paw.interfaces.CourseService;
-import ar.edu.itba.paw.models.ClientRole;
+import ar.edu.itba.paw.interfaces.DocumentService;
 import ar.edu.itba.paw.models.Course;
+import ar.edu.itba.paw.models.Document;
 import ar.edu.itba.paw.models.builders.CourseBuilder;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Component;
@@ -26,12 +27,15 @@ public class CourseController {
 
     private final CourseService cs;
 
+    private final DocumentService ds;
+
     @Context
     private UriInfo uriInfo;
 
     @Autowired
-    public CourseController(CourseService cs) {
+    public CourseController(CourseService cs, DocumentService ds) {
         this.cs = cs;
+        this.ds = ds;
     }
 
     @GET
@@ -60,7 +64,6 @@ public class CourseController {
     }
 
     @POST
-    @Secured({ClientRole.ROLE_ADMIN})
     @Produces(value = {MediaType.APPLICATION_JSON,})
     public Response create(@Valid final CourseDTO courseDTO) {
 
@@ -75,8 +78,19 @@ public class CourseController {
         return Response.created(uri).build();
     }
 
+    @GET
+    @Path("/{id}/programs")
+    @Produces(value = {MediaType.APPLICATION_JSON,})
+    public Response listDocuments(@PathParam("id") final long id) throws Http404Exception {
+        final List<Document> programs = ds.findByCourseId(id);
+        if (programs != null) {
+            return Response.ok(new DocumentListDTO(programs)).build();
+        } else {
+            throw new Http404Exception("Course not found");
+        }
+    }
+
     @PUT
-    @Secured({ClientRole.ROLE_ADMIN})
     @Path("/{id}")
     @Consumes(value = {MediaType.APPLICATION_JSON,})
     @Produces(value = {MediaType.APPLICATION_JSON,})
@@ -103,7 +117,6 @@ public class CourseController {
 
     @DELETE
     @Path("/{id}")
-    @Secured({ClientRole.ROLE_ADMIN})
     @Produces(value = {MediaType.APPLICATION_JSON,})
     public Response deleteById(@PathParam("id") final long id) {
         cs.delete(id);

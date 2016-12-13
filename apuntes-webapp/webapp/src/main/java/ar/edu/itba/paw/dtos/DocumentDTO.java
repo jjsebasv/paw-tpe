@@ -39,7 +39,7 @@ public class DocumentDTO {
         this.courseid = document.getCourse().getCourseid();
         this.subject = document.getSubject();
         this.documentName = document.getDocumentName();
-        this.data = Base64.getEncoder().encodeToString(document.getData());
+//        this.data = Base64.getEncoder().encodeToString(document.getData());
         this.dateUploaded = document.getDateUploaded();
         this.description = document.getDescription();
     }

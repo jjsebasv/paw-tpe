@@ -1,6 +1,5 @@
 package ar.edu.itba.paw.controllers;
 
-import ar.edu.itba.paw.auth.Secured;
 import ar.edu.itba.paw.controllers.exceptions.Http403Exception;
 import ar.edu.itba.paw.controllers.exceptions.Http404Exception;
 import ar.edu.itba.paw.dtos.ReviewDTO;
@@ -9,7 +8,6 @@ import ar.edu.itba.paw.interfaces.ClientService;
 import ar.edu.itba.paw.interfaces.DocumentService;
 import ar.edu.itba.paw.interfaces.ReviewService;
 import ar.edu.itba.paw.models.Client;
-import ar.edu.itba.paw.models.ClientRole;
 import ar.edu.itba.paw.models.Document;
 import ar.edu.itba.paw.models.Review;
 import ar.edu.itba.paw.models.builders.ReviewBuilder;
@@ -73,7 +71,6 @@ public class ReviewController {
         final Client client = cs.findByUsername(username);
         final Document document = ds.findById(reviewDTO.getFileid());
 
-        //FIXME Autenticacion y errores
         final Review review = rs.create(
                 new ReviewBuilder()
                         .setRanking(reviewDTO.getRanking())
@@ -88,7 +85,6 @@ public class ReviewController {
     }
 
     @PUT
-    @Secured()
     @Path("/{id}")
     @Consumes(value = {MediaType.APPLICATION_JSON,})
     @Produces(value = {MediaType.APPLICATION_JSON,})

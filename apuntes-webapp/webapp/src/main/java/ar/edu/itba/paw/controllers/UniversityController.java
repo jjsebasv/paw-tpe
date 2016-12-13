@@ -1,12 +1,13 @@
 package ar.edu.itba.paw.controllers;
 
 
-import ar.edu.itba.paw.auth.Secured;
 import ar.edu.itba.paw.controllers.exceptions.Http404Exception;
+import ar.edu.itba.paw.dtos.ProgramListDTO;
 import ar.edu.itba.paw.dtos.UniversityDTO;
 import ar.edu.itba.paw.dtos.UniversityListDTO;
+import ar.edu.itba.paw.interfaces.ProgramService;
 import ar.edu.itba.paw.interfaces.UniversityService;
-import ar.edu.itba.paw.models.ClientRole;
+import ar.edu.itba.paw.models.Program;
 import ar.edu.itba.paw.models.University;
 import ar.edu.itba.paw.models.builders.UniversityBuilder;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -14,7 +15,10 @@ import org.springframework.stereotype.Component;
 
 import javax.validation.Valid;
 import javax.ws.rs.*;
-import javax.ws.rs.core.*;
+import javax.ws.rs.core.Context;
+import javax.ws.rs.core.MediaType;
+import javax.ws.rs.core.Response;
+import javax.ws.rs.core.UriInfo;
 import java.net.URI;
 import java.util.List;
 
@@ -23,12 +27,15 @@ import java.util.List;
 public class UniversityController {
     private final UniversityService us;
 
+    private final ProgramService ps;
+
     @Context
     private UriInfo uriInfo;
 
     @Autowired
-    public UniversityController(UniversityService us) {
+    public UniversityController(UniversityService us, ProgramService ps) {
         this.us = us;
+        this.ps = ps;
     }
 
     @GET
@@ -50,8 +57,19 @@ public class UniversityController {
         }
     }
 
+    @GET
+    @Path("/{id}/programs")
+    @Produces(value = {MediaType.APPLICATION_JSON,})
+    public Response listPrograms(@PathParam("id") final long id) throws Http404Exception {
+        final List<Program> programs = ps.getByUniversityId(id);
+        if (programs != null) {
+            return Response.ok(new ProgramListDTO(programs)).build();
+        } else {
+            throw new Http404Exception("University not found");
+        }
+    }
+
     @POST
-    @Secured({ClientRole.ROLE_ADMIN})
     @Consumes(value = {MediaType.APPLICATION_JSON,})
     @Produces(value = {MediaType.APPLICATION_JSON,})
     public Response create(@Valid final UniversityDTO universityDTO) {
@@ -67,7 +85,6 @@ public class UniversityController {
     }
 
     @PUT
-    @Secured({ClientRole.ROLE_ADMIN})
     @Path("/{id}")
     @Consumes(value = {MediaType.APPLICATION_JSON,})
     @Produces(value = {MediaType.APPLICATION_JSON,})
@@ -93,7 +110,6 @@ public class UniversityController {
 
     @DELETE
     @Path("/{id}")
-    @Secured({ClientRole.ROLE_ADMIN})
     @Produces(value = {MediaType.APPLICATION_JSON,})
     public Response deleteById(@PathParam("id") final long id) {
         us.delete(id);

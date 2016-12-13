@@ -32,4 +32,12 @@ public class ProgramHibernateDao extends AbstractCRUDHibernateDao<Program> imple
         return list.isEmpty() ? null : list;
     }
 
+    @Override
+    public List<Program> getByUniversityId(long pk) {
+        final TypedQuery<Program> query = em.createQuery("from Program as p where p.university.universityId = :uid", Program.class);
+        query.setParameter("uid", pk);
+        final List<Program> list = query.getResultList();
+        return list.isEmpty() ? null : list;
+    }
+
 }

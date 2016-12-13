@@ -192,6 +192,11 @@
             <artifactId>jersey-bean-validation</artifactId>
         </dependency>
 
+        <dependency>
+            <groupId>io.jsonwebtoken</groupId>
+            <artifactId>jjwt</artifactId>
+        </dependency>
+
     </dependencies>
     <build>
         <finalName>webapp</finalName>

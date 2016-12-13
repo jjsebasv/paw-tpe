@@ -2,16 +2,13 @@ package ar.edu.itba.paw.services;
 
 import ar.edu.itba.paw.interfaces.ClientDao;
 import ar.edu.itba.paw.interfaces.ClientService;
-import ar.edu.itba.paw.models.AuthenticationToken;
 import ar.edu.itba.paw.models.Client;
 import ar.edu.itba.paw.models.ClientRole;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.security.core.Authentication;
+import org.springframework.security.core.context.SecurityContextHolder;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
-
-import java.math.BigInteger;
-import java.security.SecureRandom;
-import java.util.Random;
 
 @Service
 @Transactional
@@ -46,31 +43,15 @@ public class ClientServiceImpl extends AbstractCRUDService<Client> implements Cl
     }
 
     @Override
-    public AuthenticationToken generateToken(final Client client) {
-        Random random = new SecureRandom();
+    public Client getAuthenticatedUser() {
 
-        final String token = new BigInteger(130, random).toString(50);
+        final Authentication auth = SecurityContextHolder.getContext().getAuthentication();
 
-        AuthenticationToken authenticationToken = new AuthenticationToken(token, client);
+        if (auth == null) {
+            return null;
+        }
 
-        clientDao.storeToken(authenticationToken);
-
-        return authenticationToken;
-    }
-
-    @Override
-    public AuthenticationToken findTokenFor(final Client client) {
-        return clientDao.findTokenFor(client);
-    }
-
-    @Override
-    public void invalidateToken(AuthenticationToken token) {
-        clientDao.invalidateToken(token);
-    }
-
-    @Override
-    public AuthenticationToken findByToken(final String token) {
-        return clientDao.findByToken(token);
+        return findByUsername((String) auth.getPrincipal());
     }
 
 

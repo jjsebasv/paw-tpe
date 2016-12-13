@@ -54,6 +54,8 @@
         <javax.xml.bind.version>2.1</javax.xml.bind.version>
 
         <jersey.version>3.0-SNAPSHOT</jersey.version>
+
+        <jwt.version>0.7.0</jwt.version>
     </properties>
     <build>
 
@@ -328,6 +330,12 @@
                 <groupId>org.glassfish.jersey.ext</groupId>
                 <artifactId>jersey-bean-validation</artifactId>
                 <version>${jersey.version}</version>
+            </dependency>
+
+            <dependency>
+                <groupId>io.jsonwebtoken</groupId>
+                <artifactId>jjwt</artifactId>
+                <version>${jwt.version}</version>
             </dependency>
 
         </dependencies>
