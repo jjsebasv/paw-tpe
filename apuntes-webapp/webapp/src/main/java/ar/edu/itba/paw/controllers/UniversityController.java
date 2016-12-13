@@ -1,12 +1,16 @@
 package ar.edu.itba.paw.controllers;
 
 
+import ar.edu.itba.paw.controllers.exceptions.Http403Exception;
 import ar.edu.itba.paw.controllers.exceptions.Http404Exception;
 import ar.edu.itba.paw.dtos.ProgramListDTO;
 import ar.edu.itba.paw.dtos.UniversityDTO;
 import ar.edu.itba.paw.dtos.UniversityListDTO;
+import ar.edu.itba.paw.interfaces.ClientService;
 import ar.edu.itba.paw.interfaces.ProgramService;
 import ar.edu.itba.paw.interfaces.UniversityService;
+import ar.edu.itba.paw.models.Client;
+import ar.edu.itba.paw.models.ClientRole;
 import ar.edu.itba.paw.models.Program;
 import ar.edu.itba.paw.models.University;
 import ar.edu.itba.paw.models.builders.UniversityBuilder;
@@ -25,17 +29,21 @@ import java.util.List;
 @Component
 @Path("/api/v1/universities")
 public class UniversityController {
+
     private final UniversityService us;
 
     private final ProgramService ps;
+
+    private final ClientService clientService;
 
     @Context
     private UriInfo uriInfo;
 
     @Autowired
-    public UniversityController(UniversityService us, ProgramService ps) {
+    public UniversityController(UniversityService us, ProgramService ps, ClientService clientService) {
         this.us = us;
         this.ps = ps;
+        this.clientService = clientService;
     }
 
     @GET
@@ -72,7 +80,13 @@ public class UniversityController {
     @POST
     @Consumes(value = {MediaType.APPLICATION_JSON,})
     @Produces(value = {MediaType.APPLICATION_JSON,})
-    public Response create(@Valid final UniversityDTO universityDTO) {
+    public Response create(@Valid final UniversityDTO universityDTO) throws HttpException {
+
+        final Client client = clientService.getAuthenticatedUser();
+
+        if (client == null || client.getRole() != ClientRole.ROLE_ADMIN) {
+            throw new Http403Exception();
+        }
 
         final University university = us.create(
                 new UniversityBuilder()
@@ -89,7 +103,13 @@ public class UniversityController {
     @Consumes(value = {MediaType.APPLICATION_JSON,})
     @Produces(value = {MediaType.APPLICATION_JSON,})
     public Response update(@PathParam("id") final long id,
-                           @Valid final UniversityDTO universityDTO) throws Http404Exception {
+                           @Valid final UniversityDTO universityDTO) throws HttpException {
+
+        final Client client = clientService.getAuthenticatedUser();
+
+        if (client == null || client.getRole() != ClientRole.ROLE_ADMIN) {
+            throw new Http403Exception();
+        }
 
         final University university = us.findById(id);
 
@@ -111,7 +131,14 @@ public class UniversityController {
     @DELETE
     @Path("/{id}")
     @Produces(value = {MediaType.APPLICATION_JSON,})
-    public Response deleteById(@PathParam("id") final long id) {
+    public Response deleteById(@PathParam("id") final long id) throws HttpException {
+
+        final Client client = clientService.getAuthenticatedUser();
+
+        if (client == null || client.getRole() != ClientRole.ROLE_ADMIN) {
+            throw new Http403Exception();
+        }
+
         us.delete(id);
         return Response.noContent().build();
     }

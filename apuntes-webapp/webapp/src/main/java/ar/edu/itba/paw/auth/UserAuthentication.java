@@ -20,7 +20,6 @@ public class UserAuthentication implements Authentication {
     private boolean authenticated = true;
     private List<SimpleGrantedAuthority> authorities;
 
-
     public UserAuthentication(Client client) {
         this.client = client;
 

@@ -8,6 +8,7 @@ import ar.edu.itba.paw.interfaces.ClientService;
 import ar.edu.itba.paw.interfaces.DocumentService;
 import ar.edu.itba.paw.interfaces.ReviewService;
 import ar.edu.itba.paw.models.Client;
+import ar.edu.itba.paw.models.ClientRole;
 import ar.edu.itba.paw.models.Document;
 import ar.edu.itba.paw.models.Review;
 import ar.edu.itba.paw.models.builders.ReviewBuilder;
@@ -29,9 +30,6 @@ public class ReviewController {
 
     @Context
     private UriInfo uriInfo;
-
-    @Context
-    SecurityContext securityContext;
 
     private final ClientService cs;
     private final DocumentService ds;
@@ -64,12 +62,17 @@ public class ReviewController {
 
     @POST
     @Produces(value = {MediaType.APPLICATION_JSON,})
-    public Response create(@Valid final ReviewDTO reviewDTO) {
+    public Response create(@Valid final ReviewDTO reviewDTO) throws HttpException {
 
-        final Principal principal = securityContext.getUserPrincipal();
-        final String username = principal.getName();
-        final Client client = cs.findByUsername(username);
+        final Client client = cs.getAuthenticatedUser();
+
+        if (client == null) {
+            throw new Http403Exception();
+        }
+
         final Document document = ds.findById(reviewDTO.getFileid());
+
+        //TODO: Validar que el usuario no haya hecho un review de este documento
 
         final Review review = rs.create(
                 new ReviewBuilder()
@@ -91,15 +94,22 @@ public class ReviewController {
     public Response update(@PathParam("id") final long id,
                            @Valid final ReviewDTO reviewDTO) throws HttpException {
 
+        final Client client = cs.getAuthenticatedUser();
+
+        if (client == null) {
+            throw new Http403Exception();
+        }
+
         final Review review = rs.findById(id);
 
         if (review == null) {
             throw new Http404Exception("Review not found");
         }
 
-        final Principal principal = securityContext.getUserPrincipal();
-        final String username = principal.getName();
-        final Client client = cs.findByUsername(username);
+        if (client.getClientId() != review.getUser().getClientId()) {
+            throw new Http403Exception();
+        }
+
         final Document document = ds.findById(reviewDTO.getFileid());
 
         if (review.getUser().getClientId() != client.getClientId()) {
@@ -123,7 +133,24 @@ public class ReviewController {
     @DELETE
     @Path("/{id}")
     @Produces(value = {MediaType.APPLICATION_JSON,})
-    public Response deleteById(@PathParam("id") final long id) {
+    public Response deleteById(@PathParam("id") final long id) throws HttpException {
+
+        final Client client = cs.getAuthenticatedUser();
+
+        if (client == null) {
+            throw new Http403Exception();
+        }
+
+        final Review review = rs.findById(id);
+
+        if (review == null) {
+            throw new Http404Exception("Review not found");
+        }
+
+        if (client.getClientId() != review.getUser().getClientId()) {
+            throw new Http403Exception();
+        }
+
         rs.delete(id);
         return Response.noContent().build();
     }

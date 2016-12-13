@@ -1,11 +1,15 @@
 package ar.edu.itba.paw.controllers;
 
+import ar.edu.itba.paw.controllers.exceptions.Http403Exception;
 import ar.edu.itba.paw.controllers.exceptions.Http404Exception;
 import ar.edu.itba.paw.dtos.CourseListDTO;
 import ar.edu.itba.paw.dtos.ProgramDTO;
 import ar.edu.itba.paw.dtos.ProgramListDTO;
+import ar.edu.itba.paw.interfaces.ClientService;
 import ar.edu.itba.paw.interfaces.CourseService;
 import ar.edu.itba.paw.interfaces.ProgramService;
+import ar.edu.itba.paw.models.Client;
+import ar.edu.itba.paw.models.ClientRole;
 import ar.edu.itba.paw.models.Course;
 import ar.edu.itba.paw.models.Program;
 import ar.edu.itba.paw.models.builders.ProgramBuilder;
@@ -31,13 +35,16 @@ public class ProgramController {
 
     private final CourseService cs;
 
+    private final ClientService clientService;
+
     @Context
     private UriInfo uriInfo;
 
     @Autowired
-    public ProgramController(ProgramService ps, CourseService cs) {
+    public ProgramController(ProgramService ps, CourseService cs, ClientService clientService) {
         this.ps = ps;
         this.cs = cs;
+        this.clientService = clientService;
     }
 
     @GET
@@ -77,7 +84,14 @@ public class ProgramController {
 
     @POST
     @Produces(value = {MediaType.APPLICATION_JSON,})
-    public Response create(@Valid final ProgramDTO programDTO) {
+    public Response create(@Valid final ProgramDTO programDTO) throws HttpException {
+
+
+        final Client client = clientService.getAuthenticatedUser();
+
+        if (client == null || client.getRole() != ClientRole.ROLE_ADMIN) {
+            throw new Http403Exception();
+        }
 
         final Program program = ps.create(
                 new ProgramBuilder()
@@ -96,7 +110,13 @@ public class ProgramController {
     @Consumes(value = {MediaType.APPLICATION_JSON,})
     @Produces(value = {MediaType.APPLICATION_JSON,})
     public Response update(@PathParam("id") final long id,
-                           @Valid final ProgramDTO programDTO) throws Http404Exception {
+                           @Valid final ProgramDTO programDTO) throws HttpException {
+
+        final Client client = clientService.getAuthenticatedUser();
+
+        if (client == null || client.getRole() != ClientRole.ROLE_ADMIN) {
+            throw new Http403Exception();
+        }
 
         final Program program = ps.findById(id);
 
@@ -119,7 +139,14 @@ public class ProgramController {
     @DELETE
     @Path("/{id}")
     @Produces(value = {MediaType.APPLICATION_JSON,})
-    public Response deleteById(@PathParam("id") final long id) {
+    public Response deleteById(@PathParam("id") final long id) throws HttpException {
+
+        final Client client = clientService.getAuthenticatedUser();
+
+        if (client == null || client.getRole() != ClientRole.ROLE_ADMIN) {
+            throw new Http403Exception();
+        }
+
         ps.delete(id);
         return Response.noContent().build();
     }

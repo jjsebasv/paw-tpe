@@ -44,9 +44,6 @@ public class DocumentController {
     @Context
     private UriInfo uriInfo;
 
-    @Context
-    SecurityContext securityContext;
-
     @Autowired
     public DocumentController(DocumentService ds, ClientService cs, CourseService courseService, ReviewService rs) {
         this.ds = ds;
@@ -88,11 +85,15 @@ public class DocumentController {
     @POST
     @Consumes(MediaType.APPLICATION_JSON)
     @Produces(value = {MediaType.APPLICATION_JSON,})
-    public Response create(@Valid final DocumentDTO documentDTO) {
+    public Response create(@Valid final DocumentDTO documentDTO) throws HttpException {
 
-        final Principal principal = securityContext.getUserPrincipal();
-        final String username = principal.getName();
-        final Client client = cs.findByUsername(username);
+        final Client client = cs.getAuthenticatedUser();
+
+        if (client == null) {
+            throw new Http403Exception();
+        }
+
+
         final Course course = courseService.findById(documentDTO.getCourseid());
 
         final Document document = ds.create(
@@ -136,9 +137,16 @@ public class DocumentController {
             throw new Http404Exception("Document not found");
         }
 
-        final Principal principal = securityContext.getUserPrincipal();
-        final String username = principal.getName();
-        final Client client = cs.findByUsername(username);
+        final Client client = cs.getAuthenticatedUser();
+
+        if (client == null) {
+            throw new Http403Exception();
+        }
+
+        if (client.getClientId() != document.getUser().getClientId()) {
+            throw new Http403Exception();
+        }
+
         final Course course = courseService.findById(documentDTO.getCourseid());
 
         if (document.getUser().getClientId() != client.getClientId()) {

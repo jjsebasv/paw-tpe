@@ -98,9 +98,13 @@ public class ClientController {
     @GET
     @Path("/me/reviews")
     @Produces(value = {MediaType.APPLICATION_JSON,})
-    public Response listReviews() throws Http404Exception {
+    public Response listReviews() throws HttpException {
 
         final Client client = cs.getAuthenticatedUser();
+
+        if (client == null) {
+            throw new Http403Exception();
+        }
 
         final List<Review> reviews = rs.findByUserId(client.getClientId());
         if (reviews != null) {
@@ -114,9 +118,13 @@ public class ClientController {
     @Path("/change_password")
     @Consumes(value = {MediaType.APPLICATION_JSON,})
     @Produces(value = {MediaType.APPLICATION_JSON,})
-    public Response changePassword(final ClientDTO clientDTO) {
+    public Response changePassword(final ClientDTO clientDTO) throws HttpException {
 
         final Client client = cs.getAuthenticatedUser();
+
+        if (client == null) {
+            throw new Http403Exception();
+        }
 
         cs.update(
                 client.getClientId(),

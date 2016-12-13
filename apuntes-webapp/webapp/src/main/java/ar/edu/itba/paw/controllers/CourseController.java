@@ -1,11 +1,15 @@
 package ar.edu.itba.paw.controllers;
 
+import ar.edu.itba.paw.controllers.exceptions.Http403Exception;
 import ar.edu.itba.paw.controllers.exceptions.Http404Exception;
 import ar.edu.itba.paw.dtos.CourseDTO;
 import ar.edu.itba.paw.dtos.CourseListDTO;
 import ar.edu.itba.paw.dtos.DocumentListDTO;
+import ar.edu.itba.paw.interfaces.ClientService;
 import ar.edu.itba.paw.interfaces.CourseService;
 import ar.edu.itba.paw.interfaces.DocumentService;
+import ar.edu.itba.paw.models.Client;
+import ar.edu.itba.paw.models.ClientRole;
 import ar.edu.itba.paw.models.Course;
 import ar.edu.itba.paw.models.Document;
 import ar.edu.itba.paw.models.builders.CourseBuilder;
@@ -29,13 +33,16 @@ public class CourseController {
 
     private final DocumentService ds;
 
+    private final ClientService clientService;
+
     @Context
     private UriInfo uriInfo;
 
     @Autowired
-    public CourseController(CourseService cs, DocumentService ds) {
+    public CourseController(CourseService cs, DocumentService ds, ClientService clientService) {
         this.cs = cs;
         this.ds = ds;
+        this.clientService = clientService;
     }
 
     @GET
@@ -65,7 +72,13 @@ public class CourseController {
 
     @POST
     @Produces(value = {MediaType.APPLICATION_JSON,})
-    public Response create(@Valid final CourseDTO courseDTO) {
+    public Response create(@Valid final CourseDTO courseDTO) throws HttpException {
+
+        final Client client = clientService.getAuthenticatedUser();
+
+        if (client == null || client.getRole() != ClientRole.ROLE_ADMIN) {
+            throw new Http403Exception();
+        }
 
         final Course course = cs.create(
                 new CourseBuilder()
@@ -95,7 +108,13 @@ public class CourseController {
     @Consumes(value = {MediaType.APPLICATION_JSON,})
     @Produces(value = {MediaType.APPLICATION_JSON,})
     public Response update(@PathParam("id") final long id,
-                           @Valid final CourseDTO courseDTO) throws Http404Exception {
+                           @Valid final CourseDTO courseDTO) throws HttpException {
+
+        final Client client = clientService.getAuthenticatedUser();
+
+        if (client == null || client.getRole() != ClientRole.ROLE_ADMIN) {
+            throw new Http403Exception();
+        }
 
         final Course course = cs.findById(id);
 
@@ -118,7 +137,14 @@ public class CourseController {
     @DELETE
     @Path("/{id}")
     @Produces(value = {MediaType.APPLICATION_JSON,})
-    public Response deleteById(@PathParam("id") final long id) {
+    public Response deleteById(@PathParam("id") final long id) throws HttpException {
+
+        final Client client = clientService.getAuthenticatedUser();
+
+        if (client == null || client.getRole() != ClientRole.ROLE_ADMIN) {
+            throw new Http403Exception();
+        }
+
         cs.delete(id);
         return Response.noContent().build();
     }
