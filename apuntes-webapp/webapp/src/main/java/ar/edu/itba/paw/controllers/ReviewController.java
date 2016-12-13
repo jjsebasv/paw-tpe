@@ -62,7 +62,7 @@ public class ReviewController {
 
     @POST
     @Produces(value = {MediaType.APPLICATION_JSON,})
-    public Response create(@Valid final ReviewDTO reviewDTO) throws HttpException {
+    public Response create(@Valid final ReviewDTO reviewDTO) throws HttpException, ValidationException {
 
         final Client client = cs.getAuthenticatedUser();
 
@@ -72,7 +72,13 @@ public class ReviewController {
 
         final Document document = ds.findById(reviewDTO.getFileid());
 
-        //TODO: Validar que el usuario no haya hecho un review de este documento
+        final boolean userHasReviewed = rs.findByFileId(reviewDTO.getFileid())
+                .stream()
+                .anyMatch(review -> review.getUser().getClientId() == reviewDTO.getUserid());
+
+        if (userHasReviewed) {
+            throw new ValidationException(3, "You already reviewed this document", "fileid");
+        }
 
         final Review review = rs.create(
                 new ReviewBuilder()

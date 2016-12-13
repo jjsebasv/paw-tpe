@@ -152,12 +152,20 @@ public class ClientController {
     @Path("/register")
     @Consumes(value = {MediaType.APPLICATION_JSON,})
     @Produces(value = {MediaType.APPLICATION_JSON,})
-    public Response create(@Valid final ClientDTO clientDTO) throws HttpException {
+    public Response create(@Valid final ClientDTO clientDTO) throws HttpException, ValidationException {
 
         final Client client = cs.getAuthenticatedUser();
 
         if (client != null) {
             throw new Http403Exception();
+        }
+
+        if (cs.findByUsername(clientDTO.getName()) != null) {
+            throw new ValidationException(1, "Username already exists", "username");
+        }
+
+        if (cs.findByEmail(clientDTO.getEmail()) != null) {
+            throw new ValidationException(2, "Email already exists", "email");
         }
 
         final String encodedPassword = passwordEncoder.encodePassword(clientDTO.getPassword(), WebAuthConfig.SECRET);
@@ -171,7 +179,7 @@ public class ClientController {
                         .createModel()
         );
 
-        String token = tokenHandler.createTokenForUser(client.getName());
+        String token = tokenHandler.createTokenForUser(newClient.getName());
 
         return Response.ok(new AuthenticationTokenDTO(token)).build();
     }
