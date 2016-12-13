@@ -15,6 +15,8 @@ import org.springframework.orm.jpa.JpaTransactionManager;
 import org.springframework.orm.jpa.JpaVendorAdapter;
 import org.springframework.orm.jpa.LocalContainerEntityManagerFactoryBean;
 import org.springframework.orm.jpa.vendor.HibernateJpaVendorAdapter;
+import org.springframework.security.authentication.encoding.Md5PasswordEncoder;
+import org.springframework.security.authentication.encoding.PasswordEncoder;
 import org.springframework.transaction.PlatformTransactionManager;
 import org.springframework.transaction.annotation.EnableTransactionManagement;
 import org.springframework.web.multipart.MultipartResolver;
@@ -159,6 +161,10 @@ public class WebConfig extends WebMvcConfigurerAdapter {
         return new CorsFilter();
     }
 
+    @Bean
+    public PasswordEncoder passwordEncoder() {
+        return new Md5PasswordEncoder();
+    }
 
 //    @Bean
 //    public MessageSource messageSource() {

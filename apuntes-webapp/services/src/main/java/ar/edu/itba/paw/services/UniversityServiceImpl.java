@@ -24,5 +24,6 @@ public class UniversityServiceImpl extends AbstractCRUDService<University> imple
         final University instance = findById(pk);
 
         instance.setName(from.getName());
+        instance.setDomain(from.getDomain());
     }
 }

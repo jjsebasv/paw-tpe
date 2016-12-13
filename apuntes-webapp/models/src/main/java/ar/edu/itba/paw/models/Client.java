@@ -21,6 +21,10 @@ public class Client {
     @Column(length = 100, nullable = false, unique = true)
     private String email;
 
+    @ManyToOne(fetch = FetchType.EAGER, optional = false)
+    @JoinColumn(name = "university_id")
+    private University university;
+
     @Column
     @Enumerated(EnumType.STRING)
     private ClientRole role;
@@ -29,11 +33,12 @@ public class Client {
         // Just for Hibernate, we love you!
     }
 
-    public Client(String name, String password, String email, ClientRole role) {
+    public Client(String name, String password, String email, ClientRole role, University university) {
         this.name = name;
         this.password = password;
         this.email = email;
         this.role = role;
+        this.university = university;
     }
 
     public String getName() {
@@ -91,5 +96,13 @@ public class Client {
     @Override
     public int hashCode() {
         return clientId.hashCode();
+    }
+
+    public University getUniversity() {
+        return university;
+    }
+
+    public void setUniversity(University university) {
+        this.university = university;
     }
 }

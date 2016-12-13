@@ -29,6 +29,7 @@ public class ProgramRelatedCourseJdbcDaoTest {
     private static final char PROGRAM_GROUP = 'g';
 
     private static final String UNIVERSITY_NAME = "ITBA";
+    private static final String UNIVERSITY_DOMAIN = "itba.edu.ar";
 
     private static int COURSETOPROGRAM_SEMESTER = 3;
 
@@ -46,7 +47,7 @@ public class ProgramRelatedCourseJdbcDaoTest {
 
     @Test
     public void testAddProgramToCourseRelationship() {
-        final University university = universityDao.create(new University(UNIVERSITY_NAME));
+        final University university = universityDao.create(new University(UNIVERSITY_NAME, UNIVERSITY_DOMAIN));
         final Course course = courseDao.create(new Course(COURSE_CODE, COURSE_NAME));
         final Program program = programDao.create(new Program(PROGRAM_NAME, PROGRAM_SHORTNAME, PROGRAM_GROUP, university));
 
@@ -67,7 +68,7 @@ public class ProgramRelatedCourseJdbcDaoTest {
 
     @Test
     public void testFindProgramsFromCourseId() {
-        final University university = universityDao.create(new University(UNIVERSITY_NAME));
+        final University university = universityDao.create(new University(UNIVERSITY_NAME, UNIVERSITY_DOMAIN));
         final Course course = courseDao.create(new Course(COURSE_CODE, COURSE_NAME));
         final Program program = programDao.create(new Program(PROGRAM_NAME, PROGRAM_SHORTNAME, PROGRAM_GROUP, university));
 

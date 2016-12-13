@@ -13,12 +13,15 @@ public class UniversityDTO {
     @NotEmpty
     private String name;
 
+    private String domain;
+
     public UniversityDTO() {
     }
 
     public UniversityDTO(final University university) {
         this.universityId = university.getUniversityId();
         this.name = university.getName();
+        this.domain = university.getDomain();
     }
 
     public Long getUniversityId() {
@@ -35,5 +38,13 @@ public class UniversityDTO {
 
     public void setName(String name) {
         this.name = name;
+    }
+
+    public String getDomain() {
+        return domain;
+    }
+
+    public void setDomain(String domain) {
+        this.domain = domain;
     }
 }

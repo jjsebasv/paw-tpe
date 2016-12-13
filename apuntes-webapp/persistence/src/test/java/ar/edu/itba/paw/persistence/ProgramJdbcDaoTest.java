@@ -24,6 +24,8 @@ public class ProgramJdbcDaoTest {
     private static final char PROGRAM_GROUP = 'g';
 
     private static final String UNIVERSITY_NAME = "ITBA";
+    private static final String UNIVERSITY_DOMAIN = "itba.edu.ar";
+
 
     @Autowired
     private ProgramHibernateDao programDao;
@@ -33,7 +35,7 @@ public class ProgramJdbcDaoTest {
 
     @Test
     public void testCreate() {
-        final University university = universityDao.create(new University(UNIVERSITY_NAME));
+        final University university = universityDao.create(new University(UNIVERSITY_NAME, UNIVERSITY_DOMAIN));
         final Program program = programDao.create(new Program(PROGRAM_NAME, PROGRAM_SHORTNAME, PROGRAM_GROUP, university));
 
         Assert.assertNotNull(program);
@@ -44,7 +46,7 @@ public class ProgramJdbcDaoTest {
 
     @Test
     public void testFindByName() {
-        final University university = universityDao.create(new University(UNIVERSITY_NAME));
+        final University university = universityDao.create(new University(UNIVERSITY_NAME, UNIVERSITY_DOMAIN));
         final Program program = programDao.create(new Program(PROGRAM_NAME, PROGRAM_SHORTNAME, PROGRAM_GROUP, university));
 
         final List<Program> list = programDao.findByName(PROGRAM_NAME);
@@ -66,7 +68,7 @@ public class ProgramJdbcDaoTest {
 
     @Test
     public void testFindById() {
-        final University university = universityDao.create(new University(UNIVERSITY_NAME));
+        final University university = universityDao.create(new University(UNIVERSITY_NAME, UNIVERSITY_DOMAIN));
         final Program program = programDao.create(new Program(PROGRAM_NAME, PROGRAM_SHORTNAME, PROGRAM_GROUP, university));
         final long id = program.getProgramid();
 
@@ -79,7 +81,7 @@ public class ProgramJdbcDaoTest {
 
     @Test
     public void testFindByNonExistingId() {
-        final University university = universityDao.create(new University(UNIVERSITY_NAME));
+        final University university = universityDao.create(new University(UNIVERSITY_NAME, UNIVERSITY_DOMAIN));
         final Program program = programDao.create(new Program(PROGRAM_NAME, PROGRAM_SHORTNAME, PROGRAM_GROUP, university));
         final long id = program.getProgramid();
 
@@ -90,7 +92,7 @@ public class ProgramJdbcDaoTest {
 
     @Test
     public void getAll() {
-        final University university = universityDao.create(new University(UNIVERSITY_NAME));
+        final University university = universityDao.create(new University(UNIVERSITY_NAME, UNIVERSITY_DOMAIN));
         final Program program = programDao.create(new Program(PROGRAM_NAME, PROGRAM_SHORTNAME, PROGRAM_GROUP, university));
 
         final List<Program> list = programDao.getAll();

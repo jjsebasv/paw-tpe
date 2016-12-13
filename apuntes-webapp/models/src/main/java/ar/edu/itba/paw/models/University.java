@@ -16,6 +16,9 @@ public class University {
     @Column(length = 100, nullable = false, unique = true)
     private String name;
 
+    @Column(length = 100, nullable = false, unique = true)
+    private String domain;
+
     @OneToMany(fetch = FetchType.EAGER)
     @JoinColumn(name = "university_id")
     private List<Program> programs;
@@ -24,9 +27,9 @@ public class University {
         // Just for Hibernate, we love you!
     }
 
-    public University(final String name) {
+    public University(final String name, final String domain) {
         this.name = name;
-
+        this.domain = domain;
     }
 
     public Long getUniversityId() {
@@ -43,5 +46,13 @@ public class University {
 
     public List<Program> getPrograms() {
         return programs;
+    }
+
+    public String getDomain() {
+        return domain;
+    }
+
+    public void setDomain(String domain) {
+        this.domain = domain;
     }
 }

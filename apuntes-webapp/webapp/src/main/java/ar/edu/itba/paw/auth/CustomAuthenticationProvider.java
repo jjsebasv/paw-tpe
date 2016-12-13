@@ -1,5 +1,6 @@
 package ar.edu.itba.paw.auth;
 
+import ar.edu.itba.paw.config.WebAuthConfig;
 import ar.edu.itba.paw.interfaces.ClientService;
 import ar.edu.itba.paw.models.Client;
 import ar.edu.itba.paw.models.ClientRole;
@@ -7,6 +8,7 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.security.authentication.AuthenticationProvider;
 import org.springframework.security.authentication.BadCredentialsException;
 import org.springframework.security.authentication.UsernamePasswordAuthenticationToken;
+import org.springframework.security.authentication.encoding.PasswordEncoder;
 import org.springframework.security.core.Authentication;
 import org.springframework.security.core.AuthenticationException;
 import org.springframework.security.core.GrantedAuthority;
@@ -21,9 +23,12 @@ public class CustomAuthenticationProvider implements AuthenticationProvider {
 
     private final ClientService cs;
 
+    private final PasswordEncoder passwordEncoder;
+
     @Autowired
-    public CustomAuthenticationProvider(ClientService cs) {
+    public CustomAuthenticationProvider(ClientService cs, PasswordEncoder passwordEncoder) {
         this.cs = cs;
+        this.passwordEncoder = passwordEncoder;
     }
 
     public Authentication authenticate(Authentication authentication) throws AuthenticationException {
@@ -36,7 +41,7 @@ public class CustomAuthenticationProvider implements AuthenticationProvider {
             throw new BadCredentialsException("Username not found.");
         }
 
-        if (!password.equals(client.getPassword())) {
+        if (!passwordEncoder.isPasswordValid(client.getPassword(), password, WebAuthConfig.SECRET)) {
             throw new BadCredentialsException("Wrong password.");
         }
 

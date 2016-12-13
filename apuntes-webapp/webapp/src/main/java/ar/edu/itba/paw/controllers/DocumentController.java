@@ -25,7 +25,6 @@ import java.io.ByteArrayInputStream;
 import java.io.IOException;
 import java.io.InputStream;
 import java.net.URI;
-import java.security.Principal;
 import java.util.Base64;
 import java.util.List;
 
@@ -92,7 +91,6 @@ public class DocumentController {
         if (client == null) {
             throw new Http403Exception();
         }
-
 
         final Course course = courseService.findById(documentDTO.getCourseid());
 
@@ -172,7 +170,24 @@ public class DocumentController {
     @DELETE
     @Path("/{id}")
     @Produces(value = {MediaType.APPLICATION_JSON,})
-    public Response deleteById(@PathParam("id") final long id) {
+    public Response deleteById(@PathParam("id") final long id) throws HttpException {
+
+        final Document document = ds.findById(id);
+
+        if (document == null) {
+            throw new Http404Exception("Document not found");
+        }
+
+        final Client client = cs.getAuthenticatedUser();
+
+        if (client == null) {
+            throw new Http403Exception();
+        }
+
+        if (client.getClientId() != document.getUser().getClientId()) {
+            throw new Http403Exception();
+        }
+
         ds.delete(id);
         return Response.noContent().build();
     }
@@ -180,11 +195,15 @@ public class DocumentController {
     @GET
     @Path("{id}/download")
     @Produces(value = {MediaType.APPLICATION_OCTET_STREAM})
-    public Response downloadFile(@PathParam("id") long id) throws IOException {
+    public Response downloadFile(@PathParam("id") long id) throws IOException, HttpException {
 
-        final Document file = ds.findById(id);
+        final Document document = ds.findById(id);
 
-        final InputStream inp = new ByteArrayInputStream(file.getData());
+        if (document == null) {
+            throw new Http404Exception("Document not found");
+        }
+
+        final InputStream inp = new ByteArrayInputStream(document.getData());
 
         StreamingOutput stream = output -> {
             try {
@@ -194,15 +213,20 @@ public class DocumentController {
             }
         };
 
-        return Response.ok(stream).header("content-disposition", String.format("attachment; filename=\"%s\";", file.getDocumentName())).build();
+        return Response.ok(stream).header("content-disposition", String.format("attachment; filename=\"%s\";", document.getDocumentName())).build();
     }
 
     @GET
     @Path("/{id}/open")
-    public Response openFile(@PathParam("id") long id) throws IOException {
+    public Response openFile(@PathParam("id") long id) throws IOException, HttpException {
 
-        final Document file = ds.findById(id);
-        final InputStream inp = new ByteArrayInputStream(file.getData());
+        final Document document = ds.findById(id);
+
+        if (document == null) {
+            throw new Http404Exception("Document not found");
+        }
+
+        final InputStream inp = new ByteArrayInputStream(document.getData());
 
         StreamingOutput stream = output -> {
             try {
@@ -213,7 +237,7 @@ public class DocumentController {
         };
 
         return Response.ok(stream)
-                .header("content-disposition", String.format("attachment; filename=\"%s\";", file.getDocumentName()))
+                .header("content-disposition", String.format("attachment; filename=\"%s\";", document.getDocumentName()))
                 .header("content-type", "application/pdf")
                 .build();
     }

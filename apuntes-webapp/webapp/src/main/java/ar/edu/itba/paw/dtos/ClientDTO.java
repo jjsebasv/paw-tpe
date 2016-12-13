@@ -13,18 +13,20 @@ public class ClientDTO {
 
     private String name;
 
-    @XmlTransient
     private String password;
 
     private String email;
 
     private ClientRole role;
 
-    public ClientDTO(String name, String password, String email, ClientRole role) {
+    private long universityId;
+
+    public ClientDTO(String name, String password, String email, ClientRole role, long universityId) {
         this.name = name;
         this.password = password;
         this.email = email;
         this.role = role;
+        this.universityId = universityId;
     }
 
     public ClientDTO() {
@@ -37,6 +39,7 @@ public class ClientDTO {
         this.password = client.getPassword();
         this.email = client.getEmail();
         this.role = client.getRole();
+        this.universityId = client.getUniversity().getUniversityId();
     }
 
     public long getClientId() {
@@ -55,6 +58,7 @@ public class ClientDTO {
         this.name = name;
     }
 
+    @XmlTransient
     public String getPassword() {
         return password;
     }
@@ -77,5 +81,13 @@ public class ClientDTO {
 
     public void setRole(ClientRole role) {
         this.role = role;
+    }
+
+    public long getUniversityId() {
+        return universityId;
+    }
+
+    public void setUniversityId(long universityId) {
+        this.universityId = universityId;
     }
 }
