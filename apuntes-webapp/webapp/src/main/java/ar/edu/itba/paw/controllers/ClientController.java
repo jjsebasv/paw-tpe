@@ -58,7 +58,7 @@ public class ClientController {
 
         final Client client = cs.findByUsername(username);
 
-        if (client == null || passwordEncoder.isPasswordValid(client.getPassword(), password, WebAuthConfig.SECRET)) {
+        if (client == null || !passwordEncoder.isPasswordValid(client.getPassword(), password, WebAuthConfig.SECRET)) {
             return Response.status(Response.Status.UNAUTHORIZED)
                     .entity(new ErrorMessageDTO(Response.Status.UNAUTHORIZED))
                     .build();
@@ -118,7 +118,7 @@ public class ClientController {
     @Path("/me/change_password")
     @Consumes(value = {MediaType.APPLICATION_JSON,})
     @Produces(value = {MediaType.APPLICATION_JSON,})
-    public Response changePassword(final ClientDTO clientDTO) throws HttpException, ValidationException {
+    public Response changePassword(final ExpandedClientDTO clientDTO) throws HttpException, ValidationException {
 
         final Client client = cs.getAuthenticatedUser();
 
@@ -151,7 +151,7 @@ public class ClientController {
     @Path("/reset_password")
     @Consumes(value = {MediaType.APPLICATION_JSON,})
     @Produces(value = {MediaType.APPLICATION_JSON,})
-    public Response resetPassword(final ClientDTO clientDTO) throws HttpException, ValidationException {
+    public Response resetPassword(final ExpandedClientDTO clientDTO) throws HttpException, ValidationException {
 
         Client client = cs.getAuthenticatedUser();
 
@@ -256,7 +256,7 @@ public class ClientController {
     @Path("/register")
     @Consumes(value = {MediaType.APPLICATION_JSON,})
     @Produces(value = {MediaType.APPLICATION_JSON,})
-    public Response create(@Valid final ClientDTO clientDTO) throws HttpException, ValidationException {
+    public Response create(@Valid final ExpandedClientDTO clientDTO) throws HttpException, ValidationException {
 
         final Client client = cs.getAuthenticatedUser();
 

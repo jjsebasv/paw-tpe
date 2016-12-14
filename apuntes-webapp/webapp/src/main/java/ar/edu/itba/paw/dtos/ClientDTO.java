@@ -13,8 +13,6 @@ public class ClientDTO {
 
     private String name;
 
-    private String password;
-
     private String email;
 
     private ClientRole role;
@@ -23,16 +21,12 @@ public class ClientDTO {
 
     private String recoveryQuestion;
 
-    private String secretAnswer;
-
-    public ClientDTO(String name, String password, String email, ClientRole role, long universityId, String recoveryQuestion, String secretAnswer) {
+    public ClientDTO(String name, String email, ClientRole role, long universityId, String recoveryQuestion) {
         this.name = name;
-        this.password = password;
         this.email = email;
         this.role = role;
         this.universityId = universityId;
         this.recoveryQuestion = recoveryQuestion;
-        this.secretAnswer = secretAnswer;
     }
 
     public ClientDTO() {
@@ -41,12 +35,10 @@ public class ClientDTO {
     public ClientDTO(final Client client) {
         this.clientId = client.getClientId();
         this.name = client.getName();
-        this.password = client.getPassword();
         this.email = client.getEmail();
         this.role = client.getRole();
         this.universityId = client.getUniversity().getUniversityId();
         this.recoveryQuestion = client.getRecoveryQuestion();
-        this.secretAnswer = client.getSecretAnswer();
     }
 
 
@@ -64,15 +56,6 @@ public class ClientDTO {
 
     public void setName(String name) {
         this.name = name;
-    }
-
-    @XmlTransient
-    public String getPassword() {
-        return password;
-    }
-
-    public void setPassword(String password) {
-        this.password = password;
     }
 
     public String getEmail() {
@@ -105,14 +88,5 @@ public class ClientDTO {
 
     public void setRecoveryQuestion(String recoveryQuestion) {
         this.recoveryQuestion = recoveryQuestion;
-    }
-
-    @XmlTransient
-    public String getSecretAnswer() {
-        return secretAnswer;
-    }
-
-    public void setSecretAnswer(String secretAnswer) {
-        this.secretAnswer = secretAnswer;
     }
 }
