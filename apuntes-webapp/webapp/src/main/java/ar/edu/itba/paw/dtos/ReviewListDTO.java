@@ -3,6 +3,7 @@ package ar.edu.itba.paw.dtos;
 import ar.edu.itba.paw.models.Review;
 
 import javax.xml.bind.annotation.XmlRootElement;
+import java.util.ArrayList;
 import java.util.List;
 import java.util.stream.Collectors;
 
@@ -15,7 +16,11 @@ public class ReviewListDTO {
     }
 
     public ReviewListDTO(final List<Review> reviewList) {
-        this.reviewList = reviewList.stream().map(ReviewDTO::new).collect(Collectors.toList());
+        if (reviewList == null) {
+            this.reviewList = new ArrayList<>();
+        } else {
+            this.reviewList = reviewList.stream().map(ReviewDTO::new).collect(Collectors.toList());
+        }
     }
 
     public List<ReviewDTO> getReviewList() {
