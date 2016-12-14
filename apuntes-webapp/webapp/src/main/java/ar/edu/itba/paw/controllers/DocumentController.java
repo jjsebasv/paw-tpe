@@ -14,6 +14,7 @@ import ar.edu.itba.paw.models.Course;
 import ar.edu.itba.paw.models.Document;
 import ar.edu.itba.paw.models.Review;
 import ar.edu.itba.paw.models.builders.DocumentBuilder;
+import org.apache.commons.io.FilenameUtils;
 import org.apache.commons.io.IOUtils;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Component;
@@ -228,6 +229,10 @@ public class DocumentController {
 
         if (document == null) {
             throw new Http404Exception("Document not found");
+        }
+
+        if (!FilenameUtils.getExtension(document.getDocumentName()).equals("pdf")) {
+            return downloadFile(id);
         }
 
         final InputStream inp = new ByteArrayInputStream(document.getData());

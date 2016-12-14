@@ -155,6 +155,7 @@
             <dependency>
                 <groupId>org.hsqldb</groupId>
                 <artifactId>hsqldb</artifactId>
+                <scope>test</scope>
                 <version>${org.hsqldb.version}</version>
             </dependency>
 

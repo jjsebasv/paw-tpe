@@ -8,7 +8,6 @@ import ar.edu.itba.paw.interfaces.ClientService;
 import ar.edu.itba.paw.interfaces.DocumentService;
 import ar.edu.itba.paw.interfaces.ReviewService;
 import ar.edu.itba.paw.models.Client;
-import ar.edu.itba.paw.models.ClientRole;
 import ar.edu.itba.paw.models.Document;
 import ar.edu.itba.paw.models.Review;
 import ar.edu.itba.paw.models.builders.ReviewBuilder;
@@ -17,9 +16,11 @@ import org.springframework.stereotype.Component;
 
 import javax.validation.Valid;
 import javax.ws.rs.*;
-import javax.ws.rs.core.*;
+import javax.ws.rs.core.Context;
+import javax.ws.rs.core.MediaType;
+import javax.ws.rs.core.Response;
+import javax.ws.rs.core.UriInfo;
 import java.net.URI;
-import java.security.Principal;
 import java.util.List;
 
 @Component
