@@ -90,6 +90,36 @@ public class CourseToProgramController {
         return Response.ok(new CourseToProgramRelationDTO(relation)).build();
     }
 
+    @PUT
+    @Consumes(value = {MediaType.APPLICATION_JSON,})
+    @Produces(value = {MediaType.APPLICATION_JSON,})
+    public Response update(@DefaultValue("") @QueryParam("courseId") final String courseId,
+                           @DefaultValue("") @QueryParam("programId") final String programId,
+                           @QueryParam("semester") final int semester) throws HttpException {
+
+        final Client client = clientService.getAuthenticatedUser();
+
+        if (client == null || client.getRole() != ClientRole.ROLE_ADMIN) {
+            throw new Http403Exception();
+        }
+
+        if (courseId.isEmpty() || programId.isEmpty()) {
+            throw new Http404Exception("Relationship not found");
+        }
+
+        final CourseProgramRelation relation = relationService.findById(Long.valueOf(programId), Long.valueOf(courseId));
+
+        if (relation == null) {
+            throw new Http404Exception("Relationship not found");
+        }
+
+        relationService.update(
+                Long.valueOf(courseId), Long.valueOf(programId), semester
+        );
+
+        return Response.ok(new CourseToProgramRelationDTO(relationService.findById(Long.valueOf(programId), Long.valueOf(courseId)))).build();
+    }
+
     @DELETE
     @Produces(value = {MediaType.APPLICATION_JSON,})
     @Consumes("application/x-www-form-urlencoded")
