@@ -84,7 +84,7 @@ public class DocumentController {
     @POST
     @Consumes(MediaType.APPLICATION_JSON)
     @Produces(value = {MediaType.APPLICATION_JSON,})
-    public Response create(@Valid final DocumentDTO documentDTO) throws HttpException {
+    public Response create(@Valid final DocumentDTO documentDTO) throws HttpException, ValidationException {
 
         final Client client = cs.getAuthenticatedUser();
 
@@ -93,6 +93,10 @@ public class DocumentController {
         }
 
         final Course course = courseService.findById(documentDTO.getCourseid());
+
+        if (course == null) {
+            throw new ValidationException(1, "Course not found", "courseId");
+        }
 
         final Document document = ds.create(
                 new DocumentBuilder()

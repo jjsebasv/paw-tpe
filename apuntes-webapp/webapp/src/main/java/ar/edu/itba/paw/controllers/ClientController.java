@@ -7,11 +7,9 @@ import ar.edu.itba.paw.controllers.exceptions.Http404Exception;
 import ar.edu.itba.paw.dtos.*;
 import ar.edu.itba.paw.interfaces.ClientService;
 import ar.edu.itba.paw.interfaces.DocumentService;
+import ar.edu.itba.paw.interfaces.ProgramService;
 import ar.edu.itba.paw.interfaces.ReviewService;
-import ar.edu.itba.paw.models.Client;
-import ar.edu.itba.paw.models.ClientRole;
-import ar.edu.itba.paw.models.Document;
-import ar.edu.itba.paw.models.Review;
+import ar.edu.itba.paw.models.*;
 import ar.edu.itba.paw.models.builders.ClientBuilder;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.security.authentication.encoding.PasswordEncoder;
@@ -32,6 +30,7 @@ public class ClientController {
     private final ClientService cs;
     private final DocumentService ds;
     private final ReviewService rs;
+    private final ProgramService programService;
 
     private final PasswordEncoder passwordEncoder;
 
@@ -41,10 +40,11 @@ public class ClientController {
     private UriInfo uriInfo;
 
     @Autowired
-    public ClientController(final ClientService cs, final DocumentService ds, final ReviewService rs, PasswordEncoder passwordEncoder, TokenHandler tokenHandler) {
+    public ClientController(final ClientService cs, final DocumentService ds, final ReviewService rs, ProgramService programService, PasswordEncoder passwordEncoder, TokenHandler tokenHandler) {
         this.cs = cs;
         this.ds = ds;
         this.rs = rs;
+        this.programService = programService;
         this.passwordEncoder = passwordEncoder;
         this.tokenHandler = tokenHandler;
     }
@@ -68,7 +68,6 @@ public class ClientController {
 
         return Response.ok(new AuthenticationTokenDTO(token)).build();
     }
-
 
     @GET
     @Path("/me")
@@ -141,6 +140,7 @@ public class ClientController {
                         .setRole(client.getRole())
                         .setRecoveryQuestion(client.getRecoveryQuestion())
                         .setSecretAnswer(client.getSecretAnswer())
+                        .setProgram(client.getProgram())
                         .createModel()
         );
 
@@ -184,6 +184,7 @@ public class ClientController {
                         .setRole(client.getRole())
                         .setRecoveryQuestion(client.getRecoveryQuestion())
                         .setSecretAnswer(client.getSecretAnswer())
+                        .setProgram(client.getProgram())
                         .createModel()
         );
 
@@ -231,6 +232,7 @@ public class ClientController {
                         .setRole(clientDTO.getRole())
                         .setRecoveryQuestion(client.getRecoveryQuestion())
                         .setSecretAnswer(client.getSecretAnswer())
+                        .setProgram(client.getProgram())
                         .createModel()
         );
 
@@ -274,12 +276,19 @@ public class ClientController {
 
         final String encodedPassword = passwordEncoder.encodePassword(clientDTO.getPassword(), WebAuthConfig.SECRET);
 
+        final Program program = programService.findById(clientDTO.getProgramId());
+
+        if (program == null || program.getUniversity().getUniversityId() != clientDTO.getUniversityId()) {
+            throw new ValidationException(1, "Program not found", "programId");
+        }
+
         final Client newClient = cs.create(
                 new ClientBuilder()
                         .setName(clientDTO.getName())
                         .setEmail(clientDTO.getEmail())
                         .setPassword(encodedPassword)
                         .setRole(ClientRole.ROLE_USER)
+                        .setProgram(program)
                         .createModel()
         );
 

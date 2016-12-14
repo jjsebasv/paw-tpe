@@ -19,14 +19,17 @@ public class ClientDTO {
 
     private long universityId;
 
+    private long programId;
+
     private String recoveryQuestion;
 
-    public ClientDTO(String name, String email, ClientRole role, long universityId, String recoveryQuestion) {
+    public ClientDTO(String name, String email, ClientRole role, long universityId, String recoveryQuestion, long programId) {
         this.name = name;
         this.email = email;
         this.role = role;
         this.universityId = universityId;
         this.recoveryQuestion = recoveryQuestion;
+        this.programId = programId;
     }
 
     public ClientDTO() {
@@ -39,12 +42,13 @@ public class ClientDTO {
         this.role = client.getRole();
         this.universityId = client.getUniversity().getUniversityId();
         this.recoveryQuestion = client.getRecoveryQuestion();
+        this.programId = client.getProgram().getProgramid();
     }
-
 
     public long getClientId() {
         return clientId;
     }
+
 
     public void setClientId(long clientId) {
         this.clientId = clientId;
@@ -88,5 +92,13 @@ public class ClientDTO {
 
     public void setRecoveryQuestion(String recoveryQuestion) {
         this.recoveryQuestion = recoveryQuestion;
+    }
+
+    public long getProgramId() {
+        return programId;
+    }
+
+    public void setProgramId(long programId) {
+        this.programId = programId;
     }
 }

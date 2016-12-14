@@ -31,6 +31,10 @@ public class Client {
     @JoinColumn(name = "university_id")
     private University university;
 
+    @ManyToOne(fetch = FetchType.EAGER, optional = false)
+    @JoinColumn(name = "program_id")
+    private Program program;
+
     @Column
     @Enumerated(EnumType.STRING)
     private ClientRole role;
@@ -39,7 +43,7 @@ public class Client {
         // Just for Hibernate, we love you!
     }
 
-    public Client(String name, String password, String email, ClientRole role, University university, String recoveryQuestion, String secretAnswer) {
+    public Client(String name, String password, String email, ClientRole role, University university, String recoveryQuestion, String secretAnswer, Program program) {
         this.name = name;
         this.password = password;
         this.email = email;
@@ -47,6 +51,7 @@ public class Client {
         this.university = university;
         this.recoveryQuestion = recoveryQuestion;
         this.secretAnswer = secretAnswer;
+        this.program = program;
     }
 
     public String getName() {
@@ -131,5 +136,13 @@ public class Client {
 
     public boolean isAdmin() {
         return this.role == ClientRole.ROLE_ADMIN;
+    }
+
+    public Program getProgram() {
+        return program;
+    }
+
+    public void setProgram(Program program) {
+        this.program = program;
     }
 }
