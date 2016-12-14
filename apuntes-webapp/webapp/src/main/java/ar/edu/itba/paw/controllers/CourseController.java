@@ -152,4 +152,15 @@ public class CourseController {
         cs.delete(id);
         return Response.noContent().build();
     }
+
+    private void validateCourse(final CourseDTO courseDTO) throws ValidationException {
+
+        if (courseDTO.getName() == null || courseDTO.getName().isEmpty()) {
+            throw new ValidationException(1, "Name can't be empty", "name");
+        }
+
+        if (courseDTO.getCode() == null || courseDTO.getCode().isEmpty()) {
+            throw new ValidationException(2, "Code can't be empty", "code");
+        }
+    }
 }

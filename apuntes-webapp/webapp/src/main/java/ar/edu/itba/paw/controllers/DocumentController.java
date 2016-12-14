@@ -99,6 +99,8 @@ public class DocumentController {
             throw new ValidationException(1, "Course not found", "courseId");
         }
 
+        validateDocument(documentDTO);
+
         final Document document = ds.create(
                 new DocumentBuilder()
                         .setUser(client)
@@ -132,7 +134,7 @@ public class DocumentController {
     @Consumes(value = {MediaType.APPLICATION_JSON,})
     @Produces(value = {MediaType.APPLICATION_JSON,})
     public Response update(@PathParam("id") final long id,
-                           @Valid final DocumentDTO documentDTO) throws HttpException {
+                           @Valid final DocumentDTO documentDTO) throws HttpException, ValidationException {
 
         final Document document = ds.findById(id);
 
@@ -155,6 +157,8 @@ public class DocumentController {
         if (document.getUser().getClientId() != client.getClientId()) {
             throw new Http403Exception();
         }
+
+        validateDocument(documentDTO);
 
         ds.update(
                 id,
@@ -249,6 +253,21 @@ public class DocumentController {
                 .header("content-disposition", String.format("attachment; filename=\"%s\";", document.getDocumentName()))
                 .header("content-type", "application/pdf")
                 .build();
+    }
+
+    private void validateDocument(final DocumentDTO documentDTO) throws ValidationException {
+
+        if (documentDTO.getSubject() == null || documentDTO.getSubject().isEmpty()) {
+            throw new ValidationException(1, "Subject can't be empty", "subject");
+        }
+
+        if (documentDTO.getDocumentName() == null || documentDTO.getDocumentName().isEmpty()) {
+            throw new ValidationException(2, "Document name can't be empty", "documentName");
+        }
+
+        if (documentDTO.getDescription() == null || documentDTO.getDescription().isEmpty()) {
+            throw new ValidationException(3, "Description can't be empty", "description");
+        }
     }
 
 }

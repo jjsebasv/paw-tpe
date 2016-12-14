@@ -136,7 +136,6 @@ public class ReviewController {
         return Response.ok(new ReviewDTO(rs.findById(id))).build();
     }
 
-
     @DELETE
     @Path("/{id}")
     @Produces(value = {MediaType.APPLICATION_JSON,})
@@ -160,5 +159,12 @@ public class ReviewController {
 
         rs.delete(id);
         return Response.noContent().build();
+    }
+
+    private void validateReview(final ReviewDTO reviewDTO) throws ValidationException {
+
+        if (reviewDTO.getReview() == null || reviewDTO.getReview().isEmpty()) {
+            throw new ValidationException(1, "Review can't be empty", "review");
+        }
     }
 }

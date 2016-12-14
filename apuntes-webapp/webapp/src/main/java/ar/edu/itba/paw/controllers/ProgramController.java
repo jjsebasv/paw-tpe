@@ -84,7 +84,7 @@ public class ProgramController {
 
     @POST
     @Produces(value = {MediaType.APPLICATION_JSON,})
-    public Response create(@Valid final ProgramDTO programDTO) throws HttpException {
+    public Response create(@Valid final ProgramDTO programDTO) throws HttpException, ValidationException {
 
 
         final Client client = clientService.getAuthenticatedUser();
@@ -92,6 +92,8 @@ public class ProgramController {
         if (client == null || client.getRole() != ClientRole.ROLE_ADMIN) {
             throw new Http403Exception();
         }
+
+        validateProgram(programDTO);
 
         final Program program = ps.create(
                 new ProgramBuilder()
@@ -110,7 +112,7 @@ public class ProgramController {
     @Consumes(value = {MediaType.APPLICATION_JSON,})
     @Produces(value = {MediaType.APPLICATION_JSON,})
     public Response update(@PathParam("id") final long id,
-                           @Valid final ProgramDTO programDTO) throws HttpException {
+                           @Valid final ProgramDTO programDTO) throws HttpException, ValidationException {
 
         final Client client = clientService.getAuthenticatedUser();
 
@@ -123,6 +125,8 @@ public class ProgramController {
         if (program == null) {
             throw new Http404Exception("Program not found");
         }
+
+        validateProgram(programDTO);
 
         ps.update(
                 id,
@@ -149,5 +153,16 @@ public class ProgramController {
 
         ps.delete(id);
         return Response.noContent().build();
+    }
+
+    private void validateProgram(final ProgramDTO programDTO) throws ValidationException {
+
+        if (programDTO.getName() == null || programDTO.getName().isEmpty()) {
+            throw new ValidationException(1, "Name can't be empty", "name");
+        }
+
+        if (programDTO.getShortName() == null || programDTO.getShortName().isEmpty()) {
+            throw new ValidationException(2, "Short name can't be empty", "shortname");
+        }
     }
 }

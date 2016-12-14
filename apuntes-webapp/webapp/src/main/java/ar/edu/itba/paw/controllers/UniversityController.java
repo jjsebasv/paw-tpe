@@ -80,13 +80,15 @@ public class UniversityController {
     @POST
     @Consumes(value = {MediaType.APPLICATION_JSON,})
     @Produces(value = {MediaType.APPLICATION_JSON,})
-    public Response create(@Valid final UniversityDTO universityDTO) throws HttpException {
+    public Response create(@Valid final UniversityDTO universityDTO) throws HttpException, ValidationException {
 
         final Client client = clientService.getAuthenticatedUser();
 
         if (client == null || client.getRole() != ClientRole.ROLE_ADMIN) {
             throw new Http403Exception();
         }
+
+        validateUniversity(universityDTO);
 
         final University university = us.create(
                 new UniversityBuilder()
@@ -103,7 +105,7 @@ public class UniversityController {
     @Consumes(value = {MediaType.APPLICATION_JSON,})
     @Produces(value = {MediaType.APPLICATION_JSON,})
     public Response update(@PathParam("id") final long id,
-                           @Valid final UniversityDTO universityDTO) throws HttpException {
+                           @Valid final UniversityDTO universityDTO) throws HttpException, ValidationException {
 
         final Client client = clientService.getAuthenticatedUser();
 
@@ -117,6 +119,8 @@ public class UniversityController {
             throw new Http404Exception("University not found");
         }
 
+        validateUniversity(universityDTO);
+
         us.update(
                 id,
                 new UniversityBuilder()
@@ -126,7 +130,6 @@ public class UniversityController {
 
         return Response.ok(new UniversityDTO(us.findById(id))).build();
     }
-
 
     @DELETE
     @Path("/{id}")
@@ -141,5 +144,12 @@ public class UniversityController {
 
         us.delete(id);
         return Response.noContent().build();
+    }
+
+    private void validateUniversity(final UniversityDTO universityDTO) throws ValidationException {
+
+        if (universityDTO.getName() == null || universityDTO.getName().isEmpty()) {
+            throw new ValidationException(1, "Name can't be empty", "name");
+        }
     }
 }

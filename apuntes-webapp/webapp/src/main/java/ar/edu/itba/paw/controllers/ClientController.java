@@ -125,6 +125,10 @@ public class ClientController {
             throw new Http403Exception();
         }
 
+        if (!validatePassword(clientDTO.getPassword())) {
+            throw new ValidationException(2, "The password can't be empty!", "password");
+        }
+
         if (passwordEncoder.isPasswordValid(client.getPassword(), clientDTO.getPassword(), WebAuthConfig.SECRET)) {
             throw new ValidationException(1, "The password can't match your current one!", "password");
         }
@@ -171,6 +175,14 @@ public class ClientController {
 
         if (!client.getSecretAnswer().equals(clientDTO.getSecretAnswer())) {
             throw new ValidationException(2, "Invalid answer", "secretAnswer");
+        }
+
+        if (!validatePassword(clientDTO.getPassword())) {
+            throw new ValidationException(3, "The new password can't be empty!", "password");
+        }
+
+        if (passwordEncoder.isPasswordValid(client.getPassword(), clientDTO.getPassword(), WebAuthConfig.SECRET)) {
+            throw new ValidationException(4, "The password can't match your current one!", "password");
         }
 
         final String encodedPassword = passwordEncoder.encodePassword(clientDTO.getPassword(), WebAuthConfig.SECRET);
@@ -274,6 +286,10 @@ public class ClientController {
             throw new ValidationException(2, "Email already exists", "email");
         }
 
+        if (!validatePassword(clientDTO.getPassword())) {
+            throw new ValidationException(3, "The new password can't be empty!", "password");
+        }
+
         final String encodedPassword = passwordEncoder.encodePassword(clientDTO.getPassword(), WebAuthConfig.SECRET);
 
         final Program program = programService.findById(clientDTO.getProgramId());
@@ -295,5 +311,9 @@ public class ClientController {
         String token = tokenHandler.createTokenForUser(newClient.getName());
 
         return Response.ok(new AuthenticationTokenDTO(token)).build();
+    }
+
+    private boolean validatePassword(final String password) {
+        return password != null && !password.isEmpty() && password.length() > 0;
     }
 }
