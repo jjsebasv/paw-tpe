@@ -11,6 +11,7 @@ import ar.edu.itba.paw.interfaces.ProgramService;
 import ar.edu.itba.paw.interfaces.ReviewService;
 import ar.edu.itba.paw.models.*;
 import ar.edu.itba.paw.models.builders.ClientBuilder;
+import org.apache.commons.validator.routines.EmailValidator;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.security.authentication.encoding.PasswordEncoder;
 import org.springframework.stereotype.Component;
@@ -125,9 +126,7 @@ public class ClientController {
             throw new Http403Exception();
         }
 
-        if (!validatePassword(clientDTO.getPassword())) {
-            throw new ValidationException(2, "The password can't be empty!", "password");
-        }
+        validatePassword(clientDTO);
 
         if (passwordEncoder.isPasswordValid(client.getPassword(), clientDTO.getPassword(), WebAuthConfig.SECRET)) {
             throw new ValidationException(1, "The password can't match your current one!", "password");
@@ -177,9 +176,7 @@ public class ClientController {
             throw new ValidationException(2, "Invalid answer", "secretAnswer");
         }
 
-        if (!validatePassword(clientDTO.getPassword())) {
-            throw new ValidationException(3, "The new password can't be empty!", "password");
-        }
+        validatePassword(clientDTO);
 
         if (passwordEncoder.isPasswordValid(client.getPassword(), clientDTO.getPassword(), WebAuthConfig.SECRET)) {
             throw new ValidationException(4, "The password can't match your current one!", "password");
@@ -286,9 +283,8 @@ public class ClientController {
             throw new ValidationException(2, "Email already exists", "email");
         }
 
-        if (!validatePassword(clientDTO.getPassword())) {
-            throw new ValidationException(3, "The new password can't be empty!", "password");
-        }
+        validateClient(clientDTO);
+        validatePassword(clientDTO);
 
         final String encodedPassword = passwordEncoder.encodePassword(clientDTO.getPassword(), WebAuthConfig.SECRET);
 
@@ -313,7 +309,24 @@ public class ClientController {
         return Response.ok(new AuthenticationTokenDTO(token)).build();
     }
 
-    private boolean validatePassword(final String password) {
-        return password != null && !password.isEmpty() && password.length() > 0;
+    private void validatePassword(final ExpandedClientDTO clientDTO) throws ValidationException {
+        if (clientDTO.getPassword() == null || clientDTO.getPassword().isEmpty()) {
+            throw new ValidationException(3, "The new password can't be empty!", "password");
+        }
+    }
+
+    private void validateClient(final ClientDTO clientDTO) throws ValidationException {
+
+        if (clientDTO.getName() == null || clientDTO.getName().isEmpty()) {
+            throw new ValidationException(1, "Name can't be empty", "name");
+        }
+
+        if (clientDTO.getEmail() == null || clientDTO.getEmail().isEmpty()) {
+            throw new ValidationException(1, "Email can't be empty", "email");
+        }
+
+        if (EmailValidator.getInstance().isValid(clientDTO.getEmail())) {
+            throw new ValidationException(1, "Email is invalid", "email");
+        }
     }
 }

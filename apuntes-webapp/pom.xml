@@ -56,6 +56,8 @@
         <jersey.version>3.0-SNAPSHOT</jersey.version>
 
         <jwt.version>0.7.0</jwt.version>
+
+        <apache-commons.version>1.5.1</apache-commons.version>
     </properties>
     <build>
 
@@ -337,6 +339,12 @@
                 <groupId>io.jsonwebtoken</groupId>
                 <artifactId>jjwt</artifactId>
                 <version>${jwt.version}</version>
+            </dependency>
+
+            <dependency>
+                <groupId>commons-validator</groupId>
+                <artifactId>commons-validator</artifactId>
+                <version>${apache-commons.version}</version>
             </dependency>
 
         </dependencies>
