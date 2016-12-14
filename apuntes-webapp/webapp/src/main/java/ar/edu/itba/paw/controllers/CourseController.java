@@ -84,6 +84,8 @@ public class CourseController {
             throw new ValidationException(1, "A course with the same code already exists.", "code");
         }
 
+        validateCourse(courseDTO);
+
         final Course course = cs.create(
                 new CourseBuilder()
                         .setName(courseDTO.getName())
@@ -112,7 +114,7 @@ public class CourseController {
     @Consumes(value = {MediaType.APPLICATION_JSON,})
     @Produces(value = {MediaType.APPLICATION_JSON,})
     public Response update(@PathParam("id") final long id,
-                           @Valid final CourseDTO courseDTO) throws HttpException {
+                           @Valid final CourseDTO courseDTO) throws HttpException, ValidationException {
 
         final Client client = clientService.getAuthenticatedUser();
 
@@ -126,6 +128,8 @@ public class CourseController {
             throw new Http404Exception("Course not found");
         }
 
+        validateCourse(courseDTO);
+
         cs.update(
                 id,
                 new CourseBuilder()
@@ -136,7 +140,6 @@ public class CourseController {
 
         return Response.ok(new CourseDTO(cs.findById(id))).build();
     }
-
 
     @DELETE
     @Path("/{id}")

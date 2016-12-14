@@ -269,5 +269,4 @@ public class DocumentController {
             throw new ValidationException(3, "Description can't be empty", "description");
         }
     }
-
 }
