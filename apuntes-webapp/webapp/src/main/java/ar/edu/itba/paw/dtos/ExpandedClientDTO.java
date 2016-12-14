@@ -12,8 +12,8 @@ public class ExpandedClientDTO extends ClientDTO {
 
     private String secretAnswer;
 
-    public ExpandedClientDTO(String name, String password, String email, ClientRole role, long universityId, String recoveryQuestion, String secretAnswer) {
-        super(name, email, role, universityId, recoveryQuestion);
+    public ExpandedClientDTO(String name, String password, String email, ClientRole role, long universityId, String recoveryQuestion, String secretAnswer, long programId) {
+        super(name, email, role, universityId, recoveryQuestion, programId);
         this.password = password;
         this.secretAnswer = secretAnswer;
     }
