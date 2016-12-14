@@ -24,6 +24,9 @@ public class ClientJdbcDaoTest {
     private static final String PASSWORD = "PAWPASS";
     private static final String EMAIL = "asd@email.com";
     private static final ClientRole ROLE = ClientRole.ROLE_USER;
+    private static final String RECOVERY_QUESTION = "My name?";
+    private static final String SECRET_ANSWER = "Who cares!";
+
 
     private static final String UNIVERSITY_NAME = "ITBA";
     private static final String UNIVERSITY_DOMAIN = "itba.edu.ar";
@@ -37,7 +40,7 @@ public class ClientJdbcDaoTest {
     @Test
     public void testFindByIdExistingUser() {
         final University university = universityDao.create(new University(UNIVERSITY_NAME, UNIVERSITY_DOMAIN));
-        final Client newClient = clientDao.create(new Client(USERNAME, PASSWORD, EMAIL, ROLE, university));
+        final Client newClient = clientDao.create(new Client(USERNAME, PASSWORD, EMAIL, ROLE, university, RECOVERY_QUESTION, SECRET_ANSWER));
 
         final Client lookupClient = clientDao.findById(newClient.getClientId());
 
@@ -56,7 +59,7 @@ public class ClientJdbcDaoTest {
     @Test
     public void testCreate() {
         final University university = universityDao.create(new University(UNIVERSITY_NAME, UNIVERSITY_DOMAIN));
-        final Client client = clientDao.create(new Client(USERNAME, PASSWORD, EMAIL, ROLE, university));
+        final Client client = clientDao.create(new Client(USERNAME, PASSWORD, EMAIL, ROLE, university, RECOVERY_QUESTION, SECRET_ANSWER));
 
         Assert.assertNotNull(client);
         Assert.assertEquals(USERNAME, client.getName());
@@ -67,7 +70,7 @@ public class ClientJdbcDaoTest {
     @Test
     public void testFindByUsernameExistingUser() {
         final University university = universityDao.create(new University(UNIVERSITY_NAME, UNIVERSITY_DOMAIN));
-        final Client newClient = clientDao.create(new Client(USERNAME, PASSWORD, EMAIL, ROLE, university));
+        final Client newClient = clientDao.create(new Client(USERNAME, PASSWORD, EMAIL, ROLE, university, RECOVERY_QUESTION, SECRET_ANSWER));
 
         final Client lookupClient = clientDao.findByUsername(newClient.getName());
 
@@ -86,7 +89,7 @@ public class ClientJdbcDaoTest {
     @Test
     public void testFindByEmailExistingUser() {
         final University university = universityDao.create(new University(UNIVERSITY_NAME, UNIVERSITY_DOMAIN));
-        final Client newClient = clientDao.create(new Client(USERNAME, PASSWORD, EMAIL, ROLE, university));
+        final Client newClient = clientDao.create(new Client(USERNAME, PASSWORD, EMAIL, ROLE, university, RECOVERY_QUESTION, SECRET_ANSWER));
 
         final Client lookupClient = clientDao.findByEmail(newClient.getEmail());
 
@@ -106,7 +109,7 @@ public class ClientJdbcDaoTest {
     @Test
     public void testGetAll() {
         final University university = universityDao.create(new University(UNIVERSITY_NAME, UNIVERSITY_DOMAIN));
-        final Client client = clientDao.create(new Client(USERNAME, PASSWORD, EMAIL, ROLE, university));
+        final Client client = clientDao.create(new Client(USERNAME, PASSWORD, EMAIL, ROLE, university, RECOVERY_QUESTION, SECRET_ANSWER));
 
         final List<Client> list = clientDao.getAll();
 

@@ -21,6 +21,12 @@ public class Client {
     @Column(length = 100, nullable = false, unique = true)
     private String email;
 
+    @Column(name = "recovery_question", length = 300)
+    private String recoveryQuestion;
+
+    @Column(name = "secret_answer", length = 300)
+    private String secretAnswer;
+
     @ManyToOne(fetch = FetchType.EAGER, optional = false)
     @JoinColumn(name = "university_id")
     private University university;
@@ -33,12 +39,14 @@ public class Client {
         // Just for Hibernate, we love you!
     }
 
-    public Client(String name, String password, String email, ClientRole role, University university) {
+    public Client(String name, String password, String email, ClientRole role, University university, String recoveryQuestion, String secretAnswer) {
         this.name = name;
         this.password = password;
         this.email = email;
         this.role = role;
         this.university = university;
+        this.recoveryQuestion = recoveryQuestion;
+        this.secretAnswer = secretAnswer;
     }
 
     public String getName() {
@@ -89,8 +97,7 @@ public class Client {
 
         Client client = (Client) o;
 
-        return clientId == client.clientId;
-
+        return clientId.equals(client.clientId);
     }
 
     @Override
@@ -104,5 +111,25 @@ public class Client {
 
     public void setUniversity(University university) {
         this.university = university;
+    }
+
+    public String getRecoveryQuestion() {
+        return recoveryQuestion;
+    }
+
+    public void setRecoveryQuestion(String recoveryQuestion) {
+        this.recoveryQuestion = recoveryQuestion;
+    }
+
+    public String getSecretAnswer() {
+        return secretAnswer;
+    }
+
+    public void setSecretAnswer(String secretAnswer) {
+        this.secretAnswer = secretAnswer;
+    }
+
+    public boolean isAdmin() {
+        return this.role == ClientRole.ROLE_ADMIN;
     }
 }

@@ -72,12 +72,16 @@ public class CourseController {
 
     @POST
     @Produces(value = {MediaType.APPLICATION_JSON,})
-    public Response create(@Valid final CourseDTO courseDTO) throws HttpException {
+    public Response create(@Valid final CourseDTO courseDTO) throws HttpException, ValidationException {
 
         final Client client = clientService.getAuthenticatedUser();
 
         if (client == null || client.getRole() != ClientRole.ROLE_ADMIN) {
             throw new Http403Exception();
+        }
+
+        if (cs.findByCode(courseDTO.getCode()) != null) {
+            throw new ValidationException(1, "A course with the same code already exists.", "code");
         }
 
         final Course course = cs.create(
@@ -92,12 +96,12 @@ public class CourseController {
     }
 
     @GET
-    @Path("/{id}/programs")
+    @Path("/{id}/documents")
     @Produces(value = {MediaType.APPLICATION_JSON,})
     public Response listDocuments(@PathParam("id") final long id) throws Http404Exception {
-        final List<Document> programs = ds.findByCourseId(id);
-        if (programs != null) {
-            return Response.ok(new DocumentListDTO(programs)).build();
+        final List<Document> documents = ds.findByCourseId(id);
+        if (documents != null) {
+            return Response.ok(new DocumentListDTO(documents)).build();
         } else {
             throw new Http404Exception("Course not found");
         }

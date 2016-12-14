@@ -21,17 +21,22 @@ public class ClientDTO {
 
     private long universityId;
 
-    public ClientDTO(String name, String password, String email, ClientRole role, long universityId) {
+    private String recoveryQuestion;
+
+    private String secretAnswer;
+
+    public ClientDTO(String name, String password, String email, ClientRole role, long universityId, String recoveryQuestion, String secretAnswer) {
         this.name = name;
         this.password = password;
         this.email = email;
         this.role = role;
         this.universityId = universityId;
+        this.recoveryQuestion = recoveryQuestion;
+        this.secretAnswer = secretAnswer;
     }
 
     public ClientDTO() {
     }
-
 
     public ClientDTO(final Client client) {
         this.clientId = client.getClientId();
@@ -40,7 +45,10 @@ public class ClientDTO {
         this.email = client.getEmail();
         this.role = client.getRole();
         this.universityId = client.getUniversity().getUniversityId();
+        this.recoveryQuestion = client.getRecoveryQuestion();
+        this.secretAnswer = client.getSecretAnswer();
     }
+
 
     public long getClientId() {
         return clientId;
@@ -89,5 +97,22 @@ public class ClientDTO {
 
     public void setUniversityId(long universityId) {
         this.universityId = universityId;
+    }
+
+    public String getRecoveryQuestion() {
+        return recoveryQuestion;
+    }
+
+    public void setRecoveryQuestion(String recoveryQuestion) {
+        this.recoveryQuestion = recoveryQuestion;
+    }
+
+    @XmlTransient
+    public String getSecretAnswer() {
+        return secretAnswer;
+    }
+
+    public void setSecretAnswer(String secretAnswer) {
+        this.secretAnswer = secretAnswer;
     }
 }

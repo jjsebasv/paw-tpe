@@ -23,7 +23,6 @@ import javax.ws.rs.core.Context;
 import javax.ws.rs.core.MediaType;
 import javax.ws.rs.core.Response;
 import javax.ws.rs.core.UriInfo;
-import java.net.URI;
 import java.util.List;
 
 @Path("/api/v1/clients")
@@ -97,11 +96,7 @@ public class ClientController {
         }
 
         final List<Document> documents = ds.findByClientId(client.getClientId());
-        if (documents != null) {
-            return Response.ok(new DocumentListDTO(documents)).build();
-        } else {
-            throw new Http404Exception("Course not found");
-        }
+        return Response.ok(new DocumentListDTO(documents)).build();
     }
 
     @GET
@@ -116,22 +111,114 @@ public class ClientController {
         }
 
         final List<Review> reviews = rs.findByUserId(client.getClientId());
-        if (reviews != null) {
-            return Response.ok(new ReviewListDTO(reviews)).build();
-        } else {
-            throw new Http404Exception("Course not found");
-        }
+        return Response.ok(new ReviewListDTO(reviews)).build();
     }
 
     @POST
     @Path("/me/change_password")
     @Consumes(value = {MediaType.APPLICATION_JSON,})
     @Produces(value = {MediaType.APPLICATION_JSON,})
-    public Response changePassword(final ClientDTO clientDTO) throws HttpException {
+    public Response changePassword(final ClientDTO clientDTO) throws HttpException, ValidationException {
 
         final Client client = cs.getAuthenticatedUser();
 
         if (client == null) {
+            throw new Http403Exception();
+        }
+
+        if (passwordEncoder.isPasswordValid(client.getPassword(), clientDTO.getPassword(), WebAuthConfig.SECRET)) {
+            throw new ValidationException(1, "The password can't match your current one!", "password");
+        }
+
+        final String encodedPassword = passwordEncoder.encodePassword(clientDTO.getPassword(), WebAuthConfig.SECRET);
+
+        cs.update(
+                client.getClientId(),
+                new ClientBuilder()
+                        .setName(client.getName())
+                        .setEmail(client.getEmail())
+                        .setPassword(encodedPassword)
+                        .setRole(client.getRole())
+                        .setRecoveryQuestion(client.getRecoveryQuestion())
+                        .setSecretAnswer(client.getSecretAnswer())
+                        .createModel()
+        );
+
+        return Response.ok(new ClientDTO(cs.findById(client.getClientId()))).build();
+    }
+
+    @POST
+    @Path("/reset_password")
+    @Consumes(value = {MediaType.APPLICATION_JSON,})
+    @Produces(value = {MediaType.APPLICATION_JSON,})
+    public Response resetPassword(final ClientDTO clientDTO) throws HttpException, ValidationException {
+
+        Client client = cs.getAuthenticatedUser();
+
+        if (client != null) {
+            throw new Http403Exception();
+        }
+
+        if (clientDTO.getName() == null || clientDTO.getName().isEmpty()) {
+            throw new ValidationException(1, "Invalid username", "username");
+        }
+
+        client = cs.findByUsername(clientDTO.getName());
+
+        if (client == null) {
+            throw new ValidationException(1, "Invalid username", "username");
+        }
+
+        if (!client.getSecretAnswer().equals(clientDTO.getSecretAnswer())) {
+            throw new ValidationException(2, "Invalid answer", "secretAnswer");
+        }
+
+        final String encodedPassword = passwordEncoder.encodePassword(clientDTO.getPassword(), WebAuthConfig.SECRET);
+
+        cs.update(
+                client.getClientId(),
+                new ClientBuilder()
+                        .setName(client.getName())
+                        .setEmail(client.getEmail())
+                        .setPassword(encodedPassword)
+                        .setRole(client.getRole())
+                        .setRecoveryQuestion(client.getRecoveryQuestion())
+                        .setSecretAnswer(client.getSecretAnswer())
+                        .createModel()
+        );
+
+        return Response.ok(new ClientDTO(cs.findById(client.getClientId()))).build();
+    }
+
+    @GET
+    @Path("/{id}")
+    @Produces(value = {MediaType.APPLICATION_JSON,})
+    public Response getById(@PathParam("id") final long id) throws HttpException {
+
+        final Client client = cs.getAuthenticatedUser();
+
+        if (client == null || !client.isAdmin()) {
+            throw new Http403Exception();
+        }
+
+        final Client requestedClient = cs.findById(id);
+        if (requestedClient != null) {
+            return Response.ok(new ClientDTO(requestedClient)).build();
+        } else {
+            throw new Http404Exception("Client not found");
+        }
+    }
+
+    @POST
+    @Path("/{id}")
+    @Consumes(value = {MediaType.APPLICATION_JSON,})
+    @Produces(value = {MediaType.APPLICATION_JSON,})
+    public Response updateClientRole(@PathParam("id") final long id,
+                                     final ClientDTO clientDTO) throws HttpException, ValidationException {
+
+        final Client client = cs.getAuthenticatedUser();
+
+        if (client == null || !client.isAdmin()) {
             throw new Http403Exception();
         }
 
@@ -140,12 +227,29 @@ public class ClientController {
                 new ClientBuilder()
                         .setName(client.getName())
                         .setEmail(client.getEmail())
-                        .setPassword(clientDTO.getPassword())
-                        .setRole(client.getRole())
+                        .setPassword(client.getPassword())
+                        .setRole(clientDTO.getRole())
+                        .setRecoveryQuestion(client.getRecoveryQuestion())
+                        .setSecretAnswer(client.getSecretAnswer())
                         .createModel()
         );
 
         return Response.ok(new ClientDTO(cs.findById(client.getClientId()))).build();
+    }
+
+    @GET
+    @Produces(value = {MediaType.APPLICATION_JSON,})
+    public Response listClients() throws HttpException {
+
+        final Client client = cs.getAuthenticatedUser();
+
+        if (client == null || !client.isAdmin()) {
+            throw new Http403Exception();
+        }
+
+        List<Client> clients = cs.getAll();
+
+        return Response.ok(new ClientListDTO(clients)).build();
     }
 
     @POST

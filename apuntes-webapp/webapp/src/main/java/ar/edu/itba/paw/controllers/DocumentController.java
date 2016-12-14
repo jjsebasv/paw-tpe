@@ -118,7 +118,7 @@ public class DocumentController {
         if (reviews != null) {
             return Response.ok(new ReviewListDTO(reviews)).build();
         } else {
-            throw new Http404Exception("University not found");
+            throw new Http404Exception("Document not found");
         }
     }
 

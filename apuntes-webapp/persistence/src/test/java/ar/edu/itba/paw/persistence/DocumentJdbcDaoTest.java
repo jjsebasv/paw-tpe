@@ -26,7 +26,8 @@ public class DocumentJdbcDaoTest {
     private static final String PASSWORD = "PAWPASS";
     private static final String EMAIL = "asd@email.com";
     private static final ClientRole ROLE = ClientRole.ROLE_USER;
-
+    private static final String RECOVERY_QUESTION = "My name?";
+    private static final String SECRET_ANSWER = "Who cares!";
 
     private static final String SUBJECT = "Esto es un subject";
     private static final String FILENAME = "nombre_del_archivo.xyz";
@@ -55,7 +56,7 @@ public class DocumentJdbcDaoTest {
     public void testCreate() throws IOException {
         final University university = universityDao.create(new University(UNIVERSITY_NAME, UNIVERSITY_DOMAIN));
         final Course course = courseDao.create(new Course(COURSE_CODE, COURSE_NAME));
-        final Client client = clientDao.create(new Client(USERNAME, PASSWORD, EMAIL, ROLE, university));
+        final Client client = clientDao.create(new Client(USERNAME, PASSWORD, EMAIL, ROLE, university, RECOVERY_QUESTION, SECRET_ANSWER));
 
         final Document document = documentDao.create(new Document(client, course, SUBJECT, FILENAME, FILESIZE, CONTENTS, DESCRIPTION));
 
@@ -77,7 +78,7 @@ public class DocumentJdbcDaoTest {
     public void testFindById() {
         final University university = universityDao.create(new University(UNIVERSITY_NAME, UNIVERSITY_DOMAIN));
         final Course course = courseDao.create(new Course(COURSE_CODE, COURSE_NAME));
-        final Client client = clientDao.create(new Client(USERNAME, PASSWORD, EMAIL, ROLE, university));
+        final Client client = clientDao.create(new Client(USERNAME, PASSWORD, EMAIL, ROLE, university, RECOVERY_QUESTION, SECRET_ANSWER));
 
         final Document document = documentDao.create(new Document(client, course, SUBJECT, FILENAME, FILESIZE, CONTENTS, DESCRIPTION));
 
@@ -94,7 +95,7 @@ public class DocumentJdbcDaoTest {
     public void testFindByNonExistingId() {
         final University university = universityDao.create(new University(UNIVERSITY_NAME, UNIVERSITY_DOMAIN));
         final Course course = courseDao.create(new Course(COURSE_CODE, COURSE_NAME));
-        final Client client = clientDao.create(new Client(USERNAME, PASSWORD, EMAIL, ROLE, university));
+        final Client client = clientDao.create(new Client(USERNAME, PASSWORD, EMAIL, ROLE, university, RECOVERY_QUESTION, SECRET_ANSWER));
 
         final Document document = documentDao.create(new Document(client, course, SUBJECT, FILENAME, FILESIZE, CONTENTS, DESCRIPTION));
 
@@ -110,7 +111,7 @@ public class DocumentJdbcDaoTest {
     public void testFindByCourse() {
         final University university = universityDao.create(new University(UNIVERSITY_NAME, UNIVERSITY_DOMAIN));
         final Course course = courseDao.create(new Course(COURSE_CODE, COURSE_NAME));
-        final Client client = clientDao.create(new Client(USERNAME, PASSWORD, EMAIL, ROLE, university));
+        final Client client = clientDao.create(new Client(USERNAME, PASSWORD, EMAIL, ROLE, university, RECOVERY_QUESTION, SECRET_ANSWER));
 
         final Document document = documentDao.create(new Document(client, course, SUBJECT, FILENAME, FILESIZE, CONTENTS, DESCRIPTION));
 
@@ -128,7 +129,7 @@ public class DocumentJdbcDaoTest {
     public void testFindByClient() {
         final University university = universityDao.create(new University(UNIVERSITY_NAME, UNIVERSITY_DOMAIN));
         final Course course = courseDao.create(new Course(COURSE_CODE, COURSE_NAME));
-        final Client client = clientDao.create(new Client(USERNAME, PASSWORD, EMAIL, ROLE, university));
+        final Client client = clientDao.create(new Client(USERNAME, PASSWORD, EMAIL, ROLE, university, RECOVERY_QUESTION, SECRET_ANSWER));
 
         final Document document = documentDao.create(new Document(client, course, SUBJECT, FILENAME, FILESIZE, CONTENTS, DESCRIPTION));
 
@@ -147,7 +148,7 @@ public class DocumentJdbcDaoTest {
     public void getAll() {
         final University university = universityDao.create(new University(UNIVERSITY_NAME, UNIVERSITY_DOMAIN));
         final Course course = courseDao.create(new Course(COURSE_CODE, COURSE_NAME));
-        final Client client = clientDao.create(new Client(USERNAME, PASSWORD, EMAIL, ROLE, university));
+        final Client client = clientDao.create(new Client(USERNAME, PASSWORD, EMAIL, ROLE, university, RECOVERY_QUESTION, SECRET_ANSWER));
 
         final Document document = documentDao.create(new Document(client, course, SUBJECT, FILENAME, FILESIZE, CONTENTS, DESCRIPTION));
 
