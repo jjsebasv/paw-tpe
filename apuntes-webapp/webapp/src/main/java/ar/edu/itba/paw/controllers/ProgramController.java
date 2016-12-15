@@ -2,7 +2,8 @@ package ar.edu.itba.paw.controllers;
 
 import ar.edu.itba.paw.controllers.exceptions.Http403Exception;
 import ar.edu.itba.paw.controllers.exceptions.Http404Exception;
-import ar.edu.itba.paw.dtos.CourseListDTO;
+import ar.edu.itba.paw.dtos.ExpandedCourseDTO;
+import ar.edu.itba.paw.dtos.ExpandedCourseListDTO;
 import ar.edu.itba.paw.dtos.ProgramDTO;
 import ar.edu.itba.paw.dtos.ProgramListDTO;
 import ar.edu.itba.paw.interfaces.ClientService;
@@ -23,9 +24,9 @@ import javax.ws.rs.core.MediaType;
 import javax.ws.rs.core.Response;
 import javax.ws.rs.core.UriInfo;
 import java.net.URI;
-import java.util.Collection;
+import java.util.ArrayList;
 import java.util.List;
-import java.util.stream.Collectors;
+import java.util.Map;
 
 @Component
 @Path("/api/v1/programs")
@@ -70,16 +71,24 @@ public class ProgramController {
     @Path("/{id}/courses")
     @Produces(value = {MediaType.APPLICATION_JSON,})
     public Response listCourses(@PathParam("id") final long id) throws Http404Exception {
-        final List<Course> courses = cs.findByProgramId(id).values()
-                .stream()
-                .flatMap(Collection::stream)
-                .collect(Collectors.toList());
+        final Map<Integer, List<Course>> courses = cs.findByProgramId(id);
 
-        if (courses != null) {
-            return Response.ok(new CourseListDTO(courses)).build();
-        } else {
+        if (courses == null) {
             throw new Http404Exception("Program not found");
         }
+
+        final List<ExpandedCourseDTO> courseDTOList = new ArrayList<>();
+
+        for (Map.Entry<Integer, List<Course>> entry : courses.entrySet()) {
+            for (Course course : entry.getValue()) {
+                final ExpandedCourseDTO courseDTO = new ExpandedCourseDTO(course);
+                courseDTO.setSemester(entry.getKey());
+                courseDTOList.add(courseDTO);
+            }
+        }
+
+        return Response.ok(new ExpandedCourseListDTO(courseDTOList)).build();
+
     }
 
     @POST

@@ -46,6 +46,10 @@ public class CourseServiceImpl extends AbstractCRUDService<Course> implements Co
 
         final List<CourseProgramRelation> courses = courseDao.findByProgramId(pk);
 
+        if (courses == null) {
+            return null;
+        }
+
         Map<Integer, List<Course>> coursesMap = new HashMap<>(11);
 
         for (int i = 0; i < 11; i++) {
