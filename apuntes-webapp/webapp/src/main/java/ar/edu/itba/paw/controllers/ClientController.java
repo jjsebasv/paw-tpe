@@ -226,14 +226,16 @@ public class ClientController {
     public Response updateClientRole(@PathParam("id") final long id,
                                      final ClientDTO clientDTO) throws HttpException, ValidationException {
 
-        final Client client = cs.getAuthenticatedUser();
+        Client client = cs.getAuthenticatedUser();
 
         if (client == null || !client.isAdmin()) {
             throw new Http403Exception();
         }
 
+        client = cs.findById(id);
+
         cs.update(
-                client.getClientId(),
+                id,
                 new ClientBuilder()
                         .setName(client.getName())
                         .setEmail(client.getEmail())
@@ -245,7 +247,7 @@ public class ClientController {
                         .createModel()
         );
 
-        return Response.ok(new ClientDTO(cs.findById(client.getClientId()))).build();
+        return Response.ok(new ClientDTO(cs.findById(id))).build();
     }
 
     @GET
@@ -301,6 +303,7 @@ public class ClientController {
                         .setPassword(encodedPassword)
                         .setRole(ClientRole.ROLE_USER)
                         .setProgram(program)
+                        .setUniversity(program.getUniversity())
                         .createModel()
         );
 
@@ -325,7 +328,7 @@ public class ClientController {
             throw new ValidationException(1, "Email can't be empty", "email");
         }
 
-        if (EmailValidator.getInstance().isValid(clientDTO.getEmail())) {
+        if (!EmailValidator.getInstance().isValid(clientDTO.getEmail())) {
             throw new ValidationException(1, "Email is invalid", "email");
         }
     }

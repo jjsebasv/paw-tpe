@@ -40,9 +40,9 @@ public class ClientDTO {
         this.name = client.getName();
         this.email = client.getEmail();
         this.role = client.getRole();
-        this.universityId = client.getUniversity().getUniversityId();
+        this.universityId = client.getUniversity() != null ? client.getUniversity().getUniversityId() : -1;
         this.recoveryQuestion = client.getRecoveryQuestion();
-        this.programId = client.getProgram().getProgramid();
+        this.programId = client.getProgram() != null ? client.getProgram().getProgramid() : -1;
     }
 
     public long getClientId() {

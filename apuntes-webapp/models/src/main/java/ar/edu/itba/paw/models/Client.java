@@ -27,11 +27,11 @@ public class Client {
     @Column(name = "secret_answer", length = 300)
     private String secretAnswer;
 
-    @ManyToOne(fetch = FetchType.EAGER, optional = false)
+    @ManyToOne(fetch = FetchType.EAGER)
     @JoinColumn(name = "university_id")
     private University university;
 
-    @ManyToOne(fetch = FetchType.EAGER, optional = false)
+    @ManyToOne(fetch = FetchType.EAGER)
     @JoinColumn(name = "program_id")
     private Program program;
 
@@ -127,7 +127,7 @@ public class Client {
     }
 
     public String getSecretAnswer() {
-        return secretAnswer;
+        return secretAnswer != null ? secretAnswer : "";
     }
 
     public void setSecretAnswer(String secretAnswer) {

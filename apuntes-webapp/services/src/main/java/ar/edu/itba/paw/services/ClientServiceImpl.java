@@ -54,7 +54,6 @@ public class ClientServiceImpl extends AbstractCRUDService<Client> implements Cl
         return findByUsername((String) auth.getPrincipal());
     }
 
-
     @Override
     public void update(final long pk, final Client from) {
         final Client instance = findById(pk);
