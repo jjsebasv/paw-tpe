@@ -1,6 +1,7 @@
 package ar.edu.itba.paw.persistence;
 
 import ar.edu.itba.paw.models.Program;
+import ar.edu.itba.paw.models.University;
 import org.junit.Assert;
 import org.junit.Test;
 import org.junit.runner.RunWith;
@@ -22,13 +23,20 @@ public class ProgramJdbcDaoTest {
     private static final String PROGRAM_SHORTNAME = "ejemplo";
     private static final char PROGRAM_GROUP = 'g';
 
+    private static final String UNIVERSITY_NAME = "ITBA";
+    private static final String UNIVERSITY_DOMAIN = "itba.edu.ar";
+
+
     @Autowired
     private ProgramHibernateDao programDao;
 
+    @Autowired
+    private UniversityHibernateDao universityDao;
 
     @Test
     public void testCreate() {
-        final Program program = programDao.create(new Program(PROGRAM_NAME, PROGRAM_SHORTNAME, PROGRAM_GROUP));
+        final University university = universityDao.create(new University(UNIVERSITY_NAME, UNIVERSITY_DOMAIN));
+        final Program program = programDao.create(new Program(PROGRAM_NAME, PROGRAM_SHORTNAME, PROGRAM_GROUP, university));
 
         Assert.assertNotNull(program);
         Assert.assertEquals(PROGRAM_NAME, program.getName());
@@ -38,7 +46,8 @@ public class ProgramJdbcDaoTest {
 
     @Test
     public void testFindByName() {
-        final Program program = programDao.create(new Program(PROGRAM_NAME, PROGRAM_SHORTNAME, PROGRAM_GROUP));
+        final University university = universityDao.create(new University(UNIVERSITY_NAME, UNIVERSITY_DOMAIN));
+        final Program program = programDao.create(new Program(PROGRAM_NAME, PROGRAM_SHORTNAME, PROGRAM_GROUP, university));
 
         final List<Program> list = programDao.findByName(PROGRAM_NAME);
 
@@ -59,7 +68,8 @@ public class ProgramJdbcDaoTest {
 
     @Test
     public void testFindById() {
-        final Program program = programDao.create(new Program(PROGRAM_NAME, PROGRAM_SHORTNAME, PROGRAM_GROUP));
+        final University university = universityDao.create(new University(UNIVERSITY_NAME, UNIVERSITY_DOMAIN));
+        final Program program = programDao.create(new Program(PROGRAM_NAME, PROGRAM_SHORTNAME, PROGRAM_GROUP, university));
         final long id = program.getProgramid();
 
         final Program lookupProgram = programDao.findById(id);
@@ -71,7 +81,8 @@ public class ProgramJdbcDaoTest {
 
     @Test
     public void testFindByNonExistingId() {
-        final Program program = programDao.create(new Program(PROGRAM_NAME, PROGRAM_SHORTNAME, PROGRAM_GROUP));
+        final University university = universityDao.create(new University(UNIVERSITY_NAME, UNIVERSITY_DOMAIN));
+        final Program program = programDao.create(new Program(PROGRAM_NAME, PROGRAM_SHORTNAME, PROGRAM_GROUP, university));
         final long id = program.getProgramid();
 
         final Program lookupProgram = programDao.findById(200);
@@ -81,7 +92,8 @@ public class ProgramJdbcDaoTest {
 
     @Test
     public void getAll() {
-        final Program program = programDao.create(new Program(PROGRAM_NAME, PROGRAM_SHORTNAME, PROGRAM_GROUP));
+        final University university = universityDao.create(new University(UNIVERSITY_NAME, UNIVERSITY_DOMAIN));
+        final Program program = programDao.create(new Program(PROGRAM_NAME, PROGRAM_SHORTNAME, PROGRAM_GROUP, university));
 
         final List<Program> list = programDao.getAll();
 

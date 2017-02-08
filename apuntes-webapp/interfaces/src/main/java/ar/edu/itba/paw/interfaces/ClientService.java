@@ -7,4 +7,7 @@ public interface ClientService extends GenericCRUDService<Client> {
     Client findByUsername(String username);
 
     Client findByEmail(String email);
+
+    Client getAuthenticatedUser();
+
 }

@@ -1,35 +1,35 @@
 package ar.edu.itba.paw.config;
 
-import ar.edu.itba.paw.auth.PawUserDetailsService;
+import ar.edu.itba.paw.auth.StatelessAuthenticationFilter;
+import ar.edu.itba.paw.auth.TokenAuthenticationService;
+import ar.edu.itba.paw.interfaces.ClientService;
 import org.springframework.beans.factory.annotation.Autowired;
-import org.springframework.beans.factory.annotation.Value;
 import org.springframework.context.annotation.Bean;
 import org.springframework.context.annotation.ComponentScan;
 import org.springframework.context.annotation.Configuration;
-import org.springframework.core.io.Resource;
 import org.springframework.security.authentication.AuthenticationManager;
-import org.springframework.security.authentication.encoding.Md5PasswordEncoder;
+import org.springframework.security.authentication.AuthenticationProvider;
+import org.springframework.security.config.annotation.authentication.builders.AuthenticationManagerBuilder;
 import org.springframework.security.config.annotation.web.builders.HttpSecurity;
 import org.springframework.security.config.annotation.web.builders.WebSecurity;
 import org.springframework.security.config.annotation.web.configuration.EnableWebSecurity;
 import org.springframework.security.config.annotation.web.configuration.WebSecurityConfigurerAdapter;
-
-import java.io.IOException;
-import java.util.Properties;
-import java.util.concurrent.TimeUnit;
+import org.springframework.security.config.http.SessionCreationPolicy;
+import org.springframework.security.web.authentication.UsernamePasswordAuthenticationFilter;
 
 @Configuration
 @EnableWebSecurity
 @ComponentScan("ar.edu.itba.paw.auth")
 public class WebAuthConfig extends WebSecurityConfigurerAdapter {
+
+
+    public static final String SECRET = "SECRET_CODE";
+
     @Autowired
-    private PawUserDetailsService userDetailsService;
+    private AuthenticationProvider authenticationProvider;
 
-    @Value("classpath:config.properties")
-    private Resource config;
-
-    @Value("classpath:productionConfig.properties")
-    private Resource productionConfig;
+    @Autowired
+    private ClientService cs;
 
     @Bean(name = "authenticationManager")
     @Override
@@ -38,55 +38,27 @@ public class WebAuthConfig extends WebSecurityConfigurerAdapter {
     }
 
     @Override
+    protected void configure(AuthenticationManagerBuilder auth) throws Exception {
+        auth.authenticationProvider(authenticationProvider);
+    }
+
+    @Override
     protected void configure(final HttpSecurity http) throws Exception {
-        http.userDetailsService(userDetailsService)
-                .sessionManagement()
+
+        http.authenticationProvider(authenticationProvider)
+                .sessionManagement().sessionCreationPolicy(SessionCreationPolicy.STATELESS)
                 .and().authorizeRequests()
-                .antMatchers("/").permitAll()
-                .antMatchers("/login", "/register").anonymous()
-                .antMatchers("/admin/**").hasRole("ADMIN")
-                .antMatchers("/profile/**").authenticated()
-                .antMatchers("/document/*/addReview").authenticated()
-                .antMatchers("/uploadDocument/**").authenticated()
-                .antMatchers("/uploadDocument").authenticated()
-                .antMatchers("/program/**", "/course/**", "/document/**").permitAll()
-                .antMatchers("/**").permitAll()
-                .and().formLogin()
-                .usernameParameter("j_username")
-                .passwordParameter("j_password")
-                .defaultSuccessUrl("/", false)
-                .loginPage("/login")
-                .and().rememberMe()
-                .rememberMeParameter("j_rememberme")
-                .userDetailsService(userDetailsService)
-                .key(getApplicationProperty("secret_key"))
-                .tokenValiditySeconds((int) TimeUnit.DAYS.toSeconds(30))
-                .and().logout()
+                .antMatchers("/api/**").permitAll()
+                .anyRequest().permitAll()
+                .and().addFilterBefore(new StatelessAuthenticationFilter(new TokenAuthenticationService(cs)), UsernamePasswordAuthenticationFilter.class)
+                .logout()
                 .logoutUrl("/logout")
-                .logoutSuccessUrl("/login")
-                .and().exceptionHandling().accessDeniedPage("/403")
+                .logoutSuccessUrl("/")
                 .and().csrf().disable();
     }
 
     @Override
     public void configure(final WebSecurity web) throws Exception {
         web.ignoring().antMatchers("/resources/**", "/favicon.ico", "/403");
-    }
-
-    private String getApplicationProperty(String key) {
-        String value = "";
-        try {
-            Properties prop = new Properties();
-            prop.load(config.getInputStream());
-
-            if (productionConfig.exists()) {
-                prop.load(productionConfig.getInputStream());
-            }
-
-            value = prop.getProperty(key);
-        } catch (IOException e) {
-            e.printStackTrace();
-        }
-        return value;
     }
 }

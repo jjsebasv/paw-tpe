@@ -15,6 +15,17 @@
         <module>interfaces</module>
     </modules>
 
+    <repositories>
+        <repository>
+            <id>jersey-snapshot</id>
+            <url>https://maven.java.net/content/repositories/snapshots/</url>
+            <name>Jersey Snapshots</name>
+            <snapshots>
+                <enabled>true</enabled>
+            </snapshots>
+        </repository>
+    </repositories>
+
     <properties>
         <maven-eclipse-plugin.version>2.10</maven-eclipse-plugin.version>
         <org.springframework.version>4.2.5.RELEASE</org.springframework.version>
@@ -42,6 +53,11 @@
         <commons-fileupload.version>1.3.1</commons-fileupload.version>
         <javax.xml.bind.version>2.1</javax.xml.bind.version>
 
+        <jersey.version>3.0-SNAPSHOT</jersey.version>
+
+        <jwt.version>0.7.0</jwt.version>
+
+        <apache-commons.version>1.5.1</apache-commons.version>
     </properties>
     <build>
 
@@ -141,6 +157,7 @@
             <dependency>
                 <groupId>org.hsqldb</groupId>
                 <artifactId>hsqldb</artifactId>
+                <scope>test</scope>
                 <version>${org.hsqldb.version}</version>
             </dependency>
 
@@ -224,23 +241,23 @@
                 <version>${spring-security.version}</version>
             </dependency>
 
-            <dependency>
-                <groupId>javax.validation</groupId>
-                <artifactId>validation-api</artifactId>
-                <version>${javax.validation-api.version}</version>
-            </dependency>
+            <!--<dependency>-->
+            <!--<groupId>javax.validation</groupId>-->
+            <!--<artifactId>validation-api</artifactId>-->
+            <!--<version>${javax.validation-api.version}</version>-->
+            <!--</dependency>-->
 
-            <dependency>
-                <groupId>org.hibernate</groupId>
-                <artifactId>hibernate-validator</artifactId>
-                <version>${org.hibernate.validator}</version>
-                <exclusions>
-                    <exclusion>
-                        <groupId>org.jboss.logging</groupId>
-                        <artifactId>jboss-logging</artifactId>
-                    </exclusion>
-                </exclusions>
-            </dependency>
+            <!--<dependency>-->
+            <!--<groupId>org.hibernate</groupId>-->
+            <!--<artifactId>hibernate-validator</artifactId>-->
+            <!--<version>${org.hibernate.validator}</version>-->
+            <!--<exclusions>-->
+            <!--<exclusion>-->
+            <!--<groupId>org.jboss.logging</groupId>-->
+            <!--<artifactId>jboss-logging</artifactId>-->
+            <!--</exclusion>-->
+            <!--</exclusions>-->
+            <!--</dependency>-->
 
             <dependency>
                 <groupId>org.flywaydb</groupId>
@@ -276,6 +293,58 @@
                 <groupId>javax.xml.bind</groupId>
                 <artifactId>jaxb-api</artifactId>
                 <version>${javax.xml.bind.version}</version>
+            </dependency>
+
+            <!-- JERSEY -->
+            <dependency>
+                <groupId>org.glassfish.jersey.containers</groupId>
+                <artifactId>jersey-container-servlet-core</artifactId>
+                <version>${jersey.version}</version>
+            </dependency>
+            <dependency>
+                <groupId>org.glassfish.jersey.ext</groupId>
+                <artifactId>jersey-spring4</artifactId>
+                <version>${jersey.version}</version>
+            </dependency>
+            <dependency>
+                <groupId>org.glassfish.jersey.core</groupId>
+                <artifactId>jersey-server</artifactId>
+                <version>${jersey.version}</version>
+                <exclusions>
+                    <exclusion>
+                        <groupId>javax.validation</groupId>
+                        <artifactId>validation-api</artifactId>
+                    </exclusion>
+                </exclusions>
+            </dependency>
+            <!-- JERSEY JSON -->
+            <dependency>
+                <groupId>org.glassfish.jersey.media</groupId>
+                <artifactId>jersey-media-moxy</artifactId>
+                <version>${jersey.version}</version>
+            </dependency>
+            <dependency>
+                <groupId>org.glassfish.jersey.media</groupId>
+                <artifactId>jersey-media-jaxb</artifactId>
+                <version>${jersey.version}</version>
+            </dependency>
+
+            <dependency>
+                <groupId>org.glassfish.jersey.ext</groupId>
+                <artifactId>jersey-bean-validation</artifactId>
+                <version>${jersey.version}</version>
+            </dependency>
+
+            <dependency>
+                <groupId>io.jsonwebtoken</groupId>
+                <artifactId>jjwt</artifactId>
+                <version>${jwt.version}</version>
+            </dependency>
+
+            <dependency>
+                <groupId>commons-validator</groupId>
+                <artifactId>commons-validator</artifactId>
+                <version>${apache-commons.version}</version>
             </dependency>
 
         </dependencies>

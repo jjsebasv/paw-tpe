@@ -21,6 +21,20 @@ public class Client {
     @Column(length = 100, nullable = false, unique = true)
     private String email;
 
+    @Column(name = "recovery_question", length = 300)
+    private String recoveryQuestion;
+
+    @Column(name = "secret_answer", length = 300)
+    private String secretAnswer;
+
+    @ManyToOne(fetch = FetchType.EAGER)
+    @JoinColumn(name = "university_id")
+    private University university;
+
+    @ManyToOne(fetch = FetchType.EAGER)
+    @JoinColumn(name = "program_id")
+    private Program program;
+
     @Column
     @Enumerated(EnumType.STRING)
     private ClientRole role;
@@ -29,11 +43,15 @@ public class Client {
         // Just for Hibernate, we love you!
     }
 
-    public Client(String name, String password, String email, ClientRole role) {
+    public Client(String name, String password, String email, ClientRole role, University university, String recoveryQuestion, String secretAnswer, Program program) {
         this.name = name;
         this.password = password;
         this.email = email;
         this.role = role;
+        this.university = university;
+        this.recoveryQuestion = recoveryQuestion;
+        this.secretAnswer = secretAnswer;
+        this.program = program;
     }
 
     public String getName() {
@@ -84,12 +102,47 @@ public class Client {
 
         Client client = (Client) o;
 
-        return clientId == client.clientId;
-
+        return clientId.equals(client.clientId);
     }
 
     @Override
     public int hashCode() {
         return clientId.hashCode();
+    }
+
+    public University getUniversity() {
+        return university;
+    }
+
+    public void setUniversity(University university) {
+        this.university = university;
+    }
+
+    public String getRecoveryQuestion() {
+        return recoveryQuestion;
+    }
+
+    public void setRecoveryQuestion(String recoveryQuestion) {
+        this.recoveryQuestion = recoveryQuestion;
+    }
+
+    public String getSecretAnswer() {
+        return secretAnswer != null ? secretAnswer : "";
+    }
+
+    public void setSecretAnswer(String secretAnswer) {
+        this.secretAnswer = secretAnswer;
+    }
+
+    public boolean isAdmin() {
+        return this.role == ClientRole.ROLE_ADMIN;
+    }
+
+    public Program getProgram() {
+        return program;
+    }
+
+    public void setProgram(Program program) {
+        this.program = program;
     }
 }

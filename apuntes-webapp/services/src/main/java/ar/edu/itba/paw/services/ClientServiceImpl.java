@@ -5,6 +5,8 @@ import ar.edu.itba.paw.interfaces.ClientService;
 import ar.edu.itba.paw.models.Client;
 import ar.edu.itba.paw.models.ClientRole;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.security.core.Authentication;
+import org.springframework.security.core.context.SecurityContextHolder;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
 
@@ -40,6 +42,17 @@ public class ClientServiceImpl extends AbstractCRUDService<Client> implements Cl
         return clientDao.findByEmail(email);
     }
 
+    @Override
+    public Client getAuthenticatedUser() {
+
+        final Authentication auth = SecurityContextHolder.getContext().getAuthentication();
+
+        if (auth == null) {
+            return null;
+        }
+
+        return findByUsername((String) auth.getPrincipal());
+    }
 
     @Override
     public void update(final long pk, final Client from) {
@@ -49,6 +62,9 @@ public class ClientServiceImpl extends AbstractCRUDService<Client> implements Cl
         instance.setEmail(from.getEmail());
         instance.setPassword(from.getPassword());
         instance.setRole(from.getRole());
+        instance.setRecoveryQuestion(from.getRecoveryQuestion());
+        instance.setSecretAnswer(from.getSecretAnswer());
+        instance.setProgram(from.getProgram());
     }
 
 }

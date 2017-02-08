@@ -4,7 +4,6 @@ import org.flywaydb.core.Flyway;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 import org.springframework.beans.factory.annotation.Value;
-import org.springframework.context.MessageSource;
 import org.springframework.context.annotation.Bean;
 import org.springframework.context.annotation.ComponentScan;
 import org.springframework.context.annotation.Configuration;
@@ -16,6 +15,8 @@ import org.springframework.orm.jpa.JpaTransactionManager;
 import org.springframework.orm.jpa.JpaVendorAdapter;
 import org.springframework.orm.jpa.LocalContainerEntityManagerFactoryBean;
 import org.springframework.orm.jpa.vendor.HibernateJpaVendorAdapter;
+import org.springframework.security.authentication.encoding.Md5PasswordEncoder;
+import org.springframework.security.authentication.encoding.PasswordEncoder;
 import org.springframework.transaction.PlatformTransactionManager;
 import org.springframework.transaction.annotation.EnableTransactionManagement;
 import org.springframework.web.multipart.MultipartResolver;
@@ -28,9 +29,9 @@ import org.springframework.web.servlet.view.InternalResourceViewResolver;
 import org.springframework.web.servlet.view.JstlView;
 
 import javax.persistence.EntityManagerFactory;
+import javax.servlet.Filter;
 import javax.sql.DataSource;
 import java.io.IOException;
-import java.nio.charset.StandardCharsets;
 import java.util.Properties;
 
 @EnableWebMvc
@@ -153,6 +154,16 @@ public class WebConfig extends WebMvcConfigurerAdapter {
         messageSource.setDefaultEncoding("UTF-8");
 
         return messageSource;
+    }
+
+    @Bean
+    public Filter corsFilter() {
+        return new CorsFilter();
+    }
+
+    @Bean
+    public PasswordEncoder passwordEncoder() {
+        return new Md5PasswordEncoder();
     }
 
 //    @Bean

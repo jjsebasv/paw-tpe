@@ -1,9 +1,6 @@
 package ar.edu.itba.paw.persistence;
 
-import ar.edu.itba.paw.models.Client;
-import ar.edu.itba.paw.models.ClientRole;
-import ar.edu.itba.paw.models.Course;
-import ar.edu.itba.paw.models.Document;
+import ar.edu.itba.paw.models.*;
 import org.junit.Assert;
 import org.junit.Test;
 import org.junit.runner.RunWith;
@@ -22,6 +19,10 @@ import java.util.List;
 @Rollback
 public class DocumentJdbcDaoTest {
 
+    private static final String PROGRAM_NAME = "Carrera de ejemplo";
+    private static final String PROGRAM_SHORTNAME = "ejemplo";
+    private static final char PROGRAM_GROUP = 'g';
+
     private static final String COURSE_CODE = "93.71";
     private static final String COURSE_NAME = "Curso de Ejemplo";
 
@@ -29,7 +30,8 @@ public class DocumentJdbcDaoTest {
     private static final String PASSWORD = "PAWPASS";
     private static final String EMAIL = "asd@email.com";
     private static final ClientRole ROLE = ClientRole.ROLE_USER;
-
+    private static final String RECOVERY_QUESTION = "My name?";
+    private static final String SECRET_ANSWER = "Who cares!";
 
     private static final String SUBJECT = "Esto es un subject";
     private static final String FILENAME = "nombre_del_archivo.xyz";
@@ -38,6 +40,9 @@ public class DocumentJdbcDaoTest {
     private static final int FILESIZE = CONTENTS.length;
 
     private static final String DESCRIPTION = "estaesladescripcion";
+
+    private static final String UNIVERSITY_NAME = "ITBA";
+    private static final String UNIVERSITY_DOMAIN = "itba.edu.ar";
 
     @Autowired
     private DocumentHibernateDao documentDao;
@@ -48,11 +53,18 @@ public class DocumentJdbcDaoTest {
     @Autowired
     private ClientHibernateDao clientDao;
 
+    @Autowired
+    private UniversityHibernateDao universityDao;
+
+    @Autowired
+    private ProgramHibernateDao programDao;
 
     @Test
     public void testCreate() throws IOException {
+        final University university = universityDao.create(new University(UNIVERSITY_NAME, UNIVERSITY_DOMAIN));
         final Course course = courseDao.create(new Course(COURSE_CODE, COURSE_NAME));
-        final Client client = clientDao.create(new Client(USERNAME, PASSWORD, EMAIL, ROLE));
+        final Program program = programDao.create(new Program(PROGRAM_NAME, PROGRAM_SHORTNAME, PROGRAM_GROUP, university));
+        final Client client = clientDao.create(new Client(USERNAME, PASSWORD, EMAIL, ROLE, university, RECOVERY_QUESTION, SECRET_ANSWER, program));
 
         final Document document = documentDao.create(new Document(client, course, SUBJECT, FILENAME, FILESIZE, CONTENTS, DESCRIPTION));
 
@@ -72,8 +84,10 @@ public class DocumentJdbcDaoTest {
 
     @Test
     public void testFindById() {
+        final University university = universityDao.create(new University(UNIVERSITY_NAME, UNIVERSITY_DOMAIN));
         final Course course = courseDao.create(new Course(COURSE_CODE, COURSE_NAME));
-        final Client client = clientDao.create(new Client(USERNAME, PASSWORD, EMAIL, ROLE));
+        final Program program = programDao.create(new Program(PROGRAM_NAME, PROGRAM_SHORTNAME, PROGRAM_GROUP, university));
+        final Client client = clientDao.create(new Client(USERNAME, PASSWORD, EMAIL, ROLE, university, RECOVERY_QUESTION, SECRET_ANSWER, program));
 
         final Document document = documentDao.create(new Document(client, course, SUBJECT, FILENAME, FILESIZE, CONTENTS, DESCRIPTION));
 
@@ -88,8 +102,10 @@ public class DocumentJdbcDaoTest {
 
     @Test
     public void testFindByNonExistingId() {
+        final University university = universityDao.create(new University(UNIVERSITY_NAME, UNIVERSITY_DOMAIN));
         final Course course = courseDao.create(new Course(COURSE_CODE, COURSE_NAME));
-        final Client client = clientDao.create(new Client(USERNAME, PASSWORD, EMAIL, ROLE));
+        final Program program = programDao.create(new Program(PROGRAM_NAME, PROGRAM_SHORTNAME, PROGRAM_GROUP, university));
+        final Client client = clientDao.create(new Client(USERNAME, PASSWORD, EMAIL, ROLE, university, RECOVERY_QUESTION, SECRET_ANSWER, program));
 
         final Document document = documentDao.create(new Document(client, course, SUBJECT, FILENAME, FILESIZE, CONTENTS, DESCRIPTION));
 
@@ -103,8 +119,10 @@ public class DocumentJdbcDaoTest {
 
     @Test
     public void testFindByCourse() {
+        final University university = universityDao.create(new University(UNIVERSITY_NAME, UNIVERSITY_DOMAIN));
         final Course course = courseDao.create(new Course(COURSE_CODE, COURSE_NAME));
-        final Client client = clientDao.create(new Client(USERNAME, PASSWORD, EMAIL, ROLE));
+        final Program program = programDao.create(new Program(PROGRAM_NAME, PROGRAM_SHORTNAME, PROGRAM_GROUP, university));
+        final Client client = clientDao.create(new Client(USERNAME, PASSWORD, EMAIL, ROLE, university, RECOVERY_QUESTION, SECRET_ANSWER, program));
 
         final Document document = documentDao.create(new Document(client, course, SUBJECT, FILENAME, FILESIZE, CONTENTS, DESCRIPTION));
 
@@ -120,8 +138,10 @@ public class DocumentJdbcDaoTest {
 
     @Test
     public void testFindByClient() {
+        final University university = universityDao.create(new University(UNIVERSITY_NAME, UNIVERSITY_DOMAIN));
         final Course course = courseDao.create(new Course(COURSE_CODE, COURSE_NAME));
-        final Client client = clientDao.create(new Client(USERNAME, PASSWORD, EMAIL, ROLE));
+        final Program program = programDao.create(new Program(PROGRAM_NAME, PROGRAM_SHORTNAME, PROGRAM_GROUP, university));
+        final Client client = clientDao.create(new Client(USERNAME, PASSWORD, EMAIL, ROLE, university, RECOVERY_QUESTION, SECRET_ANSWER, program));
 
         final Document document = documentDao.create(new Document(client, course, SUBJECT, FILENAME, FILESIZE, CONTENTS, DESCRIPTION));
 
@@ -138,8 +158,10 @@ public class DocumentJdbcDaoTest {
 
     @Test
     public void getAll() {
+        final University university = universityDao.create(new University(UNIVERSITY_NAME, UNIVERSITY_DOMAIN));
         final Course course = courseDao.create(new Course(COURSE_CODE, COURSE_NAME));
-        final Client client = clientDao.create(new Client(USERNAME, PASSWORD, EMAIL, ROLE));
+        final Program program = programDao.create(new Program(PROGRAM_NAME, PROGRAM_SHORTNAME, PROGRAM_GROUP, university));
+        final Client client = clientDao.create(new Client(USERNAME, PASSWORD, EMAIL, ROLE, university, RECOVERY_QUESTION, SECRET_ANSWER, program));
 
         final Document document = documentDao.create(new Document(client, course, SUBJECT, FILENAME, FILESIZE, CONTENTS, DESCRIPTION));
 

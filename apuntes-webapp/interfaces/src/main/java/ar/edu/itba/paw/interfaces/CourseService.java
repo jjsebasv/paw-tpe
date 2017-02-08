@@ -1,7 +1,6 @@
 package ar.edu.itba.paw.interfaces;
 
 import ar.edu.itba.paw.models.Course;
-import ar.edu.itba.paw.models.Program;
 
 import java.util.List;
 import java.util.Map;

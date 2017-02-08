@@ -22,6 +22,10 @@ public class Program {
     @Column(name = "program_group", length = 1, nullable = false)
     private char group;
 
+    @ManyToOne(fetch = FetchType.EAGER, optional = false)
+    @JoinColumn(name = "university_id")
+    private University university;
+
     @OneToMany(mappedBy = "program", fetch = FetchType.EAGER)
     private List<CourseProgramRelation> courses;
 
@@ -29,10 +33,11 @@ public class Program {
         // Just for Hibernate, we love you!
     }
 
-    public Program(final String name, String shortName, char group) {
+    public Program(final String name, String shortName, char group, University university) {
         this.name = name;
         this.shortName = shortName;
         this.group = group;
+        this.university=university;
     }
 
     public long getProgramid() {
@@ -81,5 +86,13 @@ public class Program {
 
     public List<CourseProgramRelation> getRelatedCourses() {
         return courses;
+    }
+
+    public University getUniversity() {
+        return university;
+    }
+
+    public void setUniversity(University university) {
+        this.university = university;
     }
 }

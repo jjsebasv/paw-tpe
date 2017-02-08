@@ -2,6 +2,8 @@ package ar.edu.itba.paw.persistence;
 
 import ar.edu.itba.paw.models.Client;
 import ar.edu.itba.paw.models.ClientRole;
+import ar.edu.itba.paw.models.Program;
+import ar.edu.itba.paw.models.University;
 import org.junit.Assert;
 import org.junit.Test;
 import org.junit.runner.RunWith;
@@ -23,15 +25,30 @@ public class ClientJdbcDaoTest {
     private static final String PASSWORD = "PAWPASS";
     private static final String EMAIL = "asd@email.com";
     private static final ClientRole ROLE = ClientRole.ROLE_USER;
+    private static final String RECOVERY_QUESTION = "My name?";
+    private static final String SECRET_ANSWER = "Who cares!";
+
+    private static final String PROGRAM_NAME = "Carrera de ejemplo";
+    private static final String PROGRAM_SHORTNAME = "ejemplo";
+    private static final char PROGRAM_GROUP = 'g';
+
+    private static final String UNIVERSITY_NAME = "ITBA";
+    private static final String UNIVERSITY_DOMAIN = "itba.edu.ar";
 
     @Autowired
     private ClientHibernateDao clientDao;
 
+    @Autowired
+    private ProgramHibernateDao programDao;
+
+    @Autowired
+    private UniversityHibernateDao universityDao;
 
     @Test
     public void testFindByIdExistingUser() {
-
-        final Client newClient = clientDao.create(new Client(USERNAME, PASSWORD, EMAIL, ROLE));
+        final University university = universityDao.create(new University(UNIVERSITY_NAME, UNIVERSITY_DOMAIN));
+        final Program program = programDao.create(new Program(PROGRAM_NAME, PROGRAM_SHORTNAME, PROGRAM_GROUP, university));
+        final Client newClient = clientDao.create(new Client(USERNAME, PASSWORD, EMAIL, ROLE, university, RECOVERY_QUESTION, SECRET_ANSWER, program));
 
         final Client lookupClient = clientDao.findById(newClient.getClientId());
 
@@ -49,7 +66,9 @@ public class ClientJdbcDaoTest {
 
     @Test
     public void testCreate() {
-        final Client client = clientDao.create(new Client(USERNAME, PASSWORD, EMAIL, ROLE));
+        final University university = universityDao.create(new University(UNIVERSITY_NAME, UNIVERSITY_DOMAIN));
+        final Program program = programDao.create(new Program(PROGRAM_NAME, PROGRAM_SHORTNAME, PROGRAM_GROUP, university));
+        final Client client = clientDao.create(new Client(USERNAME, PASSWORD, EMAIL, ROLE, university, RECOVERY_QUESTION, SECRET_ANSWER, program));
 
         Assert.assertNotNull(client);
         Assert.assertEquals(USERNAME, client.getName());
@@ -59,8 +78,9 @@ public class ClientJdbcDaoTest {
 
     @Test
     public void testFindByUsernameExistingUser() {
-
-        final Client newClient = clientDao.create(new Client(USERNAME, PASSWORD, EMAIL, ROLE));
+        final University university = universityDao.create(new University(UNIVERSITY_NAME, UNIVERSITY_DOMAIN));
+        final Program program = programDao.create(new Program(PROGRAM_NAME, PROGRAM_SHORTNAME, PROGRAM_GROUP, university));
+        final Client newClient = clientDao.create(new Client(USERNAME, PASSWORD, EMAIL, ROLE, university, RECOVERY_QUESTION, SECRET_ANSWER, program));
 
         final Client lookupClient = clientDao.findByUsername(newClient.getName());
 
@@ -78,8 +98,9 @@ public class ClientJdbcDaoTest {
 
     @Test
     public void testFindByEmailExistingUser() {
-
-        final Client newClient = clientDao.create(new Client(USERNAME, PASSWORD, EMAIL, ROLE));
+        final University university = universityDao.create(new University(UNIVERSITY_NAME, UNIVERSITY_DOMAIN));
+        final Program program = programDao.create(new Program(PROGRAM_NAME, PROGRAM_SHORTNAME, PROGRAM_GROUP, university));
+        final Client newClient = clientDao.create(new Client(USERNAME, PASSWORD, EMAIL, ROLE, university, RECOVERY_QUESTION, SECRET_ANSWER, program));
 
         final Client lookupClient = clientDao.findByEmail(newClient.getEmail());
 
@@ -98,8 +119,9 @@ public class ClientJdbcDaoTest {
 
     @Test
     public void testGetAll() {
-
-        final Client client = clientDao.create(new Client(USERNAME, PASSWORD, EMAIL, ROLE));
+        final University university = universityDao.create(new University(UNIVERSITY_NAME, UNIVERSITY_DOMAIN));
+        final Program program = programDao.create(new Program(PROGRAM_NAME, PROGRAM_SHORTNAME, PROGRAM_GROUP, university));
+        final Client client = clientDao.create(new Client(USERNAME, PASSWORD, EMAIL, ROLE, university, RECOVERY_QUESTION, SECRET_ANSWER, program));
 
         final List<Client> list = clientDao.getAll();
 

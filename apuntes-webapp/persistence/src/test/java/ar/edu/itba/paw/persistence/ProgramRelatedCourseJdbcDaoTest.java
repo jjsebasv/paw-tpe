@@ -3,6 +3,7 @@ package ar.edu.itba.paw.persistence;
 import ar.edu.itba.paw.models.Course;
 import ar.edu.itba.paw.models.CourseProgramRelation;
 import ar.edu.itba.paw.models.Program;
+import ar.edu.itba.paw.models.University;
 import org.junit.Assert;
 import org.junit.Test;
 import org.junit.runner.RunWith;
@@ -26,6 +27,10 @@ public class ProgramRelatedCourseJdbcDaoTest {
     private static final String PROGRAM_NAME = "Carrera de ejemplo";
     private static final String PROGRAM_SHORTNAME = "ejemplo";
     private static final char PROGRAM_GROUP = 'g';
+
+    private static final String UNIVERSITY_NAME = "ITBA";
+    private static final String UNIVERSITY_DOMAIN = "itba.edu.ar";
+
     private static int COURSETOPROGRAM_SEMESTER = 3;
 
     @Autowired
@@ -37,10 +42,14 @@ public class ProgramRelatedCourseJdbcDaoTest {
     @Autowired
     private ProgramHibernateDao programDao;
 
+    @Autowired
+    private UniversityHibernateDao universityDao;
+
     @Test
     public void testAddProgramToCourseRelationship() {
+        final University university = universityDao.create(new University(UNIVERSITY_NAME, UNIVERSITY_DOMAIN));
         final Course course = courseDao.create(new Course(COURSE_CODE, COURSE_NAME));
-        final Program program = programDao.create(new Program(PROGRAM_NAME, PROGRAM_SHORTNAME, PROGRAM_GROUP));
+        final Program program = programDao.create(new Program(PROGRAM_NAME, PROGRAM_SHORTNAME, PROGRAM_GROUP, university));
 
         courseProgramRelationDao.addProgramRelationship(course.getCourseid(), program.getProgramid(), COURSETOPROGRAM_SEMESTER);
 
@@ -59,9 +68,9 @@ public class ProgramRelatedCourseJdbcDaoTest {
 
     @Test
     public void testFindProgramsFromCourseId() {
-
+        final University university = universityDao.create(new University(UNIVERSITY_NAME, UNIVERSITY_DOMAIN));
         final Course course = courseDao.create(new Course(COURSE_CODE, COURSE_NAME));
-        final Program program = programDao.create(new Program(PROGRAM_NAME, PROGRAM_SHORTNAME, PROGRAM_GROUP));
+        final Program program = programDao.create(new Program(PROGRAM_NAME, PROGRAM_SHORTNAME, PROGRAM_GROUP, university));
 
         courseProgramRelationDao.addProgramRelationship(course.getCourseid(), program.getProgramid(), COURSETOPROGRAM_SEMESTER);
 

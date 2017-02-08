@@ -65,13 +65,11 @@ abstract class AbstractCRUDHibernateDao<T> implements GenericCRUDDao<T> {
         final List<T> list = query.getResultList();
 
         return new PagedResult<T>(list.isEmpty() ? null : list, start, limit, count());
-
     }
 
     @Override
     public int count() {
         final TypedQuery<Long> countQuery = em.createQuery("select count(*) from " + modelType.getName(), Long.class);
-
         return countQuery.getSingleResult().intValue();
     }
 }

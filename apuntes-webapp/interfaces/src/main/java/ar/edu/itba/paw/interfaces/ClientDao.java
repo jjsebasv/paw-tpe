@@ -7,5 +7,4 @@ public interface ClientDao extends GenericCRUDDao<Client> {
     Client findByUsername(String username);
 
     Client findByEmail(String email);
-
 }
