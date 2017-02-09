@@ -8,7 +8,7 @@ module.exports = function (grunt) {
 
   var appConfig = {
     app: 'app',
-    dist: '../../../target/webapp/'
+    dist: 'dist'
   };
 
   grunt.initConfig({
