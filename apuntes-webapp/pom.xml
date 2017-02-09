@@ -58,6 +58,8 @@
         <jwt.version>0.7.0</jwt.version>
 
         <apache-commons.version>1.5.1</apache-commons.version>
+
+        <frontend-maven-plugin.version>1.3</frontend-maven-plugin.version>
     </properties>
     <build>
 
