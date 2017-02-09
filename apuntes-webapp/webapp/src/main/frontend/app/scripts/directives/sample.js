@@ -1,7 +1,7 @@
 'use strict';
-define(['apuntes-webapp-frontend'], function(apuntes-webapp-frontend) {
+define(['frontend'], function(frontend) {
 
-	apuntes-webapp-frontend.directive('sample', function() {
+	frontend.directive('sample', function() {
 		return {
 			restrict: 'E',
 			template: '<span>Sample</span>'

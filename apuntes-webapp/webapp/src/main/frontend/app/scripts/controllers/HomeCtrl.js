@@ -1,7 +1,7 @@
 'use strict';
-define(['apuntes-webapp-frontend'], function(apuntes-webapp-frontend) {
+define(['frontend'], function(frontend) {
 
-	apuntes-webapp-frontend.controller('HomeCtrl', function($scope) {
+	frontend.controller('HomeCtrl', function($scope) {
 		$scope.homePageText = 'This is your homepage';
 	});
 });

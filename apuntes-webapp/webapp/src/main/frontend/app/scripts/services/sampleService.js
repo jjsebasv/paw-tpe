@@ -1,7 +1,7 @@
 'use strict';
-define(['apuntes-webapp-frontend'], function(apuntes-webapp-frontend) {
+define(['frontend'], function(frontend) {
 
-	apuntes-webapp-frontend.service('SampleService', function() {
+	frontend.service('SampleService', function() {
 
 	});
 });

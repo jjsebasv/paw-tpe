@@ -7,11 +7,11 @@ define(['routes',
 	'bootstrap',
 	'angular-translate'],
 	function(config, dependencyResolverFor, i18n) {
-		var apuntes-webapp-frontend = angular.module('apuntes-webapp-frontend', [
+		var frontend = angular.module('frontend', [
 			'ngRoute',
 			'pascalprecht.translate'
 		]);
-		apuntes-webapp-frontend
+		frontend
 			.config(
 				['$routeProvider',
 				'$controllerProvider',
@@ -21,11 +21,11 @@ define(['routes',
 				'$translateProvider',
 				function($routeProvider, $controllerProvider, $compileProvider, $filterProvider, $provide, $translateProvider) {
 
-					apuntes-webapp-frontend.controller = $controllerProvider.register;
-					apuntes-webapp-frontend.directive = $compileProvider.directive;
-					apuntes-webapp-frontend.filter = $filterProvider.register;
-					apuntes-webapp-frontend.factory = $provide.factory;
-					apuntes-webapp-frontend.service = $provide.service;
+					frontend.controller = $controllerProvider.register;
+					frontend.directive = $compileProvider.directive;
+					frontend.filter = $filterProvider.register;
+					frontend.factory = $provide.factory;
+					frontend.service = $provide.service;
 
 					if (config.routes !== undefined) {
 						angular.forEach(config.routes, function(route, path) {
@@ -39,6 +39,6 @@ define(['routes',
 					$translateProvider.translations('preferredLanguage', i18n);
 					$translateProvider.preferredLanguage('preferredLanguage');
 				}]);
-		return apuntes-webapp-frontend;
+		return frontend;
 	}
 );

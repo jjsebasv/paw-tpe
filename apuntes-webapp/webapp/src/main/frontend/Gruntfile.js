@@ -1,14 +1,14 @@
 /* eslint-env node */
+'use strict';
 
 module.exports = function (grunt) {
-  'use strict';
   require('load-grunt-tasks')(grunt);
 
   require('time-grunt')(grunt);
 
   var appConfig = {
     app: 'app',
-    dist: 'dist'
+    dist: '../../../target/webapp/'
   };
 
   grunt.initConfig({
@@ -358,7 +358,7 @@ module.exports = function (grunt) {
           removeCombined: true,
           preserveLicenseComments: false,
           findNestedDependencies: true,
-          dir: 'dist/scripts',
+          dir: '<%= yeoman.dist %>/scripts',
           modules: [
             {
               name: 'build'
