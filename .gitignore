@@ -10,3 +10,5 @@ config.propierties
 .metadata/
 .metadata
 metadata/
+bower_components/
+node_modules/
