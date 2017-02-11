@@ -1,0 +1,40 @@
+.column
+	.row.row-space-between.row-top.m-bottom-1
+		.column.column-center.big-book
+			img(src='images/default_book.svg')
+		.column.flex-grow-1.m-left-1
+			p.title-2.text-base.black
+				| Título
+			p.title-2.text-base.bold
+				| Autor
+			p.m-bottom-3.text-base.grey-3.text-2
+				| Fecha
+			p.m-bottom-3.text-base.grey-3.text-2
+				| Materia
+			p.text-base.grey.text-3.grey-3.justify.m-bottom-3
+				| Aca va la descripcion del document. Lorem ipsum dolor sit amet, consectetur adipiscing elit. Vivamus sit amet elementum felis, et dignissim velit. Class aptent taciti sociosqu ad litora torquent per conubia nostra, per inceptos himenaeos.
+			.row
+				button.button-green.m-right-3
+					| Descargar
+				button.button-blue
+					| Vista previa
+.separator
+.column
+	h1.title-3.text-base.green.m-bottom-3
+		| Comentarios
+	.new-comment-wrapper.column.column-left.m-bottom-3
+		p.title-2.text-base.black.m-bottom-1
+			| Agregar comentario
+		textarea.input-base.m-bottom-1(name='comment')
+		input.button-green(type='submit' value='Enviar comentario')
+	.list-wrapper.column
+		.list-item.column.m-bottom-5
+			.row.row-space-between.m-bottom-1
+				p.title-2.text-base.black
+					| Kimberly Carter
+				span
+					| Aca van las estrellas
+			p.m-bottom-3.text-base.grey-3.text-2
+				| XX/XX/XXXX
+			p.text-base.grey.text-3.grey-3.justify
+				| Lorem ipsum dolor sit amet, consectetur adipisicing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua. Ut enim ad minim veniam, quis nostrud exercitation ullamco laboris nisi ut aliquip ex ea commodo consequat.
