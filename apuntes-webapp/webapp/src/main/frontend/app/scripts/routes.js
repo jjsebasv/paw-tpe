@@ -24,6 +24,10 @@ define([], function() {
             '/university/:universityId': {
                 templateUrl: '/views/university.html',
                 controller: 'UniversityController'
+            },
+            '/document/:documentId': {
+                templateUrl: '/views/document.html',
+                controller: 'DocumentController'
             }
             /* ===== yeoman hook ===== */
             /* Do not remove these commented lines! Needed for auto-generation */

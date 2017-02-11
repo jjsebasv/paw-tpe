@@ -5,7 +5,6 @@ define(['frontend', 'services/courseService', 'directives/courseDirective'], fun
       'courseService', '$routeParams',
       function(courseService, $routeParams) {
         var _this = this;
-        console.log('course controller');
         courseService.getCourse($routeParams.courseId).then(function(result) {
           _this.course = result.data;
         });
