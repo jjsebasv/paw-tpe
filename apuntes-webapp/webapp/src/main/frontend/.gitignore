@@ -35,9 +35,9 @@ coverage
 build/Release
 
 # Dependency directories
-node_modules
+bla
 jspm_packages
-node_modules/**/*
+bla/**/*
 
 # Optional npm cache directory
 .npm
