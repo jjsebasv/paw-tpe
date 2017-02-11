@@ -12,6 +12,9 @@ html.no-js
 			nav.header.row.row-center
 				.max-content-wrapper.row.row-space-between
 					img.logo(src='images/logo.svg')
+					.actions
+						button(ng-click='IndexCtrl.openLogin()')
+							img(src='images/add_book.svg')
 			.max-content-wrapper.mid.content(ng-view='')
 		// build:js(.) scripts/oldieshim.js
 		//if lt IE 9
