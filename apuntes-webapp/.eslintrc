@@ -5,10 +5,13 @@
     "globals": {
         "require": true,
         "define": true,
-	"$": true,
-	"angular": true,
-	"moment": true
+        "$": true,
+        "angular": true,
+        "moment": true
     },
+    "plugins": [
+      "pug"
+    ],
     "rules": {
         "array-bracket-spacing": [2, "never"],
         "block-scoped-var": 1,
