@@ -57,6 +57,10 @@ module.exports = function (grunt) {
       gruntfile: {
         files: ['Gruntfile.js']
       },
+      pug: {
+        files: ['<%= yeoman.app %>/{,*/}*.pug'],
+        tasks: ['pug']
+      },
       livereload: {
         options: {
           livereload: '<%= connect.options.livereload %>'
@@ -140,6 +144,21 @@ module.exports = function (grunt) {
     bower: {
       all: {
         rjsConfig: '<%= yeoman.app %>/scripts/build.js'
+      }
+    },
+
+    pug: {
+      dist: {
+        options: {
+          pretty: true
+        },
+        files: [{
+          expand: true,
+          cwd: '<%= yeoman.app %>',
+          dest: '.tmp',
+          src: '*.pug',
+          ext: '.html'
+        }]
       }
     },
 
@@ -485,6 +504,8 @@ module.exports = function (grunt) {
       // pre-required setup for usemin
       'useminPrepare',
       // compass, imagemin, svgmin
+      'pug',
+      // pug and pug compilation
       'concurrent:dist',
       // add css vendor prefixes, in: .tmp/styles out: .tmp/styles
       'autoprefixer',
