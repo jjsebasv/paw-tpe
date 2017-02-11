@@ -1,0 +1,17 @@
+@import 'variables/colors';
+
+.big-book {
+  background-color: $grey;
+  width: 400px;
+  height: 280px;
+  position: relative;
+  justify-content: center;
+}
+
+.new-comment-wrapper  {
+  textarea {
+    resize: none;
+    height: 100px;
+    width: 100%;
+  }
+}
