@@ -72,7 +72,7 @@ if (paths) {
 require([
         'angular',
         'frontend',
-        'controllers/IndexController'
+        'controllers/IndexCtrl'
     ],
     function() {
         angular.bootstrap(document, ['frontend']);

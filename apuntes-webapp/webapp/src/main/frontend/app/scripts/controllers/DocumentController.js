@@ -1,7 +1,8 @@
 'use strict';
-define(['frontend'], function(frontend) {
+define(['frontend', 'services/documentService'], function(frontend) {
 
-    frontend.controller('DocumentController',
+    frontend.controller('DocumentController', [
+      'documentService', '$routeParams',
       function(documentService, $routeParams) {
         var _this = this;
         documentService.getCourse($routeParams.documentId).then(function(result) {
@@ -11,6 +12,6 @@ define(['frontend'], function(frontend) {
         documentService.getComments($routeParams.documentId).then(function(result) {
           _this.comments = result.data;
         });
-    });
+    }]);
 
 });
