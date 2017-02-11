@@ -2,12 +2,11 @@
 define(['frontend'], function(frontend) {
 
     frontend.controller('CourseController', [
-      'CourseService', '$routeParams',
-      function(CourseService, $routeParams) {
-        console.log('course controller')
-        CourseService.getCourse($routeParams.courseId).then(function(result) {
+      'courseService', '$routeParams',
+      function(courseService, $routeParams) {
+        console.log('course controller');
+        courseService.getCourse($routeParams.courseId).then(function(result) {
           this.course = result.data;
         });
     }]);
-
 });

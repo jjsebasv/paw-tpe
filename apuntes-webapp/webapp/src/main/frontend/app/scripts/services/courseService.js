@@ -1,14 +1,14 @@
 'use strict';
 define(['frontend'], function(frontend) {
 
-	frontend.service('CourseService', [
-		'$http',
-		function($http) {
-			return {
-				getCourse: function(courseId) {
-					var url = 'apiURL';
-					return $http.get(url);
-				}
-			};
-	}]);
+    frontend.service('courseService', [
+			'httpRequestService',
+			function(httpRequestService) {
+				return {
+					getCourse: function(courseId) {
+						return httpRequestService.defaultRequest('GET', 'courses/' + courseId, null);
+					}
+				};
+		}]);
+
 });
