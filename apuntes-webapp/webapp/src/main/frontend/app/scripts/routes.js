@@ -13,7 +13,7 @@ define([], function() {
                 templateUrl: '/views/profile.html',
                 controller: 'ProfileController'
             },
-            '/course': {
+            '/course/:courseId': {
                 templateUrl: '/views/course.html',
                 controller: 'CourseController'
             },
