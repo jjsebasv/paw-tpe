@@ -1,0 +1,24 @@
+.back(ng-click="appCtrl.goTo('^.university', pgrmCtrl.backReference)")
+  | < Back
+//- Should display all courses
+.column.column-center
+  .row.course-header
+    .item
+      h1.title-3.text-base.green.m-bottom-1
+        | Nombre de la carrera
+    .bar
+    .item
+      h1.title-3.text-base.m-bottom-1
+        | {{ pgrmCtrl.universityName }}
+  .row
+    span.m-right-1.bold.text-base
+      | {{ pgrmCtrl.courses.length }}
+    span
+      | {{ 'COURSES' | translate }}
+.separator
+.column.column-center
+  h1.title-3.text-base.green.m-bottom-3
+    | {{ 'COURSES' | translate }}
+  input(ng-model='searchText' placeholder='{{ "SEARCH" | translate }}')
+  .list-wrapper.row.row-space-between(ng-repeat='course in pgrmCtrl.courses | filter:searchText')
+    course(name='course.name' code='course.code' ng-click="appCtrl.goTo('^.course', course.urlParam)")

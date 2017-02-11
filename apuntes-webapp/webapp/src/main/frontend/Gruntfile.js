@@ -156,7 +156,7 @@ module.exports = function (grunt) {
           expand: true,
           cwd: '<%= yeoman.app %>',
           dest: '.tmp',
-          src: '*.pug',
+          src: ['*.pug', 'views/*.pug'],
           ext: '.html'
         }]
       }
@@ -396,7 +396,7 @@ module.exports = function (grunt) {
             options: {
                 baseRoot: '<%= yeoman.dist %>/scripts',
                 baseUrl: 'scripts',
-                outputFile: '<%= yeoman.dist %>/scripts/paths.js'
+                outputFile: '<%= yeoman.dist %>scripts/paths.js'
             }
         }
     }

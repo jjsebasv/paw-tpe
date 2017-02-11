@@ -1,0 +1,7 @@
+//- This is the home view
+.column.column-center
+  h1.title-3.text-base.green.m-bottom-3
+    | {{ 'UNIVERSITIES' | translate }}
+  input(ng-model='searchText' placeholder='{{ "SEARCH" | translate }}')
+  .list-wrapper.row.row-space-between(ng-repeat='uni in homeCtrl.universities | filter:searchText')
+    course(name='uni.name' code='uni.id' ng-click="appCtrl.goTo('^.university', uni.urlParam)")

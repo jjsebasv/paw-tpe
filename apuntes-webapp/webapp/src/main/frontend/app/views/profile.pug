@@ -1,0 +1,78 @@
+div(ng-controller='ProfileController as profileCtrl')
+  .column.column-center
+    .column.column-left
+      h1.title-3.text-base.green.m-bottom-1
+        | Marie Fields
+      p.text-base.grey.text-2.m-bottom-2
+        | lorem.ipsum@wolox.com.ar
+      .row
+        .item
+          span.m-right-1.bold.text-base
+            | 4
+          span
+            | Apuntes
+        .bar
+        .item
+          span.m-right-1.bold.text-base
+            | 10
+          span
+            | Comentarios
+  .separator
+  .column
+    h1.title-3.text-base.green.m-bottom-3
+      | Apuntes
+    .list-wrapper.row.row-space-between
+      .list-item.column
+        .default-book.m-bottom-1
+          img(src='assets/default_book.svg')
+        h3.title-2.text-base.black
+          | Titulo
+        h4.text-base.grey.text-2
+          | Autor
+      .list-item.column
+        .default-book.m-bottom-1
+          img(src='assets/default_book.svg')
+        h3.title-2.text-base.black
+          | Titulo
+        h4.text-base.grey.text-2
+          | Autor
+      .list-item.column
+        .default-book.m-bottom-1
+          img(src='assets/default_book.svg')
+        h3.title-2.text-base.black
+          | Titulo
+        h4.text-base.grey.text-2
+          | Autor
+      .list-item.column
+        .default-book.m-bottom-1
+          img(src='assets/default_book.svg')
+        h3.title-2.text-base.black
+          | Titulo
+        h4.text-base.grey.text-2
+          | Autor
+  .separator
+  .column
+    h1.title-3.text-base.green.m-bottom-3
+      | Comentarios
+    .list-wrapper.column
+      comment(user='"Kimberly"' date='"XX/XX/XXXX"' comment='"blabla bla bla"' document='"bla"')
+      .list-item.column.m-bottom-5
+        .row.row-space-between.m-bottom-1
+          p.title-2.text-base.black
+            | Kimberly Carter
+          p.title-2.text-base.blue.bold.underline
+            | Titulo del libro
+        p.m-bottom-3.text-base.grey-3.text-2
+          | XX/XX/XXXX
+        p.text-base.grey.text-3.grey-3.justify
+          | Lorem ipsum dolor sit amet, consectetur adipisicing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua. Ut enim ad minim veniam, quis nostrud exercitation ullamco laboris nisi ut aliquip ex ea commodo consequat.
+      .list-item.column.m-bottom-5
+        .row.row-space-between.m-bottom-1
+          p.title-2.text-base.black
+            | Kimberly Carter
+          p.title-2.text-base.blue.bold.underline
+            | Titulo del libro
+        p.m-bottom-3.text-base.grey-3.text-2
+          | XX/XX/XXXX
+        p.text-base.grey.text-3.grey-3.justify
+          | Lorem ipsum dolor sit amet, consectetur adipisicing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua. Ut enim ad minim veniam, quis nostrud exercitation ullamco laboris nisi ut aliquip ex ea commodo consequat.
