@@ -7,7 +7,12 @@ define(['frontend', 'services/httpRequestService'], function(frontend) {
 				return {
 					getUniversity: function(universityId) {
 						return httpRequestService.defaultRequest('GET', 'universities/' + universityId, null);
-					}
+					},
+
+          getAllUnis: function() {
+            return httpRequestService.defaultRequest('GET', 'universities', null);
+          }
+
 				};
 		}]);
 

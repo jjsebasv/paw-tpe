@@ -17,7 +17,7 @@ define([], function() {
                 templateUrl: '/views/course.html',
                 controller: 'CourseController'
             },
-            '/program': {
+            '/program/:programId': {
                 templateUrl: '/views/program.html',
                 controller: 'ProgramController'
             },

@@ -1,7 +1,13 @@
 'use strict';
-define(['frontend'], function(frontend) {
+define(['frontend', 'services/universityService', 'directives/universityDirective'], function(frontend) {
 
-	frontend.controller('HomeController', function($scope) {
-		$scope.homePageText = 'This is your homepage';
-	});
+	frontend.controller('HomeController', [
+		'universityService',
+		function(universityService) {
+			var _this = this;
+			universityService.getAllUnis().then(
+				function(result) {
+					_this.universities = result.data.universityList;
+				});
+	}]);
 });
