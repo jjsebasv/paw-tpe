@@ -1,0 +1,10 @@
+.list-item.column.m-bottom-5
+  .row.row-space-between.m-bottom-1
+    p.title-2.text-base.black
+      | {{ user }}
+    a.title-2.text-base.blue.bold.underline(ng-if='document !== null' ui-sref='application.documentDetail({documentid: 1})')
+      | {{ document }}
+  p.m-bottom-3.text-base.grey-3.text-2
+    | {{ date }}
+  p.text-base.grey.text-3.grey-3.justify
+    | {{ comment }}
