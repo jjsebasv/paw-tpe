@@ -32,13 +32,12 @@ body {
 
 .bar {
   border: 1px solid $green;
-  width: 2px;
   height: 28px;
   margin: 0 15px;
 }
 
 .separator {
-  border: 1px solid $blue;
+  border-top: 1px solid $blue;
   height: 1px;
   margin: 35px 0;
   width: 100%;
