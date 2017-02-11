@@ -1,12 +1,13 @@
 'use strict';
-define(['frontend'], function(frontend) {
+define(['frontend', 'services/courseService'], function(frontend) {
 
     frontend.controller('CourseController', [
       'courseService', '$routeParams',
       function(courseService, $routeParams) {
+        var _this = this;
         console.log('course controller');
         courseService.getCourse($routeParams.courseId).then(function(result) {
-          this.course = result.data;
+          _this.course = result.data;
         });
     }]);
 });
