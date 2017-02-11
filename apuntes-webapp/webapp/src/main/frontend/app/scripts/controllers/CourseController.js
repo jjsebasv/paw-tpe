@@ -1,5 +1,5 @@
 'use strict';
-define(['frontend', 'services/courseService'], function(frontend) {
+define(['frontend', 'services/courseService', 'directives/courseDirective'], function(frontend) {
 
     frontend.controller('CourseController', [
       'courseService', '$routeParams',

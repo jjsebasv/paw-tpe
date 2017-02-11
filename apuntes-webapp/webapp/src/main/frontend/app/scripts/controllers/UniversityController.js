@@ -1,15 +1,21 @@
 'use strict';
-define(['frontend', 'services/programService', 'services/universityService'],
+define(['frontend', 'services/programService', 'services/universityService', 'directives/programDirective'],
  function(frontend) {
 
     frontend.controller('UniversityController', [
-    'programService', 'universityService', '$routeParams',
-    function(programService, universityService, $routeParams) {
+    'programService', 'universityService', '$routeParams', '$location',
+    function(programService, universityService, $routeParams, $location) {
       var _this = this;
-      programService.getUniPrograms($routeParams.universityId).then(
+      var uniId = $routeParams.universityId;
+
+      universityService.getUniversity(uniId).then(
+        function(result) {
+          _this.university = result.data;
+      });
+
+      programService.getUniPrograms(uniId).then(
         function(result) {
             _this.programs = result.data.programList;
-            debugger
         });
     }]);
 

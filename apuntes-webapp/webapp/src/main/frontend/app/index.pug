@@ -7,8 +7,8 @@ html.no-js
 		// build:css(.tmp) styles/main.css
 		link(rel='stylesheet', href='styles/application.css')
 		// endbuild
-	body(ng-controller='IndexCtrl')
-		.column.column-center.test
+	body(ng-controller='IndexController as indexCtrl')
+		.column.column-center
 			nav.header.row.row-center
 				.max-content-wrapper.row.row-space-between
 					img.logo(src='images/logo.svg')
