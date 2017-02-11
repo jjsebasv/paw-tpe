@@ -1,0 +1,13 @@
+.default-book {
+  background-color: $grey;
+  width: 130px;
+  height: 180px;
+  position: relative;
+
+  img {
+    position: absolute;
+    left: 50%;
+    top: 50%;
+    transform: translate(-50%, -50%);
+  }
+}
