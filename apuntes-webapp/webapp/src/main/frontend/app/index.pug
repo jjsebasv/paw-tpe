@@ -8,25 +8,11 @@ html.no-js
 		link(rel='stylesheet', href='styles/base.css')
 		// endbuild
 	body(ng-controller='IndexCtrl')
-		//if lt IE 7
-			p.browsehappy
-				| You are using an
-				strong outdated
-				|  browser. Please
-				a(href='http://browsehappy.com/') upgrade your browser
-				|  to improve your experience.
-		// Add your site or application content here
-		.container
-			.header
-				ul.nav.nav-pills.pull-right
-					li.active
-						a(ng-href='#') Homee
-					li
-						a(ng-href='#/about') About
-					li
-						a(ng-href='#') Contact
-				h3.text-muted frontend
-			div(ng-view='')
+		.column.column-center
+			nav.header.row.row-center
+				.max-content-wrapper.row.row-space-between
+					img.logo(src='images/logo.svg')
+			.max-content-wrapper.mid.content(ng-view='')
 		// Google Analytics: change UA-XXXXX-X to be your site's ID
 		script.
 			(function(i,s,o,g,r,a,m){i['GoogleAnalyticsObject']=r;i[r]=i[r]||function(){
