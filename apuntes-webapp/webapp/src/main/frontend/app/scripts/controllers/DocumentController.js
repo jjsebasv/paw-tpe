@@ -5,7 +5,7 @@ define(['frontend', 'services/documentService'], function(frontend) {
       'documentService', '$routeParams',
       function(documentService, $routeParams) {
         var _this = this;
-        documentService.getCourse($routeParams.documentId).then(function(result) {
+        documentService.getDocument($routeParams.documentId).then(function(result) {
           _this.document = result.data;
         });
 
