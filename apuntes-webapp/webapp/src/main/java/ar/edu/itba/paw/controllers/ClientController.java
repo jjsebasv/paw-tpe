@@ -24,7 +24,7 @@ import javax.ws.rs.core.Response;
 import javax.ws.rs.core.UriInfo;
 import java.util.List;
 
-@Path("/api/v1/clients")
+@Path("/v1/clients")
 @Component
 public class ClientController {
 

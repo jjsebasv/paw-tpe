@@ -15,7 +15,12 @@ define(['frontend', 'services/courseService', 'services/documentService',
 
         documentService.getCourseDocuments(courseId).then(
           function(result) {
+            debugger
             _this.documents = result.data.documentList;
-          });
+          }).catch(
+            function(error) {
+              debugger;
+            }
+          );
     }]);
 });
