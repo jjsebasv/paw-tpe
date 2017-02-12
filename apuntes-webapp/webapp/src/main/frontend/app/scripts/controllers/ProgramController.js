@@ -1,6 +1,6 @@
 'use strict';
 define(['frontend', 'services/programService', 'services/courseService',
- 'directives/courseDirective', 'directives/searchDirective'], function(frontend) {
+ 'directives/courseDirective', 'directives/searchboxDirective'], function(frontend) {
 
     frontend.controller('ProgramController', [
       'programService', 'courseService', '$routeParams', '$location',

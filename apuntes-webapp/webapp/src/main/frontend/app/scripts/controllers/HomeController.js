@@ -1,6 +1,6 @@
 'use strict';
 define(['frontend', 'services/universityService',
- 'directives/universityDirective', 'directives/searchDirective'], function(frontend) {
+ 'directives/universityDirective', 'directives/searchboxDirective'], function(frontend) {
 
 	frontend.controller('HomeController', [
 		'universityService',
