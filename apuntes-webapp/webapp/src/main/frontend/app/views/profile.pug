@@ -8,71 +8,25 @@ div(ng-controller='ProfileController as profileCtrl')
       .row
         .item
           span.m-right-1.bold.text-base
-            | 4
+            | {{ profileCtrl.files.length }}
           span
             | {{ 'FILES' | translate }}
         .bar
         .item
           span.m-right-1.bold.text-base
-            | 10
+            | {{ profileCtrl.reviews.length }}
           span
             | {{ 'COMMENTS' | translate }}
   .separator
+  //- FIXME check this when login is available  
   .column
     h1.title-3.text-base.green.m-bottom-3
       | {{ 'FILES' | translate }}
-    .list-wrapper.row.row-space-between
-      .list-item.column
-        .default-book.m-bottom-1
-          img(src='images/default_book.svg')
-        h3.title-2.text-base.black
-          | Titulo
-        h4.text-base.grey.text-2
-          | Autor
-      .list-item.column
-        .default-book.m-bottom-1
-          img(src='images/default_book.svg')
-        h3.title-2.text-base.black
-          | Titulo
-        h4.text-base.grey.text-2
-          | Autor
-      .list-item.column
-        .default-book.m-bottom-1
-          img(src='images/default_book.svg')
-        h3.title-2.text-base.black
-          | Titulo
-        h4.text-base.grey.text-2
-          | Autor
-      .list-item.column
-        .default-book.m-bottom-1
-          img(src='images/default_book.svg')
-        h3.title-2.text-base.black
-          | Titulo
-        h4.text-base.grey.text-2
-          | Autor
+    .list-wrapper.row.row-space-between(ng-repeat='file in profileCtrl.files')
+      document(name='file.title' author='file.author')
   .separator
   .column
     h1.title-3.text-base.green.m-bottom-3
       | {{ 'COMMENTS' | translate }}
-    .list-wrapper.column
-      comment(user='"Kimberly"' date='"XX/XX/XXXX"' comment='"blabla bla bla"' document='"bla"')
-      .list-item.column.m-bottom-5
-        .row.row-space-between.m-bottom-1
-          p.title-2.text-base.black
-            | Kimberly Carter
-          p.title-2.text-base.blue.bold.underline
-            | Titulo del libro
-        p.m-bottom-3.text-base.grey-3.text-2
-          | XX/XX/XXXX
-        p.text-base.grey.text-3.grey-3.justify
-          | Lorem ipsum dolor sit amet, consectetur adipisicing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua. Ut enim ad minim veniam, quis nostrud exercitation ullamco laboris nisi ut aliquip ex ea commodo consequat.
-      .list-item.column.m-bottom-5
-        .row.row-space-between.m-bottom-1
-          p.title-2.text-base.black
-            | Kimberly Carter
-          p.title-2.text-base.blue.bold.underline
-            | Titulo del libro
-        p.m-bottom-3.text-base.grey-3.text-2
-          | XX/XX/XXXX
-        p.text-base.grey.text-3.grey-3.justify
-          | Lorem ipsum dolor sit amet, consectetur adipisicing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua. Ut enim ad minim veniam, quis nostrud exercitation ullamco laboris nisi ut aliquip ex ea commodo consequat.
+    .list-wrapper.column(nh-repeat='review in profileCtrl.reviews')
+      comment(user='review.authos' date='review.date' comment='review.comment' document='review.document')

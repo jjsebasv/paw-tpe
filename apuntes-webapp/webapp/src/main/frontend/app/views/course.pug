@@ -9,7 +9,7 @@
     .item
       h1.title-3.text-base.m-bottom-1
         | {{courseCtrl.course.code}}
-  searchbox(filter='searchText' placeholder="{{ 'SEARCH_FILE' | translate }}")
+  searchbox(filter='searchText' placeholder="'SEARCH_FILE'")
   span(ng-switch='courseCtrl.documents.length')
     .row(ng-switch-when='0')
       span
