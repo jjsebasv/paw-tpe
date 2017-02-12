@@ -1,15 +1,15 @@
 'use strict';
-
 define(['frontend'], function(frontend) {
 
-    frontend.directive('program', function() {
+    frontend.directive('document', function() {
       return {
         restrict: 'E',
         scope: {
           name: '=',
+          author: '=',
           id: '='
         },
-        templateUrl: '../../views/_programDirective.html'
+        templateUrl: '../../views/_documentDirective.html'
       };
     });
 

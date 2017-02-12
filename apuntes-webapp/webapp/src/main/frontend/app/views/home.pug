@@ -2,8 +2,6 @@
 .column.column-center(ng-controller = "HomeController as homeCtrl")
   h1.title-3.text-base.green.m-bottom-3
     | Universidades
-  .row
-    input.input-base(ng-model='searchText' placeholder='Buscar')
-    input.input-submit.search(type='submit' value='')
+  search-box(filter-model='searchText' placeholder='Buscar Universidad')
   .list-wrapper.row.row-space-between(ng-repeat='uni in homeCtrl.universities | filter:searchText')
     university(name='uni.name' id='uni.universityId')
