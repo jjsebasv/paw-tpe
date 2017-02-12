@@ -26,7 +26,7 @@ import java.net.URI;
 import java.util.List;
 
 @Component
-@Path("/api/v1/courses")
+@Path("/v1/courses")
 public class CourseController {
 
     private final CourseService cs;

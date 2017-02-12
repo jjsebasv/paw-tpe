@@ -29,7 +29,7 @@ import java.util.List;
 import java.util.Map;
 
 @Component
-@Path("/api/v1/programs")
+@Path("/v1/programs")
 public class ProgramController {
 
     private final ProgramService ps;
