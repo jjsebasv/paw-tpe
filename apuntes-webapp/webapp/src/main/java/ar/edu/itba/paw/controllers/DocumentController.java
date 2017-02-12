@@ -30,7 +30,7 @@ import java.util.Base64;
 import java.util.List;
 
 @Component
-@Path("/api/v1/documents")
+@Path("/v1/documents")
 public class DocumentController {
 
     private final DocumentService ds;

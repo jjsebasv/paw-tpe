@@ -27,7 +27,7 @@ import java.net.URI;
 import java.util.List;
 
 @Component
-@Path("/api/v1/universities")
+@Path("/v1/universities")
 public class UniversityController {
 
     private final UniversityService us;

@@ -24,7 +24,7 @@ import java.net.URI;
 import java.util.List;
 
 @Component
-@Path("/api/v1/reviews")
+@Path("/v1/reviews")
 public class ReviewController {
 
     private final ReviewService rs;

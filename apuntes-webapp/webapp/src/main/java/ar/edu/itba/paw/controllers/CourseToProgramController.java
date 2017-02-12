@@ -19,7 +19,7 @@ import javax.ws.rs.core.Response;
 import javax.ws.rs.core.UriInfo;
 import java.util.List;
 
-@Path("/api/v1/c2p")
+@Path("/v1/c2p")
 @Component
 public class CourseToProgramController {
 
