@@ -1,5 +1,5 @@
 'use strict';
-define(['frontend'], function(frontend) {
+define(['frontend', 'directives/searchDirective'], function(frontend) {
 
 	frontend.controller('IndexCtrl',
 		function() {

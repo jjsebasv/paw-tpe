@@ -1,5 +1,5 @@
 'use strict';
-define(['frontend', 'services/documentService'], function(frontend) {
+define(['frontend', 'services/documentService', 'directives/searchDirective'], function(frontend) {
 
     frontend.controller('DocumentController', [
       'documentService', '$routeParams',

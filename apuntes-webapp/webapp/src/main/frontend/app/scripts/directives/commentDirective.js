@@ -1,7 +1,7 @@
 'use strict';
 
 define(['frontend'], function(frontend) {
-    frontend.directive('comments', function() {
+    frontend.directive('comment', function() {
         return {
             restrict: 'E',
       			scope: {
@@ -10,7 +10,7 @@ define(['frontend'], function(frontend) {
       				comment: '=',
       				document: '='
       			},
-            template: '../views/_comment.html'
+            template: '../views/_commentDirective.html'
         };
     });
     return frontend;

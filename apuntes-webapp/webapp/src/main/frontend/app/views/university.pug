@@ -4,9 +4,6 @@ div(ng-controller='UniversityController as uniCtrl')
   .column.column-center
     h1.title-3.text-base.green.m-bottom-3
       | {{uniCtrl.university.name}}
-    .row
-      input.input-base(ng-model='searchText' placeholder='Buscar')
-      input.input-submit.search(type='submit' value='')
-    | {{ uniId.programs}}
+    search-box(filter-model='searchText' placeholder='Buscar carreras')
     .list-wrapper.row.row-space-between(ng-repeat='program in uniCtrl.programs | filter:searchText')
       program(name='program.name' id='program.programid')
