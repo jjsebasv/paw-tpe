@@ -1,9 +1,9 @@
 div(ng-controller='UniversityController as uniCtrl')
   .back(ng-click="appCtrl.goTo('^.home', null)")
-    | < Volver
+    | < {{ 'BACK' | translate }}
   .column.column-center
     h1.title-3.text-base.green.m-bottom-3
       | {{uniCtrl.university.name}}
-    searchbox(filter='searchText' placeholder='"Buscar carreras"')
+    searchbox(filter='searchText' placeholder="{{ 'SEARCH_PROGRAM' | translate }}")
     .list-wrapper.row.row-space-between(ng-repeat='program in uniCtrl.programs | filter:searchText')
       program(name='program.name' id='program.programid')

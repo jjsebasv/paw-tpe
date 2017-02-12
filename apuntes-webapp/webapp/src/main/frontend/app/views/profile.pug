@@ -10,17 +10,17 @@ div(ng-controller='ProfileController as profileCtrl')
           span.m-right-1.bold.text-base
             | 4
           span
-            | Apuntes
+            | {{ 'FILES' | translate }}
         .bar
         .item
           span.m-right-1.bold.text-base
             | 10
           span
-            | Comentarios
+            | {{ 'COMMENTS' | translate }}
   .separator
   .column
     h1.title-3.text-base.green.m-bottom-3
-      | Apuntes
+      | {{ 'FILES' | translate }}
     .list-wrapper.row.row-space-between
       .list-item.column
         .default-book.m-bottom-1
@@ -53,7 +53,7 @@ div(ng-controller='ProfileController as profileCtrl')
   .separator
   .column
     h1.title-3.text-base.green.m-bottom-3
-      | Comentarios
+      | {{ 'COMMENTS' | translate }}
     .list-wrapper.column
       comment(user='"Kimberly"' date='"XX/XX/XXXX"' comment='"blabla bla bla"' document='"bla"')
       .list-item.column.m-bottom-5

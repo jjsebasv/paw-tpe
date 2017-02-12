@@ -1,5 +1,5 @@
 .back(ng-click="appCtrl.goTo('^.document', courseCtrl.backReference)")
-  | < Volver
+  | < {{ 'BACK' | translate }}
 .column.column-center(ng-controller='CourseController as courseCtrl')
   .row
     .item
@@ -9,12 +9,12 @@
     .item
       h1.title-3.text-base.m-bottom-1
         | {{courseCtrl.course.code}}
-  searchbox(filter='searchText' placeholder='"Buscar apunte"')
+  searchbox(filter='searchText' placeholder="{{ 'SEARCH_FILE' | translate }}")
   span(ng-switch='courseCtrl.documents.length')
     .row(ng-switch-when='0')
       span
-        | No files yet. Be the first one to upload one
+        | {{ 'NO_FILES' | translate }}
       button
-        | upload
+        | {{ 'UPLOAD' | translate }}
     .list-wrapper.row.row-space-between(ng-switch-default ng-repeat='document in courseCtrl.documents | filter:searchText')
       document(name='document.name' author='document.author' id='document.documentid')

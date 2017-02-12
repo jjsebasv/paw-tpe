@@ -15,16 +15,16 @@
 				| Aca va la descripcion del document. Lorem ipsum dolor sit amet, consectetur adipiscing elit. Vivamus sit amet elementum felis, et dignissim velit. Class aptent taciti sociosqu ad litora torquent per conubia nostra, per inceptos himenaeos.
 			.row
 				button.button-green.m-right-3
-					| Descargar
+					| {{ 'DOWNLOAD' | translate }}
 				button.button-blue
-					| Vista previa
+					| {{ 'PREVIEW' | translate }}
 .separator
 .column
 	h1.title-3.text-base.green.m-bottom-3
-		| Comentarios
+		| {{ 'COMMENTS' | translate }}
 	.new-comment-wrapper.column.column-left.m-bottom-3
 		p.title-2.text-base.black.m-bottom-1
-			| Agregar comentario
+			| {{ 'ADD_COMMENT' | translate }}
 		textarea.input-base.m-bottom-1(name='comment')
 		input.button-green(type='submit' value='Enviar comentario')
 	.list-wrapper.column
