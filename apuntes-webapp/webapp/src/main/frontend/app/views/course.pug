@@ -9,7 +9,7 @@
     .item
       h1.title-3.text-base.m-bottom-1
         | {{courseCtrl.course.code}}
-  search-box(filter-model='searchText' placeholder='Buscar apunte')
+  searchbox(filter='searchText' placeholder='"Buscar apunte"')
   span(ng-switch='courseCtrl.documents.length')
     .row(ng-switch-when='0')
       span

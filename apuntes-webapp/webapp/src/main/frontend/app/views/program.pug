@@ -20,6 +20,6 @@ div(ng-controller="ProgramController as pgrmCtrl")
   .column.column-center
     h1.title-3.text-base.green.m-bottom-3
       | {{ 'COURSES' | translate }}
-    search-box(filter-model='searchText' placeholder='Buscar materia')
+    searchbox(filter='searchText' placeholder='"Buscar materia"')
     .list-wrapper.row.row-space-between(ng-repeat='course in pgrmCtrl.courses | filter:searchText')
       course(name='course.name' code='course.code' id='course.courseid')

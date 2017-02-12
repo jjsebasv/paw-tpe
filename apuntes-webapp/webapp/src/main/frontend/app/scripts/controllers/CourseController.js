@@ -1,6 +1,6 @@
 'use strict';
 define(['frontend', 'services/courseService', 'services/documentService',
- 'directives/documentDirective', 'directives/searchDirective'], function(frontend) {
+ 'directives/documentDirective', 'directives/searchboxDirective'], function(frontend) {
 
     frontend.controller('CourseController', [
       'courseService', 'documentService', '$routeParams',
