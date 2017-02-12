@@ -9,9 +9,9 @@ define(function() {
 		userLang = userLang.split('-')[0];
 	}
 
-	// Set Spanish as default language
+	// Set English as default language
 	if (userLang === undefined || listOfSupportedLanguages.indexOf(userLang) < 0) {
-		userLang = 'es';
+		userLang = 'en';
 	}
 	return {
 		load: function (name, require, load) {
