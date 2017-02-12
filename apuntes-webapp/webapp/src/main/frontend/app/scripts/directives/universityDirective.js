@@ -8,7 +8,7 @@ define(['frontend'], function(frontend) {
           name: '=',
           id: '='
         },
-        templateUrl: '../../views/universityDirective.html'
+        templateUrl: '../../views/_universityDirective.html'
       };
     });
 

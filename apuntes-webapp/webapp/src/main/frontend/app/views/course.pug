@@ -1,17 +1,20 @@
 .back(ng-click="appCtrl.goTo('^.document', courseCtrl.backReference)")
   | < Volver
-.column.column-center
-  h1.title-3.text-base.green.m-bottom-3
-    | Materia 1
+.column.column-center(ng-controller='CourseController as courseCtrl')
   .row
-    input.input-base(ng-model='searchText' placeholder='Buscar apunte')
-    input.input-submit.search(type='submit' value='')
-  .list-wrapper.row.row-space-between(ng-repeat='document in uniCtrl.documents | filter:searchText')
-    course(name='document.name' code='document.id' ng-click="appCtrl.goTo('^.document', document.urlParam)")
-      .list-item.column
-        .default-book.m-bottom-1
-          img(src='images/default_book.svg')
-        h3.title-2.text-base.black
-          | {{document.name}}
-        h4.text-base.grey.text-2
-          | {{docuement.autor}}
+    .item
+      h1.title-3.text-base.green.m-bottom-3
+        | {{courseCtrl.course.name}}
+    .bar
+    .item
+      h1.title-3.text-base.m-bottom-1
+        | {{courseCtrl.course.code}}
+  search-box(filter-model='searchText' placeholder='Buscar apunte')
+  span(ng-switch='courseCtrl.documents.length')
+    .row(ng-switch-when='0')
+      span
+        | No files yet. Be the first one to upload one
+      button
+        | upload
+    .list-wrapper.row.row-space-between(ng-switch-default ng-repeat='document in courseCtrl.documents | filter:searchText')
+      document(name='document.name' author='document.author' id='document.documentid')
