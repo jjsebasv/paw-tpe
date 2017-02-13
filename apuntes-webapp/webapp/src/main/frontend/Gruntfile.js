@@ -476,6 +476,7 @@ module.exports = function (grunt) {
 
     grunt.task.run([
       'clean:server',
+      'pug',
       'wiredep:serve',
       'concurrent:server',
       'autoprefixer',
