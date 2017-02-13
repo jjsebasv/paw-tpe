@@ -9,7 +9,7 @@ define(['frontend'], function(frontend) {
           author: '=',
           id: '='
         },
-        replace: true;
+        replace: true,
         templateUrl: '../../views/_documentDirective.html'
       };
     });

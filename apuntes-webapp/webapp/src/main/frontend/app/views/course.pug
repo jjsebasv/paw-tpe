@@ -1,13 +1,13 @@
 .back(ng-click="appCtrl.goTo('^.document', courseCtrl.backReference)")
   | < Volver
 .column.column-center(ng-controller='CourseController as courseCtrl')
-  .row
+  .row.m-bottom-3
     .item
-      h1.title-3.text-base.green.m-bottom-3
+      h1.title-3.text-base.green
         | {{courseCtrl.course.name}}
     .bar
     .item
-      h1.title-3.text-base.m-bottom-1
+      h1.title-3.text-base
         | {{courseCtrl.course.code}}
   searchbox(filter='searchText' placeholder="'SEARCH_FILE'")
   span(ng-switch='courseCtrl.documents.length')
