@@ -24,7 +24,8 @@ require.config({
         tab: '../../bower_components/bootstrap-sass-official/assets/javascripts/bootstrap/tab',
         tooltip: '../../bower_components/bootstrap-sass-official/assets/javascripts/bootstrap/tooltip',
         transition: '../../bower_components/bootstrap-sass-official/assets/javascripts/bootstrap/transition',
-        ngDialog: '../../bower_components/ng-dialog/js/ngDialog'
+        ngDialog: '../../bower_components/ng-dialog/js/ngDialog',
+        'ng-dialog': '../../bower_components/ng-dialog/js/ngDialog'
     },
     shim: {
         angular: {

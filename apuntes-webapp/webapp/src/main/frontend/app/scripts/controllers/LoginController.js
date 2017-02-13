@@ -5,11 +5,22 @@ define(['frontend', 'services/sessionService'], function(frontend) {
       'sessionService',
       function(sessionService) {
         var _this = this;
-        _this.login = function () {
+        this.login = function () {
+          var name = _this.loginForm.name;
           debugger;
-          const name = _this.loginForm.name;
-        }
+        };
 
-        _this.login();
+        this.loginData = function() {
+          debugger
+          sessionService.loginData(_this.username, _this.password).then(
+            function (response) {
+              debugger
+            }).catch(
+              function(error){
+                  debugger
+              });
+
+        }
+        // this.login();
     }]);
 });

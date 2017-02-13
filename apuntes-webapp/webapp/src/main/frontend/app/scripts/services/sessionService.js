@@ -6,8 +6,16 @@ define(['frontend', 'services/httpRequestService'], function(frontend) {
 			function(httpRequestService) {
 				return {
 					login: function(username, password) {
-						return httpRequestService.defaultRequest('POST', 'login?username=' + username + '&password=' + password);
-					}
+						return httpRequestService.defaultRequest('POST', 'clients/login?username=' + username + '&password=' + password);
+					},
+
+          loginData: function(usern, pass) {
+            var data = {
+              'username': usern,
+              'password': pass
+            };
+            return httpRequestService.defaultRequest('POST', 'clients/login', data);
+          }
 				};
 		}]);
 

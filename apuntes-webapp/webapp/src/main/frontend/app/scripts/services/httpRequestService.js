@@ -9,7 +9,7 @@ angular.module('frontend').factory('httpRequestService',
           // change this to general
           url: 'http://localhost:8080/webapp/api/v1/' + requestUrl,
           headers: {
-            'content-type': 'application/json'
+            'content-type': 'application/x-www-form-urlencoded'
           },
           data: requestData
         });
