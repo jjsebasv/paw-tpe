@@ -39,4 +39,5 @@ define([
 				return aux;
 			};
 	}]);
+
 });
