@@ -9,6 +9,7 @@ define(['frontend'], function(frontend) {
           filter: '=',
           placeholder: '='
         },
+        replace: true,
         templateUrl: '../../views/_searchboxDirective.html'
       };
     });

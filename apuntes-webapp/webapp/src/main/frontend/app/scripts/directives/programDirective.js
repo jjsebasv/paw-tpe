@@ -9,6 +9,7 @@ define(['frontend'], function(frontend) {
           name: '=',
           id: '='
         },
+        replace: true,
         templateUrl: '../../views/_programDirective.html'
       };
     });

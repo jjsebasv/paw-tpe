@@ -1,5 +1,5 @@
 .back(ng-click="appCtrl.goTo('^.document', courseCtrl.backReference)")
-  | < {{ 'BACK' | translate }}
+  | < Volver
 .column.column-center(ng-controller='CourseController as courseCtrl')
   .row
     .item
@@ -16,5 +16,5 @@
         | {{ 'NO_FILES' | translate }}
       button
         | {{ 'UPLOAD' | translate }}
-    .list-wrapper.row.row-space-between(ng-switch-default ng-repeat='document in courseCtrl.documents | filter:searchText')
+    .list-wrapper.list-wide(ng-switch-default ng-repeat='document in courseCtrl.documents | filter:searchText')
       document(name='document.name' author='document.author' id='document.documentid')
