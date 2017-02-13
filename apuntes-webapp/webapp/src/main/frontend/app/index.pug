@@ -11,11 +11,12 @@ html.no-js
 		.column.column-center.test
 			nav.header.row.row-center
 				.max-content-wrapper.row.row-space-between
-					img.logo(src='images/logo.svg')
+					a(ng-href='#/')
+						img.logo(src='images/logo.svg')
 					.actions
-						button.m-right-1(ng-href='#/login')
+						button.m-right-1.action(ng-href='#/login')
 							img(src='images/add_book.svg')
-						button(ng-href='#/login')
+						button.action(ng-href='#/login')
 							img(src='images/login.svg')
 			.max-content-wrapper.mid.content(ng-view='')
 		// build:js(.) scripts/oldieshim.js
