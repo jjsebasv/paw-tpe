@@ -28,6 +28,10 @@ define([], function() {
             '/document/:documentId': {
                 templateUrl: '/views/document.html',
                 controller: 'DocumentController'
+            },
+            '/login': {
+                templateUrl: '/views/login.html',
+                controller: 'LoginController'
             }
             /* ===== yeoman hook ===== */
             /* Do not remove these commented lines! Needed for auto-generation */

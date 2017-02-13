@@ -13,9 +13,9 @@ html.no-js
 				.max-content-wrapper.row.row-space-between
 					img.logo(src='images/logo.svg')
 					.actions
-						button.m-right-1(ng-click='IndexCtrl.newBook()')
+						button.m-right-1(ng-href='#/login')
 							img(src='images/add_book.svg')
-						button(ng-click='IndexCtrl.openLogin()')
+						button(ng-href='#/login')
 							img(src='images/login.svg')
 			.max-content-wrapper.mid.content(ng-view='')
 		// build:js(.) scripts/oldieshim.js

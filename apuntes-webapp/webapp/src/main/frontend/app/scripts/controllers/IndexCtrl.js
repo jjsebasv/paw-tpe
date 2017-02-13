@@ -1,12 +1,16 @@
 'use strict';
-define(['frontend', 'directives/searchboxDirective'], function(frontend) {
+define([
+		'frontend',
+		'directives/searchboxDirective'
+	],
+	function(frontend) {
 
 	frontend.controller('IndexCtrl',
 		function() {
 		console.log('index js');
     this.openLogin = function () {
 			console.log('Open login');
-      ngDialog.open({ template: '../views/_loginModal.html', className: 'ngdialog-theme-default' });
+      //ngDialog.open({ template: '../views/_loginModal.html', className: 'ngdialog-theme-default' });
     };
 	});
 });

@@ -1,0 +1,21 @@
+.column.column-center
+  h1.title-3.text-base.green.m-bottom-3
+    | INICIAR SESIÓN
+  form(
+    name='LoginController.loginForm'
+    novalidate
+    ng-submit='LoginController.login()'
+  )
+    .column.column-left
+      label.text-5.text-base.grey-2.m-bottom-1
+        | Usuario
+      input.input-base.m-bottom-2(name='user')
+    .column.column-left
+      label.text-5.text-base.grey-2.m-bottom-1
+        | Clave
+      input.input-base.m-bottom-5(name='password' type='password')
+  .row.row-center
+    button.button-grey.m-right-3
+      | Cancelar
+    button.button-blue(type='submit')
+      | Iniciar sesión
