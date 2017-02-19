@@ -3,8 +3,8 @@ define(['frontend', 'services/programService', 'services/courseService',
  'directives/courseDirective', 'directives/searchboxDirective'], function(frontend) {
 
     frontend.controller('ProgramController', [
-      'programService', 'courseService', '$routeParams', '$location',
-      function(programService, courseService, $routeParams, $location) {
+      'programService', 'courseService', '$routeParams', '$location', '$route',
+      function(programService, courseService, $routeParams, $location, $route) {
         var _this = this;
         var programId = $routeParams.programId;
 
@@ -16,6 +16,9 @@ define(['frontend', 'services/programService', 'services/courseService',
           function(result) {
             _this.courses = result.data.courseList;
           });
+
+        this.route = $route;
+        debugger
 
     }]);
 });

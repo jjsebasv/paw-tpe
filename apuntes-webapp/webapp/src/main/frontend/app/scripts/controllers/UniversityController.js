@@ -4,8 +4,8 @@ define(['frontend', 'services/programService', 'services/universityService',
  function(frontend) {
 
     frontend.controller('UniversityController', [
-    'programService', 'universityService', '$routeParams', '$location',
-    function(programService, universityService, $routeParams, $location) {
+    'programService', 'universityService', '$routeParams', '$location', '$state', '$route',
+    function(programService, universityService, $routeParams, $location, $state, $route) {
       var _this = this;
       var uniId = $routeParams.universityId;
 
@@ -18,6 +18,16 @@ define(['frontend', 'services/programService', 'services/universityService',
         function(result) {
             _this.programs = result.data.programList;
         });
+
+      this.goto = function() {
+        $location.path('/program/2');
+        _this.route = $route;
+        $route.routes['/program/:programId'].from = {university: '2'};
+        debugger
+      }
+
+      this.state = $state;
+      debugger
     }]);
 
 });

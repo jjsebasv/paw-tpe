@@ -3,6 +3,7 @@ define(['routes',
 	'services/dependencyResolverFor',
 	'i18n/i18nLoader!',
 	'angular',
+	'angular-ui-router',
 	'angular-route',
 	'bootstrap',
 	'ngDialog',
@@ -10,7 +11,9 @@ define(['routes',
 	function(config, dependencyResolverFor, i18n) {
 		var frontend = angular.module('frontend', [
 			'ngRoute',
-			'pascalprecht.translate'
+			'pascalprecht.translate',
+			'ngDialog',
+			'ui.router'
 		]);
 		frontend
 			.config(
