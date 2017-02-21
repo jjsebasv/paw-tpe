@@ -1,5 +1,4 @@
-.back(ng-click="appCtrl.goTo('^.document', courseCtrl.backReference)")
-  | < Volver
+back(data='indexCtrl.getBack()' goto='indexCtrl.goto(toType, toId, fromName)')
 .column.column-center(ng-controller='CourseController as courseCtrl')
   .row.m-bottom-3
     .item
@@ -17,4 +16,4 @@
       button
         | {{ 'UPLOAD' | translate }}
     .list-wrapper.list-wide(ng-switch-default ng-repeat='document in courseCtrl.documents | filter:searchText')
-      document(name='document.name' author='document.author' id='document.documentid')
+      document(name='document.name' author='document.author' id='document.documentid' goto='indexCtrl.goto(toType, toId, fromName)' from='courseCtrl.course.name')

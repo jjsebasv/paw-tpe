@@ -6,7 +6,8 @@ define(['frontend'], function(frontend) {
         restrict: 'E',
         scope: {
           name: '=',
-          id: '='
+          id: '=',
+          goto: '&'
         },
         replace: true,
         templateUrl: '../../views/_universityDirective.html'

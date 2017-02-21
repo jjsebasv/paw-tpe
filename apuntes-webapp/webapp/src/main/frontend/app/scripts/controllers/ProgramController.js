@@ -18,7 +18,6 @@ define(['frontend', 'services/programService', 'services/courseService',
           });
 
         this.route = $route;
-        debugger
 
     }]);
 });

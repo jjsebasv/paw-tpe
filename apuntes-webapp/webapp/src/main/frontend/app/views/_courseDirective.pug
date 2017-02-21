@@ -1,2 +1,2 @@
-a.list-item(ng-href='#/course/{{id}}')
+a.list-item(ng-click='goto({toType: "course", toId: id, fromName: from})')
   | {{ code }} {{ name }}

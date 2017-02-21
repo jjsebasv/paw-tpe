@@ -13,7 +13,8 @@ define([], function() {
 		SEARCH_FILE: 'Buscar Apunte',
 
 		// General
-		BACK: 'Atras',
+		BACK: 'Volver a',
+		HOME: 'Inicio',
 
 		// Home
 		UNIVERSITIES: 'Universidades',

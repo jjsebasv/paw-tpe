@@ -6,8 +6,8 @@ define(['frontend', 'services/sessionService'], function(frontend) {
       function(sessionService) {
         var _this = this;
         _this.login = function () {
-          const name = _this.loginForm.name;
-        }
+          var name = _this.loginForm.name;
+        };
 
         _this.login();
     }]);

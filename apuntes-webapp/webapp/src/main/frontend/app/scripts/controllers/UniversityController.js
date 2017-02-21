@@ -1,6 +1,6 @@
 'use strict';
 define(['frontend', 'services/programService', 'services/universityService',
- 'directives/programDirective', 'directives/searchboxDirective'],
+ 'directives/programDirective', 'directives/searchboxDirective', 'directives/backDirective'],
  function(frontend) {
 
     frontend.controller('UniversityController', [
@@ -19,15 +19,6 @@ define(['frontend', 'services/programService', 'services/universityService',
             _this.programs = result.data.programList;
         });
 
-      this.goto = function() {
-        $location.path('/program/2');
-        _this.route = $route;
-        $route.routes['/program/:programId'].from = {university: '2'};
-        debugger
-      }
-
-      this.state = $state;
-      debugger
     }]);
 
 });

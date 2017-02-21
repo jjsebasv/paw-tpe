@@ -7,7 +7,8 @@ define(['frontend'], function(frontend) {
         scope: {
           name: '=',
           author: '=',
-          id: '='
+          id: '=',
+          goto: '&'
         },
         replace: true,
         templateUrl: '../../views/_documentDirective.html'

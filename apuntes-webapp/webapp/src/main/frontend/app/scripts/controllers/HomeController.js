@@ -8,8 +8,8 @@ define([
   function(frontend) {
 
 	frontend.controller('HomeController', [
-		'universityService',
-		function(universityService) {
+		'universityService', '$route',
+		function(universityService, $route) {
 			var _this = this;
 			universityService.getAllUnis().then(
 				function(result) {

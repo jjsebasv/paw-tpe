@@ -13,7 +13,8 @@ define([], function() {
 		SEARCH_FILE: 'Search File',
 
 		// General
-		BACK: 'Back',
+		BACK: 'Go back to',
+		HOME: 'Home',
 
 		// Home
 		UNIVERSITIES: 'Universities',
