@@ -10,7 +10,8 @@ define(['frontend'], function(frontend) {
       				comment: '=',
       				document: '='
       			},
-            template: '../views/_commentDirective.html'
+            replace: true,
+            templateUrl: '../views/_commentDirective.html'
         };
     });
     return frontend;

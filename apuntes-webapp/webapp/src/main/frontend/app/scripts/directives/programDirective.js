@@ -7,7 +7,9 @@ define(['frontend'], function(frontend) {
         restrict: 'E',
         scope: {
           name: '=',
-          id: '='
+          id: '=',
+          from: '=',
+          goto: '&'
         },
         replace: true,
         templateUrl: '../../views/_programDirective.html'
