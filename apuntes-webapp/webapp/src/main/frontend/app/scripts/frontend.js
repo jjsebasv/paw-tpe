@@ -7,13 +7,15 @@ define(['routes',
 	'angular-route',
 	'bootstrap',
 	'ngDialog',
+	'angular-md5',
 	'angular-translate'],
 	function(config, dependencyResolverFor, i18n) {
 		var frontend = angular.module('frontend', [
 			'ngRoute',
 			'pascalprecht.translate',
 			'ngDialog',
-			'ui.router'
+			'ui.router',
+			'angular-md5'
 		]);
 		frontend
 			.config(

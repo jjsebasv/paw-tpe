@@ -26,7 +26,9 @@ require.config({
         tooltip: '../../bower_components/bootstrap-sass-official/assets/javascripts/bootstrap/tooltip',
         transition: '../../bower_components/bootstrap-sass-official/assets/javascripts/bootstrap/transition',
         ngDialog: '../../bower_components/ng-dialog/js/ngDialog',
-        'ng-dialog': '../../bower_components/ng-dialog/js/ngDialog'
+        'ng-dialog': '../../bower_components/ng-dialog/js/ngDialog',
+        'angular-md5': '../../bower_components/angular-md5/angular-md5',
+        md5: '../../bower_components/angular-md5/angular-md5'
     },
     shim: {
         angular: {
@@ -67,6 +69,11 @@ require.config({
             ]
         },
         ngDialog: {
+            deps: [
+                'angular'
+            ]
+        },
+        'angular-md5': {
             deps: [
                 'angular'
             ]

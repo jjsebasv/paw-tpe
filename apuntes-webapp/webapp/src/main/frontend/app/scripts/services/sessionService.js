@@ -10,7 +10,10 @@ define(['frontend', 'services/httpRequestService'], function(frontend) {
 					},
 
           loginData: function(usern, pass) {
-            var data = "username="+usern+"&password="+pass;
+            var data = {
+              username: usern,
+              password: pass
+            };
             return httpRequestService.defaultRequest('POST', 'clients/login', data);
           }
 				};
