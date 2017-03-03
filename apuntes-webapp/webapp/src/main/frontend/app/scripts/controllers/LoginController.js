@@ -21,7 +21,6 @@ define(['frontend', 'services/sessionService'], function(frontend) {
               function(error){
                   debugger
               });
-
         }
         // this.login();
     }]);
