@@ -2,8 +2,8 @@
 define(['frontend', 'services/sessionService'], function(frontend) {
 
     frontend.controller('LoginController', [
-      'sessionService', 'md5',
-      function(sessionService, md5) {
+      'sessionService',
+      function(sessionService) {
         var _this = this;
 
         this.login = function () {
@@ -13,8 +13,7 @@ define(['frontend', 'services/sessionService'], function(frontend) {
 
         this.loginData = function() {
           debugger
-          console.log(md5.createHash(_this.password || ''));
-          sessionService.loginData(_this.username, md5.createHash(_this.password || '')).then(
+          sessionService.loginData(_this.username, _this.password).then(
             function (response) {
               debugger
             }).catch(

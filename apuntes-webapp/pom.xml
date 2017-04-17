@@ -72,7 +72,7 @@
                     <source>1.8</source>
                     <target>1.8</target>
                 </configuration>
-                <version>3.5</version>
+                <version>3.6.1</version>
             </plugin>
 
             <plugin>

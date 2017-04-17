@@ -59,6 +59,9 @@ public class ClientController {
 
         final Client client = cs.findByUsername(username);
 
+        // FIXME check this
+        System.out.println("MIRA ACA ** " + (client == null) + " -- " + username + " -- " + password);
+
         if (client == null || !passwordEncoder.isPasswordValid(client.getPassword(), password, WebAuthConfig.SECRET)) {
             return Response.status(Response.Status.UNAUTHORIZED)
                     .entity(new ErrorMessageDTO(Response.Status.UNAUTHORIZED))

@@ -1,4 +1,4 @@
-.column.column-center
+.column.column-center(ng-controller='RegisterController as registerCtrl')
   h1.title-3.text-base.green.m-bottom-3
     | Registrarse
   form(
@@ -8,22 +8,30 @@
   )
     .column.column-left
       label.text-5.text-base.grey-2.m-bottom-1
+        | Nombre
+      input.input-base.m-bottom-2(name='user' ng-model='registerCtrl.userName')
+    .column.column-left
+      label.text-5.text-base.grey-2.m-bottom-1
+        | Apellido
+      input.input-base.m-bottom-2(name='user' ng-model='registerCtrl.userLastname')
+    .column.column-left
+      label.text-5.text-base.grey-2.m-bottom-1
         | Usuario
-      input.input-base.m-bottom-2(name='user')
+      input.input-base.m-bottom-2(name='user' ng-model='registerCtrl.username')
     .column.column-left
       label.text-5.text-base.grey-2.m-bottom-1
         | E-mail
-      input.input-base.m-bottom-2(name='email' type='email')
+      input.input-base.m-bottom-2(name='email' type='email' ng-model='registerCtrl.mail')
     .column.column-left
       label.text-5.text-base.grey-2.m-bottom-1
         | Clave
-      input.input-base.m-bottom-5(name='password' type='password')
+      input.input-base.m-bottom-5(name='password' type='password' ng-model='registerCtrl.password')
     .column.column-left
       label.text-5.text-base.grey-2.m-bottom-1
         | Repita su clave
       input.input-base.m-bottom-5(name='repeat-password' type='password')
   .row.row-center
-    button.button-grey.m-right-3
+    button.button-grey.m-right-3()
       | Cancelar
-    button.button-blue(type='submit')
+    button.button-blue(ng-click='registerCtrl.register()')
       | Registrarse
