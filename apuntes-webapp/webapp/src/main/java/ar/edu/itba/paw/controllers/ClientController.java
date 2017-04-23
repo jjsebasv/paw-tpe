@@ -53,10 +53,11 @@ public class ClientController {
     @POST
     @Path("/login")
     @Produces("application/json")
-    @Consumes("application/x-www-form-urlencoded")
-    public Response authenticateUser(@FormParam("username") String username,
-                                     @FormParam("password") String password) {
-
+    @Consumes("application/json")
+    public Response authenticateUser(LoginObjectDTO loginObject) {
+        String username = loginObject.getUsername();
+        String password = loginObject.getPassword();
+        
         final Client client = cs.findByUsername(username);
 
         // FIXME check this
