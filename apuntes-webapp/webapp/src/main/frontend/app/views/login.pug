@@ -1,4 +1,4 @@
-.column.column-center
+.column.column-center(ng-controller='LoginController as loginCtrl')
   h1.title-3.text-base.green.m-bottom-3
     | INICIAR SESIÓN
   form(
@@ -9,13 +9,13 @@
     .column.column-left
       label.text-5.text-base.grey-2.m-bottom-1
         | Usuario
-      input.input-base.m-bottom-2(name='user')
+      input.input-base.m-bottom-2(name='username' ng-model='loginCtrl.username')
     .column.column-left
       label.text-5.text-base.grey-2.m-bottom-1
         | Clave
-      input.input-base.m-bottom-5(name='password' type='password')
+      input.input-base.m-bottom-5(name='password' type='password' ng-model='loginCtrl.password')
   .row.row-center
     button.button-grey.m-right-3
       | Cancelar
-    button.button-blue(type='submit')
+    button.button-blue(ng-click='loginCtrl.login()')
       | Iniciar sesión

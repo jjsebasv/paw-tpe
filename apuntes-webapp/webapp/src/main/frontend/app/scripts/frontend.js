@@ -4,16 +4,20 @@ define(['routes',
 	'i18n/i18nLoader!',
 	'angular',
 	'angular-ui-router',
+	'LocalStorageModule',
 	'angular-route',
 	'bootstrap',
 	'ngDialog',
+	'angular-md5',
 	'angular-translate'],
 	function(config, dependencyResolverFor, i18n) {
 		var frontend = angular.module('frontend', [
 			'ngRoute',
+			'LocalStorageModule',
 			'pascalprecht.translate',
 			'ngDialog',
-			'ui.router'
+			'ui.router',
+			'angular-md5'
 		]);
 		frontend
 			.config(

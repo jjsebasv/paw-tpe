@@ -7,14 +7,11 @@ define([
 	function(frontend) {
 
 	frontend.controller('IndexCtrl',
-		['$location', '$route', '$translate',
-		function($location, $route, $translate) {
-			console.log('index js');
-			this.test = 'test';
-			this.openLogin = function () {
-				console.log('Open login');
-	      // ngDialog.open({ template: '../views/_loginModal.html', className: 'ngdialog-theme-default' });
-			};
+		['$location', '$route', '$translate', 'localStorageService',
+		function($location, $route, $translate, localStorageService) {
+
+			this.isLogged = localStorageService.get('username');
+
       this.goto = function(toType, toId, fromName) {
 				if (fromName !== 'isBack') {
 					var current = $route.current;
@@ -38,5 +35,7 @@ define([
 				}
 				return aux;
 			};
+
 	}]);
+
 });
