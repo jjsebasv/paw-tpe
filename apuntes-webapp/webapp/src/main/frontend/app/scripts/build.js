@@ -9,6 +9,7 @@ require.config({
         'angular-route': '../../bower_components/angular-route/angular-route',
         'angular-translate': '../../bower_components/angular-translate/angular-translate',
         'angular-ui-router': '../../bower_components/angular-ui-router/release/angular-ui-router',
+        LocalStorageModule: '../../bower_components/angular-local-storage/dist/angular-local-storage',
         button: '../../bower_components/bootstrap-sass-official/assets/javascripts/bootstrap/button',
         bootstrap: '../../bower_components/bootstrap/dist/js/bootstrap',
         carousel: '../../bower_components/bootstrap-sass-official/assets/javascripts/bootstrap/carousel',
@@ -28,7 +29,8 @@ require.config({
         ngDialog: '../../bower_components/ng-dialog/js/ngDialog',
         'ng-dialog': '../../bower_components/ng-dialog/js/ngDialog',
         'angular-md5': '../../bower_components/angular-md5/angular-md5',
-        md5: '../../bower_components/angular-md5/angular-md5'
+        md5: '../../bower_components/angular-md5/angular-md5',
+        'angular-local-storage': '../../bower_components/angular-local-storage/dist/angular-local-storage'
     },
     shim: {
         angular: {
@@ -74,6 +76,11 @@ require.config({
             ]
         },
         'angular-md5': {
+            deps: [
+                'angular'
+            ]
+        },
+        LocalStorageModule: {
             deps: [
                 'angular'
             ]

@@ -2,14 +2,16 @@
 define(['frontend', 'services/httpRequestService'], function(frontend) {
 
     frontend.service('sessionService', [
-			'httpRequestService',
-			function(httpRequestService) {
+			'httpRequestService', 'localStorageService',
+			function(httpRequestService, localStorageService) {
 				return {
-					login: function(username, password) {
-						return httpRequestService.defaultRequest('POST', 'clients/login?username=' + username + '&password=' + password);
-					},
 
-          loginData: function(usern, pass) {
+          saveToken: function(token, username) {
+            return localStorageService.set('sessionToken', token) &&
+              localStorageService.set('username', username);
+          },
+
+          login: function(usern, pass) {
             var data = {
               username: usern,
               password: pass
@@ -27,6 +29,10 @@ define(['frontend', 'services/httpRequestService'], function(frontend) {
               universityId: 1
             };
             return httpRequestService.defaultRequest('POST', 'clients/register', data);
+          },
+
+          getMe: function() {
+            return httpRequestService.tokenedRequest('GET', 'clients/me', null);
           }
 				};
 		}]);

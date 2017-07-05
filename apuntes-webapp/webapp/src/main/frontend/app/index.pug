@@ -14,10 +14,12 @@ html.no-js
 					a(ng-href='#/')
 						img.logo(src='images/logo.svg')
 					.actions
-						button.m-right-1.action(ng-href='#/login')
+						button.m-right-1.action(ng-href='')
 							img(src='images/add_book.svg')
-						a(type='button' ng-href='#/login')
+						a(type='button' ng-href='#/login' ng-if='!indexCtrl.isLogged')
 							img(src='images/login.svg')
+						a.m-right-1.action(ng-click='homeCtrl.goToProfile()' ng-if='indexCtrl.isLogged')
+							| {{indexCtrl.isLogged}}
 			.max-content-wrapper.mid.content(ng-view='')
 		// build:js(.) scripts/oldieshim.js
 		//if lt IE 9
