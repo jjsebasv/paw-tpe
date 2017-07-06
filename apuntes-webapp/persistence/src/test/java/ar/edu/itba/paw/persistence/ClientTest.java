@@ -19,7 +19,7 @@ import java.util.List;
 @ContextConfiguration(classes = TestConfig.class)
 @Transactional
 @Rollback
-public class ClientJdbcDaoTest {
+public class ClientTest {
 
     private static final String USERNAME = "PAW USER";
     private static final String PASSWORD = "PAWPASS";
