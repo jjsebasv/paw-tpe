@@ -3,36 +3,40 @@ define(['frontend', 'services/courseService', 'services/documentService',
  'directives/documentDirective', 'directives/searchboxDirective'], function(frontend) {
 
     frontend.controller('CourseController', [
-      'courseService', 'documentService', '$routeParams',
-      function(courseService, documentService, $routeParams) {
+      'courseService', 'documentService', '$routeParams', 'Upload', '$scope',
+      function(courseService, documentService, $routeParams, Upload, $scope) {
         var _this = this;
-        var courseId = $routeParams.courseId;
+        this.courseId = $routeParams.courseId;
         this.documents = [];
 
-        courseService.getCourse(courseId).then(function(result) {
+        courseService.getCourse(this.courseId).then(function(result) {
           _this.course = result.data;
         });
 
-        documentService.getCourseDocuments(courseId).then(
+        documentService.getCourseDocuments(this.courseId).then(
           function(result) {
             _this.documents = result.data.documentList;
+            debugger
           });
 
-        this.add = function() {
-          var f = document.getElementById('file').files[0],
-          r = new FileReader();
+        $scope.chooseFile = function (element) {
+          _this.theFile = element.files[0];
+        };
 
-          r.onloadend = function(e) {
-            var data = e.target.result;
+        this.upload = function () {
+          debugger
+          var reader = new FileReader();
+          reader.onload = function(e){
+            console.log("about to encode");
+            _this.encoded_file = btoa(e.target.result.toString());
             debugger
-            courseService.uploadFile(data, courseId).then(
+            documentService.uploadFile(_this.encoded_file, _this.courseId).then(
               function (response) {
-                debugger
-              });
-            //send your binary data via $http or $resource or do anything else with it
-          }
-
-          r.readAsArrayBuffer(f);
+                  debugger
+                });
+            var dataURL = reader.result;
+          };
+          reader.readAsBinaryString(_this.theFile);
         };
     }]);
 });

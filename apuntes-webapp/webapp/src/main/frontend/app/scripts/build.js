@@ -30,7 +30,13 @@ require.config({
         'ng-dialog': '../../bower_components/ng-dialog/js/ngDialog',
         'angular-md5': '../../bower_components/angular-md5/angular-md5',
         md5: '../../bower_components/angular-md5/angular-md5',
-        'angular-local-storage': '../../bower_components/angular-local-storage/dist/angular-local-storage'
+        'angular-local-storage': '../../bower_components/angular-local-storage/dist/angular-local-storage',
+        angularFileUpload: '../../bower_components/angular-file-upload/dist/angular-file-upload',
+        'angular-file-upload': '../../bower_components/angular-file-upload/dist/angular-file-upload.min',
+        'ng.model': '../../bower_components/ng-model/dist/ng-model-1.0.1.min',
+        'ng-model': '../../bower_components/ng-model/dist/ng-model-1.0.1.min',
+        ngFileUpload: '../../bower_components/ng-file-upload/ng-file-upload',
+        'ng-file-upload': '../../bower_components/ng-file-upload/ng-file-upload'
     },
     shim: {
         angular: {
@@ -81,6 +87,21 @@ require.config({
             ]
         },
         LocalStorageModule: {
+            deps: [
+                'angular'
+            ]
+        },
+        angularFileUpload: {
+            deps: [
+                'angular'
+            ]
+        },
+        ngFileUpload: {
+            deps: [
+                'angular'
+            ]
+        },
+        'ng.model': {
             deps: [
                 'angular'
             ]

@@ -15,7 +15,20 @@ define(['frontend', 'services/httpRequestService'], function(frontend) {
 
 					getComments: function(documentId) {
 						return httpRequestService.defaultRequest('GET', 'programs/' + documentId + '/courses', null);
-					}
+					},
+
+          uploadFile: function(file, courseId) {
+            debugger
+            var data = {
+              courseid: courseId,
+              subject: "señorAsuento",
+              documentName: "file name",
+              data: file,
+              description: "una descripcion"
+            };
+            return httpRequestService.tokenedRequest('POST', 'documents', data);
+          }
+
 				};
 		}]);
 

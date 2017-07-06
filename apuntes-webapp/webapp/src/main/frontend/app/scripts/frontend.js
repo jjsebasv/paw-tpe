@@ -9,7 +9,10 @@ define(['routes',
 	'bootstrap',
 	'ngDialog',
 	'angular-md5',
-	'angular-translate'],
+	'angular-translate',
+	'angularFileUpload',
+	'ng.model',
+	'ngFileUpload'],
 	function(config, dependencyResolverFor, i18n) {
 		var frontend = angular.module('frontend', [
 			'ngRoute',
@@ -17,7 +20,10 @@ define(['routes',
 			'pascalprecht.translate',
 			'ngDialog',
 			'ui.router',
-			'angular-md5'
+			'angular-md5',
+			'angularFileUpload',
+			'ng.model',
+			'ngFileUpload'
 		]);
 		frontend
 			.config(
