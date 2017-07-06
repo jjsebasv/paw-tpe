@@ -17,7 +17,7 @@ import java.util.List;
 @ContextConfiguration(classes = TestConfig.class)
 @Transactional
 @Rollback
-public class DocumentJdbcDaoTest {
+public class DocumentTest {
 
     private static final String PROGRAM_NAME = "Carrera de ejemplo";
     private static final String PROGRAM_SHORTNAME = "ejemplo";

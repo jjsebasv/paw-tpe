@@ -19,7 +19,7 @@ import java.util.List;
 @ContextConfiguration(classes = TestConfig.class)
 @Transactional
 @Rollback
-public class ProgramRelatedCourseJdbcDaoTest {
+public class ProgramRelatedCourseTest {
 
     private static final String COURSE_CODE = "93.71";
     private static final String COURSE_NAME = "Curso de Ejemplo";
