@@ -4,11 +4,15 @@ define(['frontend', 'services/httpRequestService'], function(frontend) {
     frontend.service('sessionService', [
 			'httpRequestService', 'localStorageService',
 			function(httpRequestService, localStorageService) {
+        var user;
 				return {
 
           saveToken: function(token, username) {
-            return localStorageService.set('sessionToken', token) &&
-              localStorageService.set('username', username);
+            httpRequestService.tokenedRequest('GET', 'clients/me', null).then(
+              function (response) {
+                localStorageService.set('client', response.data);
+                return localStorageService.set('sessionToken', token);
+              });
           },
 
           login: function(usern, pass) {
@@ -29,11 +33,8 @@ define(['frontend', 'services/httpRequestService'], function(frontend) {
               universityId: 1
             };
             return httpRequestService.defaultRequest('POST', 'clients/register', data);
-          },
-
-          getMe: function() {
-            return httpRequestService.tokenedRequest('GET', 'clients/me', null);
           }
+
 				};
 		}]);
 

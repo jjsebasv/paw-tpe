@@ -6,7 +6,7 @@ define(['frontend', 'services/httpRequestService'], function(frontend) {
 			function(httpRequestService) {
 				return {
 					getProfile: function(profileId) {
-						return httpRequestService.tokenedRequest('GET', `clients/${profileId}`, null);
+						return httpRequestService.tokenedRequest('GET', 'clients/' + profileId, null);
 					},
 
           getDocuments: function() {

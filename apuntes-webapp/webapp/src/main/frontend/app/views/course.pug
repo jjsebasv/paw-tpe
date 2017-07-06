@@ -13,7 +13,8 @@ back(data='indexCtrl.getBack()' goto='indexCtrl.goto(toType, toId, fromName)')
     .row(ng-switch-when='0')
       span
         | {{ 'NO_FILES' | translate }}
-      button
+      input(ng-hide type='file' id='file' name='file')
+      button(ng-click='courseCtrl.add()')
         | {{ 'UPLOAD' | translate }}
     .list-wrapper.list-wide(ng-switch-default ng-repeat='document in courseCtrl.documents | filter:searchText')
       document(name='document.name' author='document.author' id='document.documentid' goto='indexCtrl.goto(toType, toId, fromName)' from='courseCtrl.course.name')

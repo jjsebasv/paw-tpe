@@ -10,7 +10,7 @@ define([
 		['$location', '$route', '$translate', 'localStorageService',
 		function($location, $route, $translate, localStorageService) {
 
-			this.isLogged = localStorageService.get('username');
+			this.client = localStorageService.get('client');
 
       this.goto = function(toType, toId, fromName) {
 				if (fromName !== 'isBack') {

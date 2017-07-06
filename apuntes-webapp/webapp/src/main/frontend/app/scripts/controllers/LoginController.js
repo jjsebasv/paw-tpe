@@ -11,13 +11,14 @@ define(['frontend', 'services/sessionService'], function(frontend) {
             function (response) {
               var path = angular.isDefined(redirectTo) ? redirectTo : '/';
               if (sessionService.saveToken(response.data.token, _this.username)) {
-                var aux = localStorageService;
+                sessionService.saveUser();
                 debugger
                 $location.path(path);
               }
             }).catch(
               function(error){
-                  debugger
+                console.log("some weird error");
+                $location.path('/');
               });
         };
     }]);

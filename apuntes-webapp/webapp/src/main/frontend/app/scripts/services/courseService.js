@@ -11,7 +11,20 @@ define(['frontend', 'services/httpRequestService'], function(frontend) {
 
 					getProgramCourses: function(programId) {
 						return httpRequestService.defaultRequest('GET', 'programs/' + programId + '/courses', null);
-					}
+					},
+
+          uploadFile: function(file, courseid) {
+            var body = {
+              'courseid': courseid,
+              'subject': 'holaa',
+              'documentName': 'unNombre',
+              'data': file,
+              'description': 'estaEsLaDescripcion'
+            };
+            return httpRequestService.tokenedRequest('POST', 'documents/', body);
+          }
+
+
 				};
 		}]);
 

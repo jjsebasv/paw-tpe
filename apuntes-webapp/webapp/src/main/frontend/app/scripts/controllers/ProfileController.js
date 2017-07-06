@@ -3,35 +3,20 @@
 define(['frontend', 'services/profileService'], function(frontend) {
 
     frontend.controller('ProfileController', [
-      'profileService', '$routeParams', '$location',
-      function(profileService, $routeParams, $location) {
+      'profileService', 'localStorageService', '$location',
+      function(profileService, localStorageService, $location) {
         var _this = this;
-        var profileId = $routeParams.userId;
-        this.unauthorized = false;
+        this.client = localStorageService.get('client');
 
-        profileService.getProfile(profileId).then(
-          function(response) {
-            _this.profie = response.client;
-          }).catch(
-          function(error) {
-            if (error.status === 403) {
-              // FIXME redirect to login
-              _this.unauthorized = true;
-              $location.path('/#/');
-            }
-          });
-
-        // FIXME Check this when user login is allowed
         profileService.getDocuments().then(
           function(response) {
-              _this.files = response.documentList;
+            _this.files = response.data.documentList;
           });
 
         profileService.getReviews().then(
           function(response) {
-              _this.reviews = response.reviewList;
+              _this.reviews = response.data.reviewList;
           });
-
 
     }]);
 

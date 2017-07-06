@@ -47,6 +47,29 @@ define(['routes',
 					$translateProvider.translations('preferredLanguage', i18n);
 					$translateProvider.preferredLanguage('preferredLanguage');
 				}]);
+		frontend
+			.run(
+				['$rootScope',
+				'localStorageService',
+				function($rootScope, localStorageService) {
+					var requireLogin = function(path) {
+						return path.includes('profile');
+					};
+
+					var comesFromLogin = function(path) {
+						return path.includes('login');
+					};
+
+					$rootScope.$on('$locationChangeStart',
+						function (event, next, current) {
+							var requiresLogin = requireLogin(next);
+							var sessionAvailable = localStorageService.get('username');
+							if (!comesFromLogin(current) && !sessionAvailable && requiresLogin) {
+								event.preventDefault();
+							}
+						}
+					);
+			}]);
 		return frontend;
 	}
 );
