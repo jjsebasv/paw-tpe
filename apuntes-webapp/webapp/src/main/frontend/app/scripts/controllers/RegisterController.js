@@ -7,25 +7,24 @@ define(['frontend', 'services/sessionService'], function(frontend) {
         var _this = this;
 
         this.register = function () {
-          debugger;
           sessionService.register(_this.userName, _this.username, _this.password, _this.mail).then(
             function (response) {
-              debugger
+              console.log('success');
             }).catch(
               function (error) {
-                debugger
+                console.log('error');
               });
         };
 
         this.encodePass = function() {
           sessionService.encode(_this.password).then(
             function (response) {
-                debugger
+              console.log('success');
             }).catch(
-            function (error) {
-                debugger
-            });
-        }
+              function (error) {
+                console.log('error');
+              });
+        };
 
     }]);
 });

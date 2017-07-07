@@ -1,0 +1,67 @@
+.column.column-center(ng-controller='UploadController as uploadCtrl')
+  h1.title-3.text-base.green.m-bottom-3
+    | Upload
+  form(
+    name='uploadCtrl.uploadForm'
+    novalidate
+    ng-submit='uploadCtrl.upload()'
+  )
+    .column.column-left
+      label.text-5.text-base.grey-2.m-bottom-1
+        | Nombre
+      input.input-base.m-bottom-2(name='name' ng-model='uploadCtrl.fileName' required)
+    .column.column-left
+      label.text-5.text-base.grey-2.m-bottom-1
+        | Descripcion
+      input.input-base.m-bottom-2(name='description' ng-model='uploadCtrl.fileDescription' required)
+    .column.column-left
+      label.text-5.text-base.grey-2.m-bottom-1
+        | Universidad
+      select(
+        chosen
+        ng-model='uploadCtrl.selectedUniversity'
+        ng-options='university.universityId as university.name for university in uploadCtrl.universities'
+        ng-change='uploadCtrl.getPrograms()'
+        required
+      )
+        option(value='')
+          | Elegi la universidad
+    .column.column-left
+      label.text-5.text-base.grey-2.m-bottom-1
+        | Carrera
+      select(
+        chosen
+        ng-model='uploadCtrl.selectedProgram'
+        ng-options='program.programid as program.name for program in uploadCtrl.programs'
+        ng-change='uploadCtrl.getCourses()'
+        ng-disabled='!uploadCtrl.selectedUniversity'
+        required
+      )
+        option(value='')
+          | Elegi la carrera
+    .column.column-left
+      label.text-5.text-base.grey-2.m-bottom-1
+        | Materia
+      select(
+        chosen
+        ng-model='uploadCtrl.selectedCourse'
+        ng-options='course.courseid as course.name for course in uploadCtrl.courses'
+        ng-disabled='!uploadCtrl.selectedProgram'
+        required
+      )
+        option(value='')
+          | Elegi la materia
+    .column.column-left
+      label.text-5.text-base.grey-2.m-bottom-1
+        | Archivo
+      input.input-base.m-bottom-2(name='file' type='file' ng-model='uploadCtrl.file' onchange='angular.element(this).controller().chooseFile(this)' accept='*' required)
+      label.text-5.text-base.m-bottom-1(ng-switch='uploadCtrl.success')
+        span.green-2(ng-switch-when='1')
+          | File uploaded
+        span.red-2(ng-switch-when='-1')
+          | Error while uploading
+  .row.row-center
+    back(data='indexCtrl.getBack()' goto='indexCtrl.goto(toType, toId, fromName)')
+      | Cancelar
+    button.button-blue(ng-click='uploadCtrl.upload()')
+      | Upload

@@ -16,7 +16,10 @@
     "angular-local-storage": "^0.7.1",
     "angular-file-upload": "^2.5.0",
     "ng-model": "ng.model#*",
-    "ng-file-upload": "^12.2.13"
+    "ng-file-upload": "^12.2.13",
+    "angular-ui-select": "^0.19.8",
+    "angular-chosen-localytics": "^1.7.0",
+    "angular-select2": "^1.5.2"
   },
   "devDependencies": {
     "bootstrap": "~3.3.1"

@@ -36,6 +36,10 @@ define([], function() {
             '/register': {
                 templateUrl: '/views/register.html',
                 controller: 'RegisterController'
+            },
+            '/upload': {
+                templateUrl: '/views/upload.html',
+                controller: 'UploadController'
             }
             /* ===== yeoman hook ===== */
             /* Do not remove these commented lines! Needed for auto-generation */

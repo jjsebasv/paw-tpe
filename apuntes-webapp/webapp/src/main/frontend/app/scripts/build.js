@@ -36,7 +36,13 @@ require.config({
         'ng.model': '../../bower_components/ng-model/dist/ng-model-1.0.1.min',
         'ng-model': '../../bower_components/ng-model/dist/ng-model-1.0.1.min',
         ngFileUpload: '../../bower_components/ng-file-upload/ng-file-upload',
-        'ng-file-upload': '../../bower_components/ng-file-upload/ng-file-upload'
+        'ng-file-upload': '../../bower_components/ng-file-upload/ng-file-upload',
+        'angular-ui-select': '../../bower_components/angular-ui-select/dist/select',
+        chosen: '../../bower_components/chosen/chosen.jquery',
+        localytics: '../../bower_components/angular-chosen-localytics/dist/angular-chosen',
+        'angular-chosen-localytics': '../../bower_components/angular-chosen-localytics/dist/angular-chosen',
+        rt: '../../bower_components/angular-select2/dist/angular-select2',
+        'angular-select2': '../../bower_components/angular-select2/dist/angular-select2'
     },
     shim: {
         angular: {
@@ -104,6 +110,23 @@ require.config({
         'ng.model': {
             deps: [
                 'angular'
+            ]
+        },
+        rt: {
+            deps: [
+                'angular'
+            ]
+        },
+        chosen: {
+            deps: [
+                'jquery'
+            ]
+        },
+        localytics: {
+            deps: [
+                'chosen',
+                'angular',
+                'jquery'
             ]
         }
     },

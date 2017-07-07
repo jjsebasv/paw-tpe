@@ -12,7 +12,9 @@ define(['routes',
 	'angular-translate',
 	'angularFileUpload',
 	'ng.model',
-	'ngFileUpload'],
+	'ngFileUpload',
+	'localytics',
+	'rt'],
 	function(config, dependencyResolverFor, i18n) {
 		var frontend = angular.module('frontend', [
 			'ngRoute',
@@ -23,7 +25,9 @@ define(['routes',
 			'angular-md5',
 			'angularFileUpload',
 			'ng.model',
-			'ngFileUpload'
+			'ngFileUpload',
+			'localytics.directives',
+			'rt.select2'
 		]);
 		frontend
 			.config(

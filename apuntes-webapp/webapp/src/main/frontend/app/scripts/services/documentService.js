@@ -17,14 +17,13 @@ define(['frontend', 'services/httpRequestService'], function(frontend) {
 						return httpRequestService.defaultRequest('GET', 'programs/' + documentId + '/courses', null);
 					},
 
-          uploadFile: function(file, courseId) {
-            debugger
+          uploadFile: function(file, name, description, courseId) {
             var data = {
               courseid: courseId,
-              subject: "señorAsuento",
-              documentName: "file name",
+              subject: '',
+              documentName: name,
               data: file,
-              description: "una descripcion"
+              description: description
             };
             return httpRequestService.tokenedRequest('POST', 'documents', data);
           }
