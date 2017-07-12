@@ -8,10 +8,10 @@ define(['frontend', 'services/httpRequestService'], function(frontend) {
 				return {
 
           saveToken: function(token, username) {
+            localStorageService.set('sessionToken', token);
             httpRequestService.tokenedRequest('GET', 'clients/me', null).then(
               function (response) {
-                localStorageService.set('client', response.data);
-                return localStorageService.set('sessionToken', token);
+                return localStorageService.set('client', response.data);
               });
           },
 

@@ -14,4 +14,4 @@ back(data='indexCtrl.getBack()' goto='indexCtrl.goto(toType, toId, fromName)')
       span
         | {{ 'NO_FILES' | translate }}
     .list-wrapper.list-wide(ng-switch-default ng-repeat='document in courseCtrl.documents | filter:searchText')
-      document(name='document.name' author='document.author' id='document.documentid' goto='indexCtrl.goto(toType, toId, fromName)' from='courseCtrl.course.name')
+      document(name='document.documentName' author='document.userid' id='document.documentId' goto='indexCtrl.goto(toType, toId, fromName)' from='courseCtrl.course.name')

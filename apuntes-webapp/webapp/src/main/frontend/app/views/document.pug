@@ -1,20 +1,20 @@
-.column
+.column(ng-controller='DocumentController as documentCtrl')
 	.row.row-space-between.row-top.m-bottom-1
 		.column.column-center.big-book
 			img(src='images/default_book.svg')
 		.column.flex-grow-1.m-left-1
 			p.title-2.text-base.black
-				| Título
+				| {{documentCtrl.document.documentName}}
 			p.title-2.text-base.bold
-				| Autor
+				| {{documentCtrl.document.subject}}
 			p.m-bottom-3.text-base.grey-3.text-2
-				| Fecha
+				| {{documentCtrl.document.dateUploaded}}
 			p.m-bottom-3.text-base.grey-3.text-2
-				| Materia
+				| {{documentCtrl.document.course}}
 			p.text-base.grey.text-3.grey-3.justify.m-bottom-3
-				| Aca va la descripcion del document. Lorem ipsum dolor sit amet, consectetur adipiscing elit. Vivamus sit amet elementum felis, et dignissim velit. Class aptent taciti sociosqu ad litora torquent per conubia nostra, per inceptos himenaeos.
-			.row
-				button.button-green.m-right-3
+				| {{documentCtrl.document.description}}
+			.row(ng-if='documentCtrl.document')
+				a.button-green.m-right-3(target='_self' ng-href='{{documentCtrl.downloadPath}}' download='prueba.pdf')
 					| {{ 'DOWNLOAD' | translate }}
 				button.button-blue
 					| {{ 'PREVIEW' | translate }}
@@ -27,7 +27,7 @@
 			| {{ 'ADD_COMMENT' | translate }}
 		textarea.input-base.m-bottom-1(name='comment')
 		input.button-green(type='submit' value='Enviar comentario')
-	.list-comment-wrapper.column
+	.list-comment-wrapper.column(ng-repeat='comment in documentCtrl.comments')
 		.list-comment-item.column.m-bottom-5
 			.row.row-space-between.m-bottom-1
 				p.title-2.text-base.black
