@@ -63,7 +63,9 @@ define(['routes',
 				'localStorageService',
 				function($rootScope, localStorageService) {
 					var requireLogin = function(path) {
-						return path.includes('profile');
+						return
+							path.includes('profile') ||
+							path.includes('upload');
 					};
 
 					var comesFromLogin = function(path) {

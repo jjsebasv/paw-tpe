@@ -20,6 +20,8 @@ html.no-js
 							img(src='images/login.svg')
 						a.m-right-1.action(ng-href='#!/profile/{{indexCtrl.client.clientId}}' ng-if='indexCtrl.client')
 							| {{indexCtrl.client.name}}
+						button.m-right-1.action(ng-click='indexCtrl.logOut()' ng-if='indexCtrl.client')
+							| Log out ->
 			.max-content-wrapper.mid.content(ng-view='')
 		// build:js(.) scripts/oldieshim.js
 		//if lt IE 9

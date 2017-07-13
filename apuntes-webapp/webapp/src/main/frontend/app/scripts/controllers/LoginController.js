@@ -10,9 +10,8 @@ define(['frontend', 'services/sessionService'], function(frontend) {
           sessionService.login(_this.username, _this.password).then(
             function (response) {
               var path = angular.isDefined(redirectTo) ? redirectTo : '/';
-              if (sessionService.saveToken(response.data.token, _this.username)) {
-                $location.path(path);
-              }
+              sessionService.saveToken(response.data.token, _this.username);
+              $location.path(path);
             }).catch(
               function(error) {
                 console.log('some weird error');

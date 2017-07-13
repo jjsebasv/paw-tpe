@@ -36,6 +36,11 @@ define([
 				return aux;
 			};
 
+			this.logOut = function() {
+				localStorageService.clearAll();
+				$location.path('/');
+			};
+
 	}]);
 
 });
