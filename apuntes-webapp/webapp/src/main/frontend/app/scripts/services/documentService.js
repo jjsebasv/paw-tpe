@@ -17,6 +17,16 @@ define(['frontend', 'services/httpRequestService'], function(frontend) {
 						return httpRequestService.defaultRequest('GET', 'documents/' + documentId + '/reviews', null);
 					},
 
+          postComment: function(documentId, userId, reviewText, rankingValue) {
+            var data = {
+              fileid: documentId,
+              userid: userId,
+              review: reviewText,
+              ranking: rankingValue
+            };
+            return httpRequestService.tokenedRequest('POST', 'reviews/', data);
+          },
+
           uploadFile: function(file, name, description, courseId) {
             var data = {
               courseid: courseId,

@@ -1,6 +1,6 @@
 'use strict';
 
-define(['frontend', 'services/profileService'], function(frontend) {
+define(['frontend', 'services/profileService', 'directives/documentDirective'], function(frontend) {
 
     frontend.controller('ProfileController', [
       'profileService', 'localStorageService', '$location',

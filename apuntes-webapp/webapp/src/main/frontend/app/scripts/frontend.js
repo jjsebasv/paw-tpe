@@ -63,9 +63,7 @@ define(['routes',
 				'localStorageService',
 				function($rootScope, localStorageService) {
 					var requireLogin = function(path) {
-						return
-							path.includes('profile') ||
-							path.includes('upload');
+						return path.includes('profile') || path.includes('upload');
 					};
 
 					var comesFromLogin = function(path) {
@@ -75,7 +73,7 @@ define(['routes',
 					$rootScope.$on('$locationChangeStart',
 						function (event, next, current) {
 							var requiresLogin = requireLogin(next);
-							var sessionAvailable = localStorageService.get('username');
+							var sessionAvailable = localStorageService.get('client');
 							if (!comesFromLogin(current) && !sessionAvailable && requiresLogin) {
 								event.preventDefault();
 							}

@@ -19,13 +19,13 @@ div(ng-controller='ProfileController as profileCtrl')
             | {{ 'COMMENTS' | translate }}
   .separator
   //- FIXME check this when login is available
-  .column
+  .column(ng-if='profileCtrl.files.length')
     h1.title-3.text-base.green.m-bottom-3
       | {{ 'FILES' | translate }}
     .list-wrapper.row.row-space-between(ng-repeat='file in profileCtrl.files')
-      document(name='file.title' author='file.author')
+      document(name='file.documentName' author='file.userid' id='file.documentId' goto='indexCtrl.goto(toType, toId, fromName)' from='"profile"')
   .separator
-  .column
+  .column(ng-if='profileCtrl.files.reviews')
     h1.title-3.text-base.green.m-bottom-3
       | {{ 'COMMENTS' | translate }}
     .list-wrapper.column(nh-repeat='review in profileCtrl.reviews')

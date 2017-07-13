@@ -18,23 +18,30 @@
 					| {{ 'DOWNLOAD' | translate }}
 				button.button-blue
 					| {{ 'PREVIEW' | translate }}
-.separator
-.column
-	h1.title-3.text-base.green.m-bottom-3
-		| {{ 'COMMENTS' | translate }}
-	.new-comment-wrapper.column.column-left.m-bottom-3
-		p.title-2.text-base.black.m-bottom-1
-			| {{ 'ADD_COMMENT' | translate }}
-		textarea.input-base.m-bottom-1(name='comment')
-		input.button-green(type='submit' value='Enviar comentario')
-	.list-comment-wrapper.column(ng-repeat='comment in documentCtrl.comments')
-		.list-comment-item.column.m-bottom-5
-			.row.row-space-between.m-bottom-1
-				p.title-2.text-base.black
-					| Kimberly Carter
-				span
-					| Aca van las estrellas
-			p.m-bottom-3.text-base.grey-3.text-2
-				| XX/XX/XXXX
-			p.text-base.grey.text-3.grey-3.justify
-				| Lorem ipsum dolor sit amet, consectetur adipisicing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua. Ut enim ad minim veniam, quis nostrud exercitation ullamco laboris nisi ut aliquip ex ea commodo consequat.
+	.separator
+	.column(ng-if='documentCtrl.document !== undefined')
+		h1.title-3.text-base.green.m-bottom-3
+			| {{ 'COMMENTS' | translate }}
+		.new-comment-wrapper.column.column-left.m-bottom-3(ng-if='!documentCtrl.checkOwnDocument() && !documentCtrl.alreadyUploaded')
+			p.title-2.text-base.black.m-bottom-1
+				| {{ 'ADD_COMMENT' | translate }}
+			textarea.input-base.m-bottom-1(name='comment' ng-model='documentCtrl.reviewText')
+			input.input-base.m-bottom-1(name='ranking' type='number' ng-min='1' ng-max='5' ng-model='documentCtrl.reviewRanking')
+			input.button-green(type='button' value='Enviar comentario' ng-click='documentCtrl.postComment()' ng-disabled='documentCtrl.reviewRanking === null || documentCtrl.reviewText === null')
+		.new-comment-wrapper.column.column-left.m-bottom-3(ng-if='documentCtrl.checkOwnDocument()')
+			p.title-2.text-base.black.m-bottom-1
+				| You can't post a review to a file of your own
+		.new-comment-wrapper.column.column-left.m-bottom-3(ng-if='documentCtrl.alreadyUploaded')
+			p.title-2.text-base.black.m-bottom-1
+				| You have already reviewed this document
+		.list-comment-wrapper.column(ng-repeat='comment in documentCtrl.comments')
+			.list-comment-item.column.m-bottom-5
+				.row.row-space-between.m-bottom-1
+					p.title-2.text-base.black
+						| {{comment.userid}}
+					span
+						| {{comment.ranking}}
+				p.m-bottom-3.text-base.grey-3.text-2
+					| {{comment.dateUploaded}}
+				p.text-base.grey.text-3.grey-3.justify
+					| {{comment.review}}
