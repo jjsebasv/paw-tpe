@@ -29,7 +29,7 @@ define(['frontend', 'services/httpRequestService'], function(frontend) {
           },
 
           downloadFile: function(documentId) {
-            return "http://localhost:8080/webapp/api/v1/documents/" + documentId + "/download";
+            return 'http://localhost:8080/webapp/api/v1/documents/' + documentId + '/download';
           }
 
 				};

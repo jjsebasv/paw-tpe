@@ -42,7 +42,7 @@ define([
           var reader = new FileReader();
           reader.onload = function(e) {
             _this.encodedFile = btoa(e.target.result.toString());
-            var ext = '.' + _this.file.name.split('.')[_this.file.name.split('.').length -1];
+            var ext = '.' + _this.file.name.split('.')[_this.file.name.split('.').length - 1];
             documentService.uploadFile(_this.encodedFile, _this.fileName + ext, _this.fileDescription, _this.selectedCourse).then(
               function (response) {
                   _this.success = 1;

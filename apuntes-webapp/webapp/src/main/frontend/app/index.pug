@@ -11,14 +11,14 @@ html.no-js
 		.column.column-center.test
 			nav.header.row.row-center
 				.max-content-wrapper.row.row-space-between
-					a(ng-href='#/')
+					a(ng-href='#!/')
 						img.logo(src='images/logo.svg')
 					.actions
-						button.m-right-1.action(ng-href='')
+						a.m-right-1.action(type='button' ng-href='#!/upload')
 							img(src='images/add_book.svg')
-						a(type='button' ng-href='#/login' ng-if='!indexCtrl.client')
+						a(type='button' ng-href='#!/login' ng-if='!indexCtrl.client')
 							img(src='images/login.svg')
-						a.m-right-1.action(ng-href='#/profile/{{indexCtrl.client.clientId}}' ng-if='indexCtrl.client')
+						a.m-right-1.action(ng-href='#!/profile/{{indexCtrl.client.clientId}}' ng-if='indexCtrl.client')
 							| {{indexCtrl.client.name}}
 			.max-content-wrapper.mid.content(ng-view='')
 		// build:js(.) scripts/oldieshim.js
