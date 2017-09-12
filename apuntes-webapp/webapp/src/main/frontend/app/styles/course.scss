@@ -1,0 +1,11 @@
+@import 'variables/colors';
+
+.no-files {
+  flex-wrap: wrap;
+  justify-content: center;
+  .text {
+    text-align: center;
+    margin: 10px;
+    width: 100%;
+  }
+}

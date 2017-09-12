@@ -1,6 +1,6 @@
-back(data='indexCtrl.getBack()' goto='indexCtrl.goto(toType, toId, fromName)')
+
 .column.column-center(ng-controller='CourseController as courseCtrl')
-  .row.m-bottom-3
+  .row.m-bottom-3.section-header
     .item
       h1.title-3.text-base.green
         | {{courseCtrl.course.name}}
@@ -8,10 +8,14 @@ back(data='indexCtrl.getBack()' goto='indexCtrl.goto(toType, toId, fromName)')
     .item
       h1.title-3.text-base
         | {{courseCtrl.course.code}}
-  searchbox(filter='searchText' placeholder="'SEARCH_FILE'")
+  .row.m-bottom-3.section-search
+    back(data='indexCtrl.getBack()' goto='indexCtrl.goto(toType, toId, fromName)')
+    searchbox(filter='searchText' placeholder="'SEARCH_FILE'")
   span(ng-switch='courseCtrl.documents.length')
-    .row(ng-switch-when='0')
-      span
+    .row.no-files(ng-switch-when='0')
+      span.text
         | {{ 'NO_FILES' | translate }}
+      a.primary-button(type='button' ng-href='#!/upload')
+        | Upload
     .list-wrapper.list-wide(ng-switch-default ng-repeat='document in courseCtrl.documents | filter:searchText')
       document(name='document.documentName' author='document.userid' id='document.documentId' goto='indexCtrl.goto(toType, toId, fromName)' from='courseCtrl.course.name')

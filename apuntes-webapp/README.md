@@ -1,3 +1,19 @@
+# Getting shit done
+
+## Front
+
+ * desde la carpeta root del proyecto
+   * mvn clean
+   * mvn eclipse: eclipse (o simil)
+ * desde la carpeta frontend
+   * npm install
+   * bower install
+   * grunt eslint:all _(esto va a chequear syntax)_
+   * grunt build --force _(importante que esto no tire ningun error. Si tira arreglarlo antes de seguir)_
+ * desde la carpeta root del proyecto
+   * mvn package clean
+ * desde la carpeta frontend
+   * grunt serve _(esto va a levantar en localhost:9000 la pagina)_
 
 # Endpoints de la API REST
 
@@ -15,16 +31,16 @@
   `POST`
 
 * **Data Params**
- 
+
    `username=[string]`
-   
+
    `password=[string]`
 
 * **Success Response:**
 
   * **Code:** 200 <br />
     **Content:** `{"token":"..."}`
- 
+
 * **Error Response:**
 
   * **Code:** 401 UNAUTHORIZED <br />
@@ -46,7 +62,7 @@
 
   * **Code:** 200 <br />
     **Content:**
-    
+
         {
             "clientId": 5,
             "email": "changeme@example.com",
@@ -55,12 +71,12 @@
             "role": "ROLE_ADMIN",
             "universityId": 1
         }
- 
+
 * **Error Response:**
 
   * **Code:** 403 FORBIDDEN <br />
     **Content:**
-    
+
         {
             "message": "Unauthorized",
             "status": 403
@@ -81,7 +97,7 @@
 
   * **Code:** 200 <br />
     **Content:**
-    
+
         {
             "documentList": [
                  {
@@ -95,23 +111,23 @@
                 }
             ],
         }
- 
+
  **Calificaciones realizadas**
  ----
- 
+
  * **URL**
- 
+
    /api/v1/clients/me/reviews
- 
+
  * **Method:**
- 
+
    `GET`
- 
+
  * **Success Response:**
- 
+
    * **Code:** 200 <br />
      **Content:**
-     
+
             {
                 "reviewList": [
                     {
@@ -123,29 +139,29 @@
                     }
                 ],
             }
-            
+
  **Cambiar contrasena**
  ----
- 
+
  * **URL**
- 
+
    /api/v1/clients/me/change_password
- 
+
  * **Method:**
- 
+
    `POST`
- 
+
  * **Body**
-  
+
         {
             "password": "newPassword"
         }
- 
+
  * **Success Response:**
- 
+
    * **Code:** 200 <br />
      **Content:**
-     
+
             {
                 "clientId": 5,
                 "email": "changeme@example.com",
@@ -154,31 +170,31 @@
                 "role": "ROLE_ADMIN",
                 "universityId": 1
             }
-            
+
  **Restaurar contrasena**
  ----
- 
+
  * **URL**
- 
+
    /api/v1/clients/reset_password
- 
+
  * **Method:**
- 
+
    `POST`
- 
+
  * **Body**
-  
+
         {
             "name": "username",
             "secretAnswer": "Barbie",
             "password": "123456"
         }
- 
+
  * **Success Response:**
- 
+
    * **Code:** 200 <br />
      **Content:**
-     
+
          {
             "clientId": 5,
             "email": "changeme@example.com",
@@ -187,28 +203,27 @@
             "role": "ROLE_ADMIN",
             "universityId": 1
          }
-         
+
  **Registrarse**
  ----
- 
+
  * **URL**
- 
+
    /api/v1/clients/register
- 
+
  * **Method:**
- 
+
    `POST`
- 
+
  * **Body**
-  
+
         {
             "name": "username",
             "email": "asd@itba.edu.ar",
             "password": "123456"
         }
- 
+
  * **Success Response:**
- 
+
   * **Code:** 200 <br />
     **Content:** `{"token":"..."}`
-    

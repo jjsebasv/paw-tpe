@@ -19,7 +19,7 @@ define(['frontend', 'services/documentService', 'services/courseService', 'direc
           documentService.getComments($routeParams.documentId).then(function(result) {
             _this.comments = result.data.reviewList;
             angular.forEach(_this.comments, function(value, key) {
-              if(value.userid === localStorageService.get('client').clientId) {
+              if (value.userid === localStorageService.get('client').clientId) {
                 _this.alreadyUploaded = true;
                 return;
               }
