@@ -15,7 +15,10 @@
     .row.no-files(ng-switch-when='0')
       span.text
         | {{ 'NO_FILES' | translate }}
-      a.primary-button(type='button' ng-href='#!/upload')
+      a.primary-button(
+        type='button'
+        ng-href='#!/upload/{{courseCtrl.course.courseid}}'
+        ng-click='indexCtrl.goto("course", courseCtrl.course.courseid, "Course")')
         | Upload
     .list-wrapper.list-wide(ng-switch-default ng-repeat='document in courseCtrl.documents | filter:searchText')
       document(name='document.documentName' author='document.userid' id='document.documentId' goto='indexCtrl.goto(toType, toId, fromName)' from='courseCtrl.course.name')

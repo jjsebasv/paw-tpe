@@ -8,13 +8,23 @@ define([
 ], function(frontend) {
 
     frontend.controller('UploadController', [
-      'documentService', 'universityService', 'programService', 'courseService', 'Upload', '$scope',
-      function(documentService, universityService, programService, courseService, Upload, $scope) {
+      'documentService', 'universityService', 'programService', 'courseService', 'Upload', '$scope', '$routeParams',
+      function(documentService, universityService, programService, courseService, Upload, $scope, $routeParams) {
         var _this = this;
-  			universityService.getAllUnis().then(
-  				function(result) {
-  					_this.universities = result.data.universityList;
-  				});
+        this.courseid = $routeParams.courseId;
+
+        if (!this.courseid) {
+          universityService.getAllUnis().then(
+            function(result) {
+              _this.universities = result.data.universityList;
+            });
+        } else {
+          courseService.getCourse(this.courseid).then(
+            function(result) {
+              _this.selectedCourse = result.data;
+            }
+          );
+        }
 
         this.getPrograms = function () {
           programService.getUniPrograms(_this.selectedUniversity).then(
@@ -33,6 +43,7 @@ define([
         this.chooseFile = function (element) {
           if (element.files.length) {
             _this.file = element.files[0];
+            $scope.$apply();
           } else {
             _this.success = 0;
           }
@@ -43,7 +54,7 @@ define([
           reader.onload = function(e) {
             _this.encodedFile = btoa(e.target.result.toString());
             var ext = '.' + _this.file.name.split('.')[_this.file.name.split('.').length - 1];
-            documentService.uploadFile(_this.encodedFile, _this.fileName + ext, _this.fileDescription, _this.selectedCourse).then(
+            documentService.uploadFile(_this.encodedFile, _this.fileName + ext, _this.fileDescription, _this.selectedCourse.courseid).then(
               function (response) {
                   _this.success = 1;
                 }).catch(

@@ -33,6 +33,13 @@ body {
   padding: 10px 100px;
 }
 
+.section-bottom {
+  border-bottom: 3px solid $green;
+  font-size: 30px;
+  margin-bottom: 15px;
+  padding: 10px 100px;
+}
+
 .section-search {
   width: 100%;
   .back {
@@ -99,20 +106,15 @@ body {
 }
 
 .primary-button {
-  align-items: center;
-  background: $blue;
-  border: 2px solid $blue;
-  border-radius: 15px;
-  color: $white;
-  display: flex;
-  font-weight: 800;
-  height: 50px;
-  justify-content: center;
-  width: 100px;
-  &:hover {
-    background: transparent;
-    color: $blue;
-  }
+  @include button($blue, $white, transparent);
+}
+
+.secondary-button {
+  @include button($white, $blue, $blue);
+}
+
+.special-button {
+  @include button($green, $white, transparent);
 }
 
 .max-content-wrapper {
@@ -201,7 +203,7 @@ body {
 .title-3 {
   font-size: 30px;
   font-weight: 700;
-  line-height: 20px;
+  line-height: 30px;
 }
 
 .text-1 {

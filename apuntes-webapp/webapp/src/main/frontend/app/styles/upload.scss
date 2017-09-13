@@ -1,0 +1,50 @@
+@import 'variables/colors';
+
+.upload-file-form {
+  width: 400px;
+}
+
+.form-section {
+  margin: 10px;
+  width: 100%;
+}
+
+.form-input {
+  line-height: 20px;
+  width: 100%;
+}
+
+.selected-course {
+  font-weight: 800;
+  margin-bottom: 15px;
+}
+
+.change-course {
+  color: $blue;
+  font-style: italic;
+  text-decoration: underline;
+}
+
+.file-upload {
+  align-items: center;
+  display: flex;
+  justify-content: space-around;
+	position: relative;
+  text-align: center;
+}
+
+.file-upload-label {
+  cursor: pointer;
+}
+
+.file-upload-input {
+    position: absolute;
+    left: 0;
+    top: 0;
+    right: 0;
+    bottom: 0;
+    font-size: 1;
+    width:0;
+    height: 100%;
+    opacity: 0;
+}
