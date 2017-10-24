@@ -44,6 +44,10 @@ define([], function() {
             '/upload/:courseId': {
                 templateUrl: '/views/upload.html',
                 controller: 'UploadController'
+            },
+            '/mail': {
+              templateUrl: '/views/mail.html',
+              controller: 'MailController'
             }
             /* ===== yeoman hook ===== */
             /* Do not remove these commented lines! Needed for auto-generation */

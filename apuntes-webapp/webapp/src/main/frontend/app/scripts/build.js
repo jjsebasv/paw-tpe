@@ -42,7 +42,8 @@ require.config({
         localytics: '../../bower_components/angular-chosen-localytics/dist/angular-chosen',
         'angular-chosen-localytics': '../../bower_components/angular-chosen-localytics/dist/angular-chosen',
         rt: '../../bower_components/angular-select2/dist/angular-select2',
-        'angular-select2': '../../bower_components/angular-select2/dist/angular-select2'
+        'angular-select2': '../../bower_components/angular-select2/dist/angular-select2',
+        'angular-mandrill': '../../bower_components/angular-mandrill/dist/angular-mandrill'
     },
     shim: {
         angular: {
@@ -128,6 +129,11 @@ require.config({
                 'angular',
                 'jquery'
             ]
+        },
+        'angular-mandrill': {
+            deps: [
+                'angular'
+            ]
         }
     },
     packages: [
@@ -144,7 +150,8 @@ if (paths) {
 require([
         'angular',
         'frontend',
-        'controllers/IndexCtrl'
+        'controllers/IndexCtrl',
+        'mailConfig'
     ],
     function() {
         angular.bootstrap(document, ['frontend']);

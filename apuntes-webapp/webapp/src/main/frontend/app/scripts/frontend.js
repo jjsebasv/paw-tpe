@@ -14,7 +14,8 @@ define(['routes',
 	'ng.model',
 	'ngFileUpload',
 	'localytics',
-	'rt'],
+	'rt',
+	'angular-mandrill'],
 	function(config, dependencyResolverFor, i18n) {
 		var frontend = angular.module('frontend', [
 			'ngRoute',
@@ -27,7 +28,8 @@ define(['routes',
 			'ng.model',
 			'ngFileUpload',
 			'localytics.directives',
-			'rt.select2'
+			'rt.select2',
+			'angular-mandrill'
 		]);
 		frontend
 			.config(
