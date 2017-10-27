@@ -27,11 +27,11 @@ define([
             }
           };
 
-          Mandrill.messages.send(data).success(function(response){
-            console.log("succesfully sent")
-            console.log(response)
-          }).error(function(response){
-            debugger
+          Mandrill.messages.send(data).success(function(response) {
+            console.log('succesfully sent');
+            console.log(response);
+          }).error(function(response) {
+            console.log('error');
           });
     }]);
 

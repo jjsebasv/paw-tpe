@@ -3,7 +3,7 @@ html.no-js
 	head
 		meta(charset='utf-8')
 		title
-			| {{ 'SITE_TILE' | translate }}
+			| Apuntes Paw
 		meta(name='description', content='')
 		// build:css(.tmp) styles/main.css
 		link(rel='stylesheet' href='styles/application.css')
@@ -19,6 +19,8 @@ html.no-js
 							img(src='images/add_book.svg')
 						a(type='button' ng-href='#!/login' ng-if='!indexCtrl.client')
 							img(src='images/login.svg')
+						button.m-right-1.action(ng-click='indexCtrl.changeLanguage()')
+							| ES
 						a.m-right-1.action(ng-href='#!/profile/{{indexCtrl.client.clientId}}' ng-if='indexCtrl.client')
 							| {{indexCtrl.client.name}}
 						button.m-right-1.action(ng-click='indexCtrl.logOut()' ng-if='indexCtrl.client')

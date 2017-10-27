@@ -24,7 +24,7 @@ define([], function() {
 
 		// Course
 		NO_FILES: 'Todavía no hay archivos. Se el primero en subir uno',
-		UPLOAD: 'Subir',
+		UPLOAD: 'Subir Apunte',
 		COURSES: 'Materias',
 
 		// Program
@@ -56,14 +56,12 @@ define([], function() {
 		RE_PASSWORD: 'Repetir Contraseña',
 
 		// Upload
-		UPLOAD: 'Subir Apunte',
 		FILE_NAME: 'Nombre del Apunte',
 		FILE_DESCRIPTION: 'Descripción del Apunte',
 		UNIVERSITY: 'Universidad',
 		CHOOSE_UNIVERSITY: 'Elegir Universidad',
 		PROGRAM: 'Carrera',
 		CHOOSE_PROGRAM: 'Elegir Carrera',
-		SUBJECT: 'Materia',
 		CHOOSE_SUBJECT: 'Elegir Materia',
 		DIFFERENT_SUBJECT: 'Subir Apunte a una Materia distinta',
 		FILE: 'Apunte',
@@ -76,13 +74,12 @@ define([], function() {
 		SITE_TITLE: 'Auntes Paw',
 		LOG_OUT: 'Salir',
 
-		/****** Directives ******/
+		/* ***** Directives ***** */
 		// Go back
 		BACK_TO: 'Volver a',
 
 		// New Document
 		UPLOAD_FILE: 'Subir Apunte',
-		TITLE: 'Título',
 		DESCRIPTION: 'Descripción',
 		CANCEL: 'Cancelar'
 	};

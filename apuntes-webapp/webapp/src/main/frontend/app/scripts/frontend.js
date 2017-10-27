@@ -58,6 +58,8 @@ define(['routes',
 
 					$translateProvider.translations('preferredLanguage', i18n);
 					$translateProvider.preferredLanguage('preferredLanguage');
+
+
 				}]);
 		frontend
 			.run(

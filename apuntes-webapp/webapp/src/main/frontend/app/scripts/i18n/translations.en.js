@@ -24,7 +24,7 @@ define([], function() {
 
 		// Course
 		NO_FILES: 'No files yet. Be the first to upload one.',
-		UPLOAD: 'Upload',
+		UPLOAD: 'Upload File',
 		COURSES: 'Courses',
 
 		// Program
@@ -56,14 +56,12 @@ define([], function() {
 		RE_PASSWORD: 'Repeat password',
 
 		// Upload
-		UPLOAD: 'Upload',
 		FILE_NAME: 'File Name',
 		FILE_DESCRIPTION: 'File Description',
 		UNIVERSITY: 'University',
 		CHOOSE_UNIVERSITY: 'Choose University',
 		PROGRAM: 'Program',
 		CHOOSE_PROGRAM: 'Choose Program',
-		SUBJECT: 'Subject',
 		CHOOSE_SUBJECT: 'Choose Subject',
 		DIFFERENT_SUBJECT: 'Upload File to a different subject',
 		FILE: 'File',
@@ -76,13 +74,12 @@ define([], function() {
 		SITE_TITLE: 'Auntes Paw',
 		LOG_OUT: 'Log Out',
 
-		/****** Directives ******/
+		/* ***** Directives ***** */
 		// Go back
 		BACK_TO: 'Go back to',
 
 		// New Document
 		UPLOAD_FILE: 'Upload file',
-		TITLE: 'Title',
 		DESCRIPTION: 'Description',
 		CANCEL: 'Cancel'
 	};

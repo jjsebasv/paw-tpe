@@ -25,6 +25,11 @@ define([
 				$location.path(toType + '/' + toId);
       };
 
+			this.changeLanguage = function() {
+				debugger
+				$translate.use('es');
+			};
+
 			this.getBack = function() {
 				var aux = $route.current.from;
 				if (aux === null | aux === undefined) {
