@@ -1,15 +1,14 @@
 p.title-2.text-base.black.m-bottom-1
-
-  | Subir apunte
+  | {{ 'UPLOAD_FILE' | translate }}
 label.text-5.text-base.grey-2.m-bottom-1
-  | Titulo
+  | {{ 'TITLE' | translate }}
 input.input-base.m-bottom-2(name='title')
 label.text-5.text-base.grey-2.m-bottom-1
-  | Descripcion
+  | {{ 'DESCRIPTION' | translate }}
 textarea.input-base.m-bottom-5(name='description')
 
 .row.row-center
   button.button-grey
-    | Cancelar
+    | {{ 'CANCEL' | translate }}
   button.button-blue
-    | Subir apunte
+    | {{ 'UPLOAD_FILE' | translate }}

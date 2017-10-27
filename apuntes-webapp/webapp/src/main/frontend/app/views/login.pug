@@ -1,6 +1,6 @@
 .column.column-center(ng-controller='LoginController as loginCtrl')
   h1.title-3.text-base.green.m-bottom-3
-    | INICIAR SESIÓN
+    | {{ 'LOG_IN' | translate | uppercase }}
   form(
     name='LoginController.loginForm'
     novalidate
@@ -8,17 +8,17 @@
   )
     .column.column-left
       label.text-5.text-base.grey-2.m-bottom-1
-        | Usuario
+        | {{ 'USER' | translate }}
       input.input-base.m-bottom-2(name='username' ng-model='loginCtrl.username')
     .column.column-left
       label.text-5.text-base.grey-2.m-bottom-1
-        | Clave
+        | {{ 'PASSWORD' | translate }}
       input.input-base.m-bottom-5(name='password' type='password' ng-model='loginCtrl.password')
   .row.row-center
     button.button-grey.m-right-3
-      | Cancelar
+      | {{ 'CANCEL' | translate }}
     button.button-blue(ng-click='loginCtrl.login()')
-      | Iniciar sesión
+      | {{ 'LOG_IN' | translate }}
   .row.row-center
     a.button-grey.m-right-3(type='button' ng-href='#!/register')
-      | Register
+      | {{ 'REGISTER' | translate }}

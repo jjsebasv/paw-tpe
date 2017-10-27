@@ -1,2 +1,2 @@
 button.back(ng-init='back = data()' ng-click='goto({toType: back.backRoute, toId: "", fromName: "isBack"})')
-  | Go back to {{back.name}}
+  | {{ 'BACK_TO' | translate}} {{back.name}}

@@ -2,7 +2,7 @@
   .row.section-header
     .item
       h1.title-3.text-base.green.m-bottom-3
-        | Upload
+        | {{ 'UPLOAD' | translate | uppercase }}
   form.upload-file-form(
     name='uploadCtrl.uploadForm'
     novalidate
@@ -10,17 +10,17 @@
   )
     .column.column-left.form-section
       label.text-5.text-base.grey-2.m-bottom-1
-        | Nombre
+        | {{ 'FILE_NAME' | translate }}
       input.form-input.input-base.m-bottom-2(name='name' ng-model='uploadCtrl.fileName' required)
     .column.column-left.form-section
       label.text-5.text-base.grey-2.m-bottom-1
-        | Descripcion
+        | {{ 'DESCRIPTION' | translate }}
       input.form-input.input-base.m-bottom-2(name='description' ng-model='uploadCtrl.fileDescription' required)
 
     span.undefined-course.form-section(ng-if='!uploadCtrl.courseid')
       .column.column-left
         label.text-5.text-base.grey-2.m-bottom-1
-          | Universidad
+          | {{ 'UNIVERSITY' | translate }}
         select.form-input(
           chosen
           ng-model='uploadCtrl.selectedUniversity'
@@ -29,10 +29,10 @@
           required
         )
           option(value='')
-            | Elegi la universidad
+            | {{ 'CHOOSE_UNIVERSITY' | translate }}
       .column.column-left
         label.text-5.text-base.grey-2.m-bottom-1
-          | Carrera
+          | {{ 'PROGRAM' | translate }}
         select.form-input(
           chosen
           ng-model='uploadCtrl.selectedProgram'
@@ -42,10 +42,10 @@
           required
         )
           option(value='')
-            | Elegi la carrera
+            | {{ 'CHOOSE_PROGRAM' | translate }}
       .column.column-left
         label.text-5.text-base.grey-2.m-bottom-1
-          | Materia
+          | {{ 'SUBJECT' | translate }}
         select.form-input(
           chosen
           ng-model='uploadCtrl.selectedCourse'
@@ -54,23 +54,23 @@
           required
         )
           option(value='')
-            | Elegi la materia
+            | {{ 'CHOOSE_SUBJECT' | translate }}
     span.defined-course.form-section(ng-if='uploadCtrl.courseid')
       .column.column-left
         label.text-5.text-base.grey-2.m-bottom-1
-          | Materia
+          | {{ 'SUBJECT' | translate }}
         label.selected-course
           | {{uploadCtrl.selectedCourse.name}}
         a.change-course(type='button' ng-href='#!/upload')
-          | Subir archivo a otra materia
+          | {{ 'DIFFERENT_SUBJECT' | translate }}
 
     .column.column-left.form-section
       label.text-5.text-base.grey-2.m-bottom-1
-        | Archivo
+        | {{ 'FILE' | translate }}
 
       .file-upload.form-input
         label.file-upload-label.secondary-button(for='upload')
-          | Choose file
+          | {{ 'CHOOSE_FILE' | translate }}
         input.form-input.input-base.m-bottom-2.file-upload-input(
           id='upload'
           name='file'
@@ -81,16 +81,16 @@
           required)
         .selected-file-name(ng-switch='uploadCtrl.file.name')
           span(ng-switch-when='undefined')
-            | Not file selected
+            | {{ 'NO_FILE' | translate }}
           span(ng-switch-default)
             | {{uploadCtrl.file.name}}
       label.text-5.text-base.m-bottom-1(ng-switch='uploadCtrl.success')
         span.green-2(ng-switch-when='1')
-          | File uploaded
+          | {{ 'FILE_UPLOADED' | translate }}
         span.red-2(ng-switch-when='-1')
-          | Error while uploading
+          | {{ 'FILE_ERROR' | translate }}
   .row.row-center.section-bottom
     button.special-button(ng-click='uploadCtrl.upload()')
-      | Upload
+      | {{ 'UPLOAD' | translate }}
   .row.row-center
     back(data='indexCtrl.getBack()' goto='indexCtrl.goto(toType, toId, fromName)')

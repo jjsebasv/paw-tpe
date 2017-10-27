@@ -30,10 +30,10 @@
 			input.button-green(type='button' value='Enviar comentario' ng-click='documentCtrl.postComment()' ng-disabled='documentCtrl.reviewRanking === null || documentCtrl.reviewText === null')
 		.new-comment-wrapper.column.column-left.m-bottom-3(ng-if='documentCtrl.checkOwnDocument()')
 			p.title-2.text-base.black.m-bottom-1
-				| You can't post a review to a file of your own
+				| {{ 'OWN_FILE_REVIEW_ERROR' | translate }}
 		.new-comment-wrapper.column.column-left.m-bottom-3(ng-if='documentCtrl.alreadyUploaded')
 			p.title-2.text-base.black.m-bottom-1
-				| You have already reviewed this document
+				| {{ 'ALREADY_REVIEWED_ERROR' | translate }}
 		.list-comment-wrapper.column(ng-repeat='comment in documentCtrl.comments')
 			.list-comment-item.column.m-bottom-5
 				.row.row-space-between.m-bottom-1

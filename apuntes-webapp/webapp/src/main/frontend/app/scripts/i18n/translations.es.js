@@ -35,10 +35,55 @@ define([], function() {
 		AUTHOR: 'Autor',
 		DATE: 'Fecha',
 		SUBJECT: 'Materia',
-		DOWNLOAD: 'Download',
+		DOWNLOAD: 'Descargar',
 		PREVIEW: 'Vista Previa',
 		COMMENTS: 'Comentarios',
-		ADD_COMMENT: 'Agregar Comentario'
+		ADD_COMMENT: 'Agregar Comentario',
+		OWN_FILE_REVIEW_ERROR: 'No puedes agregar un comentario a un apunte propio',
+		ALREADY_REVIEWED_ERROR: 'Ya has agregado un comentario a este apunte',
 
+		// Log in
+		LOG_IN: 'Iniciar Sesión',
+		USER: 'Usuario',
+		PASSWORD: 'Contraseña',
+		REGISTER: 'Crear Cuenta',
+
+		// Register
+		REGISTER_ME: 'Registerme',
+		NAME: 'Nombre',
+		LAST_NAME: 'Apellido',
+		MAIL: 'Mail',
+		RE_PASSWORD: 'Repetir Contraseña',
+
+		// Upload
+		UPLOAD: 'Subir Apunte',
+		FILE_NAME: 'Nombre del Apunte',
+		FILE_DESCRIPTION: 'Descripción del Apunte',
+		UNIVERSITY: 'Universidad',
+		CHOOSE_UNIVERSITY: 'Elegir Universidad',
+		PROGRAM: 'Carrera',
+		CHOOSE_PROGRAM: 'Elegir Carrera',
+		SUBJECT: 'Materia',
+		CHOOSE_SUBJECT: 'Elegir Materia',
+		DIFFERENT_SUBJECT: 'Subir Apunte a una Materia distinta',
+		FILE: 'Apunte',
+		CHOOSE_FILE: 'Elegir Archivo',
+		NO_FILE: 'Ningún archivo seleccionado',
+		FILE_UPLOADED: 'Apunte Subido',
+		FILE_ERROR: 'Error al subir apunte',
+
+		// Index
+		SITE_TITLE: 'Auntes Paw',
+		LOG_OUT: 'Salir',
+
+		/****** Directives ******/
+		// Go back
+		BACK_TO: 'Volver a',
+
+		// New Document
+		UPLOAD_FILE: 'Subir Apunte',
+		TITLE: 'Título',
+		DESCRIPTION: 'Descripción',
+		CANCEL: 'Cancelar'
 	};
 });

@@ -3,11 +3,8 @@
   .section-header
     .item
       h1.title-3.text-base.green.m-bottom-3
-        | {{ 'UNIVERSITIES' | translate }}
-    .item
-      a.m-right-1.action(type='button' ng-href='#!/mail')
-        | send mail
+        | {{ 'UNIVERSITIES' | translate }} gilada
   .row.m-bottom-3.section-search
-    searchbox(filter='searchText' placeholder="'SEARCH_UNIVERSITY'")
+    searchbox(filter='searchText' placeholder="{{'SEARCH_UNIVERSITY' | translate}}")
   .list-wrapper.list-wide(ng-repeat='uni in homeCtrl.universities | filter:searchText')
     university(name='uni.name' id='uni.universityId' goto='indexCtrl.goto(toType, toId, fromName)')

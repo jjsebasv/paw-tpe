@@ -2,7 +2,8 @@ doctype html
 html.no-js
 	head
 		meta(charset='utf-8')
-		title Apuntes Paw
+		title
+			| {{ 'SITE_TILE' | translate }}
 		meta(name='description', content='')
 		// build:css(.tmp) styles/main.css
 		link(rel='stylesheet' href='styles/application.css')
@@ -21,7 +22,7 @@ html.no-js
 						a.m-right-1.action(ng-href='#!/profile/{{indexCtrl.client.clientId}}' ng-if='indexCtrl.client')
 							| {{indexCtrl.client.name}}
 						button.m-right-1.action(ng-click='indexCtrl.logOut()' ng-if='indexCtrl.client')
-							| Log out ->
+							| {{ 'LOG_OUT' | translate }}
 			.max-content-wrapper.mid.content(ng-view='')
 		// build:js(.) scripts/oldieshim.js
 		//if lt IE 9

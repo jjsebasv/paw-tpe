@@ -38,7 +38,52 @@ define([], function() {
 		DOWNLOAD: 'Download',
 		PREVIEW: 'Preview',
 		COMMENTS: 'Comments',
-		ADD_COMMENT: 'Add Comment'
+		ADD_COMMENT: 'Add Comment',
+		OWN_FILE_REVIEW_ERROR: 'You can\'t post a review to a file of your own',
+		ALREADY_REVIEWED_ERROR: 'You have already reviewed this document',
 
+		// Log in
+		LOG_IN: 'Log in',
+		USER: 'User',
+		PASSWORD: 'Password',
+		REGISTER: 'Register',
+
+		// Register
+		REGISTER_ME: 'Register',
+		NAME: 'Name',
+		LAST_NAME: 'Last Name',
+		MAIL: 'Mail',
+		RE_PASSWORD: 'Repeat password',
+
+		// Upload
+		UPLOAD: 'Upload',
+		FILE_NAME: 'File Name',
+		FILE_DESCRIPTION: 'File Description',
+		UNIVERSITY: 'University',
+		CHOOSE_UNIVERSITY: 'Choose University',
+		PROGRAM: 'Program',
+		CHOOSE_PROGRAM: 'Choose Program',
+		SUBJECT: 'Subject',
+		CHOOSE_SUBJECT: 'Choose Subject',
+		DIFFERENT_SUBJECT: 'Upload File to a different subject',
+		FILE: 'File',
+		CHOOSE_FILE: 'Choose File',
+		NO_FILE: 'Not File selected',
+		FILE_UPLOADED: 'File Uploaded',
+		FILE_ERROR: 'Error while uploading',
+
+		// Index
+		SITE_TITLE: 'Auntes Paw',
+		LOG_OUT: 'Log Out',
+
+		/****** Directives ******/
+		// Go back
+		BACK_TO: 'Go back to',
+
+		// New Document
+		UPLOAD_FILE: 'Upload file',
+		TITLE: 'Title',
+		DESCRIPTION: 'Description',
+		CANCEL: 'Cancel'
 	};
 });
