@@ -17,6 +17,23 @@ html {
   height: 100%;
 }
 
+.chosen-container-single .chosen-single {
+  background: $white;
+  width: 100%;
+  height: 38px;
+  padding: 0px 10px;
+  border: 0;
+  border-radius: 0;
+  box-shadow: none;
+  line-height: 38px;
+
+  span {
+    height: 38px;
+    line-height: 38px;
+    background: white;
+  }
+}
+
 .logo {
   height: 30px;
 }
