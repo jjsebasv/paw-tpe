@@ -16,7 +16,7 @@
 			.row(ng-if='documentCtrl.document')
 				a.button-green.m-right-3(target='_self' ng-href='{{documentCtrl.downloadPath}}' download='prueba.pdf')
 					| {{ 'DOWNLOAD' | translate }}
-				button.button-blue
+				a.button-blue(target='_blank' ng-href='{{documentCtrl.previewPath}}')
 					| {{ 'PREVIEW' | translate }}
 	.separator
 	.column(ng-if='documentCtrl.document !== undefined')

@@ -9,11 +9,11 @@ define([
 ], function(frontend) {
 
     frontend.controller('UploadController', [
-      'documentService', 'universityService', 'programService', 'courseService', 'Upload', '$scope', '$routeParams',
-      function(documentService, universityService, programService, courseService, Upload, $scope, $routeParams) {
+      'documentService', 'universityService', 'programService', 'courseService', 'Upload', '$scope', '$routeParams', 'spinnerService',
+      function(documentService, universityService, programService, courseService, Upload, $scope, $routeParams, spinnerService) {
         var _this = this;
         this.courseid = $routeParams.courseId;
-        spinnerService.showSpinner();
+        spinnerService.hideSpinner();
 
         if (!this.courseid) {
           universityService.getAllUnis().then(

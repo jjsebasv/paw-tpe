@@ -13,6 +13,7 @@ define(['frontend', 'services/documentService', 'services/courseService', 'direc
               _this.document.course = result.data.name;
             });
           _this.downloadPath = documentService.downloadFile(_this.document.documentId);
+          _this.previewPath = documentService.previewFile(_this.document.documentId);
         });
 
         var getComments = function() {
