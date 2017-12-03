@@ -2,19 +2,22 @@
 define([
 		'frontend',
 		'directives/searchboxDirective',
-		'directives/backDirective'
+		'directives/backDirective',
+	  'services/spinnerService'
 	],
 	function(frontend) {
 
 	frontend.controller('IndexCtrl',
-		['$location', '$route', '$translate', 'localStorageService', '$window', '$rootScope',
-		function($location, $route, $translate, localStorageService, $window, $rootScope) {
+		['$location', '$route', '$translate', 'localStorageService', '$window', '$rootScope', 'spinnerService',
+		function($location, $route, $translate, localStorageService, $window, $rootScope, spinnerService) {
 
 			this.client = localStorageService.get('client');
 
 			this.dissmiss = function() {
 				$rootScope.registered = false;
 			};
+
+			spinnerService.hideSpinner();
 
       this.goto = function(toType, toId, fromName) {
 				if (fromName !== 'isBack') {
@@ -29,8 +32,9 @@ define([
 				$location.path(toType + '/' + toId);
       };
 
-			this.changeLanguage = function() {
-				$translate.use('es');
+			this.changeLanguage = function(lang) {
+				$translate.use(lang);
+				$rootScope.lang = lang;
 			};
 
 			this.getBack = function() {

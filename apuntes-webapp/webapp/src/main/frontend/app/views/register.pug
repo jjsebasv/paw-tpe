@@ -6,33 +6,39 @@
     novalidate
     ng-submit='RegisterController.register()'
   )
-    .column.column-left
-      label.text-5.text-base.grey-2.m-bottom-1
-        | {{ 'NAME' | translate }}
-      input.input-base.m-bottom-2(name='name' ng-model='registerCtrl.userName' required)
-    .column.column-left
-      label.text-5.text-base.grey-2.m-bottom-1
-        | {{ 'LAST_NAME' | translate }}
-      input.input-base.m-bottom-2(name='surname' ng-model='registerCtrl.userLastname' required)
-    .column.column-left
-      label.text-5.text-base.grey-2.m-bottom-1
-        | {{ 'USER' | translate }}
-      input.input-base.m-bottom-2(name='user' ng-model='registerCtrl.username' required)
-    .column.column-left
-      label.text-5.text-base.grey-2.m-bottom-1
-        | {{ 'MAIL' | translate }}
-      input.input-base.m-bottom-2(name='email' type='email' ng-model='registerCtrl.mail' required)
-    .column.column-left
-      label.text-5.text-base.grey-2.m-bottom-1
-        | {{ 'PASSWORD' | translate }}
-      input.input-base.m-bottom-5(name='password' type='password' ng-model='registerCtrl.password' required)
-    .column.column-left
-      label.text-5.text-base.grey-2.m-bottom-1
-        | {{ 'RE_PASSWORD' | translate }}
-      input.input-base.m-bottom-5(name='repeat-password' type='password' required)
-    .column.column-left
-      label.text-5.text-base.grey-2.m-bottom-1
-        | {{ 'UNIVERSITY' | translate }}
+    .row.row-center.m-bottom-1.m-bottom-3
+      .column.column-left.m-right-3
+        label.text-5.text-base.grey-2.m-bottom-1
+          | {{ 'NAME' | translate }}
+        input.input-base(name='user' ng-model='registerCtrl.userName' required)
+      .column.column-left
+        label.text-5.text-base.grey-2.m-bottom-1
+          | {{ 'LAST_NAME' | translate }}
+        input.input-base(name='user' ng-model='registerCtrl.userLastname' required)
+    .row.row-center.m-bottom-1.m-bottom-3
+      .column.column-left.m-right-3
+        label.text-5.text-base.grey-2.m-bottom-1
+          | {{ 'USER' | translate }}
+        input.input-base(name='user' ng-model='registerCtrl.username' required)
+      .column.column-left
+        label.text-5.text-base.grey-2.m-bottom-1
+          | {{ 'MAIL' | translate }}
+        input.input-base(name='email' type='email' ng-model='registerCtrl.mail' required)
+    .row.row-center.m-bottom-1.m-bottom-3
+      .column.column-left.m-right-3
+        label.text-5.text-base.grey-2.m-bottom-1
+          | {{ 'PASSWORD' | translate }}
+        input.input-base(name='password' type='password' ng-model='registerCtrl.password' required)
+      .column.column-left
+        label.text-5.text-base.grey-2.m-bottom-1
+          | {{ 'RE_PASSWORD' | translate }}
+        input.input-base(name='repeat-password' type='password' required)
+    .column.column-left.m-bottom-1.m-bottom-3
+      .row.row-center.m-bottom-1
+        label.text-5.text-base.grey-2
+          | {{ 'UNIVERSITY' | translate }}
+        .mod.model-2.model-inline(ng-hide='registerCtrl.universities != null')
+          .spinner
       select.form-input(
         chosen
         ng-model='registerCtrl.selectedUniversity'
@@ -42,9 +48,12 @@
       )
         option(value='')
           | {{ 'CHOOSE_UNIVERSITY' | translate }}
-    .column.column-left
-      label.text-5.text-base.grey-2.m-bottom-1
-        | {{ 'PROGRAM' | translate }}
+    .column.column-left.m-bottom-5(ng-hide='!registerCtrl.selectedUniversity')
+      .row.row-center.m-bottom-1
+        label.text-5.text-base.grey-2
+          | {{ 'PROGRAM' | translate }}
+        .mod.model-2.model-inline(ng-hide='registerCtrl.programs != null')
+          .spinner
       select.form-input(
         chosen
         ng-model='registerCtrl.selectedProgram'

@@ -2,13 +2,14 @@
 define([
   'frontend',
   'services/sessionService',
+  'services/spinnerService',
   'services/universityService',
   'services/programService'
 ], function(frontend) {
 
     frontend.controller('RegisterController', [
-      'sessionService', 'md5', '$location', '$rootScope', 'universityService', 'programService',
-      function(sessionService, md5, $location, $rootScope, universityService, programService) {
+      'sessionService', 'md5', '$location', '$rootScope', 'universityService', 'programService', 'spinnerService',
+      function(sessionService, md5, $location, $rootScope, universityService, programService, spinnerService) {
         var _this = this;
 
         this.register = function () {
@@ -49,6 +50,9 @@ define([
           });
 
         this.getPrograms = function () {
+
+          _this.programs =  null;
+
           programService.getUniPrograms(_this.selectedUniversity).then(
             function(result) {
               _this.programs = result.data.programList;
