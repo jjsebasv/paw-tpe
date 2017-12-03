@@ -66,6 +66,10 @@ define(['routes',
 				['$rootScope',
 				'localStorageService',
 				function($rootScope, localStorageService) {
+					if ($rootScope.client !== localStorageService.get('client')) {
+						$rootScope.client = localStorageService.get('client');
+					};
+
 					var requireLogin = function(path) {
 						return path.includes('profile') || path.includes('upload');
 					};
@@ -74,11 +78,16 @@ define(['routes',
 						return path.includes('login');
 					};
 
+					var alreadyLoggedIn = function(path) {
+						return (path.includes('login') || path.includes('register')) && ($rootScope.client !== null);
+					};
+
 					$rootScope.$on('$locationChangeStart',
 						function (event, next, current) {
 							var requiresLogin = requireLogin(next);
 							var sessionAvailable = localStorageService.get('client');
-							if (!comesFromLogin(current) && !sessionAvailable && requiresLogin) {
+							var loginTrue = alreadyLoggedIn(next);
+							if ((!comesFromLogin(current) && !sessionAvailable && requiresLogin) || loginTrue) {
 								event.preventDefault();
 							}
 						}

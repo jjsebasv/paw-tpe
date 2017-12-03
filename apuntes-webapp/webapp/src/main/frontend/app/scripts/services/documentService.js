@@ -39,6 +39,7 @@ define(['frontend', 'services/httpRequestService'], function(frontend) {
           },
 
           downloadFile: function(documentId) {
+            // FIXME change this
             return 'http://localhost:8080/webapp/api/v1/documents/' + documentId + '/download';
           }
 

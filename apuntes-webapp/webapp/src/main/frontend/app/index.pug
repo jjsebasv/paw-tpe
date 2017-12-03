@@ -9,21 +9,26 @@ html.no-js
 		link(rel='stylesheet' href='styles/application.css')
 		// endbuild
 	body(ng-controller='IndexCtrl as indexCtrl')
+		// FIXME @heyimnowi style here when register is ok
+		.alert.alert-success.alert-dismissable.fade.in(ng-if='registered')
+			a.close(href='#' data-dismiss='alert' aria-label='close' ng-click='indexCtrl.dismiss()') ×
+			span
+				| {{ 'WELCOME' | translate }}
 		.column.column-center.test
 			nav.header.row.row-center
 				.max-content-wrapper.row.row-space-between
 					a(ng-href='#!/')
 						img.logo(src='images/logo.svg')
 					.actions
-						a.m-right-1.action(type='button' ng-href='#!/upload')
+						a.m-right-1.action(type='button' ng-href='#/upload')
 							img(src='images/add_book.svg')
-						a(type='button' ng-href='#!/login' ng-if='!indexCtrl.client')
+						a(type='button' ng-href='#/login' ng-if='!client')
 							img(src='images/login.svg')
 						button.m-right-1.action(ng-click='indexCtrl.changeLanguage()')
 							| ES
-						a.m-right-1.action(ng-href='#!/profile/{{indexCtrl.client.clientId}}' ng-if='indexCtrl.client')
+						a.m-right-1.action(ng-href='#/profile' ng-if='client')
 							| {{indexCtrl.client.name}}
-						button.m-right-1.action(ng-click='indexCtrl.logOut()' ng-if='indexCtrl.client')
+						button.m-right-1.action(ng-click='indexCtrl.logOut()' ng-if='client')
 							| {{ 'LOG_OUT' | translate }}
 			.max-content-wrapper.mid.content(ng-view='')
 		// build:js(.) scripts/oldieshim.js
