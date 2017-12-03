@@ -2,21 +2,26 @@
 define(['frontend', 'services/sessionService'], function(frontend) {
 
     frontend.controller('LoginController', [
-      'sessionService', '$location', 'localStorageService',
-      function(sessionService, $location, localStorageService) {
+      'sessionService', '$location', 'localStorageService', '$state', '$q',
+      function(sessionService, $location, localStorageService, $state, $q) {
         var _this = this;
 
         this.login = function(redirectTo) {
-          sessionService.login(_this.username, _this.password).then(
+          var path = angular.isDefined(redirectTo) ? redirectTo : '/';
+          const promises = [];
+          const p = sessionService.login(_this.username, _this.password).then(
             function (response) {
-              var path = angular.isDefined(redirectTo) ? redirectTo : '/';
-              sessionService.saveToken(response.data.token, _this.username);
+              const tokenPromise = sessionService.saveToken(response.data.token, _this.username);
+              promises.push(tokenPromise);
               $location.path(path);
             }).catch(
               function(error) {
-                console.log('some weird error');
-                $location.path('/');
+                path = '/';
+                $location.path(path);
               });
+
+          promises.push(p);
+
         };
     }]);
 });

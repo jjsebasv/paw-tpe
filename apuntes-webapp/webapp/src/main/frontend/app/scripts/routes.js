@@ -9,7 +9,7 @@ define([], function() {
                 templateUrl: '/views/home.html',
                 controller: 'HomeController'
             },
-            '/profile/:userId': {
+            '/profile': {
                 templateUrl: '/views/profile.html',
                 controller: 'ProfileController'
             },

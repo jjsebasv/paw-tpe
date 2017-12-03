@@ -2,16 +2,17 @@
 define(['frontend', 'services/httpRequestService'], function(frontend) {
 
     frontend.service('sessionService', [
-			'httpRequestService', 'localStorageService',
-			function(httpRequestService, localStorageService) {
+			'httpRequestService', 'localStorageService', '$rootScope',
+			function(httpRequestService, localStorageService, $rootScope) {
         var user;
 				return {
 
           saveToken: function(token, username) {
             localStorageService.set('sessionToken', token);
-            httpRequestService.tokenedRequest('GET', 'clients/me', null).then(
+            return httpRequestService.tokenedRequest('GET', 'clients/me', null).then(
               function (response) {
                 localStorageService.set('client', response.data);
+                $rootScope.client = response.data;
               });
           },
 
@@ -24,6 +25,7 @@ define(['frontend', 'services/httpRequestService'], function(frontend) {
           },
 
           register: function(userName, user, pass, mail) {
+            // FIXME unhardcode this
             var data = {
               name: userName,
               username: user,
