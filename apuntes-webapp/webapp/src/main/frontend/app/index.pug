@@ -9,6 +9,8 @@ html.no-js
 		link(rel='stylesheet' href='styles/application.css')
 		// endbuild
 	body(ng-controller='IndexCtrl as indexCtrl')
+		.mod.model-2(ng-show='showSpinner')
+			.spinner
 		.column.column-center.test
 			nav.header.row.row-center
 				.max-content-wrapper.row.row-space-between

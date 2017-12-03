@@ -26,7 +26,6 @@ define([
       };
 
 			this.changeLanguage = function() {
-				debugger
 				$translate.use('es');
 			};
 
