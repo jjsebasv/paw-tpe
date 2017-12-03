@@ -12,9 +12,15 @@ define([
         var _this = this;
 
         this.register = function () {
-          sessionService.register(_this.userName, _this.username, _this.password, _this.mail).then(
+          sessionService.register(
+            _this.userName,
+            _this.username,
+            _this.password,
+            _this.mail,
+            _this.selectedUniversity,
+            _this.selectedProgram
+          ).then(
             function (response) {
-              debugger
               sessionService.saveToken(response.data.token, _this.username);
               $location.path('/');
               $rootScope.registered = true;

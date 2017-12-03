@@ -24,15 +24,14 @@ define(['frontend', 'services/httpRequestService'], function(frontend) {
             return httpRequestService.defaultRequest('POST', 'clients/login', data);
           },
 
-          register: function(userName, user, pass, mail) {
-            // FIXME unhardcode this
+          register: function(userName, user, pass, mail, university, program) {
             var data = {
               name: userName,
               username: user,
               password: pass,
               email: mail,
-              programId: 1,
-              universityId: 1
+              programId: program,
+              universityId: university
             };
             return httpRequestService.defaultRequest('POST', 'clients/register', data);
           }
