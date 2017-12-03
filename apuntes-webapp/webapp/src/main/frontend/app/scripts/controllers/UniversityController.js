@@ -15,23 +15,23 @@ define(['frontend',
         var _this = this;
         var uniId = $routeParams.universityId;
         spinnerService.showSpinner();
-        const promises = [];
+        var promises = [];
 
 
-        const getUniversityPromise = universityService.getUniversity(uniId).then(
+        var getUniversityPromise = universityService.getUniversity(uniId).then(
           function(result) {
             _this.university = result.data;
           });
         promises.push(getUniversityPromise);
 
-        const getUniProgramsPromise = programService.getUniPrograms(uniId).then(
+        var getUniProgramsPromise = programService.getUniPrograms(uniId).then(
           function(result) {
             _this.programs = result.data.programList;
           });
-        promises.push(getUniProgramsPromise)
+        promises.push(getUniProgramsPromise);
 
 
-        $q.all(promises).then(() => {
+        $q.all(promises).then(function() {
           spinnerService.hideSpinner();
         });
 

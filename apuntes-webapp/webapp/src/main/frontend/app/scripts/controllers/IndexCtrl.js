@@ -29,8 +29,9 @@ define([
 				$location.path(toType + '/' + toId);
       };
 
-			this.changeLanguage = function() {
-				$translate.use('es');
+			this.changeLanguage = function(lang) {
+				$translate.use(lang);
+				$rootScope.lang = lang;
 			};
 
 			this.getBack = function() {

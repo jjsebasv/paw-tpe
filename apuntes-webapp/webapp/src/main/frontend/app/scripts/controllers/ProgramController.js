@@ -7,23 +7,23 @@ define(['frontend', 'services/programService', 'services/courseService',
       function(programService, courseService, $routeParams, $location, $route, spinnerService, $q) {
         var _this = this;
         var programId = $routeParams.programId;
-        const promises = [];
+        var promises = [];
 
         spinnerService.showSpinner();
 
-        const getProgramPromise = programService.getProgram(programId).then(function(result) {
+        var getProgramPromise = programService.getProgram(programId).then(function(result) {
           _this.program = result.data;
         });
         promises.push(getProgramPromise);
 
-        const getCoursesPromise = courseService.getProgramCourses(programId).then(
+        var getCoursesPromise = courseService.getProgramCourses(programId).then(
           function(result) {
             _this.courses = result.data.courseList;
           });
 
         promises.push(getCoursesPromise);
 
-        $q.all(promises).then(() => {
+        $q.all(promises).then(function() {
           spinnerService.hideSpinner();
         });
 

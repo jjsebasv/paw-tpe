@@ -8,10 +8,10 @@ define(['frontend', 'services/sessionService'], function(frontend) {
 
         this.login = function(redirectTo) {
           var path = angular.isDefined(redirectTo) ? redirectTo : '/';
-          const promises = [];
-          const p = sessionService.login(_this.username, _this.password).then(
+          var promises = [];
+          var p = sessionService.login(_this.username, _this.password).then(
             function (response) {
-              const tokenPromise = sessionService.saveToken(response.data.token, _this.username);
+              var tokenPromise = sessionService.saveToken(response.data.token, _this.username);
               promises.push(tokenPromise);
               $location.path(path);
             }).catch(

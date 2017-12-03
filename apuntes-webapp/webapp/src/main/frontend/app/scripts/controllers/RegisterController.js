@@ -47,7 +47,6 @@ define([
           });
 
         this.getPrograms = function () {
-          debugger
           programService.getUniPrograms(_this.selectedUniversity).then(
             function(result) {
               _this.programs = result.data.programList;
