@@ -60,9 +60,6 @@ public class ClientController {
 
         final Client client = cs.findByUsername(username);
 
-        // FIXME check this
-        System.out.println("MIRA ACA ** " + (client == null) + " -- " + username + " -- " + password);
-
         if (client == null || !passwordEncoder.isPasswordValid(client.getPassword(), password, WebAuthConfig.SECRET)) {
             return Response.status(Response.Status.UNAUTHORIZED)
                     .entity(new ErrorMessageDTO(Response.Status.UNAUTHORIZED))
@@ -167,13 +164,10 @@ public class ClientController {
         Client client = cs.findByUsername(clientDTO.getName());
 
         if (client == null) {
-            throw new ValidationException(1, "Invalid username", "username");
+            throw new ValidationException(2, "Invalid username", "username");
         }
 
-        final ClientDTO answer = new ClientDTO();
-        answer.setRecoveryQuestion(client.getRecoveryQuestion());
-
-        return Response.ok(answer).build();
+        return Response.ok(new RecoveryQuestionDTO(client)).build();
     }
 
     @POST
