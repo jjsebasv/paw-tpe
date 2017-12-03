@@ -6,6 +6,7 @@ import ar.edu.itba.paw.dtos.ReviewDTO;
 import ar.edu.itba.paw.dtos.ReviewListDTO;
 import ar.edu.itba.paw.interfaces.ClientService;
 import ar.edu.itba.paw.interfaces.DocumentService;
+import ar.edu.itba.paw.interfaces.EmailService;
 import ar.edu.itba.paw.interfaces.ReviewService;
 import ar.edu.itba.paw.models.Client;
 import ar.edu.itba.paw.models.Document;
@@ -28,6 +29,7 @@ import java.util.List;
 public class ReviewController {
 
     private final ReviewService rs;
+    private final EmailService es;
 
     @Context
     private UriInfo uriInfo;
@@ -36,8 +38,9 @@ public class ReviewController {
     private final DocumentService ds;
 
     @Autowired
-    public ReviewController(ReviewService rs, ClientService cs, DocumentService ds) {
+    public ReviewController(ReviewService rs, EmailService es, ClientService cs, DocumentService ds) {
         this.rs = rs;
+        this.es = es;
         this.cs = cs;
         this.ds = ds;
     }
@@ -81,6 +84,8 @@ public class ReviewController {
             throw new ValidationException(3, "You already reviewed this document", "fileid");
         }
 
+        validateReview(reviewDTO);
+
         final Review review = rs.create(
                 new ReviewBuilder()
                         .setRanking(reviewDTO.getRanking())
@@ -89,6 +94,8 @@ public class ReviewController {
                         .setUser(client)
                         .createModel()
         );
+
+        es.sendNewCommentEmail(document.getUser(), document, review);
 
         final URI uri = uriInfo.getAbsolutePathBuilder().path(String.valueOf(review.getReviewid())).build();
         return Response.created(uri).build();
