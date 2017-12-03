@@ -9,27 +9,27 @@
     .column.column-left
       label.text-5.text-base.grey-2.m-bottom-1
         | {{ 'NAME' | translate }}
-      input.input-base.m-bottom-2(name='user' ng-model='registerCtrl.userName')
+      input.input-base.m-bottom-2(name='user' ng-model='registerCtrl.userName' required)
     .column.column-left
       label.text-5.text-base.grey-2.m-bottom-1
         | {{ 'LAST_NAME' | translate }}
-      input.input-base.m-bottom-2(name='user' ng-model='registerCtrl.userLastname')
+      input.input-base.m-bottom-2(name='user' ng-model='registerCtrl.userLastname' required)
     .column.column-left
       label.text-5.text-base.grey-2.m-bottom-1
         | {{ 'USER' | translate }}
-      input.input-base.m-bottom-2(name='user' ng-model='registerCtrl.username')
+      input.input-base.m-bottom-2(name='user' ng-model='registerCtrl.username' required)
     .column.column-left
       label.text-5.text-base.grey-2.m-bottom-1
         | {{ 'MAIL' | translate }}
-      input.input-base.m-bottom-2(name='email' type='email' ng-model='registerCtrl.mail')
+      input.input-base.m-bottom-2(name='email' type='email' ng-model='registerCtrl.mail' required)
     .column.column-left
       label.text-5.text-base.grey-2.m-bottom-1
         | {{ 'PASSWORD' | translate }}
-      input.input-base.m-bottom-5(name='password' type='password' ng-model='registerCtrl.password')
+      input.input-base.m-bottom-5(name='password' type='password' ng-model='registerCtrl.password' required)
     .column.column-left
       label.text-5.text-base.grey-2.m-bottom-1
         | {{ 'RE_PASSWORD' | translate }}
-      input.input-base.m-bottom-5(name='repeat-password' type='password')
+      input.input-base.m-bottom-5(name='repeat-password' type='password' required)
     .column.column-left
       label.text-5.text-base.grey-2.m-bottom-1
         | {{ 'UNIVERSITY' | translate }}
