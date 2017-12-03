@@ -8,14 +8,14 @@ define(['frontend', 'services/courseService', 'services/documentService', 'servi
         var _this = this;
         this.courseId = $routeParams.courseId;
         this.documents = [];
-        const promises = [];
+        var promises = [];
         spinnerService.showSpinner();
 
-        const getCoursePromise = courseService.getCourse(this.courseId).then(function(result) {
+        var getCoursePromise = courseService.getCourse(this.courseId).then(function(result) {
           _this.course = result.data;
         });
 
-        const getCourseDocumentsPromise = documentService.getCourseDocuments(this.courseId).then(
+        var getCourseDocumentsPromise = documentService.getCourseDocuments(this.courseId).then(
           function(result) {
             _this.documents = result.data.documentList;
           });
@@ -23,7 +23,7 @@ define(['frontend', 'services/courseService', 'services/documentService', 'servi
         promises.push(getCoursePromise);
         promises.push(getCourseDocumentsPromise);
 
-        $q.all(promises).then(() => {
+        $q.all(promises).then(function() {
           spinnerService.hideSpinner();
         });
 

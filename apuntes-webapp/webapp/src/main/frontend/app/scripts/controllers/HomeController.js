@@ -12,7 +12,7 @@ define([
 	frontend.controller('HomeController', [
 		'universityService', 'sessionService', '$route', 'spinnerService',
 		function(universityService, sessionService, $route, spinnerService) {
-			let _this = this;
+			var _this = this;
       spinnerService.showSpinner();
 			universityService.getAllUnis().then(
 				function(result) {

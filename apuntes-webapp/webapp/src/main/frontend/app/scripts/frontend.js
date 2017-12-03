@@ -71,7 +71,7 @@ define(['routes',
 					};
 
 					var requireLogin = function(path) {
-						return path.includes('profile') || path.includes('upload');
+						return path.includes('profile') || path.includes('upload') || path.includes('change-password');
 					};
 
 					var comesFromLogin = function(path) {

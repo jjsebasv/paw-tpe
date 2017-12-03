@@ -63,7 +63,7 @@
         | {{ 'RECOVERY_ANSWER' | translate }}
       input.input-base.m-bottom-2(name='answer' ng-model='registerCtrl.recoveryAnswer' required)
   .row.row-center
-    button.button-grey.m-right-3()
+    a.button-grey.m-right-3(type='button' ng-href='/')
       | {{ 'CANCEL' | translate }}
     button.button-blue(ng-click='registerCtrl.register()')
       | {{ 'REGISTER_ME' | translate }}

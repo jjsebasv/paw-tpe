@@ -40,18 +40,25 @@ define(['frontend', 'services/httpRequestService'], function(frontend) {
 
           getQuestion: function(user) {
             var data = {
-              username: user,
+              name: user
             };
             return httpRequestService.defaultRequest('POST', 'clients/reset_password/question', data);
           },
 
           resetPassword: function(user, answer, newPassword) {
             var data = {
-              username: user,
+              name: user,
               secretAnswer: answer,
               password: newPassword
             };
             return httpRequestService.defaultRequest('POST', 'clients/reset_password', data);
+          },
+
+          changePassword: function(newPassword) {
+            var data = {
+              password: newPassword
+            };
+            return httpRequestService.tokenedRequest('POST', 'clients/me/change_password', data);
           }
 
 				};

@@ -1,34 +1,42 @@
-.column.column-center(ng-controller='ResetPasswordController as resetpassCtrl')
+.column.column-center(ng-controller='ResetPasswordController as resetpassCtrl' ng-hide='showSpinner')
   h1.title-3.text-base.green.m-bottom-3
     | {{ 'RESET_PASSWORD' | translate | uppercase }}
   form(
-    name='ResetPasswordController.loginForm'
+    name='ResetPasswordController.resetForm'
     novalidate
-    ng-submit='ResetPasswordController.login()'
+    ng-submit='ResetPasswordController.resetPassword()'
   )
     .column.column-left
       label.text-5.text-base.grey-2.m-bottom-1
         | {{ 'USER' | translate }}
-      input.input-base.m-bottom-2(name='username' ng-model='resetpassCtrl.username' ng-disabled='resetpassCtrl.validUser')
+      input.input-base.m-bottom-2(name='username' ng-model='resetpassCtrl.username' ng-disabled='resetpassCtrl.validUser' ng-change='resetpassCtrl.validate()')
+      label.text-5.text-base.grey-2.m-bottom-1(ng-if='resetpassCtrl.notValidUser')
+        | {{ 'USER_NOT_VALID' | translate }}
     span(ng-if='resetpassCtrl.validUser')
       .column.column-left
         label.text-5.text-base.grey-2.m-bottom-1
           | {{ 'QUESTION' | translate }}
-        input.input-base.m-bottom-2(name='question' ng-model='resetpassCtrl.question' disabled)
+        input.input-base.m-bottom-2(name='question' ng-model='resetpassCtrl.question' ng-disabled='true')
       .column.column-left
         label.text-5.text-base.grey-2.m-bottom-1
           | {{ 'ANSWER' | translate }}
-        input.input-base.m-bottom-5(name='answer' type='password' ng-model='resetpassCtrl.answer' required)
+        input.input-base.m-bottom-5(name='answer' type='password' ng-model='resetpassCtrl.answer' required ng-change='resetpassCtrl.validate()')
       .column.column-left
         label.text-5.text-base.grey-2.m-bottom-1
           | {{ 'PASSWORD' | translate }}
-        input.input-base.m-bottom-5(name='password' type='password' ng-model='resetpassCtrl.password' required)
+        input.input-base.m-bottom-5(name='password' type='password' ng-model='resetpassCtrl.password' required ng-change='resetpassCtrl.validate()')
       .column.column-left
         label.text-5.text-base.grey-2.m-bottom-1
           | {{ 'RE_PASSWORD' | translate }}
-        input.input-base.m-bottom-5(name='repeat-password' type='password' ng-model='resetpassCtrl.repeatPassword' required)
+        input.input-base.m-bottom-5(name='repeat-password' type='password' ng-model='resetpassCtrl.repeatPassword' required ng-change='resetpassCtrl.validate()')
+        // FIXME this if is not working
+        label.text-5.text-base.grey-2.m-bottom-1(ng-if='!resetpassCtrl.samePassword')
+          | {{ 'NOT_SAME_PASS' | translate }}
   .row.row-center
-    button.button-grey.m-right-3()
+    a.button-grey.m-right-3(type='button' ng-href='#/login')
       | {{ 'CANCEL' | translate }}
-    button.button-blue(ng-click='resetpassCtrl.next()')
+    // FIXME @heyimnowi style on disabled
+    button.button-blue(ng-click='resetpassCtrl.next()' ng-disabled='!resetpassCtrl.canContinue')
       | {{ 'NEXT' | translate }}
+    label.text-5.text-base.grey-2.m-bottom-1(ng-if='resetpassCtrl.error')
+      | {{ 'RESET_PASS_ERROR' | translate }}

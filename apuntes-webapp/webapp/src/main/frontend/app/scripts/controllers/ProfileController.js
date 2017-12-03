@@ -7,23 +7,24 @@ define(['frontend', 'services/profileService', 'directives/documentDirective', '
       function(profileService, localStorageService, $location, spinnerService, $q) {
         var _this = this;
         this.client = localStorageService.get('client');
-        const promises = [];
+        var promises = [];
         spinnerService.showSpinner();
 
-        const getDocumentsPromise = profileService.getDocuments().then(
+        var getDocumentsPromise = profileService.getDocuments().then(
           function(response) {
             _this.files = response.data.documentList;
           });
 
-        const getReviewsPromise = profileService.getReviews().then(
+        promises.push(getDocumentsPromise);
+
+        var getReviewsPromise = profileService.getReviews().then(
           function(response) {
               _this.reviews = response.data.reviewList;
           });
 
-        promises.push(getDocumentsPromise);
         promises.push(getReviewsPromise);
 
-        $q.all(promises).then(() => {
+        $q.all(promises).then(function() {
           spinnerService.hideSpinner();
         });
     }]);
