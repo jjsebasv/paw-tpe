@@ -173,5 +173,9 @@ public class ReviewController {
         if (reviewDTO.getReview() == null || reviewDTO.getReview().isEmpty()) {
             throw new ValidationException(1, "Review can't be empty", "review");
         }
+
+        if (reviewDTO.getRanking() < 1 || reviewDTO.getRanking() > 5) {
+            throw new ValidationException(1, "Review must be between 1 and 5", "ranking");
+        }
     }
 }

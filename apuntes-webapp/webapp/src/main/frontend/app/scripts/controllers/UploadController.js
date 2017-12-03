@@ -3,6 +3,7 @@ define([
   'frontend',
   'services/documentService',
   'services/universityService',
+  'services/spinnerService',
   'services/programService',
   'services/courseService'
 ], function(frontend) {
@@ -12,6 +13,7 @@ define([
       function(documentService, universityService, programService, courseService, Upload, $scope, $routeParams) {
         var _this = this;
         this.courseid = $routeParams.courseId;
+        spinnerService.showSpinner();
 
         if (!this.courseid) {
           universityService.getAllUnis().then(

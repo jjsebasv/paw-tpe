@@ -24,7 +24,7 @@ public class EmailServiceImpl implements EmailService {
 
     private static final String USERNAME = "apuntespaw@gmail.com";
     private static final String PASSWORD = "12345qwerty";
-    private static final int MAX_CONNECT_ATTEMPTS = 5;
+    private static final int MAX_CONNECT_ATTEMPTS = 3;
 
     private static final String REGISTERED_EMAIL_SUBJECT = "Apuntes PAW: Bienvenido!";
     private static final String REGISTERED_EMAIL_BODY = "<p>Hola %s!,</p>" +
@@ -52,17 +52,19 @@ public class EmailServiceImpl implements EmailService {
     private MimeMessage message;
 
     public EmailServiceImpl() {
-        Properties props = new Properties();
-        props.put("mail.transport.protocol", "smtp");
-        props.put("mail.smtp.host", "smtp.gmail.com");
-        props.put("mail.smtp.port", "465");
-        props.put("mail.smtp.auth", "true");
 
-        props.put("mail.smtp.starttls.enable", "true");
-        props.put("mail.smtp.socketFactory.class", "javax.net.ssl.SSLSocketFactory");
+        LOGGER.info("Authenticating with SMTP server.");
 
+        Properties properties = new Properties();
+        properties.put("mail.transport.protocol", "smtp");
+        properties.put("mail.smtp.host", "smtp.gmail.com");
+        properties.put("mail.smtp.port", "465");
+        properties.put("mail.smtp.auth", "true");
 
-        Session session = Session.getInstance(props,
+        properties.put("mail.smtp.starttls.enable", "true");
+        properties.put("mail.smtp.socketFactory.class", "javax.net.ssl.SSLSocketFactory");
+
+        Session session = Session.getInstance(properties,
                 new Authenticator() {
                     protected PasswordAuthentication getPasswordAuthentication() {
                         return new PasswordAuthentication(USERNAME, PASSWORD);
@@ -77,14 +79,16 @@ public class EmailServiceImpl implements EmailService {
 
         for (int tries = 0; tries < MAX_CONNECT_ATTEMPTS; tries++) {
             try {
-                transport.connect();
+                transport.connect(USERNAME, PASSWORD);
 
                 if (transport.isConnected()) {
+                    LOGGER.info("Connected to SMTP server.");
                     break;
                 }
             } catch (NoSuchProviderException e) {
                 e.printStackTrace();
             } catch (MessagingException e) {
+                LOGGER.debug(e.toString());
                 LOGGER.error("Connection to SMTP server failed. Attempt {}/{}", tries + 1, MAX_CONNECT_ATTEMPTS);
             }
         }
@@ -125,12 +129,14 @@ public class EmailServiceImpl implements EmailService {
 
             for (tries = 0; tries < MAX_EMAILS_TRIES; tries++) {
                 try {
+                    LOGGER.info("Sending email. Attempt {}/{}", tries + 1, MAX_CONNECT_ATTEMPTS);
                     message.setRecipients(Message.RecipientType.TO, InternetAddress.parse(to.getEmail()));
-                    message.setSubject(subject);//formBean.getString(
+                    message.setSubject(subject);
                     message.setText(content, "utf-8", "html");
                     transport.send(message, InternetAddress.parse(to.getEmail()));
                     break;
                 } catch (MessagingException e) {
+                    LOGGER.debug(e.toString());
                     LOGGER.error("Sending failed. Attempt {}/{}", tries + 1, MAX_CONNECT_ATTEMPTS);
                 }
             }

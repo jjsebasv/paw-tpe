@@ -60,9 +60,6 @@ public class ClientController {
 
         final Client client = cs.findByUsername(username);
 
-        // FIXME check this
-        System.out.println("MIRA ACA ** " + (client == null) + " -- " + username + " -- " + password);
-
         if (client == null || !passwordEncoder.isPasswordValid(client.getPassword(), password, WebAuthConfig.SECRET)) {
             return Response.status(Response.Status.UNAUTHORIZED)
                     .entity(new ErrorMessageDTO(Response.Status.UNAUTHORIZED))
@@ -152,6 +149,25 @@ public class ClientController {
         );
 
         return Response.ok(new ClientDTO(cs.findById(client.getClientId()))).build();
+    }
+
+    @POST
+    @Path("/reset_password/question")
+    @Consumes(value = {MediaType.APPLICATION_JSON,})
+    @Produces(value = {MediaType.APPLICATION_JSON,})
+    public Response getSecretQuestion(final ExpandedClientDTO clientDTO) throws ValidationException {
+
+        if (clientDTO.getName() == null || clientDTO.getName().isEmpty()) {
+            throw new ValidationException(1, "Invalid username", "username");
+        }
+
+        Client client = cs.findByUsername(clientDTO.getName());
+
+        if (client == null) {
+            throw new ValidationException(2, "Invalid username", "username");
+        }
+
+        return Response.ok(new RecoveryQuestionDTO(client)).build();
     }
 
     @POST
@@ -304,6 +320,8 @@ public class ClientController {
                         .setRole(ClientRole.ROLE_USER)
                         .setProgram(program)
                         .setUniversity(program.getUniversity())
+                        .setRecoveryQuestion(clientDTO.getRecoveryQuestion())
+                        .setSecretAnswer(clientDTO.getSecretAnswer())
                         .createModel()
         );
 
@@ -320,7 +338,7 @@ public class ClientController {
         }
     }
 
-    private void validateClient(final ClientDTO clientDTO) throws ValidationException {
+    private void validateClient(final ExpandedClientDTO clientDTO) throws ValidationException {
 
         if (clientDTO.getName() == null || clientDTO.getName().isEmpty()) {
             throw new ValidationException(1, "Name can't be empty", "name");
@@ -332,6 +350,14 @@ public class ClientController {
 
         if (!EmailValidator.getInstance().isValid(clientDTO.getEmail())) {
             throw new ValidationException(1, "Email is invalid", "email");
+        }
+
+        if (clientDTO.getRecoveryQuestion() == null || clientDTO.getRecoveryQuestion().isEmpty()) {
+            throw new ValidationException(1, "Recovery question can't be empty", "recovery-question");
+        }
+
+        if (clientDTO.getSecretAnswer() == null || clientDTO.getSecretAnswer().isEmpty()) {
+            throw new ValidationException(1, "Secret answer can't be empty", "secret-answer");
         }
     }
 }

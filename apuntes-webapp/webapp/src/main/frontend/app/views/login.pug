@@ -1,4 +1,4 @@
-.column.column-center(ng-controller='LoginController as loginCtrl')
+.column.column-center(ng-controller='LoginController as loginCtrl' ng-hide='showSpinner')
   h1.title-3.text-base.green.m-bottom-3
     | {{ 'LOG_IN' | translate | uppercase }}
   form(

@@ -9,6 +9,8 @@ html.no-js
 		link(rel='stylesheet' href='styles/application.css')
 		// endbuild
 	body(ng-controller='IndexCtrl as indexCtrl')
+		.mod.model-2(ng-show='showSpinner')
+			.spinner
 		// FIXME @heyimnowi style here when register is ok
 		.alert.alert-success.alert-dismissable.fade.in(ng-if='registered')
 			a.close(href='#' data-dismiss='alert' aria-label='close' ng-click='indexCtrl.dismiss()') ×
