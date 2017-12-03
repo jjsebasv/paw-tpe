@@ -160,17 +160,11 @@ public class ClientController {
     @Produces(value = {MediaType.APPLICATION_JSON,})
     public Response resetPassword(final ExpandedClientDTO clientDTO) throws HttpException, ValidationException {
 
-        Client client = cs.getAuthenticatedUser();
-
-        if (client != null) {
-            throw new Http403Exception();
-        }
-
         if (clientDTO.getName() == null || clientDTO.getName().isEmpty()) {
             throw new ValidationException(1, "Invalid username", "username");
         }
 
-        client = cs.findByUsername(clientDTO.getName());
+        Client client = cs.findByUsername(clientDTO.getName());
 
         if (client == null) {
             throw new ValidationException(1, "Invalid username", "username");
