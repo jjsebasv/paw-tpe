@@ -23,7 +23,6 @@ import javax.validation.Valid;
 import javax.ws.rs.*;
 import javax.ws.rs.core.*;
 import java.io.ByteArrayInputStream;
-import java.io.IOException;
 import java.io.InputStream;
 import java.net.URI;
 import java.util.Base64;
@@ -204,7 +203,7 @@ public class DocumentController {
     @GET
     @Path("{id}/download")
     @Produces(value = {MediaType.APPLICATION_OCTET_STREAM})
-    public Response downloadFile(@PathParam("id") long id) throws IOException, HttpException {
+    public Response downloadFile(@PathParam("id") long id) throws HttpException {
 
         final Document document = ds.findById(id);
 
@@ -227,7 +226,7 @@ public class DocumentController {
 
     @GET
     @Path("/{id}/open")
-    public Response openFile(@PathParam("id") long id) throws IOException, HttpException {
+    public Response openFile(@PathParam("id") long id) throws HttpException {
 
         final Document document = ds.findById(id);
 

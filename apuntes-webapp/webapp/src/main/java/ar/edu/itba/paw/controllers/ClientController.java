@@ -5,10 +5,7 @@ import ar.edu.itba.paw.config.WebAuthConfig;
 import ar.edu.itba.paw.controllers.exceptions.Http403Exception;
 import ar.edu.itba.paw.controllers.exceptions.Http404Exception;
 import ar.edu.itba.paw.dtos.*;
-import ar.edu.itba.paw.interfaces.ClientService;
-import ar.edu.itba.paw.interfaces.DocumentService;
-import ar.edu.itba.paw.interfaces.ProgramService;
-import ar.edu.itba.paw.interfaces.ReviewService;
+import ar.edu.itba.paw.interfaces.*;
 import ar.edu.itba.paw.models.*;
 import ar.edu.itba.paw.models.builders.ClientBuilder;
 import org.apache.commons.validator.routines.EmailValidator;
@@ -32,7 +29,9 @@ public class ClientController {
     private final DocumentService ds;
     private final ReviewService rs;
     private final ProgramService programService;
+    private final EmailService es;
 
+    @SuppressWarnings("deprecation")
     private final PasswordEncoder passwordEncoder;
 
     private final TokenHandler tokenHandler;
@@ -41,11 +40,12 @@ public class ClientController {
     private UriInfo uriInfo;
 
     @Autowired
-    public ClientController(final ClientService cs, final DocumentService ds, final ReviewService rs, ProgramService programService, PasswordEncoder passwordEncoder, TokenHandler tokenHandler) {
+    public ClientController(final ClientService cs, final DocumentService ds, final ReviewService rs, ProgramService programService, EmailService es, @SuppressWarnings("deprecation") PasswordEncoder passwordEncoder, TokenHandler tokenHandler) {
         this.cs = cs;
         this.ds = ds;
         this.rs = rs;
         this.programService = programService;
+        this.es = es;
         this.passwordEncoder = passwordEncoder;
         this.tokenHandler = tokenHandler;
     }
@@ -57,7 +57,7 @@ public class ClientController {
     public Response authenticateUser(LoginObjectDTO loginObject) {
         String username = loginObject.getUsername();
         String password = loginObject.getPassword();
-        
+
         final Client client = cs.findByUsername(username);
 
         // FIXME check this
@@ -155,22 +155,38 @@ public class ClientController {
     }
 
     @POST
-    @Path("/reset_password")
+    @Path("/reset_password/question")
     @Consumes(value = {MediaType.APPLICATION_JSON,})
     @Produces(value = {MediaType.APPLICATION_JSON,})
-    public Response resetPassword(final ExpandedClientDTO clientDTO) throws HttpException, ValidationException {
-
-        Client client = cs.getAuthenticatedUser();
-
-        if (client != null) {
-            throw new Http403Exception();
-        }
+    public Response getSecretQuestion(final ExpandedClientDTO clientDTO) throws ValidationException {
 
         if (clientDTO.getName() == null || clientDTO.getName().isEmpty()) {
             throw new ValidationException(1, "Invalid username", "username");
         }
 
-        client = cs.findByUsername(clientDTO.getName());
+        Client client = cs.findByUsername(clientDTO.getName());
+
+        if (client == null) {
+            throw new ValidationException(1, "Invalid username", "username");
+        }
+
+        final ClientDTO answer = new ClientDTO();
+        answer.setRecoveryQuestion(client.getRecoveryQuestion());
+
+        return Response.ok(answer).build();
+    }
+
+    @POST
+    @Path("/reset_password")
+    @Consumes(value = {MediaType.APPLICATION_JSON,})
+    @Produces(value = {MediaType.APPLICATION_JSON,})
+    public Response resetPassword(final ExpandedClientDTO clientDTO) throws ValidationException {
+
+        if (clientDTO.getName() == null || clientDTO.getName().isEmpty()) {
+            throw new ValidationException(1, "Invalid username", "username");
+        }
+
+        Client client = cs.findByUsername(clientDTO.getName());
 
         if (client == null) {
             throw new ValidationException(1, "Invalid username", "username");
@@ -201,6 +217,8 @@ public class ClientController {
                         .createModel()
         );
 
+        es.sendPasswordResetEmail(client);
+
         return Response.ok(new ClientDTO(cs.findById(client.getClientId()))).build();
     }
 
@@ -228,7 +246,7 @@ public class ClientController {
     @Consumes(value = {MediaType.APPLICATION_JSON,})
     @Produces(value = {MediaType.APPLICATION_JSON,})
     public Response updateClientRole(@PathParam("id") final long id,
-                                     final ClientDTO clientDTO) throws HttpException, ValidationException {
+                                     final ClientDTO clientDTO) throws HttpException {
 
         Client client = cs.getAuthenticatedUser();
 
@@ -308,8 +326,12 @@ public class ClientController {
                         .setRole(ClientRole.ROLE_USER)
                         .setProgram(program)
                         .setUniversity(program.getUniversity())
+                        .setRecoveryQuestion(clientDTO.getRecoveryQuestion())
+                        .setSecretAnswer(clientDTO.getSecretAnswer())
                         .createModel()
         );
+
+        es.sendRegisteredEmail(newClient);
 
         String token = tokenHandler.createTokenForUser(newClient.getName());
 
@@ -322,7 +344,7 @@ public class ClientController {
         }
     }
 
-    private void validateClient(final ClientDTO clientDTO) throws ValidationException {
+    private void validateClient(final ExpandedClientDTO clientDTO) throws ValidationException {
 
         if (clientDTO.getName() == null || clientDTO.getName().isEmpty()) {
             throw new ValidationException(1, "Name can't be empty", "name");
@@ -334,6 +356,14 @@ public class ClientController {
 
         if (!EmailValidator.getInstance().isValid(clientDTO.getEmail())) {
             throw new ValidationException(1, "Email is invalid", "email");
+        }
+
+        if (clientDTO.getRecoveryQuestion() == null || clientDTO.getRecoveryQuestion().isEmpty()) {
+            throw new ValidationException(1, "Recovery question can't be empty", "recovery-question");
+        }
+
+        if (clientDTO.getSecretAnswer() == null || clientDTO.getSecretAnswer().isEmpty()) {
+            throw new ValidationException(1, "Secret answer can't be empty", "secret-answer");
         }
     }
 }

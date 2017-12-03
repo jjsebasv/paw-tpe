@@ -7,10 +7,14 @@ define([
 	function(frontend) {
 
 	frontend.controller('IndexCtrl',
-		['$location', '$route', '$translate', 'localStorageService',
-		function($location, $route, $translate, localStorageService) {
+		['$location', '$route', '$translate', 'localStorageService', '$window', '$rootScope',
+		function($location, $route, $translate, localStorageService, $window, $rootScope) {
 
 			this.client = localStorageService.get('client');
+
+			this.dissmiss = function() {
+				$rootScope.registered = false;
+			};
 
       this.goto = function(toType, toId, fromName) {
 				if (fromName !== 'isBack') {
@@ -42,7 +46,9 @@ define([
 
 			this.logOut = function() {
 				localStorageService.clearAll();
+				localStorageService.cookie.clearAll();
 				$location.path('/');
+				$window.location.reload();
 			};
 
 	}]);

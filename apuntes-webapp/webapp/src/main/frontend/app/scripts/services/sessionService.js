@@ -2,16 +2,17 @@
 define(['frontend', 'services/httpRequestService'], function(frontend) {
 
     frontend.service('sessionService', [
-			'httpRequestService', 'localStorageService',
-			function(httpRequestService, localStorageService) {
+			'httpRequestService', 'localStorageService', '$rootScope',
+			function(httpRequestService, localStorageService, $rootScope) {
         var user;
 				return {
 
           saveToken: function(token, username) {
             localStorageService.set('sessionToken', token);
-            httpRequestService.tokenedRequest('GET', 'clients/me', null).then(
+            return httpRequestService.tokenedRequest('GET', 'clients/me', null).then(
               function (response) {
                 localStorageService.set('client', response.data);
+                $rootScope.client = response.data;
               });
           },
 
@@ -23,14 +24,14 @@ define(['frontend', 'services/httpRequestService'], function(frontend) {
             return httpRequestService.defaultRequest('POST', 'clients/login', data);
           },
 
-          register: function(userName, user, pass, mail) {
+          register: function(userName, user, pass, mail, university, program) {
             var data = {
               name: userName,
               username: user,
               password: pass,
               email: mail,
-              programId: 1,
-              universityId: 1
+              programId: program,
+              universityId: university
             };
             return httpRequestService.defaultRequest('POST', 'clients/register', data);
           }
