@@ -9,11 +9,11 @@
     .column.column-left
       label.text-5.text-base.grey-2.m-bottom-1
         | {{ 'NAME' | translate }}
-      input.input-base.m-bottom-2(name='user' ng-model='registerCtrl.userName' required)
+      input.input-base.m-bottom-2(name='name' ng-model='registerCtrl.userName' required)
     .column.column-left
       label.text-5.text-base.grey-2.m-bottom-1
         | {{ 'LAST_NAME' | translate }}
-      input.input-base.m-bottom-2(name='user' ng-model='registerCtrl.userLastname' required)
+      input.input-base.m-bottom-2(name='surname' ng-model='registerCtrl.userLastname' required)
     .column.column-left
       label.text-5.text-base.grey-2.m-bottom-1
         | {{ 'USER' | translate }}
@@ -54,6 +54,14 @@
       )
         option(value='')
           | {{ 'CHOOSE_PROGRAM' | translate }}
+    .column.column-left
+      label.text-5.text-base.grey-2.m-bottom-1
+        | {{ 'RECOVERY_QUESTION' | translate }}
+      input.input-base.m-bottom-2(name='question' ng-model='registerCtrl.recoveryQuestion' required)
+    .column.column-left
+      label.text-5.text-base.grey-2.m-bottom-1
+        | {{ 'RECOVERY_ANSWER' | translate }}
+      input.input-base.m-bottom-2(name='answer' ng-model='registerCtrl.recoveryAnswer' required)
   .row.row-center
     button.button-grey.m-right-3()
       | {{ 'CANCEL' | translate }}

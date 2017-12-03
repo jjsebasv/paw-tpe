@@ -24,16 +24,34 @@ define(['frontend', 'services/httpRequestService'], function(frontend) {
             return httpRequestService.defaultRequest('POST', 'clients/login', data);
           },
 
-          register: function(userName, user, pass, mail, university, program) {
+          register: function(userName, user, pass, mail, university, program, question, answer) {
             var data = {
               name: userName,
               username: user,
               password: pass,
               email: mail,
               programId: program,
-              universityId: university
+              universityId: university,
+              recoveryQuestion: question,
+              secretAnswer: answer
             };
             return httpRequestService.defaultRequest('POST', 'clients/register', data);
+          },
+
+          getQuestion: function(user) {
+            var data = {
+              username: user,
+            };
+            return httpRequestService.defaultRequest('POST', 'clients/reset_password/question', data);
+          },
+
+          resetPassword: function(user, answer, newPassword) {
+            var data = {
+              username: user,
+              secretAnswer: answer,
+              password: newPassword
+            };
+            return httpRequestService.defaultRequest('POST', 'clients/reset_password', data);
           }
 
 				};

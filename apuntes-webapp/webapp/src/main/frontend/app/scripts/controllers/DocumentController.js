@@ -5,6 +5,7 @@ define(['frontend', 'services/documentService', 'services/courseService', 'direc
       'documentService', 'courseService', '$routeParams', 'localStorageService',
       function(documentService, courseService, $routeParams, localStorageService) {
         var _this = this;
+        this.requestSent = false;
         this.alreadyUploaded = false;
         documentService.getDocument($routeParams.documentId).then(function(result) {
           _this.document = result.data;
@@ -30,6 +31,7 @@ define(['frontend', 'services/documentService', 'services/courseService', 'direc
         getComments();
 
         this.postComment = function() {
+          _this.requestSent = true;
           documentService.postComment(_this.document.documentId, _this.document.userid, _this.reviewText, _this.reviewRanking).then(
             function (response) {
               getComments();

@@ -48,6 +48,10 @@ define([], function() {
             '/mail': {
               templateUrl: '/views/mail.html',
               controller: 'MailController'
+            },
+            '/reset-password': {
+              templateUrl: '/views/reset.html',
+              controller: 'ResetPasswordController'
             }
             /* ===== yeoman hook ===== */
             /* Do not remove these commented lines! Needed for auto-generation */

@@ -18,7 +18,9 @@ define([
             _this.password,
             _this.mail,
             _this.selectedUniversity,
-            _this.selectedProgram
+            _this.selectedProgram,
+            _this.recoveryQuestion,
+            _this.recoveryAnswer
           ).then(
             function (response) {
               sessionService.saveToken(response.data.token, _this.username);
@@ -47,7 +49,6 @@ define([
           });
 
         this.getPrograms = function () {
-          debugger
           programService.getUniPrograms(_this.selectedUniversity).then(
             function(result) {
               _this.programs = result.data.programList;

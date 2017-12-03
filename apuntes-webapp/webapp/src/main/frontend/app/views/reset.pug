@@ -1,0 +1,34 @@
+.column.column-center(ng-controller='ResetPasswordController as resetpassCtrl')
+  h1.title-3.text-base.green.m-bottom-3
+    | {{ 'RESET_PASSWORD' | translate | uppercase }}
+  form(
+    name='ResetPasswordController.loginForm'
+    novalidate
+    ng-submit='ResetPasswordController.login()'
+  )
+    .column.column-left
+      label.text-5.text-base.grey-2.m-bottom-1
+        | {{ 'USER' | translate }}
+      input.input-base.m-bottom-2(name='username' ng-model='resetpassCtrl.username' ng-disabled='resetpassCtrl.validUser')
+    span(ng-if='resetpassCtrl.validUser')
+      .column.column-left
+        label.text-5.text-base.grey-2.m-bottom-1
+          | {{ 'QUESTION' | translate }}
+        input.input-base.m-bottom-2(name='question' ng-model='resetpassCtrl.question' disabled)
+      .column.column-left
+        label.text-5.text-base.grey-2.m-bottom-1
+          | {{ 'ANSWER' | translate }}
+        input.input-base.m-bottom-5(name='answer' type='password' ng-model='resetpassCtrl.answer' required)
+      .column.column-left
+        label.text-5.text-base.grey-2.m-bottom-1
+          | {{ 'PASSWORD' | translate }}
+        input.input-base.m-bottom-5(name='password' type='password' ng-model='resetpassCtrl.password' required)
+      .column.column-left
+        label.text-5.text-base.grey-2.m-bottom-1
+          | {{ 'RE_PASSWORD' | translate }}
+        input.input-base.m-bottom-5(name='repeat-password' type='password' ng-model='resetpassCtrl.repeatPassword' required)
+  .row.row-center
+    button.button-grey.m-right-3()
+      | {{ 'CANCEL' | translate }}
+    button.button-blue(ng-click='resetpassCtrl.next()')
+      | {{ 'NEXT' | translate }}
