@@ -18,9 +18,9 @@ define(['frontend', 'services/httpRequestService'], function(frontend) {
 					},
 
           postComment: function(documentId, userId, reviewText, rankingValue) {
+
             var data = {
               fileid: documentId,
-              userid: userId,
               review: reviewText,
               ranking: rankingValue
             };

@@ -63,14 +63,15 @@
       )
         option(value='')
           | {{ 'CHOOSE_PROGRAM' | translate }}
-    .column.column-left
-      label.text-5.text-base.grey-2.m-bottom-1
-        | {{ 'RECOVERY_QUESTION' | translate }}
-      input.input-base.m-bottom-2(name='question' ng-model='registerCtrl.recoveryQuestion' required)
-    .column.column-left
-      label.text-5.text-base.grey-2.m-bottom-1
-        | {{ 'RECOVERY_ANSWER' | translate }}
-      input.input-base.m-bottom-2(name='answer' ng-model='registerCtrl.recoveryAnswer' required)
+    .row.row-center.m-bottom-1.m-bottom-3
+      .column.column-left.m-right-3
+        label.text-5.text-base.grey-2.m-bottom-1
+          | {{ 'RECOVERY_QUESTION' | translate }}
+        input.input-base.m-bottom-2(name='question' ng-model='registerCtrl.recoveryQuestion' required)
+      .column.column-left
+        label.text-5.text-base.grey-2.m-bottom-1
+          | {{ 'RECOVERY_ANSWER' | translate }}
+        input.input-base.m-bottom-2(name='answer' ng-model='registerCtrl.recoveryAnswer' required)
   .row.row-center
     a.button-grey.m-right-3(type='button' ng-href='/')
       | {{ 'CANCEL' | translate }}

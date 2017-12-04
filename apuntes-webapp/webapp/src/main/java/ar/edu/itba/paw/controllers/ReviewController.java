@@ -78,7 +78,7 @@ public class ReviewController {
 
         final boolean userHasReviewed = rs.findByFileId(reviewDTO.getFileid())
                 .stream()
-                .anyMatch(review -> review.getUser().getClientId() == reviewDTO.getUserid());
+                .anyMatch(review -> review.getUser().getClientId() == client.getClientId());
 
         if (userHasReviewed) {
             throw new ValidationException(3, "You already reviewed this document", "fileid");

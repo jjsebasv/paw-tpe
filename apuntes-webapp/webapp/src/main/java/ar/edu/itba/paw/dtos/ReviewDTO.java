@@ -14,6 +14,8 @@ public class ReviewDTO {
 
     private long userid;
 
+    private String username;
+
     private int ranking;
 
     @NotEmpty
@@ -23,6 +25,7 @@ public class ReviewDTO {
         this.reviewid = review.getReviewid();
         this.fileid = review.getFile().getDocumentId();
         this.userid = review.getUser().getClientId();
+        this.username = review.getUser().getName();
         this.ranking = review.getRanking();
         this.review = review.getReview();
     }
