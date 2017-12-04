@@ -26,6 +26,9 @@ define(['frontend', 'services/documentService', 'services/courseService', 'direc
           promises.push(getCoursePromise);
           promises.push(downloadFilePromise);
           finishPromises();
+
+          _this.downloadPath = documentService.downloadFile(_this.document.documentId);
+          _this.previewPath = documentService.previewFile(_this.document.documentId);
         });
 
         var getComments = function() {

@@ -55,6 +55,7 @@ define([
 
           programService.getUniPrograms(_this.selectedUniversity).then(
             function(result) {
+              debugger;
               _this.programs = result.data.programList;
             });
         };

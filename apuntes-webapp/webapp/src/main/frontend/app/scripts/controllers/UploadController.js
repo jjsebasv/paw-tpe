@@ -13,7 +13,7 @@ define([
       function(documentService, universityService, programService, courseService, Upload, $scope, $routeParams, spinnerService, $q) {
         var _this = this;
         this.courseid = $routeParams.courseId;
-        spinnerService.showSpinner();
+        spinnerService.hideSpinner();
 
         var finishPromises = function() {
           $q.all(promises).then(function() {
