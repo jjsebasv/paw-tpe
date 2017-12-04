@@ -26,8 +26,10 @@ html.no-js
 							img(src='images/add_book.svg')
 						a(type='button' ng-href='#/login' ng-if='!client')
 							img(src='images/login.svg')
-						button.m-right-1.action(ng-click='indexCtrl.changeLanguage()')
+						button.m-right-1.action(ng-if="lang == 'en'" ng-click='indexCtrl.changeLanguage("es")')
 							| ES
+						button.m-right-1.action(ng-if="lang == 'es'" ng-click='indexCtrl.changeLanguage("en")')
+							| EN
 						a.m-right-1.action(ng-href='#/profile' ng-if='client')
 							| {{indexCtrl.client.name}}
 						button.m-right-1.action(ng-click='indexCtrl.logOut()' ng-if='client')

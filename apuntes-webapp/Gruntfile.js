@@ -76,8 +76,8 @@ module.exports = function (grunt) {
         compass: {
             options: {
                 sassDir: '<%= yeoman.app %>/styles',
-                cssDir: '.tmp/styles',
-                generatedImagesDir: '.tmp/images/generated',
+                cssDir: 'dist/styles',
+                generatedImagesDir: 'dist/images/generated',
                 imagesDir: '<%= yeoman.app %>/images',
                 javascriptsDir: '<%= yeoman.app %>/scripts',
                 fontsDir: '<%= yeoman.app %>/styles/fonts',
@@ -135,7 +135,7 @@ module.exports = function (grunt) {
                 files: [{
                     expand: true,
                     cwd: '.tmp/styles/',
-                    src: '**/*.css',
+                    src: ['**/*.css', '*.css'],
                     dest: 'dist/styles/'
                 }]
             }
@@ -164,11 +164,11 @@ module.exports = function (grunt) {
 
         wiredep: {
             serve: {
-                src: ['<%= yeoman.app %>/styles/main.scss'],
+                src: ['<%= yeoman.app %>/styles/application.scss'],
                 ignorePath: /(\.\.\/){1,2}bower_components\//
             },
             dist: {
-                src: ['.tmp/styles/main.scss'],
+                src: ['.tmp/styles/application.scss'],
                 ignorePath: /(\.\.\/){1,2}bower_components\//
             },
             options: {
