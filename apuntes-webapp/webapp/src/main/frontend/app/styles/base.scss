@@ -7,7 +7,6 @@
 }
 
 body {
-  background: $grey-5;
   margin: 0;
   position: relative;
 }
@@ -55,9 +54,8 @@ html {
 }
 
 .section-header {
-  border-top: 3px solid $green;
   font-size: 30px;
-  padding: 10px 100px;
+  padding: 10px;
 }
 
 .section-bottom {
@@ -89,16 +87,29 @@ html {
   display: flex;
   justify-content: center;
   flex-wrap: wrap;
-  width: 60vw;
   margin: 0 auto;
+}
+
+.link {
+  position: absolute;
+  left: 45px;
+  color: $grey-2;
+  text-decoration: underline;
+}
+
+.wrapper-line-title {
+  padding-bottom: 10px;
+  border-bottom: 1px solid $green;
+  margin-bottom: 30px;
 }
 
 .list-item {
   background: $grey-4;
   box-shadow: 0 0 20px $grey-3;
   flex: 1 1 auto;
-  margin: 10px;
-  padding: 20px;
+  padding: 10px;
+  font-size: 12px;
+  margin-bottom: 10px;
   text-transform: uppercase;
   position: relative;
   overflow:hidden;
@@ -145,12 +156,14 @@ html {
 }
 
 .max-content-wrapper {
-  max-width: 1280px;
+  max-width: 1140px;
   padding: 0 45px;
   width: 100%;
+  position: relative;
 
   &.mid {
     max-width: 800px;
+    width: 800px;
   }
 }
 
@@ -165,7 +178,7 @@ html {
 }
 
 .separator {
-  border-top: 1px solid $blue;
+  border-top: 1px solid $green;
   height: 1px;
   margin: 35px 0;
   width: 100%;
@@ -182,6 +195,8 @@ html {
 }
 
 .text-base {
+  font-weight: 300;
+
   &.grey-2 {
     color: $grey-2;
   }
@@ -228,8 +243,8 @@ html {
 }
 
 .title-3 {
-  font-size: 30px;
-  font-weight: 700;
+  font-size: 20px;
+  font-weight: 300;
   line-height: 30px;
 }
 
@@ -364,7 +379,8 @@ html {
 }
 
 .input-submit {
-  background: $green;
+  border-radius: 0;
+  background: $blue;
   width: 38px;
   height: 38px;
 
@@ -381,6 +397,8 @@ html {
   min-width: 120px;
   color: $white;
   padding: 0 10px;
+  line-height: 38px;
+  text-align: center;
 }
 
 .button-grey {
@@ -389,6 +407,8 @@ html {
   min-width: 120px;
   color: $grey-2;
   padding: 0 10px;
+  line-height: 38px;
+  text-align: center;
 }
 
 
@@ -398,46 +418,27 @@ html {
   min-width: 120px;
   color: $white;
   padding: 0 10px;
+  line-height: 38px;
+  text-align: center;
 }
 
-// Paddings
-
-.padding-5 {
-  padding: 5px;
-}
-
-// Margins
-
-.m-bottom-1 {
-  margin-bottom: 10px;
-}
-
-.m-bottom-2 {
-  margin-bottom: 20px;
-}
-
-.m-bottom-3 {
-  margin-bottom: 30px;
-}
-
-.m-bottom-5 {
-  margin-bottom: 50px;
-}
-
-.m-right-1 {
-  margin-right: 10px;
-}
-
-.m-right-3 {
-  margin-right: 30px;
-}
-
-.m-left-1 {
-  margin-left: 10px;
-}
-
-.margin-10 {
-  margin: 10px;
+@for $i from 1 through 5 {
+  .flex-#{$i} {
+    flex: $i;
+    min-width: 0;
+  }
+  .m-bottom-#{$i} {
+    margin-bottom: #{$i * 10}px;
+  }
+  .m-right-#{$i} {
+    margin-right: #{$i * 10}px;
+  }
+  .m-left-#{$i} {
+    margin-left: #{$i * 10}px;
+  }
+  .m-top-#{$i} {
+    margin-top: #{$i * 10}px;
+  }
 }
 
 // Borders

@@ -2,13 +2,14 @@
   align-items: center;
   background: $primary-color;
   border: 2px solid $primary-color;
-  border-radius: 15px;
+  border-radius: 0;
+  font-weight: 300;
   color: $secondary-color;
   display: flex;
   font-weight: 800;
-  height: 50px;
+  height: 40px;
+  padding: 0 20px;
   justify-content: center;
-  width: 100px;
   &:hover {
     background: $hover-background;
     color: $primary-color;

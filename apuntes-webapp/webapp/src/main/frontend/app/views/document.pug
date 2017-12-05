@@ -1,26 +1,26 @@
 .column(ng-controller='DocumentController as documentCtrl' ng-hide='showSpinner')
-	.row.row-space-between.row-top.m-bottom-1
-		.column.column-center.big-book
-			img(src='images/default_book.svg')
-		.column.flex-grow-1.m-left-1
+	.row.row-space-between.row-top.m-bottom-1.document-header
+		.column.column-center.big-book.flex-1
+			img(src='{{documentCtrl.previewPath}}')
+		.column.flex-1.m-left-1.document-info
 			p.title-2.text-base.black
 				| {{documentCtrl.document.documentName}}
 			p.title-2.text-base.bold
-				| {{documentCtrl.document.subject}}
+				| Subido por {{documentCtrl.document.subject}}
 			p.m-bottom-3.text-base.grey-3.text-2
-				| {{documentCtrl.document.dateUploaded}}
+				| Subido el dia: {{documentCtrl.document.dateUploaded}}
 			p.m-bottom-3.text-base.grey-3.text-2
 				| {{documentCtrl.document.course}}
 			p.text-base.grey.text-3.grey-3.justify.m-bottom-3
 				| {{documentCtrl.document.description}}
-			.row(ng-if='documentCtrl.document')
-				a.button-green.m-right-3(target='_self' ng-href='{{documentCtrl.downloadPath}}' download='prueba.pdf')
+			.row.document-actions(ng-if='documentCtrl.document')
+				a.button-green.m-right-3.flex-1(target='_self' ng-href='{{documentCtrl.downloadPath}}' download='prueba.pdf')
 					| {{ 'DOWNLOAD' | translate }}
-				a.button-blue(target='_blank' ng-href='{{documentCtrl.previewPath}}')
+				a.button-blue.flex-1(target='_blank' ng-href='{{documentCtrl.previewPath}}')
 					| {{ 'PREVIEW' | translate }}
 	.separator
 	.column(ng-if='documentCtrl.document !== undefined')
-		h1.title-3.text-base.green.m-bottom-3
+		h1.title-3.text-base.blue.m-bottom-3
 			| {{ 'COMMENTS' | translate }}
 		.new-comment-wrapper.column.column-left.m-bottom-3(ng-if='!documentCtrl.checkOwnDocument() && !documentCtrl.alreadyUploaded')
 			p.title-2.text-base.black.m-bottom-1

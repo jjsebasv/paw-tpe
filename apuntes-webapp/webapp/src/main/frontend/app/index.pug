@@ -1,44 +1,49 @@
 doctype html
 html.no-js
-	head
-		meta(charset='utf-8')
-		title
-			| Apuntes Paw
-		meta(name='description', content='')
-		// build:css(.tmp) styles/main.css
-		link(rel='stylesheet' href='styles/application.css')
-		// endbuild
-	body(ng-controller='IndexCtrl as indexCtrl')
-		.mod.model-2(ng-show='showSpinner')
-			.spinner
-		// FIXME @heyimnowi style here when register is ok
-		.alert.alert-success.alert-dismissable.fade.in(ng-if='registered')
-			a.close(href='#' data-dismiss='alert' aria-label='close' ng-click='indexCtrl.dismiss()') ×
-			span
-				| {{ 'WELCOME' | translate }}
-		.column.column-center.test
-			nav.header.row.row-center
-				.max-content-wrapper.row.row-space-between
-					a(ng-href='#!/')
-						img.logo(src='images/logo.svg')
-					.actions
-						a.m-right-1.action(type='button' ng-href='#/upload')
-							img(src='images/add_book.svg')
-						a(type='button' ng-href='#/login' ng-if='!client')
-							img(src='images/login.svg')
-						button.m-right-1.action(ng-if="lang == 'en'" ng-click='indexCtrl.changeLanguage("es")')
-							| ES
-						button.m-right-1.action(ng-if="lang == 'es'" ng-click='indexCtrl.changeLanguage("en")')
-							| EN
-						a.m-right-1.action(ng-href='#/profile' ng-if='client')
-							| {{indexCtrl.client.name}}
-						button.m-right-1.action(ng-click='indexCtrl.logOut()' ng-if='client')
-							| {{ 'LOG_OUT' | translate }}
+head
+	meta(charset='utf-8')
+	title
+		| Apuntes Paw
+	meta(name='description', content='')
+	// build:css(.tmp) styles/main.css
+	link(rel='stylesheet' href='styles/application.css')
+	// endbuild
+body(ng-controller='IndexCtrl as indexCtrl')
+	.mod.model-2(ng-show='showSpinner')
+		.spinner
+	// FIXME @heyimnowi style here when register is ok
+	.alert.alert-success.alert-dismissable.fade.in(ng-if='registered')
+		a.close(href='#' data-dismiss='alert' aria-label='close' ng-click='indexCtrl.dismiss()') ×
+		span
+			| {{ 'WELCOME' | translate }}
+	.column.column-center.test
+		nav.header.row.row-center
+			.max-content-wrapper.row.row-space-between
+				a(ng-href='#!/')
+					img.logo(src='images/logo.svg')
+				.actions
+					a.m-right-1.action(type='button' ng-href='#/upload')
+						img(src='images/add_book.svg')
+					a(type='button' ng-href='#/login' ng-if='!client')
+						img(src='images/login.svg')
+					a.m-right-1.action(ng-href='#/profile' ng-if='client')
+						img(src='images/login.svg')
+						| {{indexCtrl.client.name}}
+					button.m-right-1.action(ng-click='indexCtrl.logOut()' ng-if='client')
+						| {{ 'LOG_OUT' | translate }}
+					button.m-right-1.action(ng-if="lang == 'en'" ng-click='indexCtrl.changeLanguage("es")')
+						| ES
+					button.m-right-1.action(ng-if="lang == 'es'" ng-click='indexCtrl.changeLanguage("en")')
+						| EN	
+		.row.row-top
+			.column
+				a
+					| ho
 			.max-content-wrapper.mid.content(ng-view='')
-		// build:js(.) scripts/oldieshim.js
-		//if lt IE 9
-			script(src='bower_components/es5-shim/es5-shim.js')
-			script(src='bower_components/json3/lib/json3.js')
-		// endbuild
-		script(src='/scripts/paths.js')
-		script(src='bower_components/requirejs/require.js', data-main='/scripts/build.js')
+	// build:js(.) scripts/oldieshim.js
+	//if lt IE 9
+		script(src='bower_components/es5-shim/es5-shim.js')
+		script(src='bower_components/json3/lib/json3.js')
+	// endbuild
+	script(src='/scripts/paths.js')
+	script(src='bower_components/requirejs/require.js', data-main='/scripts/build.js')

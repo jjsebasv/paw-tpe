@@ -1,11 +1,12 @@
 @import 'variables/colors';
 
 .big-book {
-  background-color: $grey;
-  width: 400px;
-  height: 280px;
+  background-color: #E3E3E3;
+  width: 260px;
+  height: 300px;
   position: relative;
   justify-content: center;
+  margin-right: 40px;
 }
 
 .new-comment-wrapper  {
@@ -14,4 +15,14 @@
     height: 100px;
     width: 100%;
   }
+}
+
+.document-info {
+  position: relative;
+}
+
+.document-actions {
+  position: absolute;
+  bottom: 0;
+  width: 100%;
 }
