@@ -11,6 +11,8 @@ head
 body(ng-controller='IndexCtrl as indexCtrl')
 	.mod.model-2(ng-show='showSpinner')
 		.spinner
+	.mod.model-2(ng-show='showErrorModal')
+		errormodal(errors='errors')
 	// FIXME @heyimnowi style here when register is ok
 	.alert.alert-success.alert-dismissable.fade.in(ng-if='registered')
 		a.close(href='#' data-dismiss='alert' aria-label='close' ng-click='indexCtrl.dismiss()') ×
@@ -34,7 +36,7 @@ body(ng-controller='IndexCtrl as indexCtrl')
 					button.m-right-1.action(ng-if="lang == 'en'" ng-click='indexCtrl.changeLanguage("es")')
 						| ES
 					button.m-right-1.action(ng-if="lang == 'es'" ng-click='indexCtrl.changeLanguage("en")')
-						| EN	
+						| EN
 		.row.row-top
 			.column
 				a

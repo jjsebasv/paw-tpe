@@ -2,16 +2,22 @@
 define([
 		'frontend',
 		'directives/searchboxDirective',
+		'directives/errormodalDirective',
 		'directives/backDirective',
 	  'services/spinnerService'
 	],
 	function(frontend) {
 
 	frontend.controller('IndexCtrl',
-		['$location', '$route', '$translate', 'localStorageService', '$window', '$rootScope', 'spinnerService',
-		function($location, $route, $translate, localStorageService, $window, $rootScope, spinnerService) {
+		['$scope', '$location', '$route', '$translate', 'localStorageService', '$window', '$rootScope', 'spinnerService', 'errormodalDirective',
+		function($scope, $location, $route, $translate, localStorageService, $window, $rootScope, spinnerService, errormodalDirective) {
 
 			this.client = localStorageService.get('client');
+
+			$rootScope.closeModal = function() {
+				debugger
+				errormodalDirective.hideErrorModal();
+			};
 
 			this.dissmiss = function() {
 				$rootScope.registered = false;
@@ -39,7 +45,7 @@ define([
 
 			this.getBack = function() {
 				var aux = $route.current.from;
-				if (aux === null | aux === undefined) {
+				if (aux === null || aux === undefined) {
 					return {
 						backRoute: '/',
 						name: $translate.instant('HOME')
