@@ -36,7 +36,7 @@ define([], function() {
       USER: 'Usuario',
       PASSWORD: 'Contraseña',
       REGISTER: 'Crear Cuenta',
-      REGISTER_ME: 'Registerme',
+      REGISTER_ME: 'Registrarme',
       NAME: 'Nombre',
       LAST_NAME: 'Apellido',
       MAIL: 'Mail',
