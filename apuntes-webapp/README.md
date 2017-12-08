@@ -4,7 +4,7 @@
 
  * desde la carpeta root del proyecto
    * mvn clean
-   * mvn eclipse: eclipse (o simil)
+   * mvn eclipse:eclipse (o simil)
  * desde la carpeta frontend
    * npm install
    * bower install

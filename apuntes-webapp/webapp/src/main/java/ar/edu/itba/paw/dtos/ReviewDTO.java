@@ -4,6 +4,7 @@ import ar.edu.itba.paw.models.Review;
 import org.hibernate.validator.constraints.NotEmpty;
 
 import javax.xml.bind.annotation.XmlRootElement;
+import java.util.Date;
 
 @XmlRootElement
 public class ReviewDTO {
@@ -18,6 +19,8 @@ public class ReviewDTO {
 
     private int ranking;
 
+    private Date date;
+
     @NotEmpty
     private String review;
 
@@ -28,6 +31,7 @@ public class ReviewDTO {
         this.username = review.getUser().getName();
         this.ranking = review.getRanking();
         this.review = review.getReview();
+        this.date = review.getDateUploaded();
     }
 
     public ReviewDTO() {
@@ -71,5 +75,13 @@ public class ReviewDTO {
 
     public void setReview(String review) {
         this.review = review;
+    }
+
+    public Date getDateUploaded() {
+      return date;
+    }
+
+    public void setDateUploaded(Date date) {
+      this.date = date;
     }
 }
