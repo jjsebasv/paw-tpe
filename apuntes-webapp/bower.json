@@ -20,7 +20,8 @@
     "angular-ui-select": "^0.19.8",
     "angular-chosen-localytics": "^1.7.0",
     "angular-select2": "^1.5.2",
-    "angular-mandrill": "^0.0.2"
+    "angular-mandrill": "^0.0.2",
+    "angular-rateit": "^4.0.2"
   },
   "devDependencies": {
     "bootstrap": "~3.3.1"

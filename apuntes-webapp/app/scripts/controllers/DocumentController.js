@@ -5,7 +5,8 @@ define([
   'services/courseService',
   'directives/searchboxDirective',
   'services/errormodalService',
-  'services/spinnerService'
+  'services/spinnerService',
+  'directives/ngRateItDirective'
 ], function(frontend) {
 
     frontend.controller('DocumentController', [
@@ -23,7 +24,7 @@ define([
             errormodalService.showErrorModal();
           });
         };
-
+        debugger;
         var getDocumentPromise = documentService.getDocument($routeParams.documentId).then(function(result) {
           _this.document = result.data;
           var getCoursePromise = courseService.getCourse(_this.document.courseid).then(
