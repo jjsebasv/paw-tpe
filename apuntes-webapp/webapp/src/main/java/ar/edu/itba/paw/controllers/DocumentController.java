@@ -248,8 +248,18 @@ public class DocumentController {
             }
         };
 
+        String contentType = "";
+
+        if (document.getDocumentName().endsWith(".pdf")) {
+            contentType = "application/pdf";
+        } else if (document.getDocumentName().endsWith(".jpg") || document.getDocumentName().endsWith(".jpeg")) {
+            contentType = "image/jpeg";
+        } else {
+            return downloadFile(id);
+        }
+
         return Response.ok(stream)
-                .header("content-disposition", String.format("attachment; filename=\"%s\";", document.getDocumentName()))
+                .header("content-disposition", String.format("inline; filename=\"%s\";", document.getDocumentName()))
                 .header("content-type", "application/pdf")
                 .build();
     }

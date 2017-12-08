@@ -45,7 +45,7 @@ define(['frontend', 'services/httpRequestService'], function(frontend) {
 
           previewFile: function(documentId) {
             // FIXME change this
-            return 'webapp/api/v1/documents/' + documentId + '/open';
+            return 'api/v1/documents/' + documentId + '/open';
           }
 
 				};
