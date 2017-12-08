@@ -1,23 +1,40 @@
+@import 'variables/colors';
+
 .modal-overlay {
-    position: fixed; /* Stay in place */
-    z-index: 1; /* Sit on top */
-    left: 0;
-    top: 0;
-    width: 100%; /* Full width */
-    height: 100%; /* Full height */
-    overflow: auto; /* Enable scroll if needed */
-    background-color: rgb(0,0,0); /* Fallback color */
-    background-color: rgba(0,0,0,0.4); /* Black w/ opacity */
+  background-color: $grey-overlay;
+  height: 100%;
+  left: 0;
+  overflow: auto;
+  position: fixed;
+  top: 0;
+  width: 100%;
+  z-index: 1;
 }
 
-/* Modal Content/Box */
 .modal-content {
+  align-items: center;
+  background-color: $white;
+  border: 1px solid $grey-3;
+  display: flex;
+  flex-wrap: wrap;
+  justify-content: space-between;
+  margin: 15% auto;
+  padding: 20px;
+  width: 80%;
+
+  .title {
+    border-bottom: 1px solid;
     display: flex;
-    align-items: center;
     justify-content: space-between;
-    background-color: #fefefe;
-    margin: 15% auto; /* 15% from the top and centered */
-    padding: 20px;
-    border: 1px solid #888;
-    width: 80%; /* Could be more or less, depending on screen size */
+    padding: 10px 30px;
+    width: 100%;
+  }
+
+  .error {
+    align-items: center;
+    display: flex;
+    justify-content: space-around;
+    margin: 10px 20px;
+    width: 100%;
+  }
 }
