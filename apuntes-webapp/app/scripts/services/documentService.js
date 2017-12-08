@@ -18,9 +18,9 @@ define(['frontend', 'services/httpRequestService'], function(frontend) {
 					},
 
           postComment: function(documentId, userId, reviewText, rankingValue) {
+
             var data = {
               fileid: documentId,
-              userid: userId,
               review: reviewText,
               ranking: rankingValue
             };
@@ -41,6 +41,11 @@ define(['frontend', 'services/httpRequestService'], function(frontend) {
           downloadFile: function(documentId) {
             // FIXME change this
             return 'api/v1/documents/' + documentId + '/download';
+          },
+
+          previewFile: function(documentId) {
+            // FIXME change this
+            return 'webapp/api/v1/documents/' + documentId + '/open';
           }
 
 				};

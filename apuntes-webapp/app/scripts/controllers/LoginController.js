@@ -1,10 +1,13 @@
 'use strict';
-define(['frontend', 'services/sessionService'], function(frontend) {
+define(['frontend', 'services/sessionService',
+'services/spinnerService'], function(frontend) {
 
     frontend.controller('LoginController', [
-      'sessionService', '$location', 'localStorageService', '$state', '$q',
-      function(sessionService, $location, localStorageService, $state, $q) {
+      'sessionService', '$location', 'localStorageService', '$state', '$q', 'spinnerService',
+      function(sessionService, $location, localStorageService, $state, $q, spinnerService) {
         var _this = this;
+
+        spinnerService.hideSpinner();
 
         this.login = function(redirectTo) {
           var path = angular.isDefined(redirectTo) ? redirectTo : '/';

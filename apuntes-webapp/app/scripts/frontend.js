@@ -80,9 +80,9 @@ define(['routes',
 
             $rootScope.lang = $translate.proposedLanguage();
 
-            var requireLogin = function(path) {
-              return path.includes('profile') || path.includes('upload');
-            };
+  					var requireLogin = function(path) {
+  						return path.includes('profile') || path.includes('upload') || path.includes('change-password');
+  					};
 
             var comesFromLogin = function(path) {
               return path.includes('login');

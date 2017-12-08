@@ -1,14 +1,13 @@
 'use strict';
 
-define([], function () {
+define([], function() {
     return {
         defaultRoutePath: '/',
         // Necesitamos cambiar el / y anteponer el nombre del grupo para que funcione cuando deploy
         routes: {
             '/': {
                 templateUrl: 'views/home.html',
-                controller: 'HomeController',
-                controllerUrl: 'controllers/HomeController.js'
+                controller: 'HomeController'
             },
             '/profile': {
                 templateUrl: 'views/profile.html',
@@ -47,8 +46,16 @@ define([], function () {
                 controller: 'UploadController'
             },
             '/mail': {
-                templateUrl: 'views/mail.html',
-                controller: 'MailController'
+              templateUrl: 'views/mail.html',
+              controller: 'MailController'
+            },
+            '/reset-password': {
+              templateUrl: 'views/reset.html',
+              controller: 'ResetPasswordController'
+            },
+            '/change-password': {
+              templateUrl: 'views/change.html',
+              controller: 'ChangePasswordController'
             }
             /* ===== yeoman hook ===== */
             /* Do not remove these commented lines! Needed for auto-generation */

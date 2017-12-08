@@ -15,7 +15,7 @@ define(function() {
 	}
 	return {
 		load: function (name, require, load) {
-			require(['i18n/translations' ], function (value) {
+			require(['i18n/translations'], function (value) {
 				load(value);
 				return value;
 			});

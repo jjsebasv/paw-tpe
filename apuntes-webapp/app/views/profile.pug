@@ -1,11 +1,11 @@
 div(ng-controller='ProfileController as profileCtrl' ng-hide='showSpinner')
-  .column.column-center
+  .column
     .column.column-left
-      h1.title-3.text-base.green.m-bottom-1
+      h1.title-3.text-base.blue.m-bottom-1
         | {{profileCtrl.client.name}}
       p.text-base.grey.text-2.m-bottom-2
         | {{profileCtrl.client.email}}
-      .row
+      .row.m-bottom-3
         .item
           span.m-right-1.bold.text-base
             | {{profileCtrl.files.length | number }}
@@ -17,16 +17,19 @@ div(ng-controller='ProfileController as profileCtrl' ng-hide='showSpinner')
             | {{ profileCtrl.reviews.length | number }}
           span
             | {{ 'COMMENTS' | translate }}
+      .row.row-center
+        a.button-blue.m-right-3(type='button' ng-href='#/change-password')
+          | {{ 'CHANGE_PASSWORD' | translate }}
   .separator
   //- FIXME check this when login is available
   .column(ng-if='profileCtrl.files.length')
-    h1.title-3.text-base.green.m-bottom-3
-      | {{ 'FILES' | translate }}
-    .list-wrapper.row.row-space-between(ng-repeat='file in profileCtrl.files')
-      document(name='file.documentName' author='file.userid' id='file.documentId' goto='indexCtrl.goto(toType, toId, fromName)' from='"profile"')
-  .separator
+    h1.title-3.text-base.blue.m-bottom-3
+      | {{ 'MY_FILES' | translate }}
+    .list-wrapper.row.row-space-between
+      document(ng-repeat='file in profileCtrl.files' name='file.documentName' author='file.userid' id='file.documentId' goto='indexCtrl.goto(toType, toId, fromName)' from='"profile"')
+  .separator(ng-if='profileCtrl.files.reviews')
   .column(ng-if='profileCtrl.files.reviews')
-    h1.title-3.text-base.green.m-bottom-3
+    h1.title-3.text-base.blue.m-bottom-3
       | {{ 'COMMENTS' | translate }}
     .list-wrapper.column(nh-repeat='review in profileCtrl.reviews')
       comment(user='review.author' date='review.date' comment='review.comment' document='review.document')

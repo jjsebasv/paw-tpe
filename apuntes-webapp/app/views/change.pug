@@ -1,0 +1,27 @@
+.column.column-center(ng-controller='ChangePasswordController as changepassCtrl' ng-hide='showSpinner')
+  h1.title-3.text-base.blue.m-bottom-3
+    | {{ 'CHANGE_PASSWORD' | translate | uppercase }}
+  form(
+    name='ChangePasswordController.changePassForm'
+    novalidate
+    ng-submit='ChangePasswordController.changePassword()'
+  )
+    .column.column-left
+      label.text-5.text-base.grey-2.m-bottom-1
+        | {{ 'PASSWORD' | translate }}
+      input.input-base.m-bottom-5(name='password' type='password' ng-model='changepassCtrl.password' required ng-change='changepassCtrl.validate()')
+    .column.column-left
+      label.text-5.text-base.grey-2.m-bottom-1
+        | {{ 'RE_PASSWORD' | translate }}
+      input.input-base.m-bottom-5(name='repeat-password' type='password' ng-model='changepassCtrl.repeatPassword' required ng-change='changepassCtrl.validate()')
+      // FIXME this if is not working
+      label.text-5.text-base.grey-2.m-bottom-1(ng-if='!changepassCtrl.samePassword')
+        | {{ 'NOT_SAME_PASS' | translate }}
+  .row.row-center
+    a.button-grey.m-right-3(type='button' ng-href='#/profile')
+      | {{ 'CANCEL' | translate }}
+    // FIXME @heyimnowi style on disabled
+    button.button-blue(ng-click='changepassCtrl.next()' ng-disabled='!changepassCtrl.canContinue')
+      | {{ 'NEXT' | translate }}
+    label.text-5.text-base.grey-2.m-bottom-1(ng-if='changepassCtrl.error')
+      | {{ 'RESET_PASS_ERROR' | translate }}

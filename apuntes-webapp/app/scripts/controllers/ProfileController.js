@@ -15,12 +15,13 @@ define(['frontend', 'services/profileService', 'directives/documentDirective', '
             _this.files = response.data.documentList;
           });
 
+        promises.push(getDocumentsPromise);
+
         var getReviewsPromise = profileService.getReviews().then(
           function(response) {
               _this.reviews = response.data.reviewList;
           });
 
-        promises.push(getDocumentsPromise);
         promises.push(getReviewsPromise);
 
         $q.all(promises).then(function() {
