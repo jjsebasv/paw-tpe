@@ -7,7 +7,7 @@ angular.module('frontend').factory('httpRequestService',
         return $http({
           method: requestMethod,
           // change this to general
-          url: 'http://localhost:8080/webapp/api/v1/' + requestUrl,
+          url: 'api/v1/' + requestUrl,
           headers: {
             'content-type': 'application/json'
           },
@@ -18,7 +18,7 @@ angular.module('frontend').factory('httpRequestService',
         return $http({
           method: requestMethod,
           // change this to general
-          url: 'http://localhost:8080/webapp/api/v1/' + requestUrl,
+          url: 'api/v1/' + requestUrl,
           headers: {
             'content-type': 'application/json',
             'X-AUTH-TOKEN': localStorageService.get('sessionToken')

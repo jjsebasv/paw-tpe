@@ -11,7 +11,7 @@ define(['frontend'], function(frontend) {
           goto: '&'
         },
         replace: true,
-        templateUrl: '../../views/_documentDirective.html'
+        templateUrl: 'views/_documentDirective.html'
       };
     });
 

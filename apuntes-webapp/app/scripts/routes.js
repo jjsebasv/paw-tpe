@@ -1,53 +1,54 @@
 'use strict';
 
-define([], function() {
+define([], function () {
     return {
         defaultRoutePath: '/',
         // Necesitamos cambiar el / y anteponer el nombre del grupo para que funcione cuando deploy
         routes: {
             '/': {
-                templateUrl: '/views/home.html',
-                controller: 'HomeController'
+                templateUrl: 'views/home.html',
+                controller: 'HomeController',
+                controllerUrl: 'controllers/HomeController.js'
             },
             '/profile': {
-                templateUrl: '/views/profile.html',
+                templateUrl: 'views/profile.html',
                 controller: 'ProfileController'
             },
             '/course/:courseId': {
-                templateUrl: '/views/course.html',
+                templateUrl: 'views/course.html',
                 controller: 'CourseController'
             },
             '/program/:programId': {
-                templateUrl: '/views/program.html',
+                templateUrl: 'views/program.html',
                 controller: 'ProgramController'
             },
             '/university/:universityId': {
-                templateUrl: '/views/university.html',
+                templateUrl: 'views/university.html',
                 controller: 'UniversityController'
             },
             '/document/:documentId': {
-                templateUrl: '/views/document.html',
+                templateUrl: 'views/document.html',
                 controller: 'DocumentController'
             },
             '/login': {
-                templateUrl: '/views/login.html',
+                templateUrl: 'views/login.html',
                 controller: 'LoginController'
             },
             '/register': {
-                templateUrl: '/views/register.html',
+                templateUrl: 'views/register.html',
                 controller: 'RegisterController'
             },
             '/upload': {
-                templateUrl: '/views/upload.html',
+                templateUrl: 'views/upload.html',
                 controller: 'UploadController'
             },
             '/upload/:courseId': {
-                templateUrl: '/views/upload.html',
+                templateUrl: 'views/upload.html',
                 controller: 'UploadController'
             },
             '/mail': {
-              templateUrl: '/views/mail.html',
-              controller: 'MailController'
+                templateUrl: 'views/mail.html',
+                controller: 'MailController'
             }
             /* ===== yeoman hook ===== */
             /* Do not remove these commented lines! Needed for auto-generation */

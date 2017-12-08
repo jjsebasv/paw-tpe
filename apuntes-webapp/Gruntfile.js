@@ -191,8 +191,8 @@ module.exports = function (grunt) {
                     '<%= yeoman.dist %>/images/**/*.{png,jpg,jpeg,gif,webp,svg}',
                     '<%= yeoman.dist %>/styles/fonts/*',
                     '<%= yeoman.dist %>/views/**/*.html',
-                    '<%= yeoman.dist %>/scripts/**/*.js',
-                    '<%= yeoman.dist %>/bower_components/**/*.js',
+                    // '<%= yeoman.dist %>/scripts/**/*.js',
+                    // '<%= yeoman.dist %>/bower_components/**/*.js',
                     '!<%= yeoman.dist %>/images/static/*.jpg'
                 ]
             },
@@ -208,7 +208,7 @@ module.exports = function (grunt) {
                 flow: {
                     html: {
                         steps: {
-                            js: ['concat', 'uglifyjs'],
+                            js: ['concat'],
                             // css: ['cssmin']
                         },
                         post: {}
@@ -232,21 +232,21 @@ module.exports = function (grunt) {
             }
         },
 
-        uglify: {
-            dist: {
-                files: [{
-                    expand: true,
-                    cwd: '<%= yeoman.dist %>/bower_components',
-                    src: '**/*.js',
-                    dest: '<%= yeoman.dist %>/bower_components'
-                }, {
-                    expand: true,
-                    cwd: '<%= yeoman.dist %>/scripts',
-                    src: '**/*.js',
-                    dest: '<%= yeoman.dist %>/scripts'
-                }]
-            }
-        },
+        // uglify: {
+        //     dist: {
+        //         files: [{
+        //             expand: true,
+        //             cwd: '<%= yeoman.dist %>/bower_components',
+        //             src: '**/*.js',
+        //             dest: '<%= yeoman.dist %>/bower_components'
+        //         }, {
+        //             expand: true,
+        //             cwd: '<%= yeoman.dist %>/scripts',
+        //             src: '**/*.js',
+        //             dest: '<%= yeoman.dist %>/scripts'
+        //         }]
+        //     }
+        // },
 
         imagemin: {
             dist: {
@@ -371,9 +371,9 @@ module.exports = function (grunt) {
                 options: {
                     mainConfigFile: '.tmp/scripts/build.js',
                     baseUrl: '.tmp/scripts',
-                    uglify2: {
-                        mangle: false
-                    },
+                    // uglify2: {
+                    //     mangle: false
+                    // },
                     removeCombined: true,
                     preserveLicenseComments: false,
                     findNestedDependencies: true,
@@ -383,91 +383,15 @@ module.exports = function (grunt) {
                             name: 'build'
                         }
                     ],
-                    optimize: 'uglify2',
+                    // optimize: 'uglify2',
                     paths: {
                         'crypto-js': 'empty:'
                     }
                 }
             }
-        },
-
-        jsrev: {
-            dist: {
-                options: {
-                    baseRoot: '<%= yeoman.dist %>/scripts',
-                    baseUrl: 'scripts',
-                    outputFile: '<%= yeoman.dist %>scripts/paths.js'
-                }
-            }
         }
     });
 
-    grunt.registerMultiTask('jsrev', 'Use filerev output to create require-js compatible path mappings', function () {
-
-        if (!grunt.filerev) {
-            grunt.fail.warn('Could not find grunt.filerev. Task "filerev" must be run first.');
-            return;
-        }
-
-        if (!grunt.filerev.summary) {
-            grunt.log.warn('No mappings in grunt.filerev.summary. Abort file creation.');
-            return;
-        }
-
-        // Merge task-specific and/or target-specific options with these defaults.
-        var options = this.options({
-            baseRoot: '',
-            baseUrl: ''
-        });
-
-        if (!options.outputFile) {
-            grunt.fail.warn('Option `outputFile` not specified.');
-        }
-
-        var templateString = 'var paths = <%= JSON.stringify(moduleMappings, null, 2) %>;';
-
-        var assets = grunt.filerev.summary;
-        var path = require('path');
-        var mappings = {};
-
-        var removeExtension = function (p) {
-            return p.substr(0, p.length - path.extname(p).length);
-        };
-
-        for (var longModule in assets) {
-
-            if (assets.hasOwnProperty(longModule)) {
-                var longPath = assets[longModule];
-                if (path.extname(longPath) !== '.js') {
-                    continue;
-                }
-
-                var shortPath = path.relative(options.baseRoot, longPath);
-                var shortModule = path.relative(options.baseRoot, longModule);
-
-                mappings[removeExtension(shortModule)] = removeExtension(shortPath);
-            }
-        }
-
-        var data = {
-            baseUrl: options.baseUrl,
-            moduleMappings: mappings
-        };
-
-        var outFile = options.outputFile;
-
-
-        grunt.task.run('filerev:paths');
-
-        // if the outFile is revved, respect that
-        if (assets[outFile]) {
-            outFile = assets[outFile];
-        }
-
-        var content = grunt.template.process(templateString, {data: data});
-        grunt.file.write(options.outputFile, content);
-        grunt.log.writeln('File "' + options.outputFile + '" created.');
-    });
 
     grunt.registerTask('serve', 'Compile then start a connect web server', function (target) {
         if (target) {
@@ -515,13 +439,13 @@ module.exports = function (grunt) {
             // minify css in: <<>> out: <<>>
             // 'cssmin',
             // adds hash to file names in: <<>> out: <<>>
-            'filerev',
+            // 'filerev',
             // Creates file map from filerev result in: <<>> out: <<>>
-            'jsrev',
+            // 'jsrev',
             // ???
             'cdnify',
             // minify js in: <<>> out: <<>>
-            'uglify',
+            // 'uglify',
             // uses filerev data to rewrire file urls
             'usemin',
             // minify html

@@ -9,7 +9,7 @@ define(['frontend'], function(frontend) {
               data: '&',
               goto: '&'
             },
-            templateUrl: '../views/_backDirective.html'
+            templateUrl: 'views/_backDirective.html'
         };
     });
     return frontend;

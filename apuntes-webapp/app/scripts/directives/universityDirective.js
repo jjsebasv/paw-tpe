@@ -10,7 +10,7 @@ define(['frontend'], function(frontend) {
           goto: '&'
         },
         replace: true,
-        templateUrl: '../../views/_universityDirective.html'
+        templateUrl: 'views/_universityDirective.html'
       };
     });
 

@@ -11,7 +11,7 @@ define(['frontend'], function(frontend) {
       				document: '='
       			},
             replace: true,
-            templateUrl: '../views/_commentDirective.html'
+            templateUrl: 'views/_commentDirective.html'
         };
     });
     return frontend;

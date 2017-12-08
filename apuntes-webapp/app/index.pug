@@ -5,7 +5,7 @@ html.no-js
 		title
 			| Apuntes Paw
 		meta(name='description', content='')
-		// build:css(.tmp) styles/main.css
+		// build:css(.tmp) styles/application.css
 		link(rel='stylesheet' href='styles/application.css')
 		// endbuild
 	body(ng-controller='IndexCtrl as indexCtrl')
@@ -40,5 +40,5 @@ html.no-js
 			script(src='bower_components/es5-shim/es5-shim.js')
 			script(src='bower_components/json3/lib/json3.js')
 		// endbuild
-		script(src='/scripts/paths.js')
-		script(src='bower_components/requirejs/require.js', data-main='/scripts/build.js')
+		script(src='scripts/paths.js')
+		script(src='bower_components/requirejs/require.js', data-main='scripts/build.js')

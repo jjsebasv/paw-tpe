@@ -12,7 +12,7 @@ define(['frontend'], function(frontend) {
           goto: '&'
         },
         replace: true,
-        templateUrl: '../../views/_courseDirective.html'
+        templateUrl: 'views/_courseDirective.html'
       };
     });
 

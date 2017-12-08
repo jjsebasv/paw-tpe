@@ -9,8 +9,8 @@ import java.util.List;
 public class Document {
 
     @Id
-    @GeneratedValue(strategy = GenerationType.SEQUENCE, generator = "document_document_id_seq")
-    @SequenceGenerator(sequenceName = "document_document_id_seq", name = "document_document_id_seq", allocationSize = 1)
+    @GeneratedValue(strategy = GenerationType.SEQUENCE, generator = "documents_document_id_seq")
+    @SequenceGenerator(sequenceName = "documents_document_id_seq", name = "documents_document_id_seq", allocationSize = 1)
     @Column(name = "document_id")
     private Long documentId;
 

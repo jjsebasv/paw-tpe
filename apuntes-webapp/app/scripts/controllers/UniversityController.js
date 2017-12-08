@@ -28,7 +28,7 @@ define(['frontend',
           function(result) {
             _this.programs = result.data.programList;
           });
-        promises.push(getUniProgramsPromise)
+        promises.push(getUniProgramsPromise);
 
 
         $q.all(promises).then(function() {
