@@ -1,0 +1,11 @@
+.modal-overlay
+  .modal-content
+    .title
+      | Welcome to errors modal
+      button.close(ng-click='closeModal()')
+        | &times;
+    .error(ng-repeat='error in errors')
+      span(ng-if='error.field')
+        | Error in field: {{error.field}}
+      span
+        | {{error.message}}
