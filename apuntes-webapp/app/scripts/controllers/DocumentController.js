@@ -1,5 +1,5 @@
 'use strict';
-define(['frontend', 'services/documentService', 'services/courseService', 'directives/searchboxDirective','services/spinnerService'], function(frontend) {
+define(['frontend', 'services/documentService', 'services/courseService', 'directives/searchboxDirective','services/spinnerService', 'directives/ngRateItDirective'], function(frontend) {
 
     frontend.controller('DocumentController', [
       'documentService', 'courseService', '$routeParams', 'localStorageService', 'spinnerService', '$q',
@@ -15,6 +15,10 @@ define(['frontend', 'services/documentService', 'services/courseService', 'direc
             spinnerService.hideSpinner();
           });
         };
+
+        _this.ranking = {
+          rank: 5
+        }
 
         var getDocumentPromise = documentService.getDocument($routeParams.documentId).then(function(result) {
           _this.document = result.data;

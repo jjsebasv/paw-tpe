@@ -8,7 +8,7 @@ define(['frontend', 'services/programService', 'services/courseService',
         var _this = this;
         var programId = $routeParams.programId;
         var promises = [];
-
+        debugger;
         spinnerService.showSpinner();
 
         var getProgramPromise = programService.getProgram(programId).then(function(result) {
