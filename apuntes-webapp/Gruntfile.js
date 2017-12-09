@@ -6,6 +6,8 @@ module.exports = function (grunt) {
 
     require('time-grunt')(grunt);
 
+    var modRewrite = require('connect-modrewrite');
+
     var appConfig = {
         app: 'app',
         dist: 'dist'
@@ -21,10 +23,11 @@ module.exports = function (grunt) {
             },
             livereload: {
                 options: {
-                    open: true,
+                    open: false,
                     middleware: function (connect) {
                         return [
-                            connect.static('.tmp'),
+                            modRewrite(['^/api/(.*)$ http://localhost:8080/api/$1 [P]']),
+                            connect.static(appConfig.dist),
                             connect().use('/bower_components', connect.static('./bower_components')),
                             connect.static(appConfig.app)
                         ];
@@ -33,7 +36,7 @@ module.exports = function (grunt) {
             },
             dist: {
                 options: {
-                    open: true,
+                    open: false,
                     base: '<%= yeoman.dist %>'
                 }
             }

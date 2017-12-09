@@ -260,7 +260,7 @@ public class DocumentController {
 
         return Response.ok(stream)
                 .header("content-disposition", String.format("inline; filename=\"%s\";", document.getDocumentName()))
-                .header("content-type", "application/pdf")
+                .header("content-type", contentType)
                 .build();
     }
 
