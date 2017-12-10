@@ -42,6 +42,7 @@ define([], function() {
       PASSWORD: 'Contraseña',
       REGISTER: 'Crear Cuenta',
       RESET_PASSWORD:'¿Has olvidado tu contraseña?',
+      USER_NOT_VALID:'Usuario inválido',
       QUESTION:'Tu pregunta de recupero es:',
       ANSWER:'Ingresa tu respuesta',
       NOT_SAME_PASS:'Las contraseñas no coinciden',
@@ -51,7 +52,7 @@ define([], function() {
       NAME: 'Nombre',
       LAST_NAME: 'Apellido',
       MAIL: 'Mail',
-      RE_PASSWORD: 'Repetir Contraseña',
+      RE_PASSWORD: 'Repetir contraseña',
       FILE_NAME: 'Nombre del Apunte',
       FILE_DESCRIPTION: 'Descripción del Apunte',
       UNIVERSITY: 'Universidad',
@@ -72,6 +73,7 @@ define([], function() {
       UPLOAD_FILE: 'Subir Apunte',
       DESCRIPTION: 'Descripción',
       CANCEL: 'Cancelar',
+      NEXT:'Siguiente',
       // Errors
       E_1: 'La contraseña no puede ser igual a la actual',
       E_2: 'Usuario inválido',
@@ -108,7 +110,8 @@ define([], function() {
       E_404_6: 'No se encontró la universidad',
       E_404: 'Se buscó algo y no se encontró',
       E_UNAUTHORIZED: 'No tienes permiso para estar acá',
-      ERROR: 'Algo salió mal, por favor contacta a los administradores (apuntes.paw@gmail.com)'
+      ERROR: 'Algo salió mal, por favor contacta a los administradores (apuntes.paw@gmail.com)',
+      RESET_PASS_ERROR:'Algo salió mal, no pudimos cambiar tu contraseña'
     },
     'en': {
       APP_TITLE:'Apuntes Paw',
@@ -148,6 +151,7 @@ define([], function() {
       PASSWORD: 'Password',
       REGISTER: 'Register',
       RESET_PASSWORD:'Forgot password?',
+      USER_NOT_VALID:'Invalid user',
       QUESTION:'Your recovery question is:',
       ANSWER:'Enter your answer',
       NOT_SAME_PASS:'Passwords don\'t match',
@@ -178,6 +182,7 @@ define([], function() {
       UPLOAD_FILE: 'Upload file',
       DESCRIPTION: 'Description',
       CANCEL: 'Cancel',
+      NEXT:'Next',
       // Errors
       E_1: 'The password can\'t match your current one!',
       E_2: 'Invalid username',
@@ -214,7 +219,8 @@ define([], function() {
       E_404_6: 'University not found',
       E_404: 'Something was looked up and wasn\'t found',
       E_UNAUTHORIZED: 'You are not allowed in here',
-      ERROR: 'Something went wrong, please contact the admins (apuntes.paw@gmail.com)'
+      ERROR: 'Something went wrong, please contact the admins (apuntes.paw@gmail.com)',
+      RESET_PASS_ERROR:'Something went wrong, we could\'t reset your password'
     }
   };
 });
