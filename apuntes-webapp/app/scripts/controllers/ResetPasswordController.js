@@ -1,9 +1,14 @@
 'use strict';
-define(['frontend', 'services/sessionService','services/spinnerService'], function(frontend) {
+define([
+  'frontend',
+  'services/sessionService',
+  'services/errormodalService',
+  'services/spinnerService'
+], function(frontend) {
 
     frontend.controller('ResetPasswordController', [
-      'sessionService', '$location', 'localStorageService', '$state', 'spinnerService', '$q',
-      function(sessionService, $location, localStorageService, $state, spinnerService, $q) {
+      'sessionService', '$location', 'localStorageService', '$state', 'spinnerService', '$q', 'errormodalService', '$rootScope',
+      function(sessionService, $location, localStorageService, $state, spinnerService, $q, errormodalService, $rootScope) {
         var _this = this;
         this.validUser = false;
         this.notValidUser = false;
@@ -34,10 +39,12 @@ define(['frontend', 'services/sessionService','services/spinnerService'], functi
               function(error) {
                 console.log(error);
                 _this.notValidUser = true;
+                $rootScope.errors.push(error.data);
               });
           promises.push(getQuestionPromise);
           $q.all(promises).then(function() {
             spinnerService.hideSpinner();
+            errormodalService.showErrorModal();
           });
         };
 
@@ -49,13 +56,15 @@ define(['frontend', 'services/sessionService','services/spinnerService'], functi
               function (error) {
                 console.log(error);
                 _this.error = true;
+                $rootScope.errors.push(error.data);
               });
           promises.push(resetPasswordPromise);
           $q.all(promises).then(function() {
             spinnerService.hideSpinner();
             if (passwordChanged) {
               $location.path('/login');
-            }
+            };
+            errormodalService.showErrorModal();
           });
         };
 

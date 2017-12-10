@@ -95,7 +95,7 @@ public class DocumentController {
         final Course course = courseService.findById(documentDTO.getCourseid());
 
         if (course == null) {
-            throw new ValidationException(1, "Course not found", "courseId");
+            throw new ValidationException(16, "Course not found", "courseId");
         }
 
         validateDocument(documentDTO);
@@ -267,15 +267,15 @@ public class DocumentController {
     private void validateDocument(final DocumentDTO documentDTO) throws ValidationException {
 
         if (documentDTO.getSubject() == null || documentDTO.getSubject().isEmpty()) {
-            throw new ValidationException(1, "Subject can't be empty", "subject");
+            throw new ValidationException(17, "Subject can't be empty", "subject");
         }
 
         if (documentDTO.getDocumentName() == null || documentDTO.getDocumentName().isEmpty()) {
-            throw new ValidationException(2, "Document name can't be empty", "documentName");
+            throw new ValidationException(18, "Document name can't be empty", "documentName");
         }
 
         if (documentDTO.getDescription() == null || documentDTO.getDescription().isEmpty()) {
-            throw new ValidationException(3, "Description can't be empty", "description");
+            throw new ValidationException(19, "Description can't be empty", "description");
         }
     }
 }

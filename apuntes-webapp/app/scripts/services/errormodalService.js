@@ -6,7 +6,9 @@ define(['frontend'], function(frontend) {
     function($rootScope) {
       return {
         showErrorModal: function() {
-          $rootScope.showErrorModal = true;
+          if($rootScope.errors.length > 0) {
+            $rootScope.showErrorModal = true;
+          };
         },
         hideErrorModal: function() {
           $rootScope.errors = [];

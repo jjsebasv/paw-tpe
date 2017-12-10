@@ -1,9 +1,16 @@
 'use strict';
-define(['frontend', 'services/documentService', 'services/courseService', 'directives/searchboxDirective','services/spinnerService'], function(frontend) {
+define([
+  'frontend',
+  'services/documentService',
+  'services/courseService',
+  'directives/searchboxDirective',
+  'services/errormodalService',
+  'services/spinnerService'
+], function(frontend) {
 
     frontend.controller('DocumentController', [
-      'documentService', 'courseService', '$routeParams', 'localStorageService', 'spinnerService', '$q',
-      function(documentService, courseService, $routeParams, localStorageService, spinnerService, $q) {
+      'documentService', 'courseService', '$routeParams', 'localStorageService', 'spinnerService', '$q', 'errormodalService', '$rootScope',
+      function(documentService, courseService, $routeParams, localStorageService, spinnerService, $q, errormodalService, $rootScope) {
         var _this = this;
         this.requestSent = false;
         this.alreadyUploaded = false;
@@ -13,6 +20,7 @@ define(['frontend', 'services/documentService', 'services/courseService', 'direc
         var finishPromises = function() {
           $q.all(promises).then(function() {
             spinnerService.hideSpinner();
+            errormodalService.showErrorModal();
           });
         };
 
@@ -21,15 +29,24 @@ define(['frontend', 'services/documentService', 'services/courseService', 'direc
           var getCoursePromise = courseService.getCourse(_this.document.courseid).then(
             function (result) {
               _this.document.course = result.data.name;
+            }).catch(
+              function (error) {
+                $rootScope.errors.push(error.data);
+              });
+          var downloadFilePromise = _this.downloadPath = documentService.downloadFile(_this.document.documentId).catch(
+            function (error) {
+              $rootScope.errors.push(error.data);
             });
-          var downloadFilePromise = _this.downloadPath = documentService.downloadFile(_this.document.documentId);
           promises.push(getCoursePromise);
           promises.push(downloadFilePromise);
           finishPromises();
 
           _this.downloadPath = documentService.downloadFile(_this.document.documentId);
           _this.previewPath = documentService.previewFile(_this.document.documentId);
-        });
+        }).catch(
+          function (error) {
+            $rootScope.errors.push(error.data);
+          });
 
         var getComments = function() {
           spinnerService.showSpinner();
@@ -41,7 +58,10 @@ define(['frontend', 'services/documentService', 'services/courseService', 'direc
                 return;
               }
             });
-          });
+          }).catch(
+            function (error) {
+              $rootScope.errors.push(error.data);
+            });
           promises.push(getCommentsPromise);
           finishPromises();
         };
@@ -56,7 +76,10 @@ define(['frontend', 'services/documentService', 'services/courseService', 'direc
               getComments();
               _this.reviewRanking = null;
               _this.reviewText = null;
-            });
+            }).catch(
+              function (error) {
+                $rootScope.errors.push(error.data);
+              });
           promises.push(postCommentPromise);
           finishPromises();
         };

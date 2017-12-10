@@ -5,19 +5,21 @@ define([
   'services/universityService',
   'services/spinnerService',
   'services/programService',
+  'services/errormodalService',
   'services/courseService'
 ], function(frontend) {
 
     frontend.controller('UploadController', [
-      'documentService', 'universityService', 'programService', 'courseService', 'Upload', '$scope', '$routeParams', 'spinnerService', '$q',
-      function(documentService, universityService, programService, courseService, Upload, $scope, $routeParams, spinnerService, $q) {
+      'documentService', 'universityService', 'programService', 'courseService', 'Upload', '$scope', '$routeParams', 'spinnerService', '$q', 'errormodalService', '$rootScope',
+      function(documentService, universityService, programService, courseService, Upload, $scope, $routeParams, spinnerService, $q, errormodalService, $rootScope) {
         var _this = this;
         this.courseid = $routeParams.courseId;
-        spinnerService.hideSpinner();
+        spinnerService.showSpinner();
 
         var finishPromises = function() {
           $q.all(promises).then(function() {
             spinnerService.hideSpinner();
+            errormodalService.showErrorModal();
           });
         };
 
@@ -26,15 +28,20 @@ define([
           var allUnisPromise = universityService.getAllUnis().then(
             function(result) {
               _this.universities = result.data.universityList;
-            });
+            }).catch(
+              function (error) {
+                $rootScope.errors.push(error.data);
+              });
           promises.push(allUnisPromise);
           finishPromises();
         } else {
           var coursePromise = courseService.getCourse(this.courseid).then(
             function(result) {
               _this.selectedCourse = result.data;
-            }
-          );
+            }).catch(
+              function (error) {
+                $rootScope.errors.push(error.data);
+              });
           promises.push(coursePromise);
           finishPromises();
         }
@@ -44,7 +51,10 @@ define([
           var uniProgramPromise = programService.getUniPrograms(_this.selectedUniversity).then(
             function(result) {
               _this.programs = result.data.programList;
-            });
+            }).catch(
+              function (error) {
+                $rootScope.errors.push(error.data);
+              });
           promises.push(uniProgramPromise);
           finishPromises();
         };
@@ -54,7 +64,10 @@ define([
           var programCoursePromise = courseService.getProgramCourses(_this.selectedProgram).then(
             function(result) {
               _this.courses = result.data.courseList;
-            });
+            }).catch(
+              function (error) {
+                $rootScope.errors.push(error.data);
+              });
           promises.push(programCoursePromise);
           finishPromises();
         };
@@ -79,11 +92,12 @@ define([
                   _this.success = 1;
                 }).catch(
                   function (error) {
+                    $rootScope.errors.push(error.data);
                     _this.success = -1;
                   });
             var dataURL = reader.result;
             promises.push(uploadFilePromise);
-            // FIXME change the finishpromise to redirect to file site
+            // FIXME TODO change the finishpromise to redirect to file site
             finishPromises();
           };
           reader.readAsBinaryString(_this.file);

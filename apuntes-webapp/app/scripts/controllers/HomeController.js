@@ -12,8 +12,8 @@ define([
   function(frontend) {
 
 	frontend.controller('HomeController', [
-		'universityService', 'sessionService', '$route', 'spinnerService', 'errormodalService',
-		function(universityService, sessionService, $route, spinnerService, errormodalService) {
+		'universityService', 'sessionService', '$route', 'spinnerService', 'errormodalService', '$rootScope',
+		function(universityService, sessionService, $route, spinnerService, errormodalService, $rootScope) {
 			var _this = this;
       spinnerService.showSpinner();
 
@@ -21,8 +21,11 @@ define([
 				function(result) {
 					_this.universities = result.data.universityList;
           spinnerService.hideSpinner();
-          errormodalService.showErrorModal();
-				});
+				}).catch(
+          function (error) {
+            $rootScope.errors.push(error.data);
+            errormodalService.showErrorModal();
+          });
 
 	}]);
 });

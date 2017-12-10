@@ -1,10 +1,14 @@
 'use strict';
-define(['frontend', 'services/sessionService',
-'services/spinnerService'], function(frontend) {
+define([
+  'frontend',
+  'services/sessionService',
+  'services/spinnerService',
+  'services/errormodalService'
+], function(frontend) {
 
     frontend.controller('LoginController', [
-      'sessionService', '$location', 'localStorageService', '$state', '$q', 'spinnerService',
-      function(sessionService, $location, localStorageService, $state, $q, spinnerService) {
+      'sessionService', '$location', 'localStorageService', '$state', '$q', 'spinnerService', 'errormodalService', '$rootScope',
+      function(sessionService, $location, localStorageService, $state, $q, spinnerService, errormodalService, $rootScope) {
         var _this = this;
 
         spinnerService.hideSpinner();
@@ -19,8 +23,10 @@ define(['frontend', 'services/sessionService',
               $location.path(path);
             }).catch(
               function(error) {
-                path = '/';
-                $location.path(path);
+                $rootScope.errors.push(error.data);
+                errormodalService.showErrorModal();
+                //path = '/';
+                //$location.path(path);
               });
 
           promises.push(p);

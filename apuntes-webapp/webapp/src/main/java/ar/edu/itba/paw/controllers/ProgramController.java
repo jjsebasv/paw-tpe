@@ -167,11 +167,11 @@ public class ProgramController {
     private void validateProgram(final ProgramDTO programDTO) throws ValidationException {
 
         if (programDTO.getName() == null || programDTO.getName().isEmpty()) {
-            throw new ValidationException(1, "Name can't be empty", "name");
+            throw new ValidationException(20, "Name can't be empty", "name");
         }
 
         if (programDTO.getShortName() == null || programDTO.getShortName().isEmpty()) {
-            throw new ValidationException(2, "Short name can't be empty", "shortname");
+            throw new ValidationException(21, "Short name can't be empty", "shortname");
         }
     }
 }

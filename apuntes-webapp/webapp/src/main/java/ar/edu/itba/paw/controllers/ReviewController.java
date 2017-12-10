@@ -81,7 +81,7 @@ public class ReviewController {
                 .anyMatch(review -> review.getUser().getClientId() == reviewDTO.getUserid());
 
         if (userHasReviewed) {
-            throw new ValidationException(3, "You already reviewed this document", "fileid");
+            throw new ValidationException(22, "You already reviewed this document", "fileid");
         }
 
         validateReview(reviewDTO);
@@ -171,11 +171,11 @@ public class ReviewController {
     private void validateReview(final ReviewDTO reviewDTO) throws ValidationException {
 
         if (reviewDTO.getReview() == null || reviewDTO.getReview().isEmpty()) {
-            throw new ValidationException(1, "Review can't be empty", "review");
+            throw new ValidationException(23, "Review can't be empty", "review");
         }
 
         if (reviewDTO.getRanking() < 1 || reviewDTO.getRanking() > 5) {
-            throw new ValidationException(1, "Review must be between 1 and 5", "ranking");
+            throw new ValidationException(24, "Review must be between 1 and 5", "ranking");
         }
     }
 }

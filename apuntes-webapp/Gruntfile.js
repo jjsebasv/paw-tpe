@@ -26,7 +26,7 @@ module.exports = function (grunt) {
                     open: false,
                     middleware: function (connect) {
                         return [
-                            modRewrite(['^/api/(.*)$ http://localhost:8080/api/$1 [P]']),
+                            modRewrite(['^/api/(.*)$ http://localhost:8080/api/$1 [L]']),
                             connect.static(appConfig.dist),
                             connect().use('/bower_components', connect.static('./bower_components')),
                             connect.static(appConfig.app)

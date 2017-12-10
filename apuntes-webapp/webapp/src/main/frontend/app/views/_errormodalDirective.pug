@@ -9,3 +9,5 @@
         | Error in field: {{error.field}}
       span
         | {{error.message}}
+      span(ng-init='codeIdent: "E_{{error.code}}"')
+        | {{codeIdent}}

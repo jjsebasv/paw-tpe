@@ -5,14 +5,14 @@
  * desde la carpeta root del proyecto
    * mvn clean
    * mvn eclipse: eclipse (o simil)
- * desde la carpeta frontend
+ * desde la carpeta app
    * npm install
    * bower install
    * grunt eslint:all _(esto va a chequear syntax)_
    * grunt build --force _(importante que esto no tire ningun error. Si tira arreglarlo antes de seguir)_
  * desde la carpeta root del proyecto
    * mvn package clean
- * desde la carpeta frontend
+ * desde la carpeta app
    * grunt serve _(esto va a levantar en localhost:9000 la pagina)_
 
 # Endpoints de la API REST

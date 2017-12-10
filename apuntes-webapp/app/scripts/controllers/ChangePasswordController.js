@@ -1,9 +1,9 @@
 'use strict';
-define(['frontend', 'services/sessionService','services/spinnerService'], function(frontend) {
+define(['frontend', 'services/sessionService','services/errormodalService','services/spinnerService'], function(frontend) {
 
     frontend.controller('ChangePasswordController', [
-      'sessionService', '$location', 'spinnerService', '$q',
-      function(sessionService, $location, spinnerService, $q) {
+      'sessionService', '$location', 'spinnerService', '$q', '$rootScope', 'errormodalService',
+      function(sessionService, $location, spinnerService, $q, $rootScope, errormodalService) {
         var _this = this;
         var passwordChanged = false;
         var promises = [];
@@ -22,10 +22,12 @@ define(['frontend', 'services/sessionService','services/spinnerService'], functi
               function (error) {
                 console.log(error);
                 _this.error = true;
+                $rootScope.errors.push(error.data);
               });
           promises.push(changePasswordPromise);
           $q.all(promises).then(function() {
             spinnerService.hideSpinner();
+            errormodalService.showErrorModal();
             if (passwordChanged) {
               $location.path('/profile');
             }

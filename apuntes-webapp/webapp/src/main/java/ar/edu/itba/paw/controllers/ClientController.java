@@ -158,7 +158,7 @@ public class ClientController {
     public Response getSecretQuestion(final ExpandedClientDTO clientDTO) throws ValidationException {
 
         if (clientDTO.getName() == null || clientDTO.getName().isEmpty()) {
-            throw new ValidationException(1, "Invalid username", "username");
+            throw new ValidationException(2, "Invalid username", "username");
         }
 
         Client client = cs.findByUsername(clientDTO.getName());
@@ -177,17 +177,17 @@ public class ClientController {
     public Response resetPassword(final ExpandedClientDTO clientDTO) throws ValidationException {
 
         if (clientDTO.getName() == null || clientDTO.getName().isEmpty()) {
-            throw new ValidationException(1, "Invalid username", "username");
+            throw new ValidationException(2, "Invalid username", "username");
         }
 
         Client client = cs.findByUsername(clientDTO.getName());
 
         if (client == null) {
-            throw new ValidationException(1, "Invalid username", "username");
+            throw new ValidationException(2, "Invalid username", "username");
         }
 
         if (!client.getSecretAnswer().equals(clientDTO.getSecretAnswer())) {
-            throw new ValidationException(2, "Invalid answer", "secretAnswer");
+            throw new ValidationException(3, "Invalid answer", "secretAnswer");
         }
 
         validatePassword(clientDTO);
@@ -294,11 +294,11 @@ public class ClientController {
         }
 
         if (cs.findByUsername(clientDTO.getName()) != null) {
-            throw new ValidationException(1, "Username already exists", "username");
+            throw new ValidationException(4, "Username already exists", "username");
         }
 
         if (cs.findByEmail(clientDTO.getEmail()) != null) {
-            throw new ValidationException(2, "Email already exists", "email");
+            throw new ValidationException(5, "Email already exists", "email");
         }
 
         validateClient(clientDTO);
@@ -309,7 +309,7 @@ public class ClientController {
         final Program program = programService.findById(clientDTO.getProgramId());
 
         if (program == null || program.getUniversity().getUniversityId() != clientDTO.getUniversityId()) {
-            throw new ValidationException(1, "Program not found", "programId");
+            throw new ValidationException(6, "Program not found", "programId");
         }
 
         final Client newClient = cs.create(
@@ -334,30 +334,30 @@ public class ClientController {
 
     private void validatePassword(final ExpandedClientDTO clientDTO) throws ValidationException {
         if (clientDTO.getPassword() == null || clientDTO.getPassword().isEmpty()) {
-            throw new ValidationException(3, "The new password can't be empty!", "password");
+            throw new ValidationException(7, "The new password can't be empty!", "password");
         }
     }
 
     private void validateClient(final ExpandedClientDTO clientDTO) throws ValidationException {
 
         if (clientDTO.getName() == null || clientDTO.getName().isEmpty()) {
-            throw new ValidationException(1, "Name can't be empty", "name");
+            throw new ValidationException(8, "Name can't be empty", "name");
         }
 
         if (clientDTO.getEmail() == null || clientDTO.getEmail().isEmpty()) {
-            throw new ValidationException(1, "Email can't be empty", "email");
+            throw new ValidationException(9, "Email can't be empty", "email");
         }
 
         if (!EmailValidator.getInstance().isValid(clientDTO.getEmail())) {
-            throw new ValidationException(1, "Email is invalid", "email");
+            throw new ValidationException(10, "Email is invalid", "email");
         }
 
         if (clientDTO.getRecoveryQuestion() == null || clientDTO.getRecoveryQuestion().isEmpty()) {
-            throw new ValidationException(1, "Recovery question can't be empty", "recovery-question");
+            throw new ValidationException(11, "Recovery question can't be empty", "recovery-question");
         }
 
         if (clientDTO.getSecretAnswer() == null || clientDTO.getSecretAnswer().isEmpty()) {
-            throw new ValidationException(1, "Secret answer can't be empty", "secret-answer");
+            throw new ValidationException(12, "Secret answer can't be empty", "secret-answer");
         }
     }
 }

@@ -81,7 +81,7 @@ public class CourseController {
         }
 
         if (cs.findByCode(courseDTO.getCode()) != null) {
-            throw new ValidationException(1, "A course with the same code already exists.", "code");
+            throw new ValidationException(13, "A course with the same code already exists.", "code");
         }
 
         validateCourse(courseDTO);
@@ -159,11 +159,11 @@ public class CourseController {
     private void validateCourse(final CourseDTO courseDTO) throws ValidationException {
 
         if (courseDTO.getName() == null || courseDTO.getName().isEmpty()) {
-            throw new ValidationException(1, "Name can't be empty", "name");
+            throw new ValidationException(14, "Name can't be empty", "name");
         }
 
         if (courseDTO.getCode() == null || courseDTO.getCode().isEmpty()) {
-            throw new ValidationException(2, "Code can't be empty", "code");
+            throw new ValidationException(15, "Code can't be empty", "code");
         }
     }
 }

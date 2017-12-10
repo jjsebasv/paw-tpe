@@ -149,7 +149,7 @@ public class UniversityController {
     private void validateUniversity(final UniversityDTO universityDTO) throws ValidationException {
 
         if (universityDTO.getName() == null || universityDTO.getName().isEmpty()) {
-            throw new ValidationException(1, "Name can't be empty", "name");
+            throw new ValidationException(25, "Name can't be empty", "name");
         }
     }
 }
