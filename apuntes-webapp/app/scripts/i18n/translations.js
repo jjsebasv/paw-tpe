@@ -127,7 +127,7 @@ define([], function() {
       UNIVERSITIES: 'Universities',
       FILES: 'Files',
       INICIO: 'Index',
-      MY_FILES: 'Mis files',
+      MY_FILES: 'My files',
       NO_FILES: 'No files yet. Be the first to upload one.',
       UPLOAD: 'Upload File',
       COURSES: 'Courses',
