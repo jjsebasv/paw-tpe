@@ -3,7 +3,7 @@ html.no-js
 head
     meta(charset='utf-8')
     title
-        | Apuntes Paw
+        | {{ 'APP_TITLE' | translate }}
     meta(name='description', content='')
     // build:css(.tmp) styles/application.css
     link(rel='stylesheet' href='styles/application.css')
@@ -34,9 +34,9 @@ body(ng-controller='IndexCtrl as indexCtrl')
                     button.m-right-1.action(ng-click='indexCtrl.logOut()' ng-if='client')
                         | {{ 'LOG_OUT' | translate }}
                     button.m-right-1.action(ng-if="lang == 'en'" ng-click='indexCtrl.changeLanguage("es")')
-                        | ES
+                        | {{ 'TRANSLATE_SPANISH' | translate }}
                     button.m-right-1.action(ng-if="lang == 'es'" ng-click='indexCtrl.changeLanguage("en")')
-                        | EN
+                        | {{ 'TRANSLATE_ENGLISH' | translate }}
         .row.row-top
             .column
                 a

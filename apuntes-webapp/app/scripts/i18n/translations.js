@@ -4,6 +4,10 @@ define([], function() {
   return {
 
     'es': {
+      APP_TITLE:'Apuntes Paw',
+      TRANSLATE_SPANISH:'ES',
+      TRANSLATE_ENGLISH:'EN',
+      WELCOME:'Bienvenido',
       WELCOME_MESSAGE: 'Bienvenido',
       WELCOME_CONTROLLER: 'A new and shiny controller has been made!',
       WELCOME_CONTROLLER_FOLLOWUP: 'This is the default view for your controlller. Change it (if you want, of course)!',
@@ -107,6 +111,10 @@ define([], function() {
       ERROR: 'Algo salió mal, por favor contacta a los administradores (apuntes.paw@gmail.com)'
     },
     'en': {
+      APP_TITLE:'Apuntes Paw',
+      TRANSLATE_SPANISH:'ES',
+      TRANSLATE_ENGLISH:'EN',
+      WELCOME:'Welcome',
       WELCOME_CONTROLLER: 'A new and shiny controller has been made!',
       WELCOME_CONTROLLER_FOLLOWUP: 'This is the default view for your controlller. Change it (if you want, of course)!',
       SEARCH_PROGRAM: 'Search program',
