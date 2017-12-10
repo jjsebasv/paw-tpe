@@ -61,9 +61,7 @@ public class ClientController {
         final Client client = cs.findByUsername(username);
 
         if (client == null || !passwordEncoder.isPasswordValid(client.getPassword(), password, WebAuthConfig.SECRET)) {
-            return Response.status(Response.Status.UNAUTHORIZED)
-                    .entity(new ErrorMessageDTO(Response.Status.UNAUTHORIZED))
-                    .build();
+            throw new ValidationException(26, "User/Pass combination is invalid", "user/password");
         }
 
         String token = tokenHandler.createTokenForUser(client.getName());
