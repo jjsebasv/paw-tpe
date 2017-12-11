@@ -78,7 +78,7 @@ define(['routes',
               $rootScope.client = localStorageService.get('client');
             };
 
-            $rootScope.lang = $translate.proposedLanguage();
+            $rootScope.lang = 'es';
 
   					var requireLogin = function(path) {
   						return path.includes('profile') || path.includes('upload') || path.includes('change-password');
