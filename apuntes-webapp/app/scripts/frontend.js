@@ -92,12 +92,17 @@ define(['routes',
               return (path.includes('login') || path.includes('register')) && ($rootScope.client !== null);
             };
 
+            var requireAdmin = function(path) {
+              return (path.includes('add') || path.includes('edit')) && ($rootScope.client.role !== 'ROLE_ADMIN');
+            };
+
             $rootScope.$on('$locationChangeStart',
               function(event, next, current) {
                 var requiresLogin = requireLogin(next);
                 var sessionAvailable = localStorageService.get('client');
                 var loginTrue = alreadyLoggedIn(next);
-                if ((!comesFromLogin(current) && !sessionAvailable && requiresLogin) || loginTrue) {
+                var onlyAdmins = requireAdmin(next);
+                if ((!comesFromLogin(current) && !sessionAvailable && requiresLogin) || loginTrue || onlyAdmins) {
                   event.preventDefault();
                 }
               }

@@ -11,6 +11,10 @@ define(['frontend', 'services/httpRequestService'], function(frontend) {
                         domain: universityDomain
                     };
                     return httpRequestService.tokenedRequest('POST', 'universities/', data);
+                },
+
+                getUsers: function() {
+                  return httpRequestService.tokenedRequest('GET', 'clients', null);
                 }
             };
         }]);
