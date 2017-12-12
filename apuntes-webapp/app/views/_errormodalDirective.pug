@@ -1,12 +1,16 @@
-.modal-overlay
-  .modal-content
-    // TODO translate this
+.modal-overlay(ng-switch='registered')
+  .modal-content(ng-switch-when='true')
     .title
-      | Welcome to errors modal
+      | {{ 'WELCOME' | translate }}
+      button.close(ng-click='closeModal()')
+        | &times;
+  .modal-content(ng-switch-default)
+    .title
+      | {{ 'SOME_ERRORS' | translate }}
       button.close(ng-click='closeModal()')
         | &times;
     .error(ng-repeat='error in errors track by $index')
       span(ng-if='error.field')
-        | {{ 'ERROR_IN_FIELD' | translate }} {{error.field}}
+        | {{ 'ERROR_IN_FIELD' | translate }} {{ error.field | uppercase | translate }}
       span
         | {{ identifyError(error) | translate }}

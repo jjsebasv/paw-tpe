@@ -1,3 +1,4 @@
+
 'use strict';
 define(['frontend'], function(frontend) {
 
@@ -6,12 +7,16 @@ define(['frontend'], function(frontend) {
     function($rootScope) {
       return {
         showErrorModal: function() {
-          if($rootScope.errors.length > 0) {
+          if ($rootScope.errors.length > 0 || $rootScope.registered) {
             $rootScope.showErrorModal = true;
           };
         },
         hideErrorModal: function() {
           $rootScope.errors = [];
+          if ($rootScope.reload) {
+            $rootScope.reload = false;
+            location.reload();
+          };
           $rootScope.showErrorModal = false;
         }
       };

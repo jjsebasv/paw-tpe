@@ -13,15 +13,10 @@ body(ng-controller='IndexCtrl as indexCtrl')
         .spinner
     .mod.model-2(ng-show='showErrorModal')
         errormodal(errors='errors')
-    // FIXME @heyimnowi style here when register is ok
-    .alert.alert-success.alert-dismissable.fade.in(ng-if='registered')
-        a.close(href='#' data-dismiss='alert' aria-label='close' ng-click='indexCtrl.dismiss()') ×
-        span
-            | {{ 'WELCOME' | translate }}
     .column.column-center.test
         nav.header.row.row-center
             .max-content-wrapper.row.row-space-between
-                a(ng-href='#!/')
+                a(ng-href='#/')
                     img.logo(src='images/logo.svg')
                 .actions
                     a.m-right-1.action(type='button' ng-href='#/upload')

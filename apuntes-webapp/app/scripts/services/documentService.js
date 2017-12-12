@@ -39,12 +39,10 @@ define(['frontend', 'services/httpRequestService'], function(frontend) {
           },
 
           downloadFile: function(documentId) {
-            // FIXME change this
             return 'api/v1/documents/' + documentId + '/download';
           },
 
           previewFile: function(documentId) {
-            // FIXME change this
             return 'api/v1/documents/' + documentId + '/open';
           }
 

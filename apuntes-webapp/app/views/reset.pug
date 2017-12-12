@@ -29,13 +29,11 @@
         label.text-5.text-base.grey-2.m-bottom-1
           | {{ 'RE_PASSWORD' | translate }}
         input.input-base.m-bottom-5(name='repeat-password' type='password' ng-model='resetpassCtrl.repeatPassword' required ng-change='resetpassCtrl.validate()')
-        // FIXME this if is not working
         label.text-5.text-base.grey-2.m-bottom-1(ng-if='!resetpassCtrl.samePassword')
           | {{ 'NOT_SAME_PASS' | translate }}
   .row.row-center
     a.button-grey.m-right-3(type='button' ng-href='#/login')
       | {{ 'CANCEL' | translate }}
-    // FIXME @heyimnowi style on disabled
     button.button-blue(ng-click='resetpassCtrl.next()' ng-disabled='!resetpassCtrl.canContinue')
       | {{ 'NEXT' | translate }}
     label.text-5.text-base.grey-2.m-bottom-1(ng-if='resetpassCtrl.error')

@@ -49,6 +49,10 @@
 
 * 25 - University name can't be empty
 
+## Login
+
+* 26 - User/Pass combination is invalid
+
 ## 404
 
 * 0 - Client not found
@@ -63,3 +67,7 @@
 ## 403
 
 * UNAUTHORIZED - You are not allowed to be here
+
+## Generic
+
+* ERROR - Something went wrong, please contact admins apuntes.paw@gmail.com

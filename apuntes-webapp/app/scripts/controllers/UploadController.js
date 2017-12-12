@@ -10,16 +10,19 @@ define([
 ], function(frontend) {
 
     frontend.controller('UploadController', [
-      'documentService', 'universityService', 'programService', 'courseService', 'Upload', '$scope', '$routeParams', 'spinnerService', '$q', 'errormodalService', '$rootScope',
-      function(documentService, universityService, programService, courseService, Upload, $scope, $routeParams, spinnerService, $q, errormodalService, $rootScope) {
+      'documentService', 'universityService', 'programService', 'courseService', 'Upload', '$scope', '$routeParams', 'spinnerService', '$q', 'errormodalService', '$rootScope', '$location',
+      function(documentService, universityService, programService, courseService, Upload, $scope, $routeParams, spinnerService, $q, errormodalService, $rootScope, $location) {
         var _this = this;
         this.courseid = $routeParams.courseId;
         spinnerService.showSpinner();
 
         var finishPromises = function() {
           $q.all(promises).then(function() {
-            spinnerService.hideSpinner();
-            errormodalService.showErrorModal();
+              spinnerService.hideSpinner();
+              errormodalService.showErrorModal();
+              if (_this.success === 1) {
+                $location.path('/course/'+_this.selectedCourse.courseid);
+              }
           });
         };
 
@@ -44,7 +47,7 @@ define([
               });
           promises.push(coursePromise);
           finishPromises();
-        }
+        };
 
         this.getPrograms = function () {
           spinnerService.showSpinner();
@@ -89,6 +92,7 @@ define([
             spinnerService.showSpinner();
             var uploadFilePromise = documentService.uploadFile(_this.encodedFile, _this.fileName + ext, _this.fileDescription, _this.selectedCourse.courseid).then(
               function (response) {
+                debugger
                   _this.success = 1;
                 }).catch(
                   function (error) {
@@ -97,7 +101,6 @@ define([
                   });
             var dataURL = reader.result;
             promises.push(uploadFilePromise);
-            // FIXME TODO change the finishpromise to redirect to file site
             finishPromises();
           };
           reader.readAsBinaryString(_this.file);

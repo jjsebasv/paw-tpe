@@ -11,7 +11,7 @@
         | {{ 'NO_FILES' | translate }}
       a.primary-button(
         type='button'
-        ng-href='#!/upload/{{courseCtrl.course.courseid}}'
+        ng-href='#/upload/{{courseCtrl.course.courseid}}'
         ng-click='indexCtrl.goto("course", courseCtrl.course.courseid, "Course")')
         | {{ 'UPLOAD' | translate }}
     .list-wrapper.list-wide(ng-switch-default)

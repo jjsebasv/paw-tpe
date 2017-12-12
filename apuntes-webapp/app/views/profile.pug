@@ -21,7 +21,6 @@ div(ng-controller='ProfileController as profileCtrl' ng-hide='showSpinner')
         a.button-blue.m-right-3(type='button' ng-href='#/change-password')
           | {{ 'CHANGE_PASSWORD' | translate }}
   .separator
-  //- FIXME check this when login is available
   .column(ng-if='profileCtrl.files.length')
     h1.title-3.text-base.blue.m-bottom-3
       | {{ 'MY_FILES' | translate }}

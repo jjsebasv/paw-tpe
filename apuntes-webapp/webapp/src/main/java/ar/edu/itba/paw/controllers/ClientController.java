@@ -54,7 +54,7 @@ public class ClientController {
     @Path("/login")
     @Produces("application/json")
     @Consumes("application/json")
-    public Response authenticateUser(LoginObjectDTO loginObject) {
+    public Response authenticateUser(LoginObjectDTO loginObject) throws ValidationException {
         String username = loginObject.getUsername();
         String password = loginObject.getPassword();
 

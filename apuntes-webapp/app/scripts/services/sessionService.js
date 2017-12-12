@@ -11,6 +11,7 @@ define(['frontend', 'services/httpRequestService'], function(frontend) {
             localStorageService.set('sessionToken', token);
             return httpRequestService.tokenedRequest('GET', 'clients/me', null).then(
               function (response) {
+                debugger
                 localStorageService.set('client', response.data);
                 $rootScope.client = response.data;
               });

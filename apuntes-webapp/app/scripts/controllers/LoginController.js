@@ -18,6 +18,7 @@ define([
           var promises = [];
           var p = sessionService.login(_this.username, _this.password).then(
             function (response) {
+              debugger
               var tokenPromise = sessionService.saveToken(response.data.token, _this.username);
               promises.push(tokenPromise);
               $location.path(path);

@@ -6,7 +6,6 @@ angular.module('frontend').factory('httpRequestService',
       defaultRequest: function(requestMethod, requestUrl, requestData) {
         return $http({
           method: requestMethod,
-          // FIXME change this to general
           url: 'api/v1/' + requestUrl,
           headers: {
             'content-type': 'application/json'
@@ -17,7 +16,6 @@ angular.module('frontend').factory('httpRequestService',
       tokenedRequest: function(requestMethod, requestUrl, requestData) {
         return $http({
           method: requestMethod,
-          // FIXME change this to general
           url: 'api/v1/' + requestUrl,
           headers: {
             'content-type': 'application/json',
