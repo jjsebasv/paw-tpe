@@ -26,7 +26,7 @@
 			p.title-2.text-base.black.m-bottom-1
 				| {{ 'ADD_COMMENT' | translate }}
 			textarea.input-base.m-bottom-1(name='comment' ng-model='documentCtrl.reviewText')
-			input.input-base.m-bottom-1(name='ranking' type='number' ng-min='1' ng-max='5' ng-model='documentCtrl.reviewRanking')
+			rateit(ng-model="documentCtrl.reviewRanking" min="0" max="5.0")
 			input.button-green(type='button' value='{{ "SEND_COMMENT" | translate }}' ng-click='documentCtrl.postComment()' ng-disabled='documentCtrl.reviewRanking === null || documentCtrl.reviewText === null || documentCtrl.requestSent')
 		.new-comment-wrapper.column.column-left.m-bottom-3(ng-if='documentCtrl.checkOwnDocument()')
 			p.title-2.text-base.black.m-bottom-1

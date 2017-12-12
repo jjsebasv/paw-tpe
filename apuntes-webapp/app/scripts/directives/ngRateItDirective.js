@@ -1,7 +1,7 @@
 'use strict';
 define(['frontend'], function(frontend) {
 
-  frontend.directive('rateit', function() {
+  frontend.directive('rateit',  ['$q', function($q) {
     return {
       restrict: 'E',
       require: 'ngModel',
@@ -144,6 +144,6 @@ define(['frontend'], function(frontend) {
 
       }
     };
-  });
+  }]);
 
 });
