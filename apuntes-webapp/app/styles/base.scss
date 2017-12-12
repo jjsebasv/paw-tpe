@@ -97,6 +97,13 @@ html {
   text-decoration: underline;
 }
 
+.normal-link {
+  font-size: 12px;
+  color: $blue;
+  text-decoration: underline;
+  display: block;
+}
+
 .wrapper-line-title {
   padding-bottom: 10px;
   border-bottom: 1px solid $green;
@@ -119,27 +126,6 @@ html {
 	border-left: 6px solid $blue;
 	transition: all 0.4s cubic-bezier(0.42, 0, 0.58, 1) 0s;
   width: 100%;
-  &:before {
-  	display: block;
-  	position: absolute;
-  	top: 0px;
-  	right: 0px;
-  	height: 100%;
-  	z-index: -1;
-  	content: '';
-  	background: $blue;
-  	transition: all 0.4s cubic-bezier(0.42, 0, 0.58, 1) 0s;
-  }
-  &:hover {
-  	color: $grey-4;
-  	background-color: transparent;
-  	text-shadow: nthree;
-    &:before {
-    	left: 0%;
-    	right: auto;
-    	width: 100%;
-    }
-  }
 }
 
 button {
@@ -388,7 +374,7 @@ button {
 
 .input-base {
   background: $grey-4;
-  width: 238px;
+  width: 350px;
   height: 38px;
   padding: 5px 10px;
 }
@@ -439,6 +425,11 @@ button {
   padding: 0 10px;
   line-height: 38px;
   text-align: center;
+
+  &:hover,
+  &:focus {
+    color: $white;
+  }
 }
 
 @for $i from 1 through 5 {

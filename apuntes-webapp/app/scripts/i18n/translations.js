@@ -117,7 +117,7 @@ define([], function() {
       E_404_5: 'No se encontró el comentario',
       E_404_6: 'No se encontró la universidad',
       E_404: 'Se buscó algo y no se encontró',
-      E_UNAUTHORIZED: 'No tienes permiso para estar acá',
+      E_UNAUTHORIZED: 'No tienes permiso para estar aqui',
       ERROR: 'Algo salió mal, por favor contacta a los administradores (apuntes.paw@gmail.com)',
       RESET_PASS_ERROR: 'Algo salió mal, no pudimos cambiar tu contraseña'
     },

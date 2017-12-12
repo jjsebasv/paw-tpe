@@ -1,2 +1,8 @@
-a.list-item(ng-click='goto({toType: "course", toId: id, fromName: from})')
-  | {{ code }} {{ name }}
+div.list-item.row.row-space-between(ng-click='goto({toType: "course", toId: id, fromName: from})')
+  span
+    | {{ code }} {{ name }}
+  .row
+    button.m-right-2
+      img(src="images/edit.svg", alt="")
+    button
+      img(src="images/remove.svg", alt="")

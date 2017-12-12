@@ -1,7 +1,7 @@
 'use strict';
-define(['frontend'], function(frontend) {
+define(['frontend', 'services/universityService'], function(frontend) {
 
-    frontend.directive('university', function() {
+    frontend.directive('university', ['universityService', function(universityService) {
       return {
         restrict: 'E',
         scope: {
@@ -10,8 +10,21 @@ define(['frontend'], function(frontend) {
           goto: '&'
         },
         replace: true,
-        templateUrl: 'views/_universityDirective.html'
+        templateUrl: 'views/_universityDirective.html',
+        link: function($scope, $element, $attrs) {
+          $scope.deleteUniversity = function(universityId, event) {
+            debugger;
+            event.stopPropagation();
+            universityService.deleteUniversity(universityId).then(
+              function(result) {
+                console.log(result);
+              }).catch(
+                function (error) {
+                  console.log(error.data);
+              });
+          }
+        }
       };
-    });
+    }]);
 
 });

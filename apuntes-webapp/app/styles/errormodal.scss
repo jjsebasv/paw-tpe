@@ -11,6 +11,10 @@
   z-index: 1;
 }
 
+.modal-dialog {
+  max-width: 500px;
+}
+
 .modal-content {
   align-items: center;
   background-color: $white;
