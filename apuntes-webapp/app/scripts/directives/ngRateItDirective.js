@@ -25,7 +25,6 @@ define(['frontend'], function(frontend) {
       },
       templateUrl: 'views/_ngRateItDirective.html',
       link: function($scope, $element, $attrs) {
-        debugger;
         if (!$attrs.readOnly) {
           $scope.readOnly = function() {
             return false;

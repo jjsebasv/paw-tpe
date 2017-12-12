@@ -24,7 +24,6 @@ define([
             errormodalService.showErrorModal();
           });
         };
-        debugger;
         var getDocumentPromise = documentService.getDocument($routeParams.documentId).then(function(result) {
           _this.document = result.data;
           var getCoursePromise = courseService.getCourse(_this.document.courseid).then(
