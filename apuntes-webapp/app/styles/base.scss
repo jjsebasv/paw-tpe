@@ -17,7 +17,7 @@ html {
 }
 
 .chosen-container {
-  width: 100%;
+  width: 100% !important;
 }
 
 .chosen-container-single .chosen-single {
@@ -138,6 +138,22 @@ html {
     	left: 0%;
     	right: auto;
     	width: 100%;
+    }
+  }
+}
+
+button {
+  &:hover {
+    opacity: 0.9;
+    font-weight: 800;
+  }
+
+  &:disabled {
+    opacity: 0.5;
+
+    &:hover {
+      opacity: 0.5;
+      font-weight: initial;
     }
   }
 }
@@ -303,6 +319,10 @@ html {
   align-items: center;
   display: flex;
   flex-direction: row;
+}
+
+.row-space-betweens {
+  width: 100%;
 }
 
 .row-center {

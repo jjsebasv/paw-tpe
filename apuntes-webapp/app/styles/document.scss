@@ -7,6 +7,11 @@
   position: relative;
   justify-content: center;
   margin-right: 40px;
+
+  .preview-image {
+    max-height: 100%;
+    max-width: 100%;
+  }
 }
 
 .new-comment-wrapper  {

@@ -4,7 +4,7 @@ define([
 		'directives/searchboxDirective',
 		'directives/errormodalDirective',
 		'directives/backDirective',
-	  'services/spinnerService'
+		'services/spinnerService'
 	],
 	function(frontend) {
 

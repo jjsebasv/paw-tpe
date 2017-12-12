@@ -33,12 +33,8 @@ define([
               function (error) {
                 $rootScope.errors.push(error.data);
               });
-          var downloadFilePromise = _this.downloadPath = documentService.downloadFile(_this.document.documentId).catch(
-            function (error) {
-              $rootScope.errors.push(error.data);
-            });
+
           promises.push(getCoursePromise);
-          promises.push(downloadFilePromise);
           finishPromises();
 
           _this.downloadPath = documentService.downloadFile(_this.document.documentId);

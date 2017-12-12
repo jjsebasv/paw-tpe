@@ -11,7 +11,7 @@ define(['frontend', 'services/httpRequestService'], function(frontend) {
             localStorageService.set('sessionToken', token);
             return httpRequestService.tokenedRequest('GET', 'clients/me', null).then(
               function (response) {
-                debugger
+
                 localStorageService.set('client', response.data);
                 $rootScope.client = response.data;
               });
@@ -27,8 +27,8 @@ define(['frontend', 'services/httpRequestService'], function(frontend) {
 
           register: function(userName, user, pass, mail, university, program, question, answer) {
             var data = {
-              name: userName,
-              username: user,
+              idName: userName,
+              name: user,
               password: pass,
               email: mail,
               programId: program,

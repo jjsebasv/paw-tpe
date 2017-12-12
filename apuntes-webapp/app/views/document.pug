@@ -1,14 +1,14 @@
 .column(ng-controller='DocumentController as documentCtrl' ng-hide='showSpinner')
 	.row.row-space-between.row-top.m-bottom-1.document-header
 		.column.column-center.big-book.flex-1
-			img(src='{{documentCtrl.previewPath}}')
+			img.preview-image(src='{{documentCtrl.previewPath}}')
 		.column.flex-1.m-left-1.document-info
 			p.title-2.text-base.black
 				| {{documentCtrl.document.documentName}}
 			p.title-2.text-base.bold
-				| Subido por {{documentCtrl.document.subject}}
+				| {{ 'UPLOADED_BY' | translate }} {{documentCtrl.document.subject}}
 			p.m-bottom-3.text-base.grey-3.text-2
-				| Subido el dia: {{documentCtrl.document.dateUploaded}}
+				| {{ 'UPLOADED_DATE' | translate }} {{documentCtrl.document.dateUploaded}}
 			p.m-bottom-3.text-base.grey-3.text-2
 				| {{documentCtrl.document.course}}
 			p.text-base.grey.text-3.grey-3.justify.m-bottom-3

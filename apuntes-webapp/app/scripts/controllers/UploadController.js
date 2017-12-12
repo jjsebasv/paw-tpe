@@ -21,7 +21,7 @@ define([
               spinnerService.hideSpinner();
               errormodalService.showErrorModal();
               if (_this.success === 1) {
-                $location.path('/course/'+_this.selectedCourse.courseid);
+                $location.path('/course/' + _this.selectedCourse.courseid);
               }
           });
         };
@@ -92,7 +92,6 @@ define([
             spinnerService.showSpinner();
             var uploadFilePromise = documentService.uploadFile(_this.encodedFile, _this.fileName + ext, _this.fileDescription, _this.selectedCourse.courseid).then(
               function (response) {
-                debugger
                   _this.success = 1;
                 }).catch(
                   function (error) {
