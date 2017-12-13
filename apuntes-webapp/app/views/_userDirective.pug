@@ -1,0 +1,10 @@
+div.list-item.row.row-space-between
+  span.user-list-item
+    | {{ user.name }}
+  span.user-list-item
+    | {{ user.email }}
+  span.user-list-item
+    | {{ user.role | translate }}
+  .row
+    button.m-right-2(title="{{ 'CHANGE_ROLE' | translate }}" ng-click='changerole({usr: user})')
+      img(src="images/edit.svg")

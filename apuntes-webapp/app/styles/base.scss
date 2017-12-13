@@ -350,6 +350,12 @@ button {
   flex-grow: 1;
 }
 
+.user-list-item {
+  overflow: hidden;
+  text-overflow: ellipsis;
+  width: 160px;
+}
+
 @for $i from 1 through 3 {
   .item-#{$i} {
     flex: $i;

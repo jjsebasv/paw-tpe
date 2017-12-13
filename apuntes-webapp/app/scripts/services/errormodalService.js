@@ -13,9 +13,8 @@ define(['frontend'], function(frontend) {
         },
         hideErrorModal: function() {
           $rootScope.errors = [];
-          if ($rootScope.reload) {
-            $rootScope.reload = false;
-            location.reload();
+          if ($rootScope.registered) {
+            $rootScope.registered = false;
           };
           $rootScope.showErrorModal = false;
         }

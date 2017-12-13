@@ -13,6 +13,10 @@ define([], function() {
                 templateUrl: 'views/profile.html',
                 controller: 'ProfileController'
             },
+            '/users/edit': {
+                templateUrl: 'views/users.html',
+                controller: 'UsersController'
+            },
             '/course/:courseId': {
                 templateUrl: 'views/course.html',
                 controller: 'CourseController'

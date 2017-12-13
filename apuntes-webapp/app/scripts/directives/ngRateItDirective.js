@@ -1,7 +1,7 @@
 'use strict';
 define(['frontend'], function(frontend) {
 
-  frontend.directive('rateit',  ['$q', function($q) {
+  frontend.directive('rateit', ['$q', function($q) {
     return {
       restrict: 'E',
       require: 'ngModel',
@@ -68,7 +68,7 @@ define(['frontend'], function(frontend) {
       },
       controller: function($scope, $timeout) {
 
-        $scope.isTouch = !!window.hasOwnProperty("ontouchstart") || window.navigator.msMaxTouchPoints > 0;
+        $scope.isTouch = !!window.hasOwnProperty('ontouchstart') || window.navigator.msMaxTouchPoints > 0;
         $scope.orgValue = angular.copy($scope.ngModel);
 
         $scope.min = $scope.min || 0;
