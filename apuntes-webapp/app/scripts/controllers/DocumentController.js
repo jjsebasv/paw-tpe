@@ -6,7 +6,8 @@ define([
   'directives/searchboxDirective',
   'services/errormodalService',
   'services/spinnerService',
-  'directives/ngRateItDirective'
+  'directives/ngRateItDirective',
+  'directives/commentDirective'
 ], function(frontend) {
 
     frontend.controller('DocumentController', [

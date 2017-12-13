@@ -15,5 +15,5 @@
         ng-click='indexCtrl.goto("course", courseCtrl.course.courseid, "Course")')
         | {{ 'UPLOAD' | translate }}
     .list-wrapper.list-wide(ng-switch-default)
-      .row.row-space-betweens(ng-repeat='document in courseCtrl.documents | filter:searchText')
+      .row.row-space-between(ng-repeat='document in courseCtrl.documents | filter:searchText')
         document(name='document.documentName' id='document.documentId' goto='indexCtrl.goto(toType, toId, fromName)' from='courseCtrl.course.name')

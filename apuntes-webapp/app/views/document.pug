@@ -33,10 +33,5 @@
 			p.title-2.text-base.black.m-bottom-1
 				| {{ 'ALREADY_REVIEWED_ERROR' | translate }}
 		.list-comment-wrapper.column
-			.list-item.row.row-space-between.m-bottom-2(ng-repeat='comment in documentCtrl.comments')
-				.column
-					rateit(ng-model="comment.ranking" read-only="true")
-					p.text-base.grey.text-3.grey-3.justify
-						| {{comment.review}}
-				button(ng-click='deleteComment(id, $event)')
-					img(src="images/remove.svg")
+			.row.row-space-betweens(ng-repeat='comment in documentCtrl.comments')
+				comment(id='comment.reviewid' review='comment.review' ranking='comment.ranking')

@@ -5,14 +5,14 @@ define(['frontend', 'services/documentService'], function(frontend) {
         return {
             restrict: 'E',
       			scope: {
-      				user: '=',
-      				date: '=',
-      				comment: '=',
-      				document: '='
+      				ranking: '=',
+      				review: '=',
+      				id: '='
       			},
             replace: true,
             templateUrl: 'views/_commentDirective.html',
             link: function($scope, $element, $attrs) {
+              debugger;
               $scope.deleteComment = function(commentId, event) {
                 event.stopPropagation();
                 documentService.deleteComment(commentId).then(function(result) {
@@ -23,6 +23,6 @@ define(['frontend', 'services/documentService'], function(frontend) {
               }
             }
         };
-    });
+    }]);
     return frontend;
 });
