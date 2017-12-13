@@ -133,6 +133,9 @@ define([], function() {
       E_404_5: 'No se encontró el comentario',
       E_404_6: 'No se encontró la universidad',
       E_404: 'Se buscó algo y no se encontró',
+      E_NO_PROGRAMS: 'No hay carreras en esta universidad',
+      E_NO_COURSES: 'No hay materias en esta carrera',
+      E_NO_DOCUMENTS: 'No hay documentos en esta materia',
       E_UNAUTHORIZED: 'No tienes permiso para estar aqui',
       ERROR: 'Algo salió mal, por favor contacta a los administradores (apuntes.paw@gmail.com)',
       RESET_PASS_ERROR: 'Algo salió mal, no pudimos cambiar tu contraseña'
@@ -266,6 +269,9 @@ define([], function() {
       E_404_5: 'Review not found',
       E_404_6: 'University not found',
       E_404: 'Something was looked up and wasn\'t found',
+      E_NO_PROGRAMS: 'There are no programs in this university',
+      E_NO_COURSES: 'There are no courses in this program',
+      E_NO_DOCUMENTS: 'There are no documents in this course',
       E_UNAUTHORIZED: 'You are not allowed in here',
       ERROR: 'Something went wrong, please contact the admins (apuntes.paw@gmail.com)',
       RESET_PASS_ERROR: 'Something went wrong, we could\'t reset your password'

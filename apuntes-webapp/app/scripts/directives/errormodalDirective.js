@@ -28,11 +28,15 @@ define(['frontend', 'services/errormodalService'], function(frontend) {
                 if (error.status === 403) {
                   return 'E_UNAUTHORIZED';
                 } else if (error.status === 404) {
-                  var errorCode = notFoundTypes.indexOf(error.message.split(' ')[0]);
-                  if (errorCode >= 0) {
-                    return 'E_404_' + errorCode;
+                  if (error.message.includes('[EMPTY]')) {
+                    return 'E_NO_' + error.message.split(' ')[1].toUpperCase();
                   } else {
-                    return 'E_404';
+                    var errorCode = notFoundTypes.indexOf(error.message.split(' ')[0]);
+                    if (errorCode >= 0) {
+                      return 'E_404_' + errorCode;
+                    } else {
+                      return 'E_404';
+                    }
                   }
                 } else if (error.code) {
                   return 'E_' + error.code;

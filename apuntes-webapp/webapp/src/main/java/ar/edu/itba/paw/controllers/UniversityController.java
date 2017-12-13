@@ -73,7 +73,7 @@ public class UniversityController {
         if (programs != null) {
             return Response.ok(new ProgramListDTO(programs)).build();
         } else {
-            throw new Http404Exception("Program not found");
+            throw new Http404Exception("[EMPTY] Programs");
         }
     }
 

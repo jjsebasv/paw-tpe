@@ -105,7 +105,7 @@ public class CourseController {
         if (documents != null) {
             return Response.ok(new DocumentListDTO(documents)).build();
         } else {
-            throw new Http404Exception("Course not found");
+            throw new Http404Exception("[EMPTY] Documents");
         }
     }
 

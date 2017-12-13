@@ -75,7 +75,7 @@ public class ProgramController {
         final Map<Integer, List<Course>> courses = cs.findByProgramId(id);
 
         if (courses == null) {
-            throw new Http404Exception("Program not found");
+            throw new Http404Exception("[EMPTY] Courses");
         }
 
         final List<ExpandedCourseDTO> courseDTOList = new ArrayList<>();
