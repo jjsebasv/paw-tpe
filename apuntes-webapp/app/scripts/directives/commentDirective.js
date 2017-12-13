@@ -1,7 +1,7 @@
 'use strict';
 
-define(['frontend'], function(frontend) {
-    frontend.directive('comment', function() {
+define(['frontend', 'services/documentService'], function(frontend) {
+    frontend.directive('comment', ['documentService', function(documentService) {
         return {
             restrict: 'E',
       			scope: {
@@ -11,7 +11,17 @@ define(['frontend'], function(frontend) {
       				document: '='
       			},
             replace: true,
-            templateUrl: 'views/_commentDirective.html'
+            templateUrl: 'views/_commentDirective.html',
+            link: function($scope, $element, $attrs) {
+              $scope.deleteComment = function(commentId, event) {
+                event.stopPropagation();
+                documentService.deleteComment(commentId).then(function(result) {
+                    console.log(result);
+                  }).catch(function (error) {
+                    console.log(error.data);
+                  });
+              }
+            }
         };
     });
     return frontend;

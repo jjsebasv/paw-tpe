@@ -8,3 +8,5 @@
     | {{ date }}
   p.text-base.grey.text-3.grey-3.justify
     | {{ comment }}
+  button(ng-click='deleteComment(id, $event)')
+    img(src="images/remove.svg")
