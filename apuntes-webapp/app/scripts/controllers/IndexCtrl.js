@@ -56,9 +56,10 @@ define([
 				$location.path('/');
 				$window.location.reload();
 			};
-            this.editUniversity = function(id) {
-                $location.path('#/universities/edit/' +id);
-            };
+
+      this.editUniversity = function(id) {
+        $location.path('/universities/edit/' +id);
+      };
 	}]);
 
 });
