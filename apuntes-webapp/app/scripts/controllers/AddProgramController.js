@@ -54,7 +54,7 @@ define(['frontend', 'services/adminService','services/universityService','servic
             };
 
             var submit = function(){
-              adminService.postProgram(_this.programName, _this.selectedUniversity).then(
+              adminService.postProgram(_this.programName, _this.shortName, _this.selectedUniversity).then(
                   function (response) {
                       promises.push(saveProgram);
                       $location.path('/programs');
