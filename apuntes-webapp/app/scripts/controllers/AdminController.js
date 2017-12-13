@@ -1,24 +1,29 @@
 'use strict';
-define(['frontend', 'services/adminService','services/errormodalService','services/spinnerService'], function(frontend) {
+define(['frontend', 'services/adminService','services/universityService','services/errormodalService','services/spinnerService'], function(frontend) {
 
     frontend.controller('AdminController', [
-        'adminService', '$location', 'spinnerService', '$q', '$rootScope', 'errormodalService',
-        function(adminService, $location, spinnerService, $q, $rootScope, errormodalService) {
+        'adminService', 'universityService','$routeParams','$location', 'spinnerService', '$q', '$rootScope', 'errormodalService',
+        function(adminService,universityService, $routeParams, $location, spinnerService, $q, $rootScope, errormodalService) {
             var _this = this;
             var uniAdded = false;
+            var postSuccess = false;
+            var update = false;
+            var uniId = $routeParams.universityId;
+
             var promises = [];
+            var path = $location.path();
 
             this.next = function() {
                 this.error = false;
                 spinnerService.showSpinner();
-                postUniversity();
+                submit();
             };
 
             var finishPromises = function() {
                 $q.all(promises).then(function() {
                     spinnerService.hideSpinner();
                     errormodalService.showErrorModal();
-                    if (uniAdded) {
+                    if (postSuccess) {
                         $location.path('/');
                     }
                 });
@@ -27,7 +32,9 @@ define(['frontend', 'services/adminService','services/errormodalService','servic
             var postUniversity = function() {
                 var addUniversityPromise = adminService.postUniversity(_this.universityName, _this.universityDomain).then(
                     function (response) {
-                        uniAdded = true;
+                        postSuccess = true;
+                        promises.push(addUniversityPromise);
+                        finishPromises()
                     }).catch(
                       function (error) {
                         console.log(error);
@@ -38,6 +45,35 @@ define(['frontend', 'services/adminService','services/errormodalService','servic
                 finishPromises();
             };
 
+            var submit = function(){
+                if(update){
+                    updateUniversity()
+                } else {
+                    postUniversity()
+                }
+            }
+
+                var getUniversityPromise = universityService.getUniversity(uniId).then(
+                    function(result) {
+                        shouldUpdateUniversity(result.data.name, result.data.domain);
+                        promises.push(getUniversityPromise);
+
+                    }).catch(
+                    function (error) {
+                        $rootScope.errors.push(error.data);
+                    });
+
+
+            var shouldUpdateUniversity = function(name, domain){
+                if (name ==! null || name ==! undefined){
+                    _this.universityName = name;
+                    _this.universityDomain = domain;
+                    update = true;
+                }
+            };
+
+
+//fixme el boton next siempre se muestra disabled usando lo comentado.
             this.validate = function() {
               if (angular.isUndefined(_this.universityName) || angular.isUndefined(_this.universityDomain) ||
                   _this.universityName === '' || _this.universityDomain === '') {

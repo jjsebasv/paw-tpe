@@ -12,8 +12,8 @@ define([
   function(frontend) {
 
 	frontend.controller('HomeController', [
-		'universityService', 'sessionService', '$route', 'spinnerService', 'errormodalService', '$rootScope',
-		function(universityService, sessionService, $route, spinnerService, errormodalService, $rootScope) {
+		'universityService', 'sessionService', '$route', 'spinnerService', 'errormodalService', '$rootScope','$location',
+		function(universityService, sessionService, $route, spinnerService, errormodalService, $rootScope, $location) {
 			var _this = this;
       spinnerService.showSpinner();
 
@@ -26,6 +26,10 @@ define([
             $rootScope.errors.push(error.data);
             errormodalService.showErrorModal();
           });
+
+        this.editUniversity = function(id) {
+            $location.path('/universities/edit/' +id);
+        };
 
 	}]);
 });
