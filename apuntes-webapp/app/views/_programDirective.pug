@@ -5,5 +5,5 @@ div.list-item.row.row-space-between(ng-click='goto({toType: "program", toId: id,
   .row
     button.m-right-2
       img(src="images/edit.svg")
-    button(ng-click='deleteProgram(id, $event)')
+    button(ng-click='deleteProgram(id, $event)' ng-if="$parent.client.role == 'ROLE_ADMIN'")
       img(src="images/remove.svg")

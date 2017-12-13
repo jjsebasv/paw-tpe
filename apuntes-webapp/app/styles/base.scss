@@ -88,6 +88,7 @@ html {
   justify-content: center;
   flex-wrap: wrap;
   margin: 0 auto;
+  width: 100%;
 }
 
 .link {
@@ -131,7 +132,6 @@ html {
 button {
   &:hover {
     opacity: 0.9;
-    font-weight: 800;
   }
 
   &:disabled {
@@ -139,7 +139,6 @@ button {
 
     &:hover {
       opacity: 0.5;
-      font-weight: initial;
     }
   }
 }

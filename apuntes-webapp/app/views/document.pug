@@ -32,8 +32,6 @@
 		.new-comment-wrapper.column.column-left.m-bottom-3(ng-if='documentCtrl.alreadyUploaded')
 			p.title-2.text-base.black.m-bottom-1
 				| {{ 'ALREADY_REVIEWED_ERROR' | translate }}
-		.list-comment-wrapper.column(ng-repeat='comment in documentCtrl.comments')
-			.list-comment-item.column.m-bottom-5
-				rateit(ng-model="comment.ranking" read-only="true")
-				p.text-base.grey.text-3.grey-3.justify
-					| {{comment.review}}
+		.list-comment-wrapper.column
+			.row.row-space-between(ng-repeat='comment in documentCtrl.comments')
+				comment(id='comment.reviewid' review='comment.review' ranking='comment.ranking')
