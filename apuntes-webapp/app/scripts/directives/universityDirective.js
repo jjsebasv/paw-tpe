@@ -7,7 +7,8 @@ define(['frontend', 'services/universityService', 'services/errormodalService'],
         scope: {
           name: '=',
           id: '=',
-          goto: '&'
+          goto: '&',
+          edit: '&',
         },
         replace: true,
         templateUrl: 'views/_universityDirective.html',
@@ -26,6 +27,7 @@ define(['frontend', 'services/universityService', 'services/errormodalService'],
           };
         }
       };
+
     }]);
 
 });

@@ -98,6 +98,7 @@ define(['routes',
 
             $rootScope.$on('$locationChangeStart',
               function(event, next, current) {
+
                 var requiresLogin = requireLogin(next);
                 var sessionAvailable = localStorageService.get('client');
                 var loginTrue = alreadyLoggedIn(next);

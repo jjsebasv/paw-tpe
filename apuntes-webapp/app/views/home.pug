@@ -7,4 +7,4 @@
   .row.m-bottom-3.section-search
     searchbox(filter='searchText' placeholder="'SEARCH_UNIVERSITY'")
   .list-wrapper.list-wide(ng-repeat='uni in homeCtrl.universities | filter:searchText')
-    university(name='uni.name' id='uni.universityId' goto='indexCtrl.goto(toType, toId, fromName)')
+    university(name='uni.name' id='uni.universityId' goto='indexCtrl.goto(toType, toId, fromName)' edit='homeCtrl.editUniversity(id)')

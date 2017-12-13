@@ -3,7 +3,7 @@ div.list-item.row.row-space-between(ng-click='goto({toType: "university", toId: 
   span
     | {{ name }}
   .row
-    button.m-right-2
+    button.m-right-2(ng-click='edit({id:id})' ng-if="$parent.client.role == 'ROLE_ADMIN'")
       img(src="images/edit.svg")
     button(ng-click='deleteUniversity(id, $event)' ng-if="$parent.client.role == 'ROLE_ADMIN'")
       img(src="images/remove.svg")
