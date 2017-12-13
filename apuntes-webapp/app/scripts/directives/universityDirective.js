@@ -1,7 +1,7 @@
 'use strict';
 define(['frontend', 'services/universityService', 'services/errormodalService'], function(frontend) {
 
-    frontend.directive('university', ['universityService', 'errormodalService', '$window', function(universityService, errormodalService, $window) {
+    frontend.directive('university', ['universityService', 'errormodalService', function(universityService, errormodalService) {
       return {
         restrict: 'E',
         scope: {
@@ -18,7 +18,7 @@ define(['frontend', 'services/universityService', 'services/errormodalService'],
             $scope.errors = [];
             universityService.deleteUniversity(universityId).then(function(result) {
                 console.log(result);
-                $window.location.reload();
+                location.reload();
               }).catch(function (error) {
                 $scope.errors.push(error.data);
                 errormodalService.showErrorModal();
