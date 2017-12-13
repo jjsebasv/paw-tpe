@@ -16,7 +16,9 @@ define(['frontend', 'services/httpRequestService'], function(frontend) {
 					getComments: function(documentId) {
 						return httpRequestService.defaultRequest('GET', 'documents/' + documentId + '/reviews', null);
 					},
-
+					deleteDocument: function(documentId) {
+						return httpRequestService.tokenedRequest('DELETE', 'documents/' + documentId, null);
+					},
           postComment: function(documentId, userId, reviewText, rankingValue) {
 
             var data = {

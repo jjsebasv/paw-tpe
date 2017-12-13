@@ -14,12 +14,10 @@ define(['frontend', 'services/universityService'], function(frontend) {
         link: function($scope, $element, $attrs) {
           $scope.deleteUniversity = function(universityId, event) {
             event.stopPropagation();
-            universityService.deleteUniversity(universityId).then(
-              function(result) {
+            universityService.deleteUniversity(universityId).then(function(result) {
                 console.log(result);
-              }).catch(
-                function (error) {
-                  console.log(error.data);
+              }).catch(function (error) {
+                console.log(error.data);
               });
           }
         }

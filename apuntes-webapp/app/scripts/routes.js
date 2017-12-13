@@ -60,6 +60,10 @@ define([], function() {
             '/change-password': {
               templateUrl: 'views/change.html',
               controller: 'ChangePasswordController'
+            },
+            '/universities/add': {
+                templateUrl: 'views/addUniversity.html',
+                controller: 'AdminController'
             }
             /* ===== yeoman hook ===== */
             /* Do not remove these commented lines! Needed for auto-generation */

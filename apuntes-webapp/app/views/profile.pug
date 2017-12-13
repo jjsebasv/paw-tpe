@@ -19,8 +19,10 @@ div(ng-controller='ProfileController as profileCtrl' ng-hide='showSpinner')
             | {{ profileCtrl.reviews.length | number }}
           span
             | {{ 'COMMENTS' | translate }}
-      .row.row-space-between
-        a.button-blue.m-right-3(ng-if="profileCtrl.client.role == 'ROLE_ADMIN'" type='button' ng-href='#/change-password')
+      .row.row-center
+        a.button-blue.m-right-3(type='button' ng-href='#/change-password')
+          | {{ 'CHANGE_PASSWORD' | translate }}
+        a.button-blue.m-right-3(ng-if="profileCtrl.client.role == 'ROLE_ADMIN'" type='button' ng-href='#/universities/add')
           | {{ 'ADD_UNIVERSITY' | translate }}
         a.button-blue.m-right-3(ng-if="profileCtrl.client.role == 'ROLE_ADMIN'" type='button' ng-href='#/change-password')
           | {{ 'ADD_PROGRAM' | translate }}

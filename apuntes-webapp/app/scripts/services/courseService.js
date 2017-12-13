@@ -11,7 +11,11 @@ define(['frontend', 'services/httpRequestService'], function(frontend) {
 
 					getProgramCourses: function(programId) {
 						return httpRequestService.defaultRequest('GET', 'programs/' + programId + '/courses', null);
-					}
+					},
+
+					deleteCourse: function(documentId) {
+						return httpRequestService.tokenedRequest('DELETE', 'programs/' + documentId, null);
+					},
 
 				};
 		}]);
