@@ -7,11 +7,11 @@ define(['frontend', 'services/adminService','services/universityService','servic
             var _this = this;
             var uniAdded = false;
             var postSuccess = false;
-            var update = false;
             var uniId = $routeParams.universityId;
 
             var promises = [];
             var path = $location.path();
+            this.update = path.includes('edit');
 
 
             this.next = function() {
@@ -47,7 +47,7 @@ define(['frontend', 'services/adminService','services/universityService','servic
                     function (response) {
                         postSuccess = true;
                         promises.push(addUniversityPromise);
-                        finishPromises()
+                        finishPromises();
                     }).catch(
                       function (error) {
                         console.log(error);
@@ -58,31 +58,47 @@ define(['frontend', 'services/adminService','services/universityService','servic
                 finishPromises();
             };
 
+            var updateUniversity = function() {
+                postSuccess = false;
+                var addUniversityPromise = universityService.updateUniversity(uniId,_this.universityName, _this.universityDomain).then(
+                    function (response) {
+                        postSuccess = true;
+                        promises.push(addUniversityPromise);
+                        finishPromises();
+                    }).catch(
+                    function (error) {
+                        console.log(error);
+                        _this.error = true;
+                        $rootScope.errors.push(error.data);
+                    });
+                    promises.push(addUniversityPromise);
+                    finishPromises();
+
+            };
+
             var submit = function(){
-                if(update){
+                if(_this.update){
                     updateUniversity()
                 } else {
                     postUniversity()
                 }
             }
 
-            var getUniversityPromise = universityService.getUniversity(uniId).then(
-                function(result) {
-                    shouldUpdateUniversity(result.data.name, result.data.domain);
-                    promises.push(getUniversityPromise);
+            if(this.update){
+                var getUniversityPromise = universityService.getUniversity(uniId).then(
+                    function(result) {
+                        populate(result.data.name, result.data.domain);
+                        promises.push(getUniversityPromise);
 
-                }).catch(
-                function (error) {
-                    $rootScope.errors.push(error.data);
-                });
+                    }).catch(
+                    function (error) {
+                        $rootScope.errors.push(error.data);
+                    });
+            }
 
-
-            var shouldUpdateUniversity = function(name, domain){
-                if (name ==! null || name ==! undefined){
+            var populate = function(name, domain){
                     _this.universityName = name;
                     _this.universityDomain = domain;
-                    update = true;
-                }
             };
 
             this.validate = function() {

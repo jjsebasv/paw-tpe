@@ -1,6 +1,8 @@
 .column.column-center(ng-controller='AdminController as adminCtrl' ng-hide='showSpinner')
-  h1.title-3.text-base.blue.m-bottom-3
+  h1.title-3.text-base.blue.m-bottom-3(ng-if='adminCtrl.update == false')
     | {{ 'ADD_UNIVERSITY' | translate | uppercase }}
+  h1.title-3.text-base.blue.m-bottom-3(ng-if='adminCtrl.update == true')
+        | {{ 'EDIT_UNIVERSITY' | translate | uppercase }}
   form(
     name='AdminController.addUniversityForm'
     novalidate
@@ -16,7 +18,9 @@
        input.input-base.m-bottom-5(name='domain' ng-model='adminCtrl.universityDomain' required ng-change='adminCtrl.validate()')
 
   .row.row-center
-    a.button-grey.m-right-3(type='button' ng-href='#/profile')
+    a.button-grey.m-right-3(type='button' ng-href='#/profile' ng-if='adminCtrl.update == false')
+      | {{ 'CANCEL' | translate }}
+    a.button-grey.m-right-3(type='button' ng-href='#/' ng-if='adminCtrl.update == true')
       | {{ 'CANCEL' | translate }}
     button.button-blue(ng-click='adminCtrl.next()' ng-disabled='!adminCtrl.canContinue')
       | {{ 'NEXT' | translate }}

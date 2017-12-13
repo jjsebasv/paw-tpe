@@ -62,11 +62,11 @@ define([], function() {
               controller: 'ChangePasswordController'
             },
             '/universities/add': {
-                templateUrl: 'views/addUniversity.html',
+                templateUrl: 'views/adminUniversity.html',
                 controller: 'AdminController'
             },
             '/universities/edit/:universityId': {
-                templateUrl: 'views/addUniversity.html',
+                templateUrl: 'views/adminUniversity.html',
                 controller: 'AdminController'
             },
             '/programs/add': {
