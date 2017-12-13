@@ -53,7 +53,16 @@ define(['frontend', 'services/adminService','services/universityService','servic
                   });
                 promises.push(postProgramPromise);
                 finishPromises();
-            }
+            };
+
+            this.validate = function() {
+                if (!_this.addCourse && (angular.isUndefined(_this.programName) || angular.isUndefined(_this.shortName) || angular.isUndefined(_this.selectedUniversity) ||
+                    _this.programName === '' || _this.shortName === '' || _this.selectedUniversity === '')){
+                    _this.canContinue = false;
+                } else {
+                    _this.canContinue = true;
+                }
+            };
 
         }]);
 });

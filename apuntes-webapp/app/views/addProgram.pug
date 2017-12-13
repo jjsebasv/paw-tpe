@@ -9,10 +9,10 @@
     .column.column-left
       label.text-5.text-base.grey-2.m-bottom-1
         | {{ 'PROGRAM_NAME' | translate }}
-      input.input-base.m-bottom-1(name='name' ng-model='addProgramCtrl.programName' required)
+      input.input-base.m-bottom-1(name='name' ng-model='addProgramCtrl.programName' required ng-change='addProgramCtrl.validate()')
       label.text-5.text-base.grey-2.m-bottom-1
         | {{ 'SHORT_NAME' | translate }}
-      input.input-base.m-bottom-1(name='name' ng-model='addProgramCtrl.shortName' required)
+      input.input-base.m-bottom-1(name='name' ng-model='addProgramCtrl.shortName' required ng-change='addProgramCtrl.validate()')
       label.text-5.text-base.grey-2.m-bottom-1
         | {{ 'CHOOSE_UNIVERSITY' | translate }}
       select.form-input(
@@ -27,5 +27,5 @@
   .row.row-center.m-top-5
     a.button-grey.m-right-3(type='button' ng-href='#/profile')
       | {{ 'CANCEL' | translate }}
-    button.button-blue(ng-click='addProgramCtrl.next()')
+    button.button-blue(ng-click='addProgramCtrl.next()' ng-disabled='!addProgramCtrl.canContinue')
       | {{ 'NEXT' | translate }}
