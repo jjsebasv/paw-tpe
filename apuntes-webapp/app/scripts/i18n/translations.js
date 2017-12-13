@@ -85,6 +85,8 @@ define([], function() {
       ROLE_ADMIN: 'Usuario administrador',
       UNIVERSITY_NAME: 'Nombre de la universidad',
       UNIVERSITY_DOMAIN: 'Sitio web de la universidad',
+      PROGRAM_NAME:'Nombre de la carrera',
+      SHORT_NAME:'Acrónimo de la carrera',
       // Go back
       BACK_TO: 'Volver a',
       UPLOAD_FILE: 'Subir Apunte',
@@ -150,6 +152,8 @@ define([], function() {
       ADD_COURSE: 'Add course',
       CHANGE_USER_ROLE: 'Change User Role',
       EDIT_UNIVERSITY:'Edit University',
+      PROGRAM_NAME:'Program Name',
+      SHORT_NAME:'Short Name',
       BACK: 'Go back to',
       HOME: 'Home',
       UNIVERSITIES: 'Universities',

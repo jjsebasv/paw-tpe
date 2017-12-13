@@ -41,7 +41,6 @@ define(['frontend', 'services/adminService','services/universityService','servic
             var postUniversity = function() {
                 var addUniversityPromise = adminService.postUniversity(_this.programName, _this.selectedUniversity).then(
                     function (response) {
-                        postSuccess = true;
                         promises.push(addUniversityPromise);
                         finishPromises()
                     }).catch(
@@ -55,7 +54,6 @@ define(['frontend', 'services/adminService','services/universityService','servic
             };
 
             var submit = function(){
-              debugger;
               adminService.postProgram(_this.programName, _this.selectedUniversity).then(
                   function (response) {
                       promises.push(saveProgram);

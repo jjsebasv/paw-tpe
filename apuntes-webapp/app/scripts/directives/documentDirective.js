@@ -19,7 +19,6 @@ define(['frontend', 'services/documentService', 'services/errormodalService'], f
             documentService.deleteDocument(documentId).then(function(result) {
                 console.log(result);
                 $window.location.reload();
-                debugger;
               }).catch(function (error) {
                 $scope.errors.push(error.data);
                 errormodalService.showErrorModal();
