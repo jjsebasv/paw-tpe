@@ -11,6 +11,7 @@ define(['frontend', 'services/documentService'], function(frontend) {
           goto: '&'
         },
         replace: true,
+        templateUrl: 'views/_documentDirective.html',
         link: function($scope, $element, $attrs) {
           $scope.deleteDocument = function(documentId, event) {
             event.stopPropagation();

@@ -1,8 +1,3 @@
 div.list-item.row.row-space-between(ng-click='goto({toType: "document", toId: id, fromName: from})')
   span
     | {{ name }}
-  .row
-    button.m-right-2
-      img(src="images/edit.svg")
-    button(ng-click='deleteDocument(id, $event)')
-      img(src="images/remove.svg")
