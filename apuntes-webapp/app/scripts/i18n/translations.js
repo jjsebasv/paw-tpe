@@ -4,6 +4,8 @@ define([], function() {
   return {
 
     'es': {
+      SEMESTER: 'Semestre',
+      ADD_PROGRAM_TO_COURSE: 'Agregar Materia a Carrera',
       APP_TITLE: 'Apuntes Paw',
       TRANSLATE_SPANISH: 'ES',
       TRANSLATE_ENGLISH: 'EN',
@@ -138,6 +140,8 @@ define([], function() {
       RESET_PASS_ERROR: 'Algo salió mal, no pudimos cambiar tu contraseña'
     },
     'en': {
+      SEMESTER: 'Semester',
+      ADD_PROGRAM_TO_COURSE: 'Add program to course',
       APP_TITLE: 'Apuntes Paw',
       TRANSLATE_SPANISH: 'ES',
       TRANSLATE_ENGLISH: 'EN',
