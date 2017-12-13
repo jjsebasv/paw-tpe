@@ -53,7 +53,7 @@ define(['frontend', 'services/adminService', 'services/programService', 'service
 
       var submit = function() {
         spinnerService.showSpinner();
-        var promise = adminService.postCourseProgramRelation(_this.selectedCourse, _this.selectedProgram, _this.semester).then(
+        var promise = adminService.postCourseProgramRelation(_this.selectedCourse, _this.selectedProgram, parseInt(_this.semester)).then(
           function(response) {
             postSuccess = true;
           }).catch(
@@ -65,7 +65,16 @@ define(['frontend', 'services/adminService', 'services/programService', 'service
           });
         promises.push(promise);
         finishPromises();
-      }
+      };
+
+        this.validate = function() {
+            if (angular.isUndefined(_this.selectedCourse) || angular.isUndefined(_this.selectedProgram) || angular.isUndefined(_this.semester) ||
+                _this.selectedCourse === '' || _this.selectedProgram === '' || _this.semester === ''){
+                _this.canContinue = false;
+            } else {
+                _this.canContinue = true;
+            }
+        };
 
     }
   ]);

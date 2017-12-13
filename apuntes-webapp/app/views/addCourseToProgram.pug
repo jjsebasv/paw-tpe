@@ -14,6 +14,7 @@
         ng-model='addCourseToProg.selectedProgram'
         ng-options='program.programid as program.name for program in addCourseToProg.programs'
         ng-required='required'
+        required ng-change='addCourseToProg.validate()'
       )
         option(value='')
           | {{ 'CHOOSE_PROGRAM' | translate }}
@@ -24,14 +25,15 @@
         ng-model='addCourseToProg.selectedCourse'
         ng-options='course.courseid as course.name for course in addCourseToProg.courses'
         ng-required='required'
+        required ng-change='addCourseToProg.validate()'
       )
         option(value='')
           | {{ 'CHOOSE_SUBJECT' | translate }}
       label.text-5.text-base.grey-2.m-bottom-1
         | {{ 'SEMESTER' | translate }}
-      input.input-base.m-bottom-3(name='name' ng-model='addCourseToProg.semester' required)
+      input.input-base.m-bottom-3(name='name' ng-model='addCourseToProg.semester' required ng-change='addCourseToProg.validate()')
   .row.row-center.m-top-5
     a.button-grey.m-right-3(type='button' ng-href='#/profile')
       | {{ 'CANCEL' | translate }}
-    button.button-blue(ng-click='addCourseToProg.next()')
+    button.button-blue(ng-click='addCourseToProg.next()' ng-disabled='!addCourseToProg.canContinue')
       | {{ 'NEXT' | translate }}

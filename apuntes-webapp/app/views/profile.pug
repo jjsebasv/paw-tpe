@@ -26,8 +26,11 @@ div(ng-controller='ProfileController as profileCtrl' ng-hide='showSpinner')
           | {{ 'ADD_PROGRAM' | translate }}
         a.button-blue.m-right-3(ng-if="profileCtrl.client.role == 'ROLE_ADMIN'" type='button' ng-href='#/courses/add')
           | {{ 'ADD_COURSE' | translate }}
-        a.button-blue(ng-if="profileCtrl.client.role == 'ROLE_ADMIN'" type='button' ng-href='#/users/edit')
+        a.button-blue.m-right-3(ng-if="profileCtrl.client.role == 'ROLE_ADMIN'" type='button' ng-href='#/users/edit')
           | {{ 'CHANGE_USER_ROLE' | translate }}
+      .row.row-center.m-top-5
+        a.button-blue.m-right-3(ng-if="profileCtrl.client.role == 'ROLE_ADMIN'" type='button' ng-href='#/programs/add-course')
+          | {{ 'ADD_COURSE_TO_PROGRAM' | translate }}
   .separator
   .column(ng-if='profileCtrl.files.length')
     h1.title-3.text-base.blue.m-bottom-3
