@@ -8,6 +8,7 @@ define(['frontend', 'services/adminService','services/universityService','servic
 
             var promises = [];
             var path = $location.path();
+            var postSuccess = false;
 
 
             this.next = function() {
@@ -21,7 +22,7 @@ define(['frontend', 'services/adminService','services/universityService','servic
                     spinnerService.hideSpinner();
                     errormodalService.showErrorModal();
                     if (postSuccess) {
-                        $location.path('/');
+                      $location.path('/programs');
                     }
                 });
             };
@@ -54,10 +55,10 @@ define(['frontend', 'services/adminService','services/universityService','servic
             };
 
             var submit = function(){
-              adminService.postProgram(_this.programName, _this.shortName, _this.selectedUniversity).then(
+              spinnerService.showSpinner();
+              var postProgramPromise = adminService.postProgram(_this.programName, _this.shortName, _this.selectedUniversity).then(
                   function (response) {
-                      promises.push(saveProgram);
-                      $location.path('/programs');
+                      postSuccess = true;
                   }).catch(
                   function (error) {
                       console.log(error);
@@ -65,6 +66,8 @@ define(['frontend', 'services/adminService','services/universityService','servic
                       $rootScope.errors.push(error.data);
                       spinnerService.hideSpinner();
                   });
+                promises.push(postProgramPromise);
+                finishPromises();
             }
 
         }]);
