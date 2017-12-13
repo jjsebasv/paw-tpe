@@ -27,8 +27,9 @@ define([
             errormodalService.showErrorModal();
           });
 
-        this.editUniversity = function(id) {
-            $location.path('/universities/edit/' +id);
+        this.editUniversity = function(id, event) {
+          event.stopPropagation();
+          $location.path('/universities/edit/' +id);
         };
 
 	}]);

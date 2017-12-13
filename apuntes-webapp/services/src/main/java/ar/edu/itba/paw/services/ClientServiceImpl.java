@@ -10,6 +10,8 @@ import org.springframework.security.core.context.SecurityContextHolder;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
 
+import java.util.List;
+
 @Service
 @Transactional
 public class ClientServiceImpl extends AbstractCRUDService<Client> implements ClientService {
@@ -52,6 +54,16 @@ public class ClientServiceImpl extends AbstractCRUDService<Client> implements Cl
         }
 
         return findByUsername((String) auth.getPrincipal());
+    }
+
+    @Override
+    public List<Client> findByUniversity(long id) {
+        return clientDao.findByUniversity(id);
+    }
+
+    @Override
+    public List<Client> findByProgram(long id) {
+        return clientDao.findByProgram(id);
     }
 
     @Override

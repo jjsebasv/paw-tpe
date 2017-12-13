@@ -66,15 +66,15 @@ define(['frontend', 'services/adminService','services/universityService','servic
                 }
             }
 
-                var getUniversityPromise = universityService.getUniversity(uniId).then(
-                    function(result) {
-                        shouldUpdateUniversity(result.data.name, result.data.domain);
-                        promises.push(getUniversityPromise);
+            var getUniversityPromise = universityService.getUniversity(uniId).then(
+                function(result) {
+                    shouldUpdateUniversity(result.data.name, result.data.domain);
+                    promises.push(getUniversityPromise);
 
-                    }).catch(
-                    function (error) {
-                        $rootScope.errors.push(error.data);
-                    });
+                }).catch(
+                function (error) {
+                    $rootScope.errors.push(error.data);
+                });
 
 
             var shouldUpdateUniversity = function(name, domain){
@@ -85,19 +85,6 @@ define(['frontend', 'services/adminService','services/universityService','servic
                 }
             };
 
-            var saveProgram = function() {
-                var saveProgram = adminService.saveProgram(_this.newProgram).then(
-                    function (response) {
-                        promises.push(saveProgram);
-                        finishPromises()
-                    }).catch(
-                    function (error) {
-                        console.log(error);
-                        _this.error = true;
-                        $rootScope.errors.push(error.data);
-                    });
-            };
-//fixme el boton next siempre se muestra disabled usando lo comentado.
             this.validate = function() {
               if (angular.isUndefined(_this.universityName) || angular.isUndefined(_this.universityDomain) ||
                   _this.universityName === '' || _this.universityDomain === '') {

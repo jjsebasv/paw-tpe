@@ -149,6 +149,11 @@ public class UniversityController {
             throw new Http404Exception("University not found");
         }
 
+        for (Client client1 : clientService.findByUniversity(university.getUniversityId())) {
+            client1.setProgram(null);
+            client1.setUniversity(null);
+        }
+
         for (Program program : university.getPrograms()) {
             ps.delete(program.getProgramid());
         }
