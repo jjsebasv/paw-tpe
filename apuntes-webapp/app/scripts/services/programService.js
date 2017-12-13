@@ -11,6 +11,10 @@ define(['frontend', 'services/httpRequestService'], function(frontend) {
 
 					getUniPrograms: function(universityId) {
 						return httpRequestService.defaultRequest('GET', 'universities/' + universityId + '/programs', null);
+					},
+
+					deleteProgram: function(programId) {
+						return httpRequestService.tokenedRequest('DELETE', 'programs/' + programId, null);
 					}
 				};
 		}]);
