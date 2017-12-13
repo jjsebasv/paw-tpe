@@ -97,7 +97,8 @@ public class UniversityController {
         );
 
         final URI uri = uriInfo.getAbsolutePathBuilder().path(String.valueOf(university.getUniversityId())).build();
-        return Response.created(uri).build();
+        Response r = Response.created(uri).build();
+        return r;
     }
 
     @PUT

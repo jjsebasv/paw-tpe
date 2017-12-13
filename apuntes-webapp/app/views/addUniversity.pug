@@ -1,0 +1,22 @@
+.column.column-center(ng-controller='AdminController as universityCtrl' ng-hide='showSpinner')
+  h1.title-3.text-base.blue.m-bottom-3
+    | {{ 'ADD_UNIVERSITY' | translate | uppercase }}
+  form(
+    name='AdminController.addUniversityForm'
+    novalidate
+    ng-submit='AdminController.postUniversity()'
+  )
+    .column.column-left
+      label.text-5.text-base.grey-2.m-bottom-1
+        | {{ 'UNIVERSITY_NAME' | translate }}
+      input.input-base.m-bottom-5(name='name' ng-model='universityCtrl.universityName' required ng-change='universityCtrl.validate()')
+      .column.column-left
+       label.text-5.text-base.grey-2.m-bottom-1
+        | {{ 'UNIVERSITY_DOMAIN' | translate }}
+       input.input-base.m-bottom-5(name='domain' ng-model='universityCtrl.universityDomain' required ng-change='universityCtrl.validate()')
+
+  .row.row-center
+    a.button-grey.m-right-3(type='button' ng-href='#/profile')
+      | {{ 'CANCEL' | translate }}
+    button.button-blue(ng-click='universityCtrl.next()' ng-disabled='!universityCtrl.canContinue')
+      | {{ 'NEXT' | translate }}
