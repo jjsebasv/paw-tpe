@@ -3,5 +3,5 @@
     rateit(ng-model="ranking" read-only="true")
     p.text-base.grey.text-3.grey-3.justify
       | {{review}}
-  button(ng-click='deleteComment(id, $event)')
+  button(ng-click='deleteComment(id, $event)' ng-if="$parent.client.role == 'ROLE_ADMIN'")
     img(src="images/remove.svg")
