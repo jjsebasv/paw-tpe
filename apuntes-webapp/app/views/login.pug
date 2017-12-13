@@ -1,0 +1,26 @@
+.column.column-center(ng-controller='LoginController as loginCtrl' ng-hide='showSpinner')
+  h1.title-3.text-base.blue.m-bottom-3
+    | {{ 'LOG_IN' | translate | uppercase }}
+  form(
+    name='LoginController.loginForm'
+    novalidate
+    ng-submit='LoginController.login()'
+  )
+    .column.column-left
+      label.text-5.text-base.grey-2.m-bottom-1
+        | {{ 'USER' | translate }}
+      input.input-base.m-bottom-2(name='username' ng-model='loginCtrl.username')
+    .column.column-left
+      label.text-5.text-base.grey-2.m-bottom-1
+        | {{ 'PASSWORD' | translate }}
+      input.input-base.m-bottom-5(name='password' type='password' ng-model='loginCtrl.password')
+    .row.row-center.m-bottom-3
+      a.button-grey.m-right-3(type='button' ng-href='#/')
+        | {{ 'CANCEL' | translate }}
+      button.button-blue(ng-click='loginCtrl.login()')
+        | {{ 'LOG_IN' | translate }}
+  .column.column-center
+    a.normal-link.m-bottom-1(type='button' ng-href='#/register')
+      | {{ 'REGISTER' | translate }}
+    a.normal-link(type='button' ng-href='#/reset-password')
+      | {{ 'RESET_PASSWORD' | translate }}

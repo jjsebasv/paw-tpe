@@ -1,0 +1,9 @@
+//- This is the university element
+div.list-item.row.row-space-between(ng-click='goto({toType: "university", toId: id, fromName: "Universities"})')
+  span
+    | {{ name }}
+  .row(ng-if="$parent.client.role == 'ROLE_ADMIN'")
+    button.m-right-2(ng-click='edit({id:id, event:$event})')
+      img(src="images/edit.svg")
+    button(ng-click='deleteUniversity(id, $event)')
+      img(src="images/remove.svg")

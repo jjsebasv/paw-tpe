@@ -1,0 +1,26 @@
+.column.column-center(ng-controller='AdminController as adminCtrl' ng-hide='showSpinner')
+  h1.title-3.text-base.blue.m-bottom-3(ng-if='adminCtrl.update == false')
+    | {{ 'ADD_UNIVERSITY' | translate | uppercase }}
+  h1.title-3.text-base.blue.m-bottom-3(ng-if='adminCtrl.update == true')
+        | {{ 'EDIT_UNIVERSITY' | translate | uppercase }}
+  form(
+    name='AdminController.addUniversityForm'
+    novalidate
+    ng-submit='AdminController.postUniversity()'
+  )
+    .column.column-left
+      label.text-5.text-base.grey-2.m-bottom-1
+        | {{ 'UNIVERSITY_NAME' | translate }}
+      input.input-base.m-bottom-5(name='name' ng-model='adminCtrl.universityName' required ng-change='adminCtrl.validate()')
+      .column.column-left
+       label.text-5.text-base.grey-2.m-bottom-1
+        | {{ 'UNIVERSITY_DOMAIN' | translate }}
+       input.input-base.m-bottom-5(name='domain' ng-model='adminCtrl.universityDomain' required ng-change='adminCtrl.validate()')
+
+  .row.row-center
+    a.button-grey.m-right-3(type='button' ng-href='#/profile' ng-if='adminCtrl.update == false')
+      | {{ 'CANCEL' | translate }}
+    a.button-grey.m-right-3(type='button' ng-href='#/' ng-if='adminCtrl.update == true')
+      | {{ 'CANCEL' | translate }}
+    button.button-blue(ng-click='adminCtrl.next()' ng-disabled='!adminCtrl.canContinue')
+      | {{ 'NEXT' | translate }}

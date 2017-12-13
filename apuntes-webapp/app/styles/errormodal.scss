@@ -1,0 +1,44 @@
+@import 'variables/colors';
+
+.modal-overlay {
+  background-color: $grey-overlay;
+  height: 100%;
+  left: 0;
+  overflow: auto;
+  position: fixed;
+  top: 0;
+  width: 100%;
+  z-index: 1;
+}
+
+.modal-dialog {
+  max-width: 500px;
+}
+
+.modal-content {
+  align-items: center;
+  background-color: $white;
+  border: 1px solid $grey-3;
+  display: flex;
+  flex-wrap: wrap;
+  justify-content: space-between;
+  margin: 15% auto;
+  padding: 20px;
+  width: 80%;
+
+  .title {
+    border-bottom: 1px solid;
+    display: flex;
+    justify-content: space-between;
+    padding: 10px 30px;
+    width: 100%;
+  }
+
+  .error {
+    align-items: center;
+    display: flex;
+    justify-content: space-around;
+    margin: 10px 20px;
+    width: 100%;
+  }
+}

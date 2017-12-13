@@ -35,7 +35,7 @@ import java.io.IOException;
 import java.util.Properties;
 
 @EnableWebMvc
-@ComponentScan({"ar.edu.itba.paw.controllers", "ar.edu.itba.paw.services", "ar.edu.itba.paw.persistence", "ar.edu.itba.paw.forms.validators", "ar.edu.itba.paw.forms.admin.validators"})
+@ComponentScan({"ar.edu.itba.paw.controllers", "ar.edu.itba.paw.services", "ar.edu.itba.paw.persistence"})
 @Configuration
 @EnableTransactionManagement
 public class WebConfig extends WebMvcConfigurerAdapter {
@@ -85,8 +85,8 @@ public class WebConfig extends WebMvcConfigurerAdapter {
         properties.setProperty("hibernate.dialect", "org.hibernate.dialect.PostgreSQL92Dialect");
 
         // Si ponen esto en prod, hay tabla!!!
-        properties.setProperty("hibernate.show_sql", "true");
-        properties.setProperty("format_sql", "true");
+        properties.setProperty("hibernate.show_sql", "false");
+        properties.setProperty("format_sql", "false");
         factoryBean.setJpaProperties(properties);
         return factoryBean;
     }

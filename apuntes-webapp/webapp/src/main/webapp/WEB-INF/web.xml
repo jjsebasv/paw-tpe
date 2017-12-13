@@ -25,7 +25,7 @@
     </servlet>
     <servlet-mapping>
         <servlet-name>jersey-servlet</servlet-name>
-        <url-pattern>api/*</url-pattern>
+        <url-pattern>/api/*</url-pattern>
     </servlet-mapping>
 
     <context-param>
@@ -86,6 +86,10 @@
         <filter-name>corsFilter</filter-name>
         <url-pattern>/*</url-pattern>
     </filter-mapping>
+
+    <welcome-file-list>
+        <welcome-file>index.html</welcome-file>
+    </welcome-file-list>
 
 
 </web-app>

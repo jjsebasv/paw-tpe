@@ -1,0 +1,31 @@
+.column.column-center(ng-controller='AddProgramController as addProgramCtrl' ng-hide='showSpinner')
+  h1.title-3.text-base.blue.m-bottom-3
+    | {{ 'ADD_PROGRAM' | translate | uppercase }}
+  form(
+    name='addProgramCtrl.addProgramForm'
+    novalidate
+    ng-submit='addProgramCtrl.addProgram()'
+  )
+    .column.column-left
+      label.text-5.text-base.grey-2.m-bottom-1
+        | {{ 'PROGRAM_NAME' | translate }}
+      input.input-base.m-bottom-1(name='name' ng-model='addProgramCtrl.programName' required ng-change='addProgramCtrl.validate()')
+      label.text-5.text-base.grey-2.m-bottom-1
+        | {{ 'SHORT_NAME' | translate }}
+      input.input-base.m-bottom-1(name='name' ng-model='addProgramCtrl.shortName' required ng-change='addProgramCtrl.validate()')
+      label.text-5.text-base.grey-2.m-bottom-1
+        | {{ 'CHOOSE_UNIVERSITY' | translate }}
+      select.form-input(
+        chosen
+        ng-model='addProgramCtrl.selectedUniversity'
+        ng-change='addProgramCtrl.validate()'
+        ng-options='university.universityId as university.name for university in addProgramCtrl.universities'
+        ng-required='required'
+      )
+        option(value='')
+          | {{ 'CHOOSE_UNIVERSITY' | translate }}
+  .row.row-center.m-top-5
+    a.button-grey.m-right-3(type='button' ng-href='#/profile')
+      | {{ 'CANCEL' | translate }}
+    button.button-blue(ng-click='addProgramCtrl.next()' ng-disabled='!addProgramCtrl.canContinue')
+      | {{ 'NEXT' | translate }}

@@ -6,13 +6,8 @@ import ar.edu.itba.paw.dtos.ExpandedCourseDTO;
 import ar.edu.itba.paw.dtos.ExpandedCourseListDTO;
 import ar.edu.itba.paw.dtos.ProgramDTO;
 import ar.edu.itba.paw.dtos.ProgramListDTO;
-import ar.edu.itba.paw.interfaces.ClientService;
-import ar.edu.itba.paw.interfaces.CourseService;
-import ar.edu.itba.paw.interfaces.ProgramService;
-import ar.edu.itba.paw.models.Client;
-import ar.edu.itba.paw.models.ClientRole;
-import ar.edu.itba.paw.models.Course;
-import ar.edu.itba.paw.models.Program;
+import ar.edu.itba.paw.interfaces.*;
+import ar.edu.itba.paw.models.*;
 import ar.edu.itba.paw.models.builders.ProgramBuilder;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Component;
@@ -36,16 +31,22 @@ public class ProgramController {
 
     private final CourseService cs;
 
+    private final CourseProgramRelationService cprs;
+
     private final ClientService clientService;
+
+    private final UniversityService us;
 
     @Context
     private UriInfo uriInfo;
 
     @Autowired
-    public ProgramController(ProgramService ps, CourseService cs, ClientService clientService) {
+    public ProgramController(ProgramService ps, CourseService cs, CourseProgramRelationService cprs, ClientService clientService, UniversityService us) {
         this.ps = ps;
         this.cs = cs;
+        this.cprs = cprs;
         this.clientService = clientService;
+        this.us = us;
     }
 
     @GET
@@ -74,7 +75,7 @@ public class ProgramController {
         final Map<Integer, List<Course>> courses = cs.findByProgramId(id);
 
         if (courses == null) {
-            throw new Http404Exception("Program not found");
+            throw new Http404Exception("[EMPTY] Courses");
         }
 
         final List<ExpandedCourseDTO> courseDTOList = new ArrayList<>();
@@ -102,6 +103,12 @@ public class ProgramController {
             throw new Http403Exception();
         }
 
+        University university = us.findById(programDTO.getUniversityId());
+
+        if (university == null) {
+            throw new Http404Exception("University not found");
+        }
+
         validateProgram(programDTO);
 
         final Program program = ps.create(
@@ -109,6 +116,7 @@ public class ProgramController {
                         .setGroup(programDTO.getGroup())
                         .setName(programDTO.getName())
                         .setShortName(programDTO.getShortName())
+                        .setUniversity(university)
                         .createModel()
         );
 
@@ -135,6 +143,12 @@ public class ProgramController {
             throw new Http404Exception("Program not found");
         }
 
+        University university = us.findById(programDTO.getUniversityId());
+
+        if (university == null) {
+            throw new Http404Exception("University not found");
+        }
+
         validateProgram(programDTO);
 
         ps.update(
@@ -143,6 +157,7 @@ public class ProgramController {
                         .setGroup(programDTO.getGroup())
                         .setName(programDTO.getName())
                         .setShortName(programDTO.getShortName())
+                        .setUniversity(university)
                         .createModel()
         );
 
@@ -160,6 +175,24 @@ public class ProgramController {
             throw new Http403Exception();
         }
 
+        Program program = ps.findById(id);
+
+        if (program == null) {
+            throw new Http404Exception("Program not found");
+        }
+
+        for (CourseProgramRelation relation : program.getRelatedCourses()) {
+            cprs.delete(relation.getProgram().getProgramid(), relation.getCourse().getCourseid());
+
+            if (relation.getCourse().getRelatedPrograms().isEmpty()) {
+                cs.delete(relation.getCourse().getCourseid());
+            }
+        }
+
+        for (Client client1 : clientService.findByProgram(program.getProgramid())) {
+            client1.setProgram(null);
+        }
+
         ps.delete(id);
         return Response.noContent().build();
     }
@@ -167,11 +200,11 @@ public class ProgramController {
     private void validateProgram(final ProgramDTO programDTO) throws ValidationException {
 
         if (programDTO.getName() == null || programDTO.getName().isEmpty()) {
-            throw new ValidationException(1, "Name can't be empty", "name");
+            throw new ValidationException(20, "Name can't be empty", "name");
         }
 
         if (programDTO.getShortName() == null || programDTO.getShortName().isEmpty()) {
-            throw new ValidationException(2, "Short name can't be empty", "shortname");
+            throw new ValidationException(21, "Short name can't be empty", "shortname");
         }
     }
 }

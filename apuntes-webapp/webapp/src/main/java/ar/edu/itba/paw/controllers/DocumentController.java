@@ -9,10 +9,7 @@ import ar.edu.itba.paw.interfaces.ClientService;
 import ar.edu.itba.paw.interfaces.CourseService;
 import ar.edu.itba.paw.interfaces.DocumentService;
 import ar.edu.itba.paw.interfaces.ReviewService;
-import ar.edu.itba.paw.models.Client;
-import ar.edu.itba.paw.models.Course;
-import ar.edu.itba.paw.models.Document;
-import ar.edu.itba.paw.models.Review;
+import ar.edu.itba.paw.models.*;
 import ar.edu.itba.paw.models.builders.DocumentBuilder;
 import org.apache.commons.io.FilenameUtils;
 import org.apache.commons.io.IOUtils;
@@ -95,7 +92,7 @@ public class DocumentController {
         final Course course = courseService.findById(documentDTO.getCourseid());
 
         if (course == null) {
-            throw new ValidationException(1, "Course not found", "courseId");
+            throw new ValidationException(16, "Course not found", "courseId");
         }
 
         validateDocument(documentDTO);
@@ -180,20 +177,24 @@ public class DocumentController {
     @Produces(value = {MediaType.APPLICATION_JSON,})
     public Response deleteById(@PathParam("id") final long id) throws HttpException {
 
-        final Document document = ds.findById(id);
-
-        if (document == null) {
-            throw new Http404Exception("Document not found");
-        }
-
         final Client client = cs.getAuthenticatedUser();
 
         if (client == null) {
             throw new Http403Exception();
         }
 
-        if (client.getClientId() != document.getUser().getClientId()) {
+        final Document document = ds.findById(id);
+
+        if (document == null) {
+            throw new Http404Exception("Document not found");
+        }
+
+        if (client.getClientId() != document.getUser().getClientId() && client.getRole() != ClientRole.ROLE_ADMIN) {
             throw new Http403Exception();
+        }
+
+        for (Review review : document.getReviews()) {
+            rs.delete(review.getReviewid());
         }
 
         ds.delete(id);
@@ -248,24 +249,34 @@ public class DocumentController {
             }
         };
 
+        String contentType = "";
+
+        if (document.getDocumentName().endsWith(".pdf")) {
+            contentType = "application/pdf";
+        } else if (document.getDocumentName().endsWith(".jpg") || document.getDocumentName().endsWith(".jpeg")) {
+            contentType = "image/jpeg";
+        } else {
+            return downloadFile(id);
+        }
+
         return Response.ok(stream)
-                .header("content-disposition", String.format("attachment; filename=\"%s\";", document.getDocumentName()))
-                .header("content-type", "application/pdf")
+                .header("content-disposition", String.format("inline; filename=\"%s\";", document.getDocumentName()))
+                .header("content-type", contentType)
                 .build();
     }
 
     private void validateDocument(final DocumentDTO documentDTO) throws ValidationException {
 
         if (documentDTO.getSubject() == null || documentDTO.getSubject().isEmpty()) {
-            throw new ValidationException(1, "Subject can't be empty", "subject");
+            throw new ValidationException(17, "Subject can't be empty", "subject");
         }
 
         if (documentDTO.getDocumentName() == null || documentDTO.getDocumentName().isEmpty()) {
-            throw new ValidationException(2, "Document name can't be empty", "documentName");
+            throw new ValidationException(18, "Document name can't be empty", "documentName");
         }
 
         if (documentDTO.getDescription() == null || documentDTO.getDescription().isEmpty()) {
-            throw new ValidationException(3, "Description can't be empty", "description");
+            throw new ValidationException(19, "Description can't be empty", "description");
         }
     }
 }

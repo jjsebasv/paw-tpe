@@ -1,0 +1,79 @@
+.column.column-center(ng-controller='RegisterController as registerCtrl' ng-hide='showSpinner')
+  h1.title-3.text-base.blue.m-bottom-3
+    | {{ 'REGISTER_ME' | translate | uppercase }}
+  form(
+    name='RegisterController.registerForm'
+    ng-submit='RegisterController.register()'
+  )
+    .row.row-center.m-bottom-1.m-bottom-3
+      .column.column-left.m-right-3
+        label.text-5.text-base.grey-2.m-bottom-1
+          | {{ 'NAME' | translate }}
+        input.input-base(name='user' ng-model='registerCtrl.name' ng-required='required' ng-change='registerCtrl.validate()')
+      .column.column-left
+        label.text-5.text-base.grey-2.m-bottom-1
+          | {{ 'LAST_NAME' | translate }}
+        input.input-base(name='user' ng-model='registerCtrl.userLastname' ng-required='required' ng-change='registerCtrl.validate()')
+    .row.row-center.m-bottom-1.m-bottom-3
+      .column.column-left.m-right-3
+        label.text-5.text-base.grey-2.m-bottom-1
+          | {{ 'USER' | translate }}
+        input.input-base(name='user' ng-model='registerCtrl.username' ng-required='required' ng-change='registerCtrl.validate()')
+      .column.column-left
+        label.text-5.text-base.grey-2.m-bottom-1
+          | {{ 'MAIL' | translate }}
+        input.input-base(name='email' type='email' ng-model='registerCtrl.mail' ng-required='required' ng-change='registerCtrl.validate()')
+    .row.row-center.m-bottom-1.m-bottom-3
+      .column.column-left.m-right-3
+        label.text-5.text-base.grey-2.m-bottom-1
+          | {{ 'PASSWORD' | translate }}
+        input.input-base(name='password' type='password' ng-model='registerCtrl.password' ng-required='required' ng-change='registerCtrl.validate()')
+      .column.column-left
+        label.text-5.text-base.grey-2.m-bottom-1
+          | {{ 'RE_PASSWORD' | translate }}
+        input.input-base(name='repeat-password' type='password' ng-model='registerCtrl.repassword' ng-required='required' ng-change='registerCtrl.validate()')
+    .column.column-left.m-bottom-1.m-bottom-3
+      .row.row-center.m-bottom-1
+        label.text-5.text-base.grey-2
+          | {{ 'UNIVERSITY' | translate }}
+        .mod.model-2.model-inline(ng-hide='registerCtrl.universities != null')
+          .spinner
+      select.form-input(
+        chosen
+        ng-model='registerCtrl.selectedUniversity'
+        ng-options='university.universityId as university.name for university in registerCtrl.universities'
+        ng-change='registerCtrl.getPrograms()'
+        ng-required='required'
+      )
+        option(value='')
+          | {{ 'CHOOSE_UNIVERSITY' | translate }}
+    .column.column-left.m-bottom-5(ng-if='registerCtrl.selectedUniversity')
+      .row.row-center.m-bottom-1
+        label.text-5.text-base.grey-2
+          | {{ 'PROGRAM' | translate }}
+        .mod.model-2.model-inline(ng-hide='registerCtrl.programs != null')
+          .spinner
+      select.form-input(
+        chosen
+        ng-model='registerCtrl.selectedProgram'
+        ng-options='program.programid as program.name for program in registerCtrl.programs'
+        ng-disabled='!registerCtrl.selectedUniversity'
+        ng-required='required'
+        ng-change='registerCtrl.validate()'
+      )
+        option(value='')
+          | {{ 'CHOOSE_PROGRAM' | translate }}
+    .row.row-center.m-bottom-1.m-bottom-3
+      .column.column-left.m-right-3
+        label.text-5.text-base.grey-2.m-bottom-1
+          | {{ 'RECOVERY_QUESTION' | translate }}
+        input.input-base.m-bottom-2(name='question' ng-model='registerCtrl.recoveryQuestion' ng-required='required' ng-change='registerCtrl.validate()')
+      .column.column-left
+        label.text-5.text-base.grey-2.m-bottom-1
+          | {{ 'RECOVERY_ANSWER' | translate }}
+        input.input-base.m-bottom-2(name='answer' ng-model='registerCtrl.recoveryAnswer' type='password' ng-required='required' ng-change='registerCtrl.validate()')
+  .row.row-center
+    a.button-grey.m-right-3(type='button' ng-href='#/')
+      | {{ 'CANCEL' | translate }}
+    button.button-blue(type='submit' ng-click='registerCtrl.register()' ng-disabled='!registerCtrl.canContinue')
+      | {{ 'REGISTER_ME' | translate }}

@@ -90,9 +90,55 @@
                 <artifactId>maven-war-plugin</artifactId>
                 <version>${maven-war-plugin.version}</version>
                 <configuration>
+                    <webResources>
+                        <resource>
+                            <directory>../dist</directory>
+                        </resource>
+                    </webResources>
                     <!--FIXME-->
-                    <packagingExcludes>**/logback.xml</packagingExcludes>
+                    <packagingExcludes>**/logback-test.xml</packagingExcludes>
                 </configuration>
+            </plugin>
+
+            <plugin>
+                <groupId>com.github.eirslett</groupId>
+                <artifactId>frontend-maven-plugin</artifactId>
+                <version>1.0</version>
+                <configuration>
+                    <nodeVersion>v6.11.2</nodeVersion>
+                    <npmVersion>3.10.10</npmVersion>
+                </configuration>
+                <executions>
+                    <execution>
+                        <id>npm install</id>
+                        <goals>
+                            <goal>npm</goal>
+                        </goals>
+                        <!-- optional: default phase is "generate-resources" -->
+                        <phase>generate-resources</phase>
+                    </execution>
+                    <execution>
+                        <id>bower install</id>
+                        <goals>
+                            <goal>bower</goal>
+                        </goals>
+                    </execution>
+                    <execution>
+                        <id>grunt build</id>
+                        <goals>
+                            <goal>grunt</goal>
+                        </goals>
+                        <configuration>
+                            <!-- optional: The default argument is actually
+                            "install", so unless you need to run some other jspm command,
+                            you can remove this whole <configuration> section.
+                            -->
+                            <arguments>install --force</arguments>
+                        </configuration>
+                        <!-- optional: the default phase is "generate-resources" -->
+                        <phase>generate-resources</phase>
+                    </execution>
+                </executions>
             </plugin>
 
         </plugins>

@@ -1,0 +1,9 @@
+//- This is the program element
+div.list-item.row.row-space-between(ng-click='goto({toType: "program", toId: id, fromName: from})')
+  span
+    | {{ name }}
+  .row
+    button.m-right-2(ng-hide='true' ng-if="$parent.client.role == 'ROLE_ADMIN'")
+      img(src="images/edit.svg")
+    button(ng-click='deleteProgram(id, $event)' ng-if="$parent.client.role == 'ROLE_ADMIN'")
+      img(src="images/remove.svg")

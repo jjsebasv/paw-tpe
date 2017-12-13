@@ -1,0 +1,14 @@
+div(ng-controller='UniversityController as uniCtrl' ng-hide='showSpinner')
+  .column.column-center
+    back(data='indexCtrl.getBack()' goto='indexCtrl.goto(toType, toId, fromName)')
+    .row.section-header
+      .item
+        h1.title-3.text-base.blue.m-bottom-3
+          | {{uniCtrl.university.name}}
+    .row.m-bottom-3.section-search
+      searchbox(filter='searchText' placeholder="'SEARCH_PROGRAM'")
+    .column.no-files(ng-if='uniCtrl.programs.length == 0')
+      p.m-bottom-2
+        | {{ 'NO_PROGRAMS' | translate }}
+    .list-wrapper.column.column-center.list-wide(ng-repeat='program in uniCtrl.programs | filter:searchText')
+      program(name='program.name' id='program.programid' goto='indexCtrl.goto(toType, toId, fromName)' from='uniCtrl.university.name')

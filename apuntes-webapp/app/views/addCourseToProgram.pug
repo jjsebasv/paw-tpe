@@ -1,0 +1,52 @@
+.column.column-center(ng-controller='AddCourseToProgramController as addCourseToProg' ng-hide='showSpinner')
+  h1.title-3.text-base.blue.m-bottom-3
+    | {{ 'ADD_PROGRAM_TO_COURSE' | translate | uppercase }}
+  form(
+    name='addCourseToProg.addProgramForm'
+    novalidate
+    ng-submit='addCourseToProg.addRelation()'
+  )
+    .column.column-left
+      label.text-5.text-base.grey-2.m-bottom-1
+        | {{ 'UNIVERSITY' | translate }}
+      select.form-input(
+        chosen
+        ng-model='addCourseToProg.selectedUniversity'
+        ng-options='university.universityId as university.name for university in addCourseToProg.universities'
+        ng-change='addCourseToProg.getPrograms()'
+        required
+      )
+        option(value='')
+          | {{ 'CHOOSE_UNIVERSITY' | translate }}
+    .column.column-left
+      label.text-5.text-base.grey-2.m-bottom-1
+        | {{ 'CHOOSE_PROGRAM' | translate }}
+      select.form-input.m-bottom-1(
+        chosen
+        ng-model='addCourseToProg.selectedProgram'
+        ng-options='program.programid as program.name for program in addCourseToProg.programs'
+        ng-required='required'
+        ng-disabled='!addCourseToProg.selectedUniversity'
+        required ng-change='addCourseToProg.validate()'
+      )
+        option(value='')
+          | {{ 'CHOOSE_PROGRAM' | translate }}
+      label.text-5.text-base.grey-2.m-bottom-1
+        | {{ 'CHOOSE_SUBJECT' | translate }}
+      select.form-input.m-bottom-1(
+        chosen
+        ng-model='addCourseToProg.selectedCourse'
+        ng-options='course.courseid as course.name for course in addCourseToProg.courses'
+        ng-required='required'
+        required ng-change='addCourseToProg.validate()'
+      )
+        option(value='')
+          | {{ 'CHOOSE_SUBJECT' | translate }}
+      label.text-5.text-base.grey-2.m-bottom-1
+        | {{ 'SEMESTER' | translate }}
+      input.input-base.m-bottom-3(type='number' name='semester' ng-model='addCourseToProg.semester' required ng-change='addCourseToProg.validate()')
+  .row.row-center.m-top-5
+    a.button-grey.m-right-3(type='button' ng-href='#/profile')
+      | {{ 'CANCEL' | translate }}
+    button.button-blue(ng-click='addCourseToProg.next()' ng-disabled='!addCourseToProg.canContinue')
+      | {{ 'NEXT' | translate }}

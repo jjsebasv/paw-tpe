@@ -73,7 +73,7 @@ public class UniversityController {
         if (programs != null) {
             return Response.ok(new ProgramListDTO(programs)).build();
         } else {
-            throw new Http404Exception("University not found");
+            throw new Http404Exception("[EMPTY] Programs");
         }
     }
 
@@ -93,6 +93,7 @@ public class UniversityController {
         final University university = us.create(
                 new UniversityBuilder()
                         .setName(universityDTO.getName())
+                        .setDomain(universityDTO.getDomain())
                         .createModel()
         );
 
@@ -142,6 +143,21 @@ public class UniversityController {
             throw new Http403Exception();
         }
 
+        University university = us.findById(id);
+
+        if (university == null) {
+            throw new Http404Exception("University not found");
+        }
+
+        for (Client client1 : clientService.findByUniversity(university.getUniversityId())) {
+            client1.setProgram(null);
+            client1.setUniversity(null);
+        }
+
+        for (Program program : university.getPrograms()) {
+            ps.delete(program.getProgramid());
+        }
+
         us.delete(id);
         return Response.noContent().build();
     }
@@ -149,7 +165,7 @@ public class UniversityController {
     private void validateUniversity(final UniversityDTO universityDTO) throws ValidationException {
 
         if (universityDTO.getName() == null || universityDTO.getName().isEmpty()) {
-            throw new ValidationException(1, "Name can't be empty", "name");
+            throw new ValidationException(25, "Name can't be empty", "name");
         }
     }
 }

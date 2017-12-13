@@ -1,0 +1,36 @@
+.column.column-center(ng-controller='ResetPasswordController as resetpassCtrl' ng-hide='showSpinner')
+  h1.title-3.text-base.blue.m-bottom-3
+    | {{ 'RESET_PASSWORD' | translate | uppercase }}
+  form(
+    name='ResetPasswordController.resetForm'
+    novalidate
+    ng-submit='ResetPasswordController.resetPassword()'
+  )
+    .column.column-left
+      label.text-5.text-base.grey-2.m-bottom-1
+        | {{ 'USER' | translate }}
+      input.input-base.m-bottom-2(name='username' ng-model='resetpassCtrl.username' ng-disabled='resetpassCtrl.step === 2' ng-change='resetpassCtrl.validate()')
+    span(ng-if='resetpassCtrl.step === 2')
+      .column.column-left
+        label.text-5.text-base.grey-2.m-bottom-1
+          | {{ 'QUESTION' | translate }}
+        input.input-base.m-bottom-2(name='question' ng-model='resetpassCtrl.question' ng-disabled='true')
+      .column.column-left
+        label.text-5.text-base.grey-2.m-bottom-1
+          | {{ 'ANSWER' | translate }}
+        input.input-base.m-bottom-5(name='answer' type='password' ng-model='resetpassCtrl.answer' required ng-change='resetpassCtrl.validate()')
+      .column.column-left
+        label.text-5.text-base.grey-2.m-bottom-1
+          | {{ 'PASSWORD' | translate }}
+        input.input-base.m-bottom-5(name='password' type='password' ng-model='resetpassCtrl.password' required ng-change='resetpassCtrl.validate()')
+      .column.column-left
+        label.text-5.text-base.grey-2.m-bottom-1
+          | {{ 'RE_PASSWORD' | translate }}
+        input.input-base.m-bottom-5(name='repeat-password' type='password' ng-model='resetpassCtrl.repassword' required ng-change='resetpassCtrl.validate()')
+  .row.row-center
+    a.button-grey.m-right-3(type='button' ng-href='#/login')
+      | {{ 'CANCEL' | translate }}
+    button.button-blue(ng-click='resetpassCtrl.next()' ng-disabled='!resetpassCtrl.canContinue')
+      | {{ 'NEXT' | translate }}
+    label.text-5.text-base.grey-2.m-bottom-1(ng-if='resetpassCtrl.error')
+      | {{ 'RESET_PASS_ERROR' | translate }}

@@ -1,0 +1,539 @@
+@import url('https://fonts.googleapis.com/css?family=Open+Sans:300,400,700');
+@import 'variables/colors';
+@import 'mixins';
+
+* {
+  font-family: 'Open Sans', sans-serif;
+}
+
+body {
+  margin: 0;
+  position: relative;
+}
+
+body,
+html {
+  height: 100%;
+}
+
+.chosen-container {
+  width: 100% !important;
+  margin-bottom: 10px;
+}
+
+.chosen-container-single .chosen-single {
+  background: $white;
+  width: 100%;
+  height: 38px;
+  padding: 0px 10px;
+  border: 0;
+  border-radius: 0;
+  box-shadow: none;
+  line-height: 38px;
+
+  span {
+    height: 38px;
+    line-height: 38px;
+    background: white;
+  }
+}
+
+.logo {
+  height: 30px;
+}
+
+.action {
+  height: 25px;
+
+  img {
+    max-height: 100%;
+  }
+}
+
+.cursor-pointer {
+  cursor: pointer;
+}
+
+.section-header {
+  font-size: 30px;
+  padding: 10px;
+}
+
+.section-bottom {
+  border-bottom: 3px solid $green;
+  font-size: 30px;
+  margin-bottom: 15px;
+  padding: 10px 100px;
+}
+
+.section-search {
+  width: 100%;
+  .back {
+    color: $blue;
+    font-size: 20px;
+    font-weight: 800;
+    flex-grow: 1;
+    line-height: 20px;
+  }
+  .searchbox-wrapper {
+    flex-grow: 3;
+    width: 100%;
+    .input-base {
+      width: 100%;
+    }
+  }
+}
+
+.list-wrapper {
+  display: flex;
+  justify-content: center;
+  flex-wrap: wrap;
+  margin: 0 auto;
+  width: 100%;
+}
+
+.link {
+  position: absolute;
+  left: 45px;
+  color: $grey-2;
+  text-decoration: underline;
+}
+
+.normal-link {
+  font-size: 12px;
+  color: $blue;
+  text-decoration: underline;
+  display: block;
+}
+
+.wrapper-line-title {
+  padding-bottom: 10px;
+  border-bottom: 1px solid $green;
+  margin-bottom: 30px;
+}
+
+.list-item {
+  background: $grey-4;
+  box-shadow: 0 0 20px $grey-3;
+  flex: 1 1 auto;
+  margin: 10px;
+  padding: 10px;
+  font-size: 12px;
+  text-transform: uppercase;
+  position: relative;
+  overflow:hidden;
+	cursor: pointer;
+	display: block;
+	position: relative;
+	border-left: 6px solid $blue;
+	transition: all 0.4s cubic-bezier(0.42, 0, 0.58, 1) 0s;
+  width: 100%;
+  &:before {
+  	display: block;
+  	position: absolute;
+  	top: 0px;
+  	right: 0px;
+  	height: 100%;
+  	width: 0px;
+  	z-index: -1;
+  	content: '';
+  	background: $blue;
+  	transition: all 0.4s cubic-bezier(0.42, 0, 0.58, 1) 0s;
+  }
+  &:hover {
+  	color: $grey-4;
+  	background-color: transparent;
+  	text-shadow: nthree;
+    &:before {
+    	left: 0%;
+    	right: auto;
+    	width: 100%;
+    }
+  }
+}
+
+button {
+  &:hover {
+    opacity: 0.9;
+  }
+
+  &:disabled {
+    opacity: 0.5;
+
+    &:hover {
+      opacity: 0.5;
+    }
+  }
+}
+
+.primary-button {
+  @include button($blue, $white, transparent);
+}
+
+.secondary-button {
+  @include button($white, $blue, $blue);
+}
+
+.special-button {
+  @include button($green, $white, transparent);
+}
+
+.max-content-wrapper {
+  max-width: 1140px;
+  padding: 0 45px;
+  width: 100%;
+  position: relative;
+
+  &.mid {
+    max-width: 800px;
+    width: 800px;
+  }
+}
+
+.content {
+  margin-top: 100px;
+}
+
+.bar {
+  border: 1px solid $green;
+  height: 28px;
+  margin: 0 15px;
+}
+
+.separator {
+  border-top: 1px solid $green;
+  height: 1px;
+  margin: 35px 0;
+  width: 100%;
+}
+
+// text
+
+.bg-green {
+  background-color: $green;
+}
+
+.bg-blue {
+  background-color: $blue;
+}
+
+.text-base {
+  font-weight: 300;
+
+  &.grey-2 {
+    color: $grey-2;
+  }
+
+  &.grey-3 {
+    color: $grey-3;
+  }
+
+  &.green {
+    color: $green;
+  }
+
+  &.blue {
+    color: $blue;
+  }
+
+  &.white {
+    color: $white;
+  }
+
+  &.bold {
+    font-weight: 700;
+  }
+
+  &.justify {
+    text-align: justify;
+  }
+
+  &.underline {
+    text-decoration: underline;
+  }
+}
+
+.title-1 {
+  font-size: 48px;
+  font-weight: 300;
+  line-height: 50px;
+}
+
+.title-2 {
+  font-size: 18px;
+  font-weight: 400;
+  line-height: 32px;
+}
+
+.title-3 {
+  font-size: 20px;
+  font-weight: 300;
+  line-height: 30px;
+}
+
+.text-1 {
+  font-size: 18px;
+  font-weight: 300;
+  line-height: 26px;
+}
+
+.text-2 {
+  font-size: 14px;
+  font-weight: 300;
+  line-height: 14px;
+}
+
+.text-3 {
+  font-size: 14px;
+  font-weight: 400;
+  line-height: 19px;
+}
+
+.text-4 {
+  font-size: 16px;
+  font-weight: 400;
+  line-height: 20px;
+}
+
+.text-5 {
+  font-size:12px;
+  line-height:19px;
+}
+
+.width-100 {
+  width: 100px;
+}
+
+.text-center {
+  text-align: center;
+}
+
+// Layout
+
+.column {
+  display: flex;
+  flex-direction: column;
+}
+
+.column-center {
+  align-items: center;
+}
+
+.column-left {
+  align-items: flex-start;
+}
+
+.row {
+  align-items: center;
+  display: flex;
+  flex-direction: row;
+}
+
+.row-space-betweens {
+  width: 100%;
+}
+
+.row-center {
+  justify-content: center;
+}
+
+.row-top {
+  align-items: flex-start;
+}
+
+.row-left {
+  justify-content: flex-start;
+}
+
+.row-right {
+  justify-content: flex-end;
+}
+
+.row-space-between {
+  justify-content: space-between;
+}
+
+.item-center {
+  align-self: center;
+  text-align: center;
+}
+
+.item-left {
+  align-self: flex-start;
+  text-align: left;
+}
+
+.item-right {
+  align-self: flex-end;
+  text-align: right;
+}
+
+.flex-grow-1 {
+  flex-grow: 1;
+}
+
+.user-list-item {
+  overflow: hidden;
+  text-overflow: ellipsis;
+  width: 160px;
+}
+
+@for $i from 1 through 3 {
+  .item-#{$i} {
+    flex: $i;
+    min-width: 0;
+  }
+}
+
+// Header
+
+.header {
+  background-color: $white;
+  box-shadow: 0px 6px 5px -1px $grey;
+  height: 50px;
+  position: fixed;
+  width: 100%;
+  z-index: 999;
+
+  .nav-actions .action {
+    margin: 0 20px;
+  }
+}
+
+.input-base {
+  background: $grey-4;
+  width: 350px;
+  height: 38px;
+  padding: 5px 10px;
+}
+
+.list-wide {
+  width: 100%;
+}
+
+.input-submit {
+  border-radius: 0;
+  background: $blue;
+  width: 38px;
+  height: 38px;
+
+  &.search {
+    background-image: url('../images/search.svg');
+    background-repeat: no-repeat;
+    background-position: center;
+  }
+}
+
+.button-green {
+  height: 38px;
+  background-color: $green;
+  min-width: 120px;
+  color: $white;
+  padding: 0 10px;
+  line-height: 38px;
+  text-align: center;
+}
+
+.button-grey {
+  height: 38px;
+  background-color: $grey-4;
+  min-width: 120px;
+  color: $grey-2;
+  padding: 0 10px;
+  line-height: 38px;
+  text-align: center;
+}
+
+
+.button-blue {
+  height: 38px;
+  background-color: $blue;
+  min-width: 120px;
+  color: $white;
+  padding: 0 10px;
+  line-height: 38px;
+  text-align: center;
+
+  &:hover,
+  &:focus {
+    color: $white;
+  }
+}
+
+@for $i from 1 through 5 {
+  .flex-#{$i} {
+    flex: $i;
+    min-width: 0;
+  }
+  .m-bottom-#{$i} {
+    margin-bottom: #{$i * 10}px;
+  }
+  .m-right-#{$i} {
+    margin-right: #{$i * 10}px;
+  }
+  .m-left-#{$i} {
+    margin-left: #{$i * 10}px;
+  }
+  .m-top-#{$i} {
+    margin-top: #{$i * 10}px;
+  }
+}
+
+// Borders
+
+.border-grey-1 {
+  border: solid 1px $grey;
+}
+
+.border-grey-2 {
+  border: solid 2px $grey;
+}
+
+@mixin responsive-col {
+  align-items: stretch;
+  flex-direction: column;
+
+  &.col-left {
+    align-items: flex-start;
+  }
+
+  &.col-center {
+    align-items: center;
+  }
+
+  &.col-right {
+    align-items: flex-end;
+  }
+}
+
+// lg
+
+@media screen and (min-width: 1280px) {
+  .show-sm {
+    display: none;
+  }
+}
+
+// md
+
+@media screen and (max-width: 1279px) {
+  .show-sm {
+    display: none;
+  }
+}
+
+// sm
+
+@media screen and (max-width: 1023px) {
+  .hide-sm {
+    display: none;
+  }
+
+  .show-sm {
+    display: flex;
+  }
+
+  .col-sm {
+    @include responsive-col;
+  }
+}
