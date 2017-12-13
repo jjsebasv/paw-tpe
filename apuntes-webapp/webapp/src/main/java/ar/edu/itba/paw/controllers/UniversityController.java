@@ -93,6 +93,7 @@ public class UniversityController {
         final University university = us.create(
                 new UniversityBuilder()
                         .setName(universityDTO.getName())
+                        .setDomain(universityDTO.getDomain())
                         .createModel()
         );
 
