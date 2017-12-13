@@ -6,10 +6,7 @@ import ar.edu.itba.paw.dtos.ExpandedCourseDTO;
 import ar.edu.itba.paw.dtos.ExpandedCourseListDTO;
 import ar.edu.itba.paw.dtos.ProgramDTO;
 import ar.edu.itba.paw.dtos.ProgramListDTO;
-import ar.edu.itba.paw.interfaces.ClientService;
-import ar.edu.itba.paw.interfaces.CourseProgramRelationService;
-import ar.edu.itba.paw.interfaces.CourseService;
-import ar.edu.itba.paw.interfaces.ProgramService;
+import ar.edu.itba.paw.interfaces.*;
 import ar.edu.itba.paw.models.*;
 import ar.edu.itba.paw.models.builders.ProgramBuilder;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -38,15 +35,18 @@ public class ProgramController {
 
     private final ClientService clientService;
 
+    private final UniversityService us;
+
     @Context
     private UriInfo uriInfo;
 
     @Autowired
-    public ProgramController(ProgramService ps, CourseService cs, CourseProgramRelationService cprs, ClientService clientService) {
+    public ProgramController(ProgramService ps, CourseService cs, CourseProgramRelationService cprs, ClientService clientService, UniversityService us) {
         this.ps = ps;
         this.cs = cs;
         this.cprs = cprs;
         this.clientService = clientService;
+        this.us = us;
     }
 
     @GET
@@ -103,6 +103,12 @@ public class ProgramController {
             throw new Http403Exception();
         }
 
+        University university = us.findById(programDTO.getUniversityId());
+
+        if (university == null) {
+            throw new Http404Exception("University not found");
+        }
+
         validateProgram(programDTO);
 
         final Program program = ps.create(
@@ -110,6 +116,7 @@ public class ProgramController {
                         .setGroup(programDTO.getGroup())
                         .setName(programDTO.getName())
                         .setShortName(programDTO.getShortName())
+                        .setUniversity(university)
                         .createModel()
         );
 
@@ -136,6 +143,12 @@ public class ProgramController {
             throw new Http404Exception("Program not found");
         }
 
+        University university = us.findById(programDTO.getUniversityId());
+
+        if (university == null) {
+            throw new Http404Exception("University not found");
+        }
+
         validateProgram(programDTO);
 
         ps.update(
@@ -144,6 +157,7 @@ public class ProgramController {
                         .setGroup(programDTO.getGroup())
                         .setName(programDTO.getName())
                         .setShortName(programDTO.getShortName())
+                        .setUniversity(university)
                         .createModel()
         );
 
@@ -175,7 +189,7 @@ public class ProgramController {
             }
         }
 
-        for(Client client1 : clientService.findByProgram(program.getProgramid())){
+        for (Client client1 : clientService.findByProgram(program.getProgramid())) {
             client1.setProgram(null);
         }
 
