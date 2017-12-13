@@ -10,7 +10,7 @@ define(['frontend', 'services/httpRequestService'], function(frontend) {
                         name: universityName,
                         domain: universityDomain
                     };
-                    return httpRequestService.tokenedRequest('POST', 'universities/', data);
+                    return httpRequestService.tokenedRequest('POST', 'universities', data);
                 },
 
                 getUsers: function() {

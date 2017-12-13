@@ -14,6 +14,7 @@ define([
       function(programService, courseService, $routeParams, $location, $route, spinnerService, $q, errormodalService, $rootScope) {
         var _this = this;
         var programId = $routeParams.programId;
+        this.courses = [];
         var promises = [];
         spinnerService.showSpinner();
 

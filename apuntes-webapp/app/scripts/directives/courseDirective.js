@@ -1,7 +1,7 @@
 'use strict';
-define(['frontend', 'services/courseService'], function(frontend) {
+define(['frontend', 'services/courseService', 'services/errormodalService'], function(frontend) {
 
-    frontend.directive('course', ['courseService', function(courseService) {
+    frontend.directive('course', ['courseService', 'errormodalService', function(courseService) {
       return {
         restrict: 'E',
         scope: {
@@ -19,9 +19,11 @@ define(['frontend', 'services/courseService'], function(frontend) {
             universityService.deleteCourse(universityId).then(function(result) {
                 console.log(result);
               }).catch(function (error) {
+                $scope.errors.push(error.data);
+                errormodalService.showErrorModal();
                 console.log(error.data);
               });
-          }
+          };
         }
       };
     }]);

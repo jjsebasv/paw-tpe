@@ -15,7 +15,7 @@ define(['frontend', 'services/httpRequestService'], function(frontend) {
 
 					deleteCourse: function(documentId) {
 						return httpRequestService.tokenedRequest('DELETE', 'programs/' + documentId, null);
-					},
+					}
 
 				};
 		}]);

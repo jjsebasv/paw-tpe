@@ -15,6 +15,7 @@ define(['frontend',
       function(programService, universityService, $routeParams, $location, $state, $route, spinnerService, $q, errormodalService, $rootScope) {
         var _this = this;
         var uniId = $routeParams.universityId;
+        this.programs = [];
         spinnerService.showSpinner();
         var promises = [];
 

@@ -1,8 +1,8 @@
 'use strict';
 
-define(['frontend', 'services/httpRequestService'], function(frontend) {
+define(['frontend', 'services/httpRequestService', 'services/errormodalService'], function(frontend) {
 
-    frontend.directive('program', [ 'programService', function(programService) {
+    frontend.directive('program', ['programService', 'errormodalService', function(programService) {
       return {
         restrict: 'E',
         scope: {
@@ -19,9 +19,11 @@ define(['frontend', 'services/httpRequestService'], function(frontend) {
             programService.deleteProgram(programId).then(function(result) {
                 console.log(result);
               }).catch(function (error) {
+                $scope.errors.push(error.data);
+                errormodalService.showErrorModal();
                 console.log(error.data);
               });
-          }
+          };
         }
       };
     }]);

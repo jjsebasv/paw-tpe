@@ -5,7 +5,7 @@ define(['frontend', 'services/adminService','services/errormodalService','servic
         'adminService', '$location', 'spinnerService', '$q', '$rootScope', 'errormodalService',
         function(adminService, $location, spinnerService, $q, $rootScope, errormodalService) {
             var _this = this;
-            var passwordChanged = false;
+            var uniAdded = false;
             var promises = [];
 
             this.next = function() {
@@ -18,7 +18,7 @@ define(['frontend', 'services/adminService','services/errormodalService','servic
                 $q.all(promises).then(function() {
                     spinnerService.hideSpinner();
                     errormodalService.showErrorModal();
-                    if (passwordChanged) {
+                    if (uniAdded) {
                         $location.path('/');
                     }
                 });
@@ -27,23 +27,24 @@ define(['frontend', 'services/adminService','services/errormodalService','servic
             var postUniversity = function() {
                 var addUniversityPromise = adminService.postUniversity(_this.universityName, _this.universityDomain).then(
                     function (response) {
-                        passwordChanged = true;
-                        promises.push(addUniversityPromise);
-                        finishPromises()
+                        uniAdded = true;
                     }).catch(
-                    function (error) {
+                      function (error) {
                         console.log(error);
                         _this.error = true;
                         $rootScope.errors.push(error.data);
                     });
+                promises.push(addUniversityPromise);
+                finishPromises();
             };
-//fixme el boton next siempre se muestra disabled usando lo comentado.
+
             this.validate = function() {
-                /*_this.canContinue = false;
-                if (_this.universityName === '' && _this.universityDomain === '') {
+              if (angular.isUndefined(_this.universityName) || angular.isUndefined(_this.universityDomain) ||
+                  _this.universityName === '' || _this.universityDomain === '') {
+                    _this.canContinue = false;
+                  } else {
                     _this.canContinue = true;
-                }*/
-                _this.canContinue = true;
+                  }
             };
         }]);
 });

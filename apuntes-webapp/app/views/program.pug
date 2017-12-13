@@ -13,5 +13,8 @@ div(ng-controller="ProgramController as pgrmCtrl" ng-hide='showSpinner')
         | {{ 'COURSES' | translate }}
     .row.m-bottom-3.section-search
       searchbox(filter='searchText' placeholder="'SEARCH_COURSE'")
+    .column.no-files(ng-if='uniCtrl.courses.length == 0')
+      p.m-bottom-2
+        | {{ 'NO_COURSES' | translate }}
     .list-wrapper.column.column-center.list-wide(ng-repeat='course in pgrmCtrl.courses | filter:searchText')
       course(name='course.name' code='course.code' id='course.courseid' goto='indexCtrl.goto(toType, toId, fromName)' from='pgrmCtrl.program.name')

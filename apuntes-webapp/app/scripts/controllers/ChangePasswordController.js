@@ -50,7 +50,6 @@ define(['frontend', 'services/sessionService','services/errormodalService','serv
           } else {
             _this.canContinue = false;
           };
-          console.log(_this.canContinue)
         };
     }]);
 });

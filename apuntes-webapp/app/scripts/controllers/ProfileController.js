@@ -20,7 +20,6 @@ define([
         var getDocumentsPromise = profileService.getDocuments().then(
           function(response) {
             _this.files = response.data.documentList;
-            console.log(response.data.documentList);
           }).catch(
             function (error) {
               $rootScope.errors.push(error.data);
@@ -31,7 +30,6 @@ define([
         var getReviewsPromise = profileService.getReviews().then(
           function(response) {
               _this.reviews = response.data.reviewList;
-              console.log(response.data.reviewList)
           }).catch(
             function (error) {
               $rootScope.errors.push(error.data);

@@ -1,7 +1,7 @@
 'use strict';
-define(['frontend', 'services/documentService'], function(frontend) {
+define(['frontend', 'services/documentService', 'services/errormodalService'], function(frontend) {
 
-    frontend.directive('document', [ 'documentService', function(documentService) {
+    frontend.directive('document', ['documentService', 'errormodalService', function(documentService) {
       return {
         restrict: 'E',
         scope: {
@@ -18,9 +18,11 @@ define(['frontend', 'services/documentService'], function(frontend) {
             documentService.deleteDocument(documentId).then(function(result) {
                 console.log(result);
               }).catch(function (error) {
+                $scope.errors.push(error.data);
+                errormodalService.showErrorModal();
                 console.log(error.data);
               });
-          }
+          };
         }
       };
     }]);

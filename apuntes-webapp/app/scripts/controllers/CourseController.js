@@ -10,7 +10,6 @@ define(['frontend', 'services/courseService', 'services/documentService','servic
         this.documents = [];
         var promises = [];
         spinnerService.showSpinner();
-        debugger;
         var getCoursePromise = courseService.getCourse(this.courseId).then(function(result) {
           _this.course = result.data;
         }).catch(

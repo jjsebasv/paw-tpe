@@ -19,8 +19,6 @@ define([
         spinnerService.showSpinner();
         var promises = [];
 
-
-        debugger;
         var finishPromises = function() {
           $q.all(promises).then(function() {
             spinnerService.hideSpinner();
