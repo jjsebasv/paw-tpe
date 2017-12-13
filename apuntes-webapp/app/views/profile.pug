@@ -24,7 +24,7 @@ div(ng-controller='ProfileController as profileCtrl' ng-hide='showSpinner')
           | {{ 'ADD_UNIVERSITY' | translate }}
         a.button-blue.m-right-3(ng-if="profileCtrl.client.role == 'ROLE_ADMIN'" type='button' ng-href='#/programs/add')
           | {{ 'ADD_PROGRAM' | translate }}
-        a.button-blue.m-right-3(ng-if="profileCtrl.client.role == 'ROLE_ADMIN'" type='button' ng-href='#/change-password')
+        a.button-blue.m-right-3(ng-if="profileCtrl.client.role == 'ROLE_ADMIN'" type='button' ng-href='#/courses/add')
           | {{ 'ADD_COURSE' | translate }}
         a.button-blue(ng-if="profileCtrl.client.role == 'ROLE_ADMIN'" type='button' ng-href='#/users/edit')
           | {{ 'CHANGE_USER_ROLE' | translate }}
