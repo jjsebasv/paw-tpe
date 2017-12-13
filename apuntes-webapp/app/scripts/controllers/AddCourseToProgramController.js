@@ -1,14 +1,15 @@
 'use strict';
-define(['frontend', 'services/adminService', 'services/programService', 'services/courseService', 'services/errormodalService', 'services/spinnerService'], function(frontend) {
+define(['frontend', 'services/adminService', 'services/universityService', 'services/programService', 'services/courseService', 'services/errormodalService', 'services/spinnerService'], function(frontend) {
 
   frontend.controller('AddCourseToProgramController', [
-    'adminService', 'programService', 'courseService', '$routeParams', '$location', 'spinnerService', '$q', '$rootScope', 'errormodalService',
-    function(adminService, programService, courseService, $routeParams, $location, spinnerService, $q, $rootScope, errormodalService) {
+    'adminService', 'universityService', 'programService', 'courseService', '$routeParams', '$location', 'spinnerService', '$q', '$rootScope', 'errormodalService',
+    function(adminService, universityService, programService, courseService, $routeParams, $location, spinnerService, $q, $rootScope, errormodalService) {
       var _this = this;
 
       var promises = [];
       var path = $location.path();
-      var postSuccess = false;
+      var postSuccess = false
+      spinnerService.showSpinner();
 
 
       this.next = function() {
@@ -27,6 +28,29 @@ define(['frontend', 'services/adminService', 'services/programService', 'service
         });
       };
 
+      var allUnisPromise = universityService.getAllUnis().then(
+        function(result) {
+          _this.universities = result.data.universityList;
+        }).catch(
+          function (error) {
+            $rootScope.errors.push(error.data);
+          });
+      promises.push(allUnisPromise);
+      finishPromises();
+
+      this.getPrograms = function () {
+        spinnerService.showSpinner();
+        var uniProgramPromise = programService.getUniPrograms(_this.selectedUniversity).then(
+          function(result) {
+            _this.programs = result.data.programList;
+          }).catch(
+            function (error) {
+              $rootScope.errors.push(error.data);
+            });
+        promises.push(uniProgramPromise);
+        finishPromises();
+      };
+
       programService.getAllPrograms().then(
         function(result) {
           _this.programs = result.data.programList;
@@ -39,17 +63,16 @@ define(['frontend', 'services/adminService', 'services/programService', 'service
           errormodalService.showErrorModal();
         });
 
-      courseService.getAllCourses().then(
+      var getAllCoursesPromise = courseService.getAllCourses().then(
         function(result) {
           _this.courses = result.data.courseList;
         }).catch(
         function(error) {
           $rootScope.errors.push(error.data);
-        }).finally(
-        function() {
-          spinnerService.hideSpinner();
-          errormodalService.showErrorModal();
         });
+
+      promises.push(getAllCoursesPromise);
+      finishPromises();
 
       var submit = function() {
         spinnerService.showSpinner();

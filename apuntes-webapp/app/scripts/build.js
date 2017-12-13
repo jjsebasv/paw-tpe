@@ -43,8 +43,7 @@ require.config({
         'angular-chosen-localytics': '../../bower_components/angular-chosen-localytics/dist/angular-chosen',
         rt: '../../bower_components/angular-select2/dist/angular-select2',
         'angular-select2': '../../bower_components/angular-select2/dist/angular-select2',
-        'angular-mandrill': '../../bower_components/angular-mandrill/dist/angular-mandrill',
-        'angular-rateit': '../../bower_components/angular-rateit/dist/ng-rateit.min'
+        'angular-mandrill': '../../bower_components/angular-mandrill/dist/angular-mandrill'
     },
     shim: {
         angular: {
