@@ -24,6 +24,6 @@ define(['frontend', 'services/httpRequestService'], function(frontend) {
           }
         }
       };
-    });
+    }]);
 
 });

@@ -24,6 +24,6 @@ define(['frontend', 'services/courseService'], function(frontend) {
           }
         }
       };
-    });
+    }]);
 
 });
