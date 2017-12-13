@@ -76,7 +76,7 @@ define(['frontend', 'services/adminService', 'services/universityService', 'serv
 
       var submit = function() {
         spinnerService.showSpinner();
-        var promise = adminService.postCourseProgramRelation(_this.selectedCourse, _this.selectedProgram, parseInt(_this.semester)).then(
+        var promise = adminService.postCourseProgramRelation(_this.selectedCourse, _this.selectedProgram, _this.semester).then(
           function(response) {
             postSuccess = true;
           }).catch(

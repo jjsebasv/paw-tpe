@@ -11,6 +11,8 @@
         | {{ 'COURSE_CODE' | translate }}
       input.input-base.m-bottom-1(name='name' ng-model='adminCtrl.courseCode' required ng-change='adminCtrl.validate()')
       label.text-5.text-base.grey-2.m-bottom-1
+        | {{ 'COURSE_CODE_PROPS' | translate }}
+      label.text-5.text-base.grey-2.m-bottom-1
         | {{ 'COURSE_NAME' | translate }}
       input.input-base.m-bottom-1(name='name' ng-model='adminCtrl.courseName' required ng-change='adminCtrl.validate()')
 
