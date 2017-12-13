@@ -96,7 +96,7 @@
                         </resource>
                     </webResources>
                     <!--FIXME-->
-                    <packagingExcludes>**/logback.xml</packagingExcludes>
+                    <packagingExcludes>**/logback-test.xml</packagingExcludes>
                 </configuration>
             </plugin>
 
