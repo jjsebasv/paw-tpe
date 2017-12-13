@@ -9,10 +9,8 @@
     .column.column-left
       label.text-5.text-base.grey-2.m-bottom-1
         | {{ 'USER' | translate }}
-      input.input-base.m-bottom-2(name='username' ng-model='resetpassCtrl.username' ng-disabled='resetpassCtrl.validUser' ng-change='resetpassCtrl.validate()')
-      label.text-5.text-base.grey-2.m-bottom-1(ng-if='resetpassCtrl.notValidUser')
-        | {{ 'USER_NOT_VALID' | translate }}
-    span(ng-if='resetpassCtrl.validUser')
+      input.input-base.m-bottom-2(name='username' ng-model='resetpassCtrl.username' ng-disabled='resetpassCtrl.step === 2' ng-change='resetpassCtrl.validate()')
+    span(ng-if='resetpassCtrl.step === 2')
       .column.column-left
         label.text-5.text-base.grey-2.m-bottom-1
           | {{ 'QUESTION' | translate }}
@@ -28,9 +26,7 @@
       .column.column-left
         label.text-5.text-base.grey-2.m-bottom-1
           | {{ 'RE_PASSWORD' | translate }}
-        input.input-base.m-bottom-5(name='repeat-password' type='password' ng-model='resetpassCtrl.repeatPassword' required ng-change='resetpassCtrl.validate()')
-        label.text-5.text-base.grey-2.m-bottom-1(ng-if='!resetpassCtrl.samePassword')
-          | {{ 'NOT_SAME_PASS' | translate }}
+        input.input-base.m-bottom-5(name='repeat-password' type='password' ng-model='resetpassCtrl.repassword' required ng-change='resetpassCtrl.validate()')
   .row.row-center
     a.button-grey.m-right-3(type='button' ng-href='#/login')
       | {{ 'CANCEL' | translate }}

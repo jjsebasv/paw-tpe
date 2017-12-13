@@ -13,13 +13,9 @@
     .column.column-left
       label.text-5.text-base.grey-2.m-bottom-1
         | {{ 'RE_PASSWORD' | translate }}
-      input.input-base.m-bottom-5(name='repeat-password' type='password' ng-model='changepassCtrl.repeatPassword' required ng-change='changepassCtrl.validate()')
-      label.text-5.text-base.grey-2.m-bottom-1(ng-if='!changepassCtrl.samePassword')
-        | {{ 'NOT_SAME_PASS' | translate }}
+      input.input-base.m-bottom-5(name='repeat-password' type='password' ng-model='changepassCtrl.repassword' required ng-change='changepassCtrl.validate()')
   .row.row-center
     a.button-grey.m-right-3(type='button' ng-href='#/profile')
       | {{ 'CANCEL' | translate }}
     button.button-blue(ng-click='changepassCtrl.next()' ng-disabled='!changepassCtrl.canContinue')
       | {{ 'NEXT' | translate }}
-    label.text-5.text-base.grey-2.m-bottom-1(ng-if='changepassCtrl.error')
-      | {{ 'RESET_PASS_ERROR' | translate }}

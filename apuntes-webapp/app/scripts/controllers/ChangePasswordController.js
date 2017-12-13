@@ -15,35 +15,42 @@ define(['frontend', 'services/sessionService','services/errormodalService','serv
         };
 
         var changePassword = function() {
-          var changePasswordPromise = sessionService.changePassword(_this.password).then(
-            function () {
-              passwordChanged = true;
-            }).catch(
-              function (error) {
-                console.log(error);
-                _this.error = true;
-                $rootScope.errors.push(error.data);
-              });
-          promises.push(changePasswordPromise);
-          $q.all(promises).then(function() {
+          if (_this.password !== _this.repassword) {
             spinnerService.hideSpinner();
+            $rootScope.errors.push({
+              field: 'repassword',
+              code: 27
+            });
             errormodalService.showErrorModal();
-            if (passwordChanged) {
-              $location.path('/profile');
-            }
-          });
+          } else {
+            var changePasswordPromise = sessionService.changePassword(_this.password).then(
+              function () {
+                passwordChanged = true;
+              }).catch(
+                function (error) {
+                  console.log(error);
+                  _this.error = true;
+                  $rootScope.errors.push(error.data);
+                });
+                promises.push(changePasswordPromise);
+                $q.all(promises).then(function() {
+                  spinnerService.hideSpinner();
+                  errormodalService.showErrorModal();
+                  if (passwordChanged) {
+                    $location.path('/profile');
+                  }
+                });
+          }
         };
 
         this.validate = function() {
-          if (_this.password === '') {
-            _this.canContinue = false;
-          } else if (_this.password !== _this.repeatPassword) {
-            _this.canContinue = false;
-            _this.samePassword = false;
-          } else {
-            _this.samePassword = true;
+          if (angular.isDefined(_this.password) && angular.isDefined(_this.repassword) &&
+              _this.password !== '' && _this.repassword !== '') {
             _this.canContinue = true;
+          } else {
+            _this.canContinue = false;
           };
+          console.log(_this.canContinue)
         };
     }]);
 });

@@ -191,7 +191,7 @@ public class ClientController {
         validatePassword(clientDTO);
 
         if (passwordEncoder.isPasswordValid(client.getPassword(), clientDTO.getPassword(), WebAuthConfig.SECRET)) {
-            throw new ValidationException(4, "The password can't match your current one!", "password");
+            throw new ValidationException(1, "The password can't match your current one!", "password");
         }
 
         final String encodedPassword = passwordEncoder.encodePassword(clientDTO.getPassword(), WebAuthConfig.SECRET);

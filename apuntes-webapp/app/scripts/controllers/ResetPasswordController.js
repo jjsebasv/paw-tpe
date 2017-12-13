@@ -10,16 +10,14 @@ define([
       'sessionService', '$location', 'localStorageService', '$state', 'spinnerService', '$q', 'errormodalService', '$rootScope',
       function(sessionService, $location, localStorageService, $state, spinnerService, $q, errormodalService, $rootScope) {
         var _this = this;
-        this.validUser = false;
-        this.notValidUser = false;
         this.canContinue = false;
+        this.step = 1;
         var passwordChanged = false;
         var promises = [];
 
         this.next = function() {
           spinnerService.showSpinner();
-          if (!_this.validUser) {
-            _this.notValidUser = false;
+          if (_this.step === 1) {
             getQuestion();
           } else {
             resetPassword();
@@ -29,16 +27,11 @@ define([
         var getQuestion = function() {
           var getQuestionPromise = sessionService.getQuestion(_this.username).then(
             function(response) {
-                if (response.data.recoveryQuestion) {
-                  _this.validUser = true;
-                  _this.question = response.data.recoveryQuestion;
-                } else {
-                  _this.notValidUser = true;
-                }
+              _this.step = 2;
+              _this.question = response.data.recoveryQuestion;
             }).catch(
               function(error) {
                 console.log(error);
-                _this.notValidUser = true;
                 $rootScope.errors.push(error.data);
               });
           promises.push(getQuestionPromise);
@@ -49,38 +42,43 @@ define([
         };
 
         var resetPassword = function() {
-          var resetPasswordPromise = sessionService.resetPassword(_this.username, _this.answer, _this.password).then(
-            function () {
-              passwordChanged = true;
-            }).catch(
-              function (error) {
-                console.log(error);
-                _this.error = true;
-                $rootScope.errors.push(error.data);
-              });
-          promises.push(resetPasswordPromise);
-          $q.all(promises).then(function() {
-            spinnerService.hideSpinner();
-            if (passwordChanged) {
-              $location.path('/login');
-            };
+          if (_this.password !== _this.repassword) {
+            $rootScope.errors.push({
+              field: 'repassword',
+              code: 27
+            });
             errormodalService.showErrorModal();
-          });
+          } else {
+            var resetPasswordPromise = sessionService.resetPassword(_this.username, _this.answer, _this.password).then(
+              function () {
+                passwordChanged = true;
+              }).catch(
+                function (error) {
+                  $rootScope.errors.push(error.data);
+                });
+            promises.push(resetPasswordPromise);
+            $q.all(promises).then(function() {
+              spinnerService.hideSpinner();
+              if (passwordChanged) {
+                $location.path('/login');
+              };
+              errormodalService.showErrorModal();
+            });
+          }
         };
 
         this.validate = function() {
-          if (_this.username === '') {
+          if (_this.step === 1 && (angular.isUndefined(_this.username) || _this.username === '')) {
             _this.canContinue = false;
-          } else if (_this.validUser && (_this.answer === '' || _this.password === '' || _this.password !== _this.repeatPassword)) {
-            _this.canContinue = false;
-            if (_this.password !== _this.repeatPassword) {
-              _this.samePassword = false;
+          } else if (_this.step === 2 &&
+            (angular.isUndefined(_this.answer) || _this.answer === '' || 
+              angular.isUndefined(_this.password) || angular.isUndefined(_this.repassword) ||
+            _this.password === '' || _this.repassword === '')) {
+              _this.canContinue = false;
             } else {
-              _this.samePassword = true;
+              _this.canContinue = true;
             }
-          } else {
-            _this.canContinue = true;
-          };
         };
+
     }]);
 });
