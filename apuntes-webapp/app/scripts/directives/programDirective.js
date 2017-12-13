@@ -1,8 +1,8 @@
 'use strict';
 
-define(['frontend'], function(frontend) {
+define(['frontend', 'services/httpRequestService'], function(frontend) {
 
-    frontend.directive('program', function() {
+    frontend.directive('program', [ 'programService', function(programService) {
       return {
         restrict: 'E',
         scope: {
@@ -12,7 +12,17 @@ define(['frontend'], function(frontend) {
           goto: '&'
         },
         replace: true,
-        templateUrl: 'views/_programDirective.html'
+        templateUrl: 'views/_programDirective.html',
+        link: function($scope, $element, $attrs) {
+          $scope.deleteProgram = function(programId, event) {
+            event.stopPropagation();
+            programService.deleteProgram(programId).then(function(result) {
+                console.log(result);
+              }).catch(function (error) {
+                console.log(error.data);
+              });
+          }
+        }
       };
     });
 

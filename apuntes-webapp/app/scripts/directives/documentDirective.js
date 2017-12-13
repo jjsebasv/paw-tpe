@@ -1,7 +1,7 @@
 'use strict';
-define(['frontend'], function(frontend) {
+define(['frontend', 'services/documentService'], function(frontend) {
 
-    frontend.directive('document', function() {
+    frontend.directive('document', [ 'documentService', function(documentService) {
       return {
         restrict: 'E',
         scope: {
@@ -14,7 +14,7 @@ define(['frontend'], function(frontend) {
         link: function($scope, $element, $attrs) {
           $scope.deleteDocument = function(documentId, event) {
             event.stopPropagation();
-            universityService.deleteDocument(documentId).then(function(result) {
+            documentService.deleteDocument(documentId).then(function(result) {
                 console.log(result);
               }).catch(function (error) {
                 console.log(error.data);
@@ -22,6 +22,5 @@ define(['frontend'], function(frontend) {
           }
         }
       };
-    });
-
+    }]);
 });
