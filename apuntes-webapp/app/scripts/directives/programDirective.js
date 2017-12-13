@@ -2,7 +2,7 @@
 
 define(['frontend', 'services/httpRequestService', 'services/errormodalService'], function(frontend) {
 
-    frontend.directive('program', ['programService', 'errormodalService', '$window', function(programService, errormodalService, $window) {
+    frontend.directive('program', ['programService', 'errormodalService', function(programService, errormodalService) {
       return {
         restrict: 'E',
         scope: {
@@ -19,7 +19,7 @@ define(['frontend', 'services/httpRequestService', 'services/errormodalService']
             $scope.errors = [];
             programService.deleteProgram(programId).then(function(result) {
                 console.log(result);
-                $window.location.reload();
+                location.reload();
               }).catch(function (error) {
                 $scope.errors.push(error.data);
                 errormodalService.showErrorModal();

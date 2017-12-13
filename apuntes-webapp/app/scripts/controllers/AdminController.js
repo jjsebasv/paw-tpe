@@ -122,7 +122,7 @@ define(['frontend', 'services/adminService','services/universityService','servic
             };
 
             this.validate = function() {
-              if (_this.addCourse === false && (angular.isUndefined(_this.universityName) || angular.isUndefined(_this.universityDomain) ||
+              if (!_this.addCourse && (angular.isUndefined(_this.universityName) || angular.isUndefined(_this.universityDomain) ||
                   _this.universityName === '' || _this.universityDomain === '')){
                     _this.canContinue = false;
               } else if (_this.addCourse && (angular.isUndefined(_this.courseCode) || angular.isUndefined(_this.courseName) ||

@@ -11,18 +11,20 @@ define(['frontend', 'services/httpRequestService'], function(frontend) {
 					deleteUniversity: function(universityId) {
 						return httpRequestService.tokenedRequest('DELETE', 'universities/' + universityId, null);
 					},
-          			getAllUnis: function() {
-            			return httpRequestService.defaultRequest('GET', 'universities', null);
-          			},
-					updateUniversity: function(universityId, universityName, universityDomain) {
-                        var data = {
-                            name: universityName,
-                            domain: universityDomain
-                        };
-                        return httpRequestService.tokenedRequest('PUT', 'universities/'+universityId, data);
-                    }
 
-                };
+          getAllUnis: function() {
+            return httpRequestService.defaultRequest('GET', 'universities', null);
+          },
+
+          updateUniversity: function(universityId, universityName, universityDomain) {
+            var data = {
+                name: universityName,
+                domain: universityDomain
+            };
+            return httpRequestService.tokenedRequest('PUT', 'universities/'+universityId, data);
+          }
+
+        };
 		}]);
 
 });

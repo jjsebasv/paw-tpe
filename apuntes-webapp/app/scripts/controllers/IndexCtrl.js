@@ -9,8 +9,8 @@ define([
 	function(frontend) {
 
 	frontend.controller('IndexCtrl',
-		['$scope', '$location', '$route', '$translate', 'localStorageService', '$window', '$rootScope', 'spinnerService', 'errormodalDirective',
-		function($scope, $location, $route, $translate, localStorageService, $window, $rootScope, spinnerService, errormodalDirective) {
+		['$scope', '$location', '$route', '$translate', 'localStorageService', '$rootScope', 'spinnerService', 'errormodalDirective',
+		function($scope, $location, $route, $translate, localStorageService, $rootScope, spinnerService, errormodalDirective) {
 
 			this.client = localStorageService.get('client');
 			$rootScope.errors = [];
@@ -54,7 +54,7 @@ define([
 				localStorageService.clearAll();
 				localStorageService.cookie.clearAll();
 				$location.path('/');
-				$window.location.reload();
+				location.reload();
 			};
 
       this.editUniversity = function(id) {

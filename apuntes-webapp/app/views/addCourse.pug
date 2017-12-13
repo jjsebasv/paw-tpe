@@ -9,13 +9,13 @@
     .column.column-left
       label.text-5.text-base.grey-2.m-bottom-1
         | {{ 'COURSE_CODE' | translate }}
-      input.input-base.m-bottom-1(name='name' ng-model='adminCtrl.courseCode' required)
+      input.input-base.m-bottom-1(name='name' ng-model='adminCtrl.courseCode' required ng-change='adminCtrl.validate()')
       label.text-5.text-base.grey-2.m-bottom-1
         | {{ 'COURSE_NAME' | translate }}
-      input.input-base.m-bottom-1(name='name' ng-model='adminCtrl.courseName' required)
+      input.input-base.m-bottom-1(name='name' ng-model='adminCtrl.courseName' required ng-change='adminCtrl.validate()')
 
   .row.row-center.m-top-5
     a.button-grey.m-right-3(type='button' ng-href='#/profile')
       | {{ 'CANCEL' | translate }}
-    button.button-blue(ng-click='adminCtrl.next()')
+    button.button-blue(ng-click='adminCtrl.next()' ng-disabled='!adminCtrl.canContinue')
       | {{ 'NEXT' | translate }}
