@@ -68,6 +68,10 @@ define([], function() {
             '/universities/edit/:universityId': {
                 templateUrl: 'views/addUniversity.html',
                 controller: 'AdminController'
+            },
+            '/programs/add': {
+                templateUrl: 'views/addProgram.html',
+                controller: 'AddProgramController'
             }
             /* ===== yeoman hook ===== */
             /* Do not remove these commented lines! Needed for auto-generation */

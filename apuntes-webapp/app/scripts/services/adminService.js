@@ -26,7 +26,16 @@ define(['frontend', 'services/httpRequestService'], function(frontend) {
                     role: user.role
                   };
                   return httpRequestService.tokenedRequest('POST', 'clients/' + user.clientId, data);
-                }
+                },
+                postProgram: function(programName, shortName, selectedUniversity) {
+                    var data = {
+                        name: programName,
+                        shortName: shortName,
+                        universityId: selectedUniversity,
+                        group: 'g'
+                    };
+                    return httpRequestService.tokenedRequest('POST', 'programs', data);
+                },
             };
         }]);
 
