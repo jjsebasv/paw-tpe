@@ -98,8 +98,7 @@ public class UniversityController {
         );
 
         final URI uri = uriInfo.getAbsolutePathBuilder().path(String.valueOf(university.getUniversityId())).build();
-        Response r = Response.created(uri).build();
-        return r;
+        return Response.created(uri).build();
     }
 
     @PUT
@@ -142,6 +141,16 @@ public class UniversityController {
 
         if (client == null || client.getRole() != ClientRole.ROLE_ADMIN) {
             throw new Http403Exception();
+        }
+
+        University university = us.findById(id);
+
+        if (university == null) {
+            throw new Http404Exception("University not found");
+        }
+
+        for (Program program : university.getPrograms()) {
+            ps.delete(program.getProgramid());
         }
 
         us.delete(id);

@@ -9,10 +9,7 @@ import ar.edu.itba.paw.interfaces.ClientService;
 import ar.edu.itba.paw.interfaces.CourseService;
 import ar.edu.itba.paw.interfaces.DocumentService;
 import ar.edu.itba.paw.interfaces.ReviewService;
-import ar.edu.itba.paw.models.Client;
-import ar.edu.itba.paw.models.Course;
-import ar.edu.itba.paw.models.Document;
-import ar.edu.itba.paw.models.Review;
+import ar.edu.itba.paw.models.*;
 import ar.edu.itba.paw.models.builders.DocumentBuilder;
 import org.apache.commons.io.FilenameUtils;
 import org.apache.commons.io.IOUtils;
@@ -180,20 +177,24 @@ public class DocumentController {
     @Produces(value = {MediaType.APPLICATION_JSON,})
     public Response deleteById(@PathParam("id") final long id) throws HttpException {
 
-        final Document document = ds.findById(id);
-
-        if (document == null) {
-            throw new Http404Exception("Document not found");
-        }
-
         final Client client = cs.getAuthenticatedUser();
 
         if (client == null) {
             throw new Http403Exception();
         }
 
-        if (client.getClientId() != document.getUser().getClientId()) {
+        final Document document = ds.findById(id);
+
+        if (document == null) {
+            throw new Http404Exception("Document not found");
+        }
+
+        if (client.getClientId() != document.getUser().getClientId() && client.getRole() != ClientRole.ROLE_ADMIN) {
             throw new Http403Exception();
+        }
+
+        for (Review review : document.getReviews()) {
+            rs.delete(review.getReviewid());
         }
 
         ds.delete(id);

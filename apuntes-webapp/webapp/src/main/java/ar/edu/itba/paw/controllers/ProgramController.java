@@ -7,12 +7,10 @@ import ar.edu.itba.paw.dtos.ExpandedCourseListDTO;
 import ar.edu.itba.paw.dtos.ProgramDTO;
 import ar.edu.itba.paw.dtos.ProgramListDTO;
 import ar.edu.itba.paw.interfaces.ClientService;
+import ar.edu.itba.paw.interfaces.CourseProgramRelationService;
 import ar.edu.itba.paw.interfaces.CourseService;
 import ar.edu.itba.paw.interfaces.ProgramService;
-import ar.edu.itba.paw.models.Client;
-import ar.edu.itba.paw.models.ClientRole;
-import ar.edu.itba.paw.models.Course;
-import ar.edu.itba.paw.models.Program;
+import ar.edu.itba.paw.models.*;
 import ar.edu.itba.paw.models.builders.ProgramBuilder;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Component;
@@ -36,15 +34,18 @@ public class ProgramController {
 
     private final CourseService cs;
 
+    private final CourseProgramRelationService cprs;
+
     private final ClientService clientService;
 
     @Context
     private UriInfo uriInfo;
 
     @Autowired
-    public ProgramController(ProgramService ps, CourseService cs, ClientService clientService) {
+    public ProgramController(ProgramService ps, CourseService cs, CourseProgramRelationService cprs, ClientService clientService) {
         this.ps = ps;
         this.cs = cs;
+        this.cprs = cprs;
         this.clientService = clientService;
     }
 
@@ -158,6 +159,20 @@ public class ProgramController {
 
         if (client == null || client.getRole() != ClientRole.ROLE_ADMIN) {
             throw new Http403Exception();
+        }
+
+        Program program = ps.findById(id);
+
+        if (program == null) {
+            throw new Http404Exception("Program not found");
+        }
+
+        for (CourseProgramRelation relation : program.getRelatedCourses()) {
+            cprs.delete(relation.getProgram().getProgramid(), relation.getCourse().getCourseid());
+
+            if (relation.getCourse().getRelatedPrograms().isEmpty()) {
+                cs.delete(relation.getCourse().getCourseid());
+            }
         }
 
         ps.delete(id);

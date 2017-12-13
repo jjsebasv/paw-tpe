@@ -152,6 +152,16 @@ public class CourseController {
             throw new Http403Exception();
         }
 
+        Course course = cs.findById(id);
+
+        if (course == null) {
+            throw new Http404Exception("Course not found");
+        }
+
+        for (Document document : course.getDocuments()) {
+            ds.delete(document.getDocumentId());
+        }
+
         cs.delete(id);
         return Response.noContent().build();
     }
