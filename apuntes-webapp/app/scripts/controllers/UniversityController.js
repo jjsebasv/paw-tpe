@@ -37,7 +37,6 @@ define(['frontend',
             });
         promises.push(getUniProgramsPromise);
 
-
         $q.all(promises).then(function() {
           spinnerService.hideSpinner();
           errormodalService.showErrorModal();

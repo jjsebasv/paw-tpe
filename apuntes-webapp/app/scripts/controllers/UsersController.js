@@ -19,7 +19,6 @@ define(['frontend',
 
         var getUsersPromise = adminService.getUsers().then(
           function(result) {
-            debugger
             _this.users = result.data.clientList;
           }).catch(
             function (error) {
@@ -27,6 +26,19 @@ define(['frontend',
             });
         promises.push(getUsersPromise);
 
+        this.changeRole = function(user) {
+          user.role = user.role === 'ROLE_USER' ? 'ROLE_ADMIN' : 'ROLE_USER';
+          var updateUserPromise = adminService.updateUser(user).then(
+            function(result) {
+              user = result.data;
+            }).catch(
+              function(error) {
+                user.role = user.role === 'ROLE_USER' ? 'ROLE_ADMIN' : 'ROLE_USER';
+                $rootScope.errors.push(error.data);
+              });
+          spinnerService.showSpinner();
+          promises.push(updateUserPromise);
+        };
 
         $q.all(promises).then(function() {
           spinnerService.hideSpinner();

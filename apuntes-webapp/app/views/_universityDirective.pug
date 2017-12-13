@@ -1,3 +1,9 @@
 //- This is the university element
-button.list-item.column(ng-click='goto({toType: "university", toId: id, fromName: "Universities"})')
-  | {{ name }}
+div.list-item.row.row-space-between(ng-click='goto({toType: "university", toId: id, fromName: "Universities"})')
+  span
+    | {{ name }}
+  .row
+    button.m-right-2
+      img(src="images/edit.svg")
+    button(ng-click='deleteUniversity(id, $event)')
+      img(src="images/remove.svg")

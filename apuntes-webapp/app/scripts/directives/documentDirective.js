@@ -10,8 +10,7 @@ define(['frontend'], function(frontend) {
           id: '=',
           goto: '&'
         },
-        replace: true,
-        templateUrl: 'views/_documentDirective.html'
+        replace: true
       };
     });
 

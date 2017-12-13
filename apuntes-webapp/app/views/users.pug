@@ -6,4 +6,4 @@
   .row.m-bottom-3.section-search
     searchbox(filter='searchText' placeholder="'SEARCH_USER'")
   .list-wrapper.list-wide(ng-repeat='usr in usrCtrl.users | filter:searchText')
-    user(name='usr.name')
+    user(user='usr' changerole='usrCtrl.changeRole(usr)' )

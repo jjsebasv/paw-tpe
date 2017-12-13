@@ -15,6 +15,17 @@ define(['frontend', 'services/httpRequestService'], function(frontend) {
 
                 getUsers: function() {
                   return httpRequestService.tokenedRequest('GET', 'clients', null);
+                },
+
+                updateUser: function(user) {
+                  var data = {
+                    name: user.name,
+                    email: user.email,
+                    programId: user.programId,
+                    recoveryQuestion: user.recoveryQuestion,
+                    role: user.role
+                  };
+                  return httpRequestService.tokenedRequest('POST', 'clients/' + user.clientId, data);
                 }
             };
         }]);

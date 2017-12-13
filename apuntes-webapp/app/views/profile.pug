@@ -1,10 +1,12 @@
 div(ng-controller='ProfileController as profileCtrl' ng-hide='showSpinner')
   .column
-    .column.column-left
+    .column
       h1.title-3.text-base.blue.m-bottom-1
         | {{profileCtrl.client.name}}
-      p.text-base.grey.text-2.m-bottom-2
+      p.text-base.grey.text-2.m-bottom-1
         | {{profileCtrl.client.email}}
+      a.normal-link.m-bottom-3(type='button' ng-href='#/change-password')
+        | {{ 'CHANGE_PASSWORD' | translate }}
       .row.m-bottom-3
         .item
           span.m-right-1.bold.text-base
@@ -17,9 +19,7 @@ div(ng-controller='ProfileController as profileCtrl' ng-hide='showSpinner')
             | {{ profileCtrl.reviews.length | number }}
           span
             | {{ 'COMMENTS' | translate }}
-      .row.row-center
-        a.button-blue.m-right-3(type='button' ng-href='#/change-password')
-          | {{ 'CHANGE_PASSWORD' | translate }}
+      .row.row-space-between
         a.button-blue.m-right-3(ng-if="profileCtrl.client.role == 'ROLE_ADMIN'" type='button' ng-href='#/change-password')
           | {{ 'ADD_UNIVERSITY' | translate }}
         a.button-blue.m-right-3(ng-if="profileCtrl.client.role == 'ROLE_ADMIN'" type='button' ng-href='#/change-password')

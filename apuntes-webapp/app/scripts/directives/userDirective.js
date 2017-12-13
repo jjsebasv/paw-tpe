@@ -5,7 +5,8 @@ define(['frontend'], function(frontend) {
       return {
         restrict: 'E',
         scope: {
-          name: '='
+          user: '=',
+          changerole: '&'
         },
         replace: true,
         templateUrl: 'views/_userDirective.html'
