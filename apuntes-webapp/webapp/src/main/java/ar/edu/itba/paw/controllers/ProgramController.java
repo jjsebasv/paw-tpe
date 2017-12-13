@@ -175,6 +175,10 @@ public class ProgramController {
             }
         }
 
+        for(Client client1 : clientService.findByProgram(program.getProgramid())){
+            client1.setProgram(null);
+        }
+
         ps.delete(id);
         return Response.noContent().build();
     }

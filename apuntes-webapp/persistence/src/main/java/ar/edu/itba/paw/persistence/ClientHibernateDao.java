@@ -31,4 +31,20 @@ public class ClientHibernateDao extends AbstractCRUDHibernateDao<Client> impleme
         final List<Client> list = query.getResultList();
         return list.isEmpty() ? null : list.get(0);
     }
+
+    @Override
+    public List<Client> findByUniversity(long id) {
+        final TypedQuery<Client> query = em.createQuery("from Client as c where c.university.universityId = :id", Client.class);
+        query.setParameter("id", id);
+        final List<Client> list = query.getResultList();
+        return list.isEmpty() ? null : list;
+    }
+
+    @Override
+    public List<Client> findByProgram(long id) {
+        final TypedQuery<Client> query = em.createQuery("from Client as c where c.program.programid = :id", Client.class);
+        query.setParameter("id", id);
+        final List<Client> list = query.getResultList();
+        return list.isEmpty() ? null : list;
+    }
 }
