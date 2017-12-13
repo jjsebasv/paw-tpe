@@ -1,7 +1,7 @@
 'use strict';
 define(['frontend', 'services/documentService', 'services/errormodalService'], function(frontend) {
 
-    frontend.directive('document', ['documentService', 'errormodalService', function(documentService) {
+    frontend.directive('document', ['documentService', 'errormodalService', '$window', function(documentService, errormodalService, $window) {
       return {
         restrict: 'E',
         scope: {
@@ -15,8 +15,11 @@ define(['frontend', 'services/documentService', 'services/errormodalService'], f
         link: function($scope, $element, $attrs) {
           $scope.deleteDocument = function(documentId, event) {
             event.stopPropagation();
+            $scope.errors = [];
             documentService.deleteDocument(documentId).then(function(result) {
                 console.log(result);
+                $window.location.reload();
+                debugger;
               }).catch(function (error) {
                 $scope.errors.push(error.data);
                 errormodalService.showErrorModal();
