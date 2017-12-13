@@ -72,6 +72,10 @@ define([], function() {
             '/programs/add': {
                 templateUrl: 'views/addProgram.html',
                 controller: 'AddProgramController'
+            },
+            '/programs/add-course': {
+                templateUrl: 'views/addCourseToProgram.html',
+                controller: 'AddCourseToProgramController'
             }
             /* ===== yeoman hook ===== */
             /* Do not remove these commented lines! Needed for auto-generation */

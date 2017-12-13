@@ -1,0 +1,37 @@
+.column.column-center(ng-controller='AddCourseToProgramController as addCourseToProg' ng-hide='showSpinner')
+  h1.title-3.text-base.blue.m-bottom-3
+    | {{ 'ADD_PROGRAM_TO_COURSE' | translate | uppercase }}
+  form(
+    name='addCourseToProg.addProgramForm'
+    novalidate
+    ng-submit='addCourseToProg.addRelation()'
+  )
+    .column.column-left
+      label.text-5.text-base.grey-2.m-bottom-1
+        | {{ 'CHOOSE_PROGRAM' | translate }}
+      select.form-input(
+        chosen
+        ng-model='addCourseToProg.selectedProgram'
+        ng-options='program.programid as program.name for program in addCourseToProg.programs'
+        ng-required='required'
+      )
+        option(value='')
+          | {{ 'CHOOSE_PROGRAM' | translate }}
+      label.text-5.text-base.grey-2.m-bottom-1
+        | {{ 'CHOOSE_COURSE' | translate }}
+      select.form-input(
+        chosen
+        ng-model='addCourseToProg.selectedCourse'
+        ng-options='course.courseid as course.name for course in addCourseToProg.courses'
+        ng-required='required'
+      )
+        option(value='')
+          | {{ 'CHOOSE_COURSE' | translate }}
+      label.text-5.text-base.grey-2.m-bottom-1
+        | {{ 'SEMESTER' | translate }}
+      input.input-base.m-bottom-1(name='name' ng-model='addCourseToProg.semester' required)
+  .row.row-center.m-top-5
+    a.button-grey.m-right-3(type='button' ng-href='#/profile')
+      | {{ 'CANCEL' | translate }}
+    button.button-blue(ng-click='addCourseToProg.next()')
+      | {{ 'NEXT' | translate }}
