@@ -19,26 +19,25 @@ div(ng-controller='ProfileController as profileCtrl' ng-hide='showSpinner')
             | {{ profileCtrl.reviews.length | number }}
           span
             | {{ 'COMMENTS' | translate }}
-      .row.row-center
-        a.button-blue.m-right-3(type='button' ng-href='#/change-password')
-          | {{ 'CHANGE_PASSWORD' | translate }}
+      .row.row-space-between
         a.button-blue.m-right-3(ng-if="profileCtrl.client.role == 'ROLE_ADMIN'" type='button' ng-href='#/universities/add')
           | {{ 'ADD_UNIVERSITY' | translate }}
         a.button-blue.m-right-3(ng-if="profileCtrl.client.role == 'ROLE_ADMIN'" type='button' ng-href='#/change-password')
           | {{ 'ADD_PROGRAM' | translate }}
         a.button-blue.m-right-3(ng-if="profileCtrl.client.role == 'ROLE_ADMIN'" type='button' ng-href='#/change-password')
           | {{ 'ADD_COURSE' | translate }}
-        a.button-blue.m-right-3(ng-if="profileCtrl.client.role == 'ROLE_ADMIN'" type='button' ng-href='#/users/edit')
+        a.button-blue(ng-if="profileCtrl.client.role == 'ROLE_ADMIN'" type='button' ng-href='#/users/edit')
           | {{ 'CHANGE_USER_ROLE' | translate }}
   .separator
   .column(ng-if='profileCtrl.files.length')
     h1.title-3.text-base.blue.m-bottom-3
       | {{ 'MY_FILES' | translate }}
-    .list-wrapper.row.row-space-between
+    .list-wrapper
       document(ng-repeat='file in profileCtrl.files' name='file.documentName' author='file.userid' id='file.documentId' goto='indexCtrl.goto(toType, toId, fromName)' from='"profile"')
-  .separator(ng-if='profileCtrl.files.reviews')
-  .column(ng-if='profileCtrl.files.reviews')
+  .separator(ng-if='profileCtrl.reviews')
+  .column(ng-if='profileCtrl.reviews')
     h1.title-3.text-base.blue.m-bottom-3
       | {{ 'COMMENTS' | translate }}
-    .list-wrapper.column(nh-repeat='review in profileCtrl.reviews')
-      comment(user='review.author' date='review.date' comment='review.comment' document='review.document')
+  .list-comment-wrapper.column
+    .row.row-space-between(ng-repeat='comment in profileCtrl.reviews')
+      comment(id='comment.reviewid' review='comment.review' ranking='comment.ranking')

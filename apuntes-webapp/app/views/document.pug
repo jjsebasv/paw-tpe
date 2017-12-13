@@ -33,5 +33,5 @@
 			p.title-2.text-base.black.m-bottom-1
 				| {{ 'ALREADY_REVIEWED_ERROR' | translate }}
 		.list-comment-wrapper.column
-			.row.row-space-betweens(ng-repeat='comment in documentCtrl.comments')
+			.row.row-space-between(ng-repeat='comment in documentCtrl.comments')
 				comment(id='comment.reviewid' review='comment.review' ranking='comment.ranking')
