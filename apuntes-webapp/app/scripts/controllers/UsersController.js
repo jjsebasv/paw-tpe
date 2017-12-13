@@ -20,6 +20,7 @@ define(['frontend',
         var getUsersPromise = adminService.getUsers().then(
           function(result) {
             _this.users = result.data.clientList;
+              finishPromises();
           }).catch(
             function (error) {
               $rootScope.errors.push(error.data);
@@ -31,6 +32,7 @@ define(['frontend',
           var updateUserPromise = adminService.updateUser(user).then(
             function(result) {
               user = result.data;
+              finishPromises();
             }).catch(
               function(error) {
                 user.role = user.role === 'ROLE_USER' ? 'ROLE_ADMIN' : 'ROLE_USER';
@@ -40,10 +42,13 @@ define(['frontend',
           promises.push(updateUserPromise);
         };
 
-        $q.all(promises).then(function() {
-          spinnerService.hideSpinner();
-          errormodalService.showErrorModal();
-        });
+          var finishPromises = function() {
+              $q.all(promises).then(function() {
+                  spinnerService.hideSpinner();
+                  errormodalService.showErrorModal();
+              });
+          };
+
 
       }
     ]);
