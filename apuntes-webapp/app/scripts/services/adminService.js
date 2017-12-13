@@ -33,10 +33,17 @@ define(['frontend', 'services/httpRequestService'], function(frontend) {
                         shortName: shortName,
                         universityId: selectedUniversity,
                         group: 'g'
+
                     };
                     return httpRequestService.tokenedRequest('POST', 'programs', data);
                 },
+                postCourse: function(courseCode, courseName) {
+                    var data = {
+                        code: courseCode,
+                        name: courseName
+                    };
+                    return httpRequestService.tokenedRequest('POST', 'courses', data);
+                },
             };
         }]);
-
 });
