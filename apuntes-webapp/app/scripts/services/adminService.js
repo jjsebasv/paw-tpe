@@ -27,16 +27,32 @@ define(['frontend', 'services/httpRequestService'], function(frontend) {
                   };
                   return httpRequestService.tokenedRequest('POST', 'clients/' + user.clientId, data);
                 },
+
+                postCourseProgramRelation: function(course, program, semester) {
+                  var data = {
+                    courseId: course,
+                    programId: program,
+                    semester: semester
+                  };
+                  return httpRequestService.tokenedRequest('POST', 'c2p', data);
+                },
                 postProgram: function(programName, shortName, selectedUniversity) {
                     var data = {
                         name: programName,
                         shortName: shortName,
                         universityId: selectedUniversity,
                         group: 'g'
+
                     };
                     return httpRequestService.tokenedRequest('POST', 'programs', data);
                 },
+                postCourse: function(courseCode, courseName) {
+                    var data = {
+                        code: courseCode,
+                        name: courseName
+                    };
+                    return httpRequestService.tokenedRequest('POST', 'courses', data);
+                },
             };
         }]);
-
 });

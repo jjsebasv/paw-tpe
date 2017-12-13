@@ -13,6 +13,10 @@ define(['frontend', 'services/httpRequestService'], function(frontend) {
 						return httpRequestService.defaultRequest('GET', 'programs/' + programId + '/courses', null);
 					},
 
+					getAllCourses: function() {
+						return httpRequestService.defaultRequest('GET', 'courses', null);
+					},
+
 					deleteCourse: function(documentId) {
 						return httpRequestService.tokenedRequest('DELETE', 'programs/' + documentId, null);
 					}

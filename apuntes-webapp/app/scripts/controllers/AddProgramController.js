@@ -39,21 +39,6 @@ define(['frontend', 'services/adminService','services/universityService','servic
                     errormodalService.showErrorModal();
                 });
 
-            var postUniversity = function() {
-                var addUniversityPromise = adminService.postUniversity(_this.programName, _this.selectedUniversity).then(
-                    function (response) {
-                        promises.push(addUniversityPromise);
-                        finishPromises()
-                    }).catch(
-                      function (error) {
-                        console.log(error);
-                        _this.error = true;
-                        $rootScope.errors.push(error.data);
-                    });
-                promises.push(addUniversityPromise);
-                finishPromises();
-            };
-
             var submit = function(){
               spinnerService.showSpinner();
               var postProgramPromise = adminService.postProgram(_this.programName, _this.shortName, _this.selectedUniversity).then(
